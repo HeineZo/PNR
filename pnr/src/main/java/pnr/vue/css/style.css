@@ -1,0 +1,17 @@
+.floating-text {
+    -fx-text-fill: #2d936d;
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.outline-button {
+	-fx-background-color: white;
+	-fx-border-color:  #2d936d;
+	-fx-border-radius: 3;
+
+	-fx-text-fill:  #2d936d;
+}
+
+.outline-button:hover {
+	-fx-background-color:  #2d936d;
+	-fx-text-fill: white;
+}

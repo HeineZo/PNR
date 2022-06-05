@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerChoixActionAdmin">
+   <children>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="94.66667175292969" minHeight="10.0" prefHeight="65.33334350585938" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="94.66667175292969" minHeight="10.0" prefHeight="65.33334350585938" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="250.66664632161462" minHeight="10.0" prefHeight="132.00001017252606" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="250.66664632161462" minHeight="10.0" prefHeight="134.66662597656247" vgrow="SOMETIMES" />
+            <RowConstraints fillHeight="false" maxHeight="250.66664632161462" minHeight="0.0" percentHeight="5.0" prefHeight="13.3333740234375" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane prefHeight="43.0" prefWidth="987.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <children>
+                  <Text id="title" fill="#2d936d" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="37.0" />
+                     </font>
+                  </Text>
+                  <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="[utilisateur]" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="37.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Text>
+               </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                  <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+               </rowConstraints>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button id="subtitle" fx:id="btnNouvelleFiche" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="150.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 18;" text="Nouvelle&#10;fiche de saisie" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView cache="true" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@images/ChoixActionAdmin/nouvelleFiche.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets top="60.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <Button id="subtitle" fx:id="btnModifierFiche" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="150.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 18;" text="Modifier une &#10;fiche de saisie" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView cache="true" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@images/ChoixActionAdmin/modifFiche.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets top="60.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <Button id="subtitle" fx:id="btnExport" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="150.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 18;" text="Exporter/&#10;importer" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView cache="true" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@images/ChoixActionAdmin/export.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets top="60.0" />
+                     </GridPane.margin>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button id="subtitle" fx:id="btnChoixAction" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="150.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 18;" text="Ajouter &#10;des données" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView cache="true" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@images/ChoixActionAdmin/ajout.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets top="60.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fitHeight="75.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@images/ChoixActionAdmin/add.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="19.0" top="100.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <Button id="subtitle" fx:id="btnGererProfils" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="150.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 18;" text="Gérer &#10;les profils" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView cache="true" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@images/ChoixActionAdmin/profils.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets top="60.0" />
+                     </GridPane.margin>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <Text id="subtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Que voulez-vous faire ?" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

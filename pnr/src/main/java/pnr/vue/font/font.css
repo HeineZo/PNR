@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'WC Mano Negra Bta';
+  src: url("WCManoNegraBoldBta.ttf");
+}
+
+@font-face {
+  font-family: 'Avenir LT Std 45 Book';
+  src: url("AvenirLTStd-Book.otf");
+}
+
+@font-face {
+  font-family: 'Avenir LT Std 65 Medium';
+  src: url("AvenirLTStd-Black.otf");
+}
+  
+#title {
+  -fx-font-family: 'WC Mano Negra Bta';
+}
+
+#subtitle{
+  -fx-font-family: 'Avenir LT Std 65 Medium';
+}
+
+#button, #text{
+  -fx-font-family: 'Avenir LT Std 45 Book';
+}
+
+#dropdown {
+  -fx-font-family: 'Avenir LT Std 45 Book';
+  -fx-font-size: 17pt;
+
+}
+
