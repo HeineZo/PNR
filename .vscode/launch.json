@@ -20,14 +20,6 @@
         },
         {
             "type": "java",
-            "name": "Launch App(1)",
-            "request": "launch",
-            "mainClass": "pnr.demo.src.main.App",
-            "projectName": "pnr",
-            "vmArgs": "--module-path C:/javafx-sdk-18/lib --add-modules=javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
             "name": "Launch Connexion",
             "request": "launch",
             "mainClass": "pnr.modele.Connexion",
