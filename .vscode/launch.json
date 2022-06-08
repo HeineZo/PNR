@@ -6,21 +6,18 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "pnr.App",
             "projectName": "pnr",
             "vmArgs": "--module-path C:/javafx-sdk-18/lib --add-modules=javafx.controls,javafx.fxml"
         },
-    
-
-        {
-            "type": "java",
-            "name": "Launch Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-
         {
             "type": "java",
             "name": "Launch Connexion",

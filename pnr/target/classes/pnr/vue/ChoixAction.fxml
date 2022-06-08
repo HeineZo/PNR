@@ -63,7 +63,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane GridPane.columnIndex="1">
+                  <GridPane styleClass="choice" GridPane.columnIndex="1">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -86,7 +86,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Button id="subtitle" fx:id="btnNewObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 22;" text="Nouvelle&#10;observation" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button id="subtitle" fx:id="btnNewObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" styleClass="choice" stylesheets="@css/style.css" text="Nouvelle&#10;observation" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="22.0" />
                      </font>
@@ -117,7 +117,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Button id="subtitle" fx:id="btnVisObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 22;" text="Visualiser &#10;les données" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                  <Button id="subtitle" fx:id="btnVisObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" styleClass="choice" stylesheets="@css/style.css" text="Visualiser &#10;les données" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="22.0" />
                      </font>
@@ -148,7 +148,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Button id="subtitle" fx:id="btnModObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 22;" text="Modifier&#10;les données" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                  <Button id="subtitle" fx:id="btnModObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" styleClass="choice" stylesheets="@css/style.css" text="Modifier&#10;les données" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="22.0" />
                      </font>

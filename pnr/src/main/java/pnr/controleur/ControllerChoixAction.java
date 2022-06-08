@@ -3,6 +3,7 @@ package pnr.controleur;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
+import animatefx.animation.*;
 import javafx.event.ActionEvent;
 
 public class ControllerChoixAction extends Controller {

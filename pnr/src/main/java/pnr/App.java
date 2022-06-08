@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+import animatefx.animation.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 
@@ -24,5 +25,7 @@ public class App extends Application {
         scene.getStylesheets().add(getClass().getResource("vue/font/font.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        new FadeIn(root).play();
     }
 }
