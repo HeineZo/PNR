@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "pnr.App",
+            "projectName": "pnr",
+            "vmArgs": "--module-path C:/javafx-sdk-18/lib --add-modules=javafx.controls,javafx.fxml"
+        },
+    
+
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+
+        {
+            "type": "java",
+            "name": "Launch Connexion",
+            "request": "launch",
+            "mainClass": "pnr.modele.Connexion",
+            "projectName": "pnr"
+        },
+        {
+            "type": "java",
+            "name": "Launch ScenarioDonnee",
+            "request": "launch",
+            "mainClass": "pnr.modele.ScenarioDonnee",
+            "projectName": "pnr"
+        },
+        {
+            "type": "java",
+            "name": "Launch ScenarioTraitement",
+            "request": "launch",
+            "mainClass": "pnr.modele.ScenarioTraitement",
+            "projectName": "pnr"
+        },
+        {
+            "type": "java",
+            "name": "Launch WwdEmbedded",
+            "request": "launch",
+            "mainClass": "pnr.modele.WwdEmbedded",
+            "projectName": "pnr"
+        }
+    ]
+}
