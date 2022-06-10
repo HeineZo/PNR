@@ -2,6 +2,7 @@ package pnr.modele;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import pnr.modele.donnee.*;
@@ -66,16 +67,78 @@ public class ScenarioTraitement {
 
         boolean ret = graphe.estDansGraphe(sommet3.getId());
         System.out.println("\nLe sommet 3 est dans le graphe: "+ret+" : ");
-        if (ret == true) {
+        if (ret) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        //System.out.println("\nLes sommets voisins sont "+graphe.getSommetsVoisins());
+
+        System.out.println("\nLes sommets voisins sont "+graphe.getSommetsVoisins());
 
         System.out.println("\nDegré du sommet 2:"+graphe.calculeDegre(sommet2.getId())+" : ");
         if (graphe.calculeDegre(sommet2.getId()) == 1) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
+
+        System.out.println("\nDegré du sommet 3:"+graphe.calculeDegre(sommet2.getId())+" : ");
+        if (graphe.calculeDegre(sommet3.getId()) == 2) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
+
+        //System.out.println("\nDegrés des sommets du graphe:"+graphe.calculeDegres()+" : ");
+
+        // System.out.println("\nLes sommets 1 et 3 sont voisins:"+graphe.sontVoisins(1,3)+" : ");
+        // if (graphe.sontVoisins(1,3)) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        // System.out.println("\nLes sommets 1 et 2 sont voisins:"+graphe.sontVoisins(1,2)+" : ");
+        // if (graphe.sontVoisins(1,2) == false) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        ArrayList<Sommet> voisins = new ArrayList<Sommet>();
+        System.out.println("Les voisins du sommet 1 sont:"+graphe.voisins(1)+" : ");
+        if (graphe.voisins(1).equals(voisins)) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
+
+        System.out.println("On peut ajouter une arrete entre le sommet 1 et 2:"+graphe.ajouteArete(1,2)+" : ");
+        if (graphe.ajouteArete(1,2)) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
+
+        System.out.println("On peut supprimer une arrete entre le sommet 1 et 2:"+graphe.retireArete(1,2)+" : ");
+        if (graphe.retireArete(1,2) == false) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
+
+        System.out.println("On crée la matrice d'adjacence du graphe"+Arrays.toString(graphe.matriceAdjacence()));
+
+        // System.out.println("Le graphe est connexe:"+graphe.estConnexe()+" : ");
+        // if (graphe.estConnexe()) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        System.out.println("La distance du sommet 1 à 2 est:"+graphe.distAretes(1,2)+" : ");
+        if (graphe.distAretes(1,2) == 2) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");

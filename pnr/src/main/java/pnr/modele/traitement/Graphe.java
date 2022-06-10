@@ -221,7 +221,7 @@ public class Graphe {
         return ret;
     }
 
-    public int distArrete(int idSom1, int idSom2) {
+    public int distAretes(int idSom1, int idSom2) {
         int ret = 0;
 
         if (estDansGraphe(idSom1) && estDansGraphe(idSom2)) {
