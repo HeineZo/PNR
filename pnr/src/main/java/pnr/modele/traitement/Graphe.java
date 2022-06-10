@@ -112,17 +112,17 @@ public class Graphe {
         Stack<Sommet> stack = new Stack<Sommet>();
         Sommet current = (Sommet) this.sommetsVoisins.keySet().toArray()[0];
         stack.push(current);
-        while (!stack.isEmpty()) {
-            current = stack.pop();
-            visit(current.value);
+        // while (!stack.isEmpty()) {
+        //     current = stack.pop();
+        //     visit(current.value);
 
-            if (current.right != null) {
-                stack.push(current.right);
-            }
-            if (current.left != null) {
-                stack.push(current.left);
-            }
-        }
+        //     if (current.right != null) {
+        //         stack.push(current.right);
+        //     }
+        //     if (current.left != null) {
+        //         stack.push(current.left);
+        //     }
+        // }
         return ret;
     }
 
@@ -222,7 +222,7 @@ public class Graphe {
     }
 
     public int distArrete(int idSom1, int idSom2) {
-        int ret;
+        int ret = 0;
 
         if (estDansGraphe(idSom1) && estDansGraphe(idSom2)) {
             if (existeChemin(idSom1, idSom2)) {
@@ -235,64 +235,65 @@ public class Graphe {
             ret = -1;
             System.err.println("Les sommets ne sont pas dans le graphe");
         }
-    }
-
-    public int excentricite(int idSom) {
-        int ret;
-
-        if (estConnexe()) {
-            ret = distArrete(this, idSom);
-        } else {
-            ret = -1;
-            System.err.println("Le graphe n'est pas connexe");
-        }
-
         return ret;
     }
 
-    public int diametre() {
-        int ret;
+    // public int excentricite(int idSom) {
+    //     int ret;
 
-        if (estConnexe()) {
-            int maxExc = 0;
+    //     if (estConnexe()) {
+    //         ret = distArrete(this, idSom);
+    //     } else {
+    //         ret = -1;
+    //         System.err.println("Le graphe n'est pas connexe");
+    //     }
 
-            for (Sommet s : this.sommetsVoisins.keySet()) {
-                for (Sommet sTarget : this.getSommetsVoisins()) {
-                    if (s.excentricite(sTarget) != -1 && s.excentricite(sTarget) > maxExc) {
-                        maxExc = s.excentriciteDist(sTarget);
-                    }
-                }
-            }
+    //     return ret;
+    // }
 
-            ret = minExc;
-        } else {
-            ret = -1;
-            System.err.println("Le graphe n'est pas connexe");
-        }
+    // public int diametre() {
+    //     int ret;
 
-        return ret;
-    }
+    //     if (estConnexe()) {
+    //         int maxExc = 0;
 
-    public int rayon() {
-        int ret;
+    //         for (Sommet s : this.sommetsVoisins.keySet()) {
+    //             for (Sommet sTarget : this.getSommetsVoisins()) {
+    //                 if (s.excentricite(sTarget) != -1 && s.excentricite(sTarget) > maxExc) {
+    //                     maxExc = s.excentriciteDist(sTarget);
+    //                 }
+    //             }
+    //         }
 
-        if (estConnexe()) {
-            minExc = 999999;
+    //         ret = minExc;
+    //     } else {
+    //         ret = -1;
+    //         System.err.println("Le graphe n'est pas connexe");
+    //     }
 
-            for (Key s : this.sommetsVoisins.keySet()) {
-                for (Sommet sTarget : this.getSommetsVoisins()) {
-                    if (s.excentricite(sTarget) != -1 && s.excentricite(sTarget) < minExc) {
-                        minExc = s.excentriciteDist(sTarget);
-                    }
-                }
-            }
+    //     return ret;
+    // }
 
-            ret = minExc;
-        } else {
-            ret = -1;
-            System.err.println("Le graphe n'est pas connexe");
-        }
+    // public int rayon() {
+    //     int ret;
 
-        return ret;
-    }
+    //     if (estConnexe()) {
+    //         minExc = 999999;
+
+    //         for (Key s : this.sommetsVoisins.keySet()) {
+    //             for (Sommet sTarget : this.getSommetsVoisins()) {
+    //                 if (s.excentricite(sTarget) != -1 && s.excentricite(sTarget) < minExc) {
+    //                     minExc = s.excentriciteDist(sTarget);
+    //                 }
+    //             }
+    //         }
+
+    //         ret = minExc;
+    //     } else {
+    //         ret = -1;
+    //         System.err.println("Le graphe n'est pas connexe");
+    //     }
+
+    //     return ret;
+    // }
 }
