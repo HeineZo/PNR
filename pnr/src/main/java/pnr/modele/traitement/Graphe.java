@@ -9,6 +9,9 @@ import java.util.Stack;
  */
 public class Graphe {
 
+    /**
+     * HashMap of Sommet objects and ArrayList of Sommet objects.
+    */
     private HashMap<Sommet, ArrayList<Sommet>> sommetsVoisins;
 
     /**
@@ -38,7 +41,7 @@ public class Graphe {
      * A constructor for the Graphe class. It takes a HashMap as a parameter and
      * assigns it to the sommetsVoisins field.
      * 
-     * @param sommetsVoisins a HashMap that contains the neighbors of each vertex
+     * @param somVoisins a HashMap that contains the neighbors of each vertex
      */
     public Graphe(HashMap<Sommet, ArrayList<Sommet>> somVoisins) {
         if (somVoisins != null) {
@@ -51,7 +54,7 @@ public class Graphe {
     /**
      * Creating a copy constructor for the Graphe class.
      * 
-     * @param graphe The graph to copy.
+     * @param g The graph to copy.
      */
     public Graphe(Graphe g) {
         if (g != null) {
@@ -143,6 +146,64 @@ public class Graphe {
         return calculeDegres;
     }
 
+     /**
+     * Returns true if there is a path between two vertices, false otherwise
+     * 
+     * @param idSom1 the id of the first vertex
+     * @param idSom2 the id of the vertex we want to reach
+     * @return Returns true if there is a path between two vertices
+     */
+    public boolean existeChemin(int idSom1, int idSom2){
+        boolean ret = true;
+
+        if(!estDansGraphe(idSom1) || !estDansGraphe(idSom2)){
+            System.err.println("existeChemin : the vertex are not in the graph");
+        }else{
+            Sommet som1 = this.getSommet(idSom1);
+            Sommet som2 = this.getSommet(idSom2);
+            
+            ArrayList<Sommet> parcouru = new ArrayList<Sommet>();
+            ArrayList<Sommet> stack = new ArrayList<Sommet>();
+
+            stack.add(som1);
+            ret = dfsRec(som1, som2, parcouru, stack);
+        }
+        return ret;
+    }
+
+        
+    /**
+     * Goes through the graph in depth 
+     * 
+     * @param som1 the starting point
+     * @param som2 the destination
+     * @param parcouru the list of visited nodes
+     * @param stack the stack of edges to visit
+     * @return Return true if the edge is reached
+     */
+    public boolean dfsRec(Sommet som1, Sommet som2, ArrayList<Sommet> parcouru, ArrayList<Sommet> stack){
+        boolean ret;
+        if (som1 == som2){
+            ret = true;
+        }else if (stack.size() == 0){
+            ret = false;
+        }else{
+            Sommet nouveauDepart = stack.get(0);
+
+            parcouru.add(nouveauDepart);
+            stack.remove(nouveauDepart);
+
+            for (Sommet sommet : this.sommetsVoisins.get(nouveauDepart)){
+                if(!parcouru.contains(sommet) && !stack.contains(sommet)){
+                    stack.add(sommet);
+                }
+            }
+            ret = dfsRec(nouveauDepart, som2,parcouru,stack);
+        }
+
+        return ret;
+    }
+
 
     /**
      * Returns true if the two vertices are neighbors, false otherwise
@@ -193,6 +254,7 @@ public class Graphe {
      * 
      * @param idSom1 the id of the first vertex
      * @param idSom2 the id of the second vertex
+     * @return true if it's possible to add a edge
      */
     public boolean ajouteArete(int idSom1, int idSom2) {
         boolean ret = false;
@@ -297,6 +359,52 @@ public class Graphe {
     }
 
     /**
+     * It takes a graph and returns an arraylist of graphs, each of which is a connected component of
+     * the original graph
+     * 
+     * @return An ArrayList of Graphe objects.
+     */
+    public ArrayList<Graphe> composanteConnexe() {
+        ArrayList<Graphe> composantes = new ArrayList<>();
+        HashMap<Sommet, ArrayList<Sommet>> hashmap = new HashMap<>();
+        ArrayList<Sommet> sommets = new ArrayList<>(this.sommetsVoisins.keySet());
+        ArrayList<Sommet> seen = new ArrayList<>();
+        ArrayList<Sommet> save = new ArrayList<>();
+        Sommet som;
+
+        while (!sommets.isEmpty()) {
+            som = sommets.remove(0);
+
+            if (!seen.contains(som))
+                seen.add(som);
+            for (Sommet s : this.sommetsVoisins.get(som)) {
+                if (!save.contains(s) && !seen.contains(s))
+                    save.add(s);
+            }
+
+            while (!save.isEmpty()) {
+                som = save.remove(0);
+                sommets.remove(som);
+                if (!seen.contains(som))
+                    seen.add(som);
+                for (Sommet s : this.sommetsVoisins.get(som)) {
+                    if (!save.contains(s) && !seen.contains(s))
+                        save.add(s);
+                }
+            }
+
+            while (!seen.isEmpty()) {
+                som = seen.remove(0);
+                hashmap.put(som, this.sommetsVoisins.get(som));
+            }
+
+            composantes.add(new Graphe(hashmap));
+            hashmap = new HashMap<>();
+        }
+        return composantes;
+    }
+
+    /**
      * Returns the number of edges between two vertices
      * 
      * @param idSom1 the id of the first vertex
@@ -312,8 +420,6 @@ public class Graphe {
 
             ArrayList<Sommet> file = new ArrayList<Sommet>();
             ArrayList<Sommet> traiter = new ArrayList<Sommet>();
-            ArrayList<Integer> tailleDesVoisin = new ArrayList<Integer>();
-            ArrayList<Sommet> lSommets = new ArrayList<Sommet>(sommetsVoisins.keySet());
 
             boolean trouver = false;
             ret = 0;
@@ -418,104 +524,5 @@ public class Graphe {
             }
         }
         return min;
-    }
-
-
-    /**
-     * Returns true if there is a path between two vertices, false otherwise
-     * 
-     * @param idSom1 the id of the first vertex
-     * @param idSom2 the id of the vertex we want to reach
-     * @return Returns true if there is a path between two vertices
-     */
-    public boolean existeChemin(int idSom1, int idSom2){
-        boolean ret = true;
-
-        if(!estDansGraphe(idSom1) || !estDansGraphe(idSom2)){
-            System.err.println("existeChemin : the vertex are not in the graph");
-        }else{
-            Sommet som1 = this.getSommet(idSom1);
-            Sommet som2 = this.getSommet(idSom2);
-            
-            ArrayList<Sommet> parcouru = new ArrayList<Sommet>();
-            ArrayList<Sommet> stack = new ArrayList<Sommet>();
-
-            stack.add(som1);
-            ret = dfsRec(som1, som2, parcouru, stack);
-        }
-        return ret;
-    }
-
-        
-    /**
-     * Goes through the graph in depth 
-     * 
-     * @param som1 the starting point
-     * @param som2 the destination
-     * @param parcouru the list of visited nodes
-     * @param stack the stack of edges to visit
-     * @return Return true if the edge is reached
-     */
-    public boolean dfsRec(Sommet som1, Sommet som2, ArrayList<Sommet> parcouru, ArrayList<Sommet> stack){
-        boolean ret;
-        if (som1 == som2){
-            ret = true;
-        }else if (stack.size() == 0){
-            ret = false;
-        }else{
-            Sommet nouveauDepart = stack.get(0);
-
-            parcouru.add(nouveauDepart);
-            stack.remove(nouveauDepart);
-
-            for (Sommet sommet : this.sommetsVoisins.get(nouveauDepart)){
-                if(!parcouru.contains(sommet) && !stack.contains(sommet)){
-                    stack.add(sommet);
-                }
-            }
-            ret = dfsRec(nouveauDepart, som2,parcouru,stack);
-        }
-
-        return ret;
-    }
-
-    public ArrayList<Graphe> composanteConnexe() {
-        ArrayList<Graphe> composantes = new ArrayList<>();
-        HashMap<Sommet, ArrayList<Sommet>> hashmap = new HashMap<>();
-        ArrayList<Sommet> sommets = new ArrayList<>(this.sommetsVoisins.keySet());
-        ArrayList<Sommet> seen = new ArrayList<>();
-        ArrayList<Sommet> save = new ArrayList<>();
-        Sommet som;
-
-        while (!sommets.isEmpty()) {
-            som = sommets.remove(0);
-
-            if (!seen.contains(som))
-                seen.add(som);
-            for (Sommet s : this.sommetsVoisins.get(som)) {
-                if (!save.contains(s) && !seen.contains(s))
-                    save.add(s);
-            }
-
-            while (!save.isEmpty()) {
-                som = save.remove(0);
-                sommets.remove(som);
-                if (!seen.contains(som))
-                    seen.add(som);
-                for (Sommet s : this.sommetsVoisins.get(som)) {
-                    if (!save.contains(s) && !seen.contains(s))
-                        save.add(s);
-                }
-            }
-
-            while (!seen.isEmpty()) {
-                som = seen.remove(0);
-                hashmap.put(som, this.sommetsVoisins.get(som));
-            }
-
-            composantes.add(new Graphe(hashmap));
-            hashmap = new HashMap<>();
-        }
-        return composantes;
-    }
+    }    
 }

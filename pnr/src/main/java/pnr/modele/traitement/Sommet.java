@@ -2,6 +2,9 @@ package pnr.modele.traitement;
 import java.sql.Date;
 import pnr.modele.donnee.*;
 
+/**
+ * Class that represents a sommet
+ */
 public class Sommet {
 
     /**
