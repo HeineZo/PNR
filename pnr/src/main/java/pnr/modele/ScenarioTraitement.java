@@ -11,137 +11,189 @@ import pnr.modele.traitement.*;
 public class ScenarioTraitement {
 
     public static void main(String[] args) {
-        // Test classe Sommet
-        Lieu lieu = new Lieu(1, 2);
-        Lieu lieu2 = new Lieu(4, 6);
+        System.out.println("\n**Classe Graphe");
+        
         Date date = new Date(25/05/22);
         EspeceObservee especeObservee = EspeceObservee.LOUTRE;
-        //sommet avec constructeur 1
-        Sommet sommet1 = new Sommet(1, lieu, date, especeObservee);
+        Sommet sommet1 = new Sommet(1, new Lieu(10, 10), date, especeObservee); //sommet avec constructeur 1
 
-        ArrayList<Observateur> o = new ArrayList<Observateur>();
-        ObsGCI obsGCI = new ObsGCI(2, new Date(18 / 05 / 22), new Time(10, 19, 0), lieu2, o, ContenuNid.OEUF, 5);
-        //sommet avec constructeur 2
-        Sommet sommet2 = new Sommet(obsGCI);
+        ObsGCI obsGCI = new ObsGCI(2, new Date(18 / 05 / 22), new Time(10, 19, 0), new Lieu(11, 10), new ArrayList<Observateur>(), ContenuNid.OEUF, 5);
+        Sommet sommet2 = new Sommet(obsGCI); //sommet avec constructeur 2
 
-        System.out.println(sommet1);
-        System.out.println(sommet2);
+        Sommet sommet3 = new Sommet(3, new Lieu(7, 6), date, especeObservee);
+        Sommet sommet4 = new Sommet(4, new Lieu(7, 10), date, especeObservee);
+        Sommet sommet5 = new Sommet(5, new Lieu(7, 100), date, especeObservee);
+        Sommet sommet6 = new Sommet(6, new Lieu(5, 10), date, especeObservee);
+        Sommet sommet7 = new Sommet(7, new Lieu(10, 10), date, especeObservee);
 
-        System.out.println("\nLa distance entre les deux sommets est: 5 :");
-        if (sommet1.calculeDist(sommet2) == 5) {
+        System.out.print("\nLa distance entre les sommets 1 et 2 est 1 :"+sommet1.calculeDist(sommet2)+" : ");
+        if (sommet1.calculeDist(sommet2) == 1) {
             System.out.print("OK");
         } else {
             System.out.print("ERREUR");
         }
 
-        Lieu lieu3 = new Lieu(2, 3);
-        Sommet sommet3 = new Sommet(3, lieu3, date, especeObservee);
+        System.out.println("La distance entre les sommets 2 et 4 est:"+sommet2.calculeDist(sommet4));
+        System.out.println("La distance entre les sommets 1 et 4 est:"+sommet1.calculeDist(sommet4));
+        System.out.println("La distance entre les sommets 3 et 4 est:"+sommet3.calculeDist(sommet4));
+        System.out.println("La distance entre les sommets 6 et 4 est:"+sommet6.calculeDist(sommet4));
 
-        System.out.println("\nLa distance entre les sommets 1 et 3 est: :"+sommet1.calculeDist(sommet3));
-        System.out.println("\nLa distance entre les sommets 2 et 3 est: :"+sommet2.calculeDist(sommet3));
 
-
-        // Test classe Graphe
+        System.out.println("\n**Classe Graphe");
 
         ArrayList<Sommet> sommets = new ArrayList<Sommet>();
         sommets.add(sommet1);
         sommets.add(sommet2);
         sommets.add(sommet3);
+        sommets.add(sommet4);
+        sommets.add(sommet5);
+        sommets.add(sommet6);
 
         Graphe graphe = new Graphe(sommets, 4);
         //Graphe graphe = new Graphe(g);
 
-        System.out.println("\n\nLe graphe possède "+graphe.nbSommets()+" sommet(s) : ");
-        if (graphe.nbSommets() == 3) {
+        System.out.print("\n\nLe graphe possède 6 sommets : ");
+        if (graphe.nbSommets() == 6) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("\nLe graphe possède "+graphe.nbAretes()+" arete(s) : ");
-        if (graphe.nbAretes() == 2) {
+        System.out.print("\nLe graphe possède 5 aretes : ");
+        if (graphe.nbAretes() == 5) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        boolean ret = graphe.estDansGraphe(sommet3.getId());
-        System.out.println("\nLe sommet 3 est dans le graphe: "+ret+" : ");
-        if (ret) {
+        boolean ret1 = graphe.estDansGraphe(7);
+        System.out.print("\nLe sommet 7 est dans le graphe: faux : ");
+        if (ret1 == false) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-
-        System.out.println("\nLes sommets voisins sont "+graphe.getSommetsVoisins());
-
-        System.out.println("\nDegré du sommet 2:"+graphe.calculeDegre(sommet2.getId())+" : ");
-        if (graphe.calculeDegre(sommet2.getId()) == 1) {
+        boolean ret2 = graphe.estDansGraphe(5);
+        System.out.print("\nLe sommet 5 est dans le graphe: vrai : ");
+        if (ret2) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("\nDegré du sommet 3:"+graphe.calculeDegre(sommet2.getId())+" : ");
-        if (graphe.calculeDegre(sommet3.getId()) == 2) {
+        System.out.print("\nDegré du sommet 3:"+graphe.calculeDegre(sommet3.getId())+" : ");
+        if (graphe.calculeDegre(sommet3.getId()) == 1) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        //System.out.println("\nDegrés des sommets du graphe:"+graphe.calculeDegres()+" : ");
+        System.out.print("\nDegré du sommet 4:"+graphe.calculeDegre(4)+" : ");
+        if (graphe.calculeDegre(4) == 4) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
 
-        // System.out.println("\nLes sommets 1 et 3 sont voisins:"+graphe.sontVoisins(1,3)+" : ");
-        // if (graphe.sontVoisins(1,3)) {
+        System.out.print("\nDegrés des sommets du graphe:"+graphe.calculeDegres());
+
+        // System.out.print("\nLes sommets 3 et 4 sont voisins: vrai : ");
+        // if (graphe.sontVoisins(3,4)) {
         //     System.out.print("OK\n");
         // } else {
         //     System.out.print("ERREUR\n");
         // }
 
-        // System.out.println("\nLes sommets 1 et 2 sont voisins:"+graphe.sontVoisins(1,2)+" : ");
-        // if (graphe.sontVoisins(1,2) == false) {
+        // System.out.print("\nLes sommets 2 et 6 sont voisins: false : ");
+        // if (graphe.sontVoisins(2,6)) {
         //     System.out.print("OK\n");
         // } else {
         //     System.out.print("ERREUR\n");
         // }
 
-        ArrayList<Sommet> voisins = new ArrayList<Sommet>();
-        System.out.println("Les voisins du sommet 1 sont:"+graphe.voisins(1)+" : ");
-        if (graphe.voisins(1).equals(voisins)) {
+        System.out.print("\nOn peut aller du sommet 2 a 6 : vrai :");
+        if (graphe.existeChemin(2,6)) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("On peut ajouter une arrete entre le sommet 1 et 2:"+graphe.ajouteArete(1,2)+" : ");
+        System.out.print("\nOn peut aller du sommet 2 a 5 : faux :");
+        if (graphe.existeChemin(2,5) == false) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
+
+        System.out.print("\nLes voisins du sommet 3 sont:"+graphe.voisins(3));
+
+        System.out.print("\nOn peut ajouter une arrete entre le sommet 1 et 2: vrai : ");
         if (graphe.ajouteArete(1,2)) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("On peut supprimer une arrete entre le sommet 1 et 2:"+graphe.retireArete(1,2)+" : ");
-        if (graphe.retireArete(1,2) == false) {
+        System.out.print("\nOn peut ajouter une arrete entre le sommet 1 et 7: faux : ");
+        if (graphe.ajouteArete(1,7) == false) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("On crée la matrice d'adjacence du graphe"+Arrays.toString(graphe.matriceAdjacence()));
-
-        // System.out.println("Le graphe est connexe:"+graphe.estConnexe()+" : ");
-        // if (graphe.estConnexe()) {
+        // System.out.println("On peut supprimer une arrete entre le sommet 1 et 2: vrai : ");
+        // if (graphe.retireArete(1,2)) {
         //     System.out.print("OK\n");
         // } else {
         //     System.out.print("ERREUR\n");
         // }
 
-        System.out.println("La distance du sommet 1 à 2 est:"+graphe.distAretes(1,2)+" : ");
-        if (graphe.distAretes(1,2) == 2) {
+        // System.out.println("On peut supprimer une arrete entre le sommet 1 et 7: faux : ");
+        // if (graphe.retireArete(1,7) == false) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        //System.out.println("On crée la matrice d'adjacence du graphe : "+graphe.matriceAdjacence());
+
+        // System.out.print("Le graphe est connexe: faux : ");
+        // if (graphe.estConnexe() == false) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        System.out.print("La distance du sommet 2 à 6 est 2 : ");
+        if (graphe.distAretes(2,6) == 2) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
+
+        //System.out.print("Il y a 2 composantes connexes dans le graphe :"+graphe.composanteConnexe());
+
+        // System.out.print("L'excentricité du sommet 6 est -1 : ");
+        // if (graphe.excentricite(6) == -1) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        // System.out.print("Le rayon du graphe est -1 : ");
+        // if (graphe.rayon() == -1) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        // System.out.print("Le rayon du graphe est -1 : ");
+        // if (graphe.diametre() == -1) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
     }  
 }
