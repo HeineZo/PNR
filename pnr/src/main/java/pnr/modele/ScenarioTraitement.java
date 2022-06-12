@@ -1,6 +1,7 @@
 package pnr.modele;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import pnr.modele.donnee.*;
@@ -127,19 +128,19 @@ public class ScenarioTraitement {
             System.out.print("ERREUR\n");
         }
 
-        System.out.print("\nOn peut aller du sommet 2 a 6 : vrai :");
-        if (graphe.existeChemin(2,6)) {
-            System.out.print("OK\n");
-        } else {
-            System.out.print("ERREUR\n");
-        }
+        // System.out.print("\nOn peut aller du sommet 2 a 6 : vrai :");
+        // if (graphe.existeChemin(2,6)) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
 
-        System.out.print("\nOn peut aller du sommet 2 a 5 : faux :");
-        if (graphe.existeChemin(2,5) == false) {
-            System.out.print("OK\n");
-        } else {
-            System.out.print("ERREUR\n");
-        }
+        // System.out.print("\nOn peut aller du sommet 2 a 5 : faux :");
+        // if (graphe.existeChemin(2,5) == false) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
 
         System.out.print("\nLes voisins du sommet 3 sont:"+graphe.voisins(3));
 
@@ -157,30 +158,37 @@ public class ScenarioTraitement {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("On peut supprimer une arrete entre le sommet 1 et 2: vrai : ");
+        System.out.print("\nOn peut supprimer une arrete entre le sommet 1 et 2: vrai : ");
         if (graphe.retireArete(1,2)) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("On peut supprimer une arrete entre le sommet 1 et 7: faux : ");
+        System.out.print("\nOn peut supprimer une arrete entre le sommet 1 et 7: faux : ");
         if (graphe.retireArete(1,7) == false) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.println("On crée la matrice d'adjacence du graphe : "+graphe.matriceAdjacence());
-
-        System.out.print("Le graphe est connexe: faux : ");
-        if (graphe.estConnexe() == false) {
-            System.out.print("OK\n");
-        } else {
-            System.out.print("ERREUR\n");
+        int [][] matrice = graphe.matriceAdjacence();
+        System.out.println("\nOn crée la matrice d'adjacence du graphe : ");
+        for (int[] tab: matrice) {
+            for (int s: tab) {
+                System.out.print(s + "\t");
+            }
+            System.out.println("\n");
         }
 
-        System.out.print("La distance du sommet 2 à 6 est 2 : ");
+        // System.out.print("Le graphe est connexe: faux : ");
+        // if (graphe.estConnexe() == false) {
+        //     System.out.print("OK\n");
+        // } else {
+        //     System.out.print("ERREUR\n");
+        // }
+
+        System.out.print("\nLa distance du sommet 2 à 6 est 2 : ");
         if (graphe.distAretes(2,6) == 2) {
             System.out.print("OK\n");
         } else {
@@ -189,21 +197,21 @@ public class ScenarioTraitement {
 
         //System.out.print("Il y a 2 composantes connexes dans le graphe :"+graphe.composanteConnexe());
 
-        System.out.print("L'excentricité du sommet 6 est -1 : ");
+        System.out.print("\nL'excentricité du sommet 6 est -1 : ");
         if (graphe.excentricite(6) == -1) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.print("Le rayon du graphe est -1 : ");
+        System.out.print("\nLe rayon du graphe est -1 : ");
         if (graphe.rayon() == -1) {
             System.out.print("OK\n");
         } else {
             System.out.print("ERREUR\n");
         }
 
-        System.out.print("Le rayon du graphe est -1 : ");
+        System.out.print("\nLe diametre du graphe est -1 : ");
         if (graphe.diametre() == -1) {
             System.out.print("OK\n");
         } else {

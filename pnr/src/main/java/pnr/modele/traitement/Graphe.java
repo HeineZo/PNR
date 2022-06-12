@@ -245,21 +245,21 @@ public class Graphe {
      * 
      * @return A matrix of the graph.
      */
-    public int[][] matriceAdjacence() {
-        int[][] ret = new int[this.nbSommets()][this.nbSommets() + 1];
-        for (Sommet s : this.sommetsVoisins.keySet()) {
-            for (int i = 0; i < this.nbSommets() - 1; i++) {
-                ret[i][0] = s.getId();
+    public int[][] matriceAdjacence(){
+
+        int[][] ret = new int[nbSommets()][nbSommets() + 1];
+
+        if(sommetsVoisins.size() > 0){
+            for(int i = 0; i < this.nbSommets(); i++){
+                for(int j = 0; j < this.nbSommets(); j++){
+                    if(sontVoisins(i+1,j+1)){
+                        ret[i][j] = 1;
+                    } else {
+                        ret[i][j] = 0;
+                    }
+                }
             }
-        }
-        for (Sommet s : this.sommetsVoisins.keySet()) {
-            int id = s.getId();
-            ArrayList<Sommet> voisins = this.voisins(id);
-            for (Sommet v : voisins) {
-                int idVoisin = v.getId();
-                ret[id][idVoisin] = 1;
-            }
-        }
+        } 
         return ret;
     }
 
