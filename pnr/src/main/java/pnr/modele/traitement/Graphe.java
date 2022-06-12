@@ -112,17 +112,17 @@ public class Graphe {
         Stack<Sommet> stack = new Stack<Sommet>();
         Sommet current = (Sommet) this.sommetsVoisins.keySet().toArray()[0];
         stack.push(current);
-        // while (!stack.isEmpty()) {
-        //     current = stack.pop();
-        //     visit(current.value);
-
-        //     if (current.right != null) {
-        //         stack.push(current.right);
-        //     }
-        //     if (current.left != null) {
-        //         stack.push(current.left);
-        //     }
-        // }
+        while (!stack.isEmpty()) {
+            current = stack.pop();
+            if (current.getId() == idSom1) {
+                ret = true;
+                break;
+            }
+            ArrayList<Sommet> voisins = this.sommetsVoisins.get(current);
+            for (Sommet s : voisins) {
+                stack.push(s);
+            }
+        }
         return ret;
     }
 
@@ -194,18 +194,19 @@ public class Graphe {
         return ret;
     }
 
-    public boolean estConnexe(){
+    public boolean estConnexe() {
         boolean ret = false;
         Sommet[] lesSommets = (Sommet[]) this.sommetsVoisins.keySet().toArray();
         int i = 0;
         boolean voisinsChemin = true;
-        while((i < lesSommets.length) && voisinsChemin != false){
+        while ((i < lesSommets.length) && voisinsChemin != false) {
             voisinsChemin = false;
             int j = 0;
-            while((j < lesSommets.length) && voisinsChemin != false){
+            while ((j < lesSommets.length) && voisinsChemin != false) {
                 voisinsChemin = false;
-                if(j != i){
-                    if ((this.sontVoisins(lesSommets[i].getId(),lesSommets[j].getId()) == true) || (existeChemin(lesSommets[i].getId(),lesSommets[j].getId()) == true)){
+                if (j != i) {
+                    if ((this.sontVoisins(lesSommets[i].getId(), lesSommets[j].getId()) == true)
+                            || (existeChemin(lesSommets[i].getId(), lesSommets[j].getId()) == true)) {
                         voisinsChemin = true;
                     }
                 } else {
@@ -215,7 +216,7 @@ public class Graphe {
             }
             i++;
         }
-        if (voisinsChemin == true){
+        if (voisinsChemin == true) {
             ret = true;
         }
         return ret;
@@ -238,62 +239,60 @@ public class Graphe {
         return ret;
     }
 
-    // public int excentricite(int idSom) {
-    //     int ret;
+    public Sommet getSommet(int idSom) {
+        Sommet sommet = null;
+        for (Sommet s : this.sommetsVoisins.keySet()) {
+            if (s.getId() == idSom) {
+                sommet = s;
+            }
+        }
+        return sommet;
+    }
 
-    //     if (estConnexe()) {
-    //         ret = distArrete(this, idSom);
-    //     } else {
-    //         ret = -1;
-    //         System.err.println("Le graphe n'est pas connexe");
-    //     }
+    public int excentricite(int idSom) {
+        int ret = -1;
+        if (!estConnexe()) {
+            System.err.println("Graphe pas connexe");
+        } else {
+            ArrayList<Sommet> lSommets = new ArrayList<Sommet>(sommetsVoisins.keySet());
+            Sommet sommet1 = getSommet(idSom);
+            Sommet sommet2;
+            for (int i = 0; i < lSommets.size(); i++) {
+                sommet2 = lSommets.get(i);
+                int distanceArrete = distAretes(sommet1.getId(), sommet2.getId());
+                if (distanceArrete != -1 && distanceArrete > ret) {
+                    ret = distanceArrete;
+                }
+            }
+        }
+        return ret;
+    }
 
-    //     return ret;
-    // }
+    public int diametre() {
+        int max = 0;
+        if (!estConnexe()) {
+            max = -1;
+        } else {
+            for (Sommet sommet : this.sommetsVoisins.keySet()) {
+                if (excentricite(sommet.getId()) > max) {
+                    max = excentricite(sommet.getId());
+                }
+            }
+        }
+        return max;
+    }
 
-    // public int diametre() {
-    //     int ret;
-
-    //     if (estConnexe()) {
-    //         int maxExc = 0;
-
-    //         for (Sommet s : this.sommetsVoisins.keySet()) {
-    //             for (Sommet sTarget : this.getSommetsVoisins()) {
-    //                 if (s.excentricite(sTarget) != -1 && s.excentricite(sTarget) > maxExc) {
-    //                     maxExc = s.excentriciteDist(sTarget);
-    //                 }
-    //             }
-    //         }
-
-    //         ret = minExc;
-    //     } else {
-    //         ret = -1;
-    //         System.err.println("Le graphe n'est pas connexe");
-    //     }
-
-    //     return ret;
-    // }
-
-    // public int rayon() {
-    //     int ret;
-
-    //     if (estConnexe()) {
-    //         minExc = 999999;
-
-    //         for (Key s : this.sommetsVoisins.keySet()) {
-    //             for (Sommet sTarget : this.getSommetsVoisins()) {
-    //                 if (s.excentricite(sTarget) != -1 && s.excentricite(sTarget) < minExc) {
-    //                     minExc = s.excentriciteDist(sTarget);
-    //                 }
-    //             }
-    //         }
-
-    //         ret = minExc;
-    //     } else {
-    //         ret = -1;
-    //         System.err.println("Le graphe n'est pas connexe");
-    //     }
-
-    //     return ret;
-    // }
+    public int rayon() {
+        int min = diametre();
+        if (!estConnexe()) {
+            min = -1;
+        } else {
+            for (Sommet sommet : this.sommetsVoisins.keySet()) {
+                if (excentricite(sommet.getId()) < min) {
+                    min = excentricite(sommet.getId());
+                }
+            }
+        }
+        return min;
+    }
 }
