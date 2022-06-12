@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * It's a class that represents a graph
+ * Class that represents a graph
  */
 public class Graphe {
 
@@ -60,7 +60,7 @@ public class Graphe {
     }
 
     /**
-     * It returns a HashMap of vertices and their neighbors
+     * Returns a HashMap of vertices and their neighbors
      * 
      * @return A HashMap of Sommets and their neighbors.
      */
@@ -69,7 +69,7 @@ public class Graphe {
     }
 
     /**
-     * It returns the number of vertices in the graph
+     * Returns the number of vertices in the graph
      * 
      * @return The number of vertices in the graph.
      */
@@ -78,9 +78,8 @@ public class Graphe {
     }
 
     /**
-     * > We count the number of edges by counting the number of neighbors of each
-     * vertex and dividing
-     * by 2
+     * Count the number of edges by counting the number of neighbors of each
+     * vertex and dividing by 2
      * 
      * @return The number of edges in the graph.
      */
@@ -94,7 +93,7 @@ public class Graphe {
     }
 
     /**
-     * It returns true if the vertex with the given id is in the graph, false
+     * Returns true if the vertex with the given id is in the graph, false
      * otherwise
      * 
      * @param idSom the id of the vertex to check
@@ -113,7 +112,7 @@ public class Graphe {
     }
 
     /**
-     * It returns the degree of a vertex
+     * Returns the degree of a vertex
      * 
      * @param idSom the id of the vertex
      * @return The degree of the vertex with the given id.
@@ -131,7 +130,7 @@ public class Graphe {
     }
 
     /**
-     * It calculates the degree of each vertex in the graph
+     * Calculates the degree of each vertex in the graph
      * 
      * @return A HashMap of Sommet and Integer.
      */
@@ -144,8 +143,9 @@ public class Graphe {
         return calculeDegres;
     }
 
+
     /**
-     * It returns true if the two vertices are neighbors, false otherwise
+     * Returns true if the two vertices are neighbors, false otherwise
      * 
      * @param idSom1 the id of the first vertex
      * @param idSom2 the id of the second vertex
@@ -171,32 +171,7 @@ public class Graphe {
     }
 
     /**
-     * It returns true if there is a path between two vertices, false otherwise
-     * 
-     * @param idSom1 the id of the first vertex
-     * @param idSom2 the id of the second vertex
-     */
-    public boolean existeChemin(int idSom1, int idSom2) {
-        boolean ret = false;
-        Stack<Sommet> stack = new Stack<Sommet>();
-        Sommet current = (Sommet) this.sommetsVoisins.keySet().toArray()[0];
-        stack.push(current);
-        while (!stack.isEmpty()) {
-            current = stack.pop();
-            if (current.getId() == idSom1) {
-                ret = true;
-                break;
-            }
-            ArrayList<Sommet> voisins = this.sommetsVoisins.get(current);
-            for (Sommet s : voisins) {
-                stack.push(s);
-            }
-        }
-        return ret;
-    }
-
-    /**
-     * It returns the list of neighbors of a given vertex
+     * Returns the list of neighbors of a given vertex
      * 
      * @param idSom the id of the vertex you want to get the neighbors of
      * @return The neighbors of the vertex with the id idSom.
@@ -214,7 +189,7 @@ public class Graphe {
     }
 
     /**
-     * It adds an edge between two vertices if they are both in the graph
+     * Adds an edge between two vertices if they are both in the graph
      * 
      * @param idSom1 the id of the first vertex
      * @param idSom2 the id of the second vertex
@@ -238,7 +213,7 @@ public class Graphe {
     }
 
     /**
-     * It removes an edge between two vertices
+     * Removes an edge between two vertices
      * 
      * @param idSom1 the id of the first vertex
      * @param idSom2 the id of the second vertex
@@ -265,9 +240,8 @@ public class Graphe {
     }
 
     /**
-     * It creates a matrix of size `nbSommets()` x `nbSommets() + 1` and fills it
-     * with the adjacency
-     * information of the graph
+     * Creates a matrix of size `nbSommets()` x `nbSommets() + 1` and fills it
+     * with the adjacency information of the graph
      * 
      * @return A matrix of the graph.
      */
@@ -290,23 +264,23 @@ public class Graphe {
     }
 
     /**
-     * > The function returns true if the graph is connected, false otherwise
+     * Returns true if the graph is connected, false otherwise
      * 
      * @return A boolean value.
      */
     public boolean estConnexe() {
         boolean ret = false;
-        Sommet[] lesSommets = (Sommet[]) this.sommetsVoisins.keySet().toArray();
+        ArrayList<Sommet> lesSommets = new ArrayList<Sommet>(sommetsVoisins.keySet());
         int i = 0;
         boolean voisinsChemin = true;
-        while ((i < lesSommets.length) && voisinsChemin != false) {
+        while ((i < lesSommets.size()) && voisinsChemin != false) {
             voisinsChemin = false;
             int j = 0;
-            while ((j < lesSommets.length) && voisinsChemin != false) {
+            while ((j < lesSommets.size()) && voisinsChemin != false) {
                 voisinsChemin = false;
                 if (j != i) {
-                    if ((this.sontVoisins(lesSommets[i].getId(), lesSommets[j].getId()) == true)
-                            || (existeChemin(lesSommets[i].getId(), lesSommets[j].getId()) == true)) {
+                    if ((this.sontVoisins(lesSommets.get(i).getId(), lesSommets.get(j).getId()) == true)
+                            || (existeChemin(lesSommets.get(i).getId(), lesSommets.get(j).getId()) == true)) {
                         voisinsChemin = true;
                     }
                 } else {
@@ -323,7 +297,7 @@ public class Graphe {
     }
 
     /**
-     * It returns the number of edges between two vertices
+     * Returns the number of edges between two vertices
      * 
      * @param idSom1 the id of the first vertex
      * @param idSom2 the id of the second vertex
@@ -368,7 +342,7 @@ public class Graphe {
     }
 
     /**
-     * It returns the vertex with the given id
+     * Returns the vertex with the given id
      * 
      * @param idSom the id of the vertex we want to get
      * @return The method returns the Sommet object with the id idSom.
@@ -384,7 +358,7 @@ public class Graphe {
     }
 
     /**
-     * It returns the maximum distance between two vertices in the graph
+     * Returns the maximum distance between two vertices in the graph
      * 
      * @param idSom the id of the vertex
      * @return The distance between the two vertices.
@@ -409,7 +383,7 @@ public class Graphe {
     }
 
     /**
-     * It returns the maximum distance between any two vertices in the graph
+     * Returns the maximum distance between any two vertices in the graph
      * 
      * @return The diameter of the graph.
      */
@@ -428,7 +402,7 @@ public class Graphe {
     }
 
     /**
-     * It returns the minimum eccentricity of all the vertices in the graph
+     * Returns the minimum eccentricity of all the vertices in the graph
      * 
      * @return The minimum distance between two vertices in the graph.
      */
@@ -444,5 +418,64 @@ public class Graphe {
             }
         }
         return min;
+    }
+
+
+    /**
+     * Returns true if there is a path between two vertices, false otherwise
+     * 
+     * @param idSom1 the id of the first vertex
+     * @param idSom2 the id of the vertex we want to reach
+     * @return Returns true if there is a path between two vertices
+     */
+    public boolean existeChemin(int idSom1, int idSom2){
+        boolean ret = true;
+
+        if(!estDansGraphe(idSom1) || !estDansGraphe(idSom2)){
+            System.err.println("existeChemin : the vertex are not in the graph");
+        }else{
+            Sommet som1 = this.getSommet(idSom1);
+            Sommet som2 = this.getSommet(idSom2);
+            
+            ArrayList<Sommet> parcouru = new ArrayList<Sommet>();
+            ArrayList<Sommet> stack = new ArrayList<Sommet>();
+
+            stack.add(som1);
+            ret = dfsRec(som1, som2, parcouru, stack);
+        }
+        return ret;
+    }
+
+        
+    /**
+     * Goes through the graph in depth 
+     * 
+     * @param som1 the starting point
+     * @param som2 the destination
+     * @param parcouru the list of visited nodes
+     * @param stack the stack of edges to visit
+     * @return Return true if the edge is reached
+     */
+    public boolean dfsRec(Sommet som1, Sommet som2, ArrayList<Sommet> parcouru, ArrayList<Sommet> stack){
+        boolean ret;
+        if (som1 == som2){
+            ret = true;
+        }else if (stack.size() == 0){
+            ret = false;
+        }else{
+            Sommet nouveauDepart = stack.get(0);
+
+            parcouru.add(nouveauDepart);
+            stack.remove(nouveauDepart);
+
+            for (Sommet sommet : this.sommetsVoisins.get(nouveauDepart)){
+                if(!parcouru.contains(sommet) && !stack.contains(sommet)){
+                    stack.add(sommet);
+                }
+            }
+            ret = dfsRec(nouveauDepart, som2,parcouru,stack);
+        }
+
+        return ret;
     }
 }
