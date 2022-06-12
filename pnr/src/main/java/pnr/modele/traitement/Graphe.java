@@ -23,7 +23,7 @@ public class Graphe {
             for (Sommet s : sommets) {
                 ArrayList<Sommet> som = new ArrayList<Sommet>();
                 for (Sommet sTarget : sommets) {
-                    if (s.calculeDist(sTarget) >= dist) {
+                    if (s.calculeDist(sTarget) <= dist) {
                         som.add(sTarget);
                     }
                 }
@@ -157,11 +157,12 @@ public class Graphe {
             if (s.getId() == idSom1) {
                 ArrayList<Sommet> voisins = this.sommetsVoisins.get(s);
                 int i = 0;
-                while (i < voisins.size() && ret == false) {
+                while ((i < voisins.size()) && (ret == false)) {
                     Sommet s2 = voisins.get(i);
                     if (s2.getId() == idSom2) {
                         ret = true;
                     }
+                    i++;
                 }
                 break;
             }
