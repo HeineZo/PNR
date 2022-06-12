@@ -478,4 +478,44 @@ public class Graphe {
 
         return ret;
     }
+
+    public ArrayList<Graphe> composanteConnexe() {
+        ArrayList<Graphe> composantes = new ArrayList<>();
+        HashMap<Sommet, ArrayList<Sommet>> hashmap = new HashMap<>();
+        ArrayList<Sommet> sommets = new ArrayList<>(this.sommetsVoisins.keySet());
+        ArrayList<Sommet> seen = new ArrayList<>();
+        ArrayList<Sommet> save = new ArrayList<>();
+        Sommet som;
+
+        while (!sommets.isEmpty()) {
+            som = sommets.remove(0);
+
+            if (!seen.contains(som))
+                seen.add(som);
+            for (Sommet s : this.sommetsVoisins.get(som)) {
+                if (!save.contains(s) && !seen.contains(s))
+                    save.add(s);
+            }
+
+            while (!save.isEmpty()) {
+                som = save.remove(0);
+                sommets.remove(som);
+                if (!seen.contains(som))
+                    seen.add(som);
+                for (Sommet s : this.sommetsVoisins.get(som)) {
+                    if (!save.contains(s) && !seen.contains(s))
+                        save.add(s);
+                }
+            }
+
+            while (!seen.isEmpty()) {
+                som = seen.remove(0);
+                hashmap.put(som, this.sommetsVoisins.get(som));
+            }
+
+            composantes.add(new Graphe(hashmap));
+            hashmap = new HashMap<>();
+        }
+        return composantes;
+    }
 }

@@ -128,19 +128,19 @@ public class ScenarioTraitement {
             System.out.print("ERREUR\n");
         }
 
-        // System.out.print("\nOn peut aller du sommet 2 a 6 : vrai :");
-        // if (graphe.existeChemin(2,6)) {
-        //     System.out.print("OK\n");
-        // } else {
-        //     System.out.print("ERREUR\n");
-        // }
+        System.out.print("\nOn peut aller du sommet 2 a 6 : vrai :");
+        if (graphe.existeChemin(2,6)) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
 
-        // System.out.print("\nOn peut aller du sommet 2 a 5 : faux :");
-        // if (graphe.existeChemin(2,5) == false) {
-        //     System.out.print("OK\n");
-        // } else {
-        //     System.out.print("ERREUR\n");
-        // }
+        System.out.print("\nOn peut aller du sommet 2 a 5 : faux :");
+        if (graphe.existeChemin(2,5) == false) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
 
         System.out.print("\nLes voisins du sommet 3 sont:"+graphe.voisins(3));
 
@@ -181,12 +181,12 @@ public class ScenarioTraitement {
             System.out.println("\n");
         }
 
-        // System.out.print("Le graphe est connexe: faux : ");
-        // if (graphe.estConnexe() == false) {
-        //     System.out.print("OK\n");
-        // } else {
-        //     System.out.print("ERREUR\n");
-        // }
+        System.out.print("Le graphe est connexe: faux : ");
+        if (graphe.estConnexe() == false) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
 
         System.out.print("\nLa distance du sommet 2 à 6 est 2 : ");
         if (graphe.distAretes(2,6) == 2) {
@@ -195,7 +195,12 @@ public class ScenarioTraitement {
             System.out.print("ERREUR\n");
         }
 
-        //System.out.print("Il y a 2 composantes connexes dans le graphe :"+graphe.composanteConnexe());
+        System.out.print("\nIl y a " + graphe.composanteConnexe().size() + " composantes connexes dans le graphe: ");
+        if (graphe.composanteConnexe().size() == 2) {
+            System.out.print("OK\n");
+        } else {
+            System.out.print("ERREUR\n");
+        }
 
         System.out.print("\nL'excentricité du sommet 6 est -1 : ");
         if (graphe.excentricite(6) == -1) {
@@ -217,5 +222,7 @@ public class ScenarioTraitement {
         } else {
             System.out.print("ERREUR\n");
         }
+
+        
     }  
 }
