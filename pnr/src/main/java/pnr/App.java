@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-import animatefx.animation.*;
+// import animatefx.animation.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 
@@ -26,6 +26,6 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        new FadeIn(root).play();
+        // new FadeIn(root).play();
     }
 }
