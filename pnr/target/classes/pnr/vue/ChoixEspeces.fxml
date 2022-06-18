@@ -36,9 +36,9 @@
                   <RowConstraints maxHeight="217.00001525878906" minHeight="1.0000101725260464" prefHeight="83.39998779296872" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button id="button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 20;" text="Chouette" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <Button id="button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Chouette" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
-                        <Font size="22.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -51,7 +51,7 @@
                   </Text>
                   <Button id="button" alignment="CENTER" layoutX="410.0" layoutY="91.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Hippocampe" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
-                        <Font size="22.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -59,7 +59,7 @@
                   </Button>
                   <Button id="button" alignment="CENTER" layoutX="410.0" layoutY="171.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Loutre" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
-                        <Font size="22.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -67,7 +67,7 @@
                   </Button>
                   <Button id="button" alignment="CENTER" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="GCI" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                      <font>
-                        <Font size="22.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
