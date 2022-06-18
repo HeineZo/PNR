@@ -2,7 +2,7 @@ package pnr.modele;
 
 import java.sql.*;
 
-public class jdbcTahhh {
+public class ConnectVPS {
     public static void main(String[] args) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://141.94.221.193:3306/bd_pnr","root","BigoLeBoss@56");
@@ -16,5 +16,5 @@ public class jdbcTahhh {
         } catch(Exception e) {
             System.out.println(e);
         }
-    }  
+    }
 }
