@@ -88,9 +88,6 @@ public class ConnectVPS {
         if (query != null && isConnected()) {
             try {
                 ResultSet rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    System.out.println(rs.getString(1));
-                }
             } catch (Exception e) {
                 System.out.println(e);
             }
