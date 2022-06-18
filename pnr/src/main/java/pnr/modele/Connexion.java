@@ -1,6 +1,11 @@
 package pnr.modele;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.*;
 
 import com.jcraft.jsch.*;
 
@@ -10,45 +15,61 @@ public class Connexion {
     static Session session = null;
     static ChannelExec channel = null;
 
-    public static void main(String[] args) throws JSchException, InterruptedException, SftpException {
+    public static void main(String[] args) throws JSchException, InterruptedException, SftpException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         try {
             session = new JSch().getSession("ubuntu", "141.94.221.193", 56000);
             session.setPassword("LeBestCSafe56");
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
-
             ChannelSftp sftp = (ChannelSftp) session.openChannel("sftp");
             sftp.connect();
-     
-            // sftp.cd("PNR/src/main/java/pnr/modele");
             System.err.println(sftp.pwd());
-            // System.err.println(sftp.ls(command));
+
+            Connection c = DriverManager.getConnection("jdbc:mysql://141.94.221.193:3306/bd_pnr?useSSL=false", "ubuntu", "salutLaFamax@2");
+            // Channel channel = session.openChannel("exec");
+            // ((ChannelExec)channel).setCommand("mysql -u ubuntu -p;");
+            // channel.setInputStream(null);
+            // ((ChannelExec)channel).setErrStream(System.err);
+             
+            // InputStream input = channel.getInputStream();
+            // channel.connect();
+             
+            // System.out.println("Channel Connected to machine " + host + " server with command: " + command ); 
+             
+            // try{
+            //     InputStreamReader inputReader = new InputStreamReader(input);
+            //     BufferedReader bufferedReader = new BufferedReader(inputReader);
+            //     String line = null;
+                 
+            //     while((line = bufferedReader.readLine()) != null){
+            //         System.out.println(line);
+            //     }
+            //     bufferedReader.close();
+            //     inputReader.close();
+            // }catch(IOException ex){
+            //     ex.printStackTrace();
+            // }
+            // sftp.connect();
      
+            
+            // System.err.println(sftp.ls("/home/ubuntu"));
+
+
             sftp.disconnect();
             session.disconnect();
+
         } catch (JSchException e) {
             e.printStackTrace();
         }
-            // channel = (ChannelExec) session.openChannel("exec");
-            // channel.setCommand("cd /");
-            // channel.setCommand("ls");
-            // ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
-            // channel.setOutputStream(responseStream);
-            // channel.connect();
 
-            // while (channel.isConnected()) {
-            //     Thread.sleep(100);
-        //     }
-
-        //     String responseString = new String(responseStream.toByteArray());
-        //     System.out.println(responseString);
-        // } finally {
-        //     if (session != null) {
-        //         session.disconnect();
-        //     }
-        //     if (channel != null) {
-        //         channel.disconnect();
-        //     }
-        // }
     }
+
+    //Connect to a database using JDBC
+    // public static Connection connect() throws SQLException {
+
+    //     // DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+        
+    //     return c;
+    // }
+
 }
