@@ -9,10 +9,12 @@ c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\Peche.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\ObsBatracien.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerModifierFiches.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\Connexion.java
+c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\ConnectVPS.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerSauvegarde.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\ObsLoutre.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\ObsChouette.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\IObs.java
+c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerLandingPage.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\Lieu.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\Observateur.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\WwdEmbedded.java
@@ -22,9 +24,9 @@ c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\IndiceLoutre.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\Observation.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerModifierUneFiche.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\ObsHippocampe.java
+c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerLogin.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\Chouette.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\ScenarioTraitement.java
-c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\jdbcTahhh.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\ObsGCI.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerNouvelleObservation.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerDernierObservation.java
@@ -38,4 +40,5 @@ c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\modele\donnee\EspeceBatracien.j
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\App.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerCreerUneFicheEspece.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\Controller.java
+c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerChoixEspeces.java
 c:\Users\mamax\Desktop\PNR\pnr\src\main\java\pnr\controleur\ControllerVisualiser.java
