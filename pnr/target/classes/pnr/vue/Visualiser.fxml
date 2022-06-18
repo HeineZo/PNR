@@ -9,6 +9,7 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -95,6 +96,14 @@
                   </ComboBox>
                </children>
             </GridPane>
+<<<<<<< HEAD
+=======
+            <Label fx:id="label" text="This graph is unavailable" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="24.0" />
+               </font>
+            </Label>
+>>>>>>> 5d7462668e3962dc05701b414da545bdec42f9a2
          </children>
       </GridPane>
    </children>

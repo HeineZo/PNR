@@ -14,8 +14,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.collections.*?>
+<?import java.lang.String?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerNouveauProfil">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -93,6 +95,12 @@
                            <GridPane.margin>
                               <Insets right="10.0" top="10.0" />
                            </GridPane.margin>
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Administrateur" />
+                              <String fx:value="Utilisateur" />
+                              </FXCollections>
+                           </items>
                         </ComboBox>
                      </children>
                   </GridPane>
