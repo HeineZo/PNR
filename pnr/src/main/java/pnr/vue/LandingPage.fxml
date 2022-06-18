@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerLandingPage">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -53,17 +53,17 @@
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                      </font>
                   </Text>
-                  <MFXTextField floatingText="Identifiant" prefWidth="202.0" style="-fx-border-color: #2d936d;" stylesheets="@css/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                  <MFXTextField id="identifiant" floatingText="Identifiant" prefWidth="202.0" style="-fx-border-color: #2d936d;" stylesheets="@css/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                      <textFill>
                         <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                      </textFill>
                   </MFXTextField>
-                  <MFXPasswordField allowPaste="true" floatingText="Mot de passe" prefWidth="202.0" style="-fx-border-color: #2d936d;" stylesheets="@css/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                  <MFXPasswordField id="mdp" allowPaste="true" floatingText="Mot de passe" prefWidth="202.0" style="-fx-border-color: #2d936d;" stylesheets="@css/style.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <textFill>
                         <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                      </textFill>
                   </MFXPasswordField>
-                  <MFXButton buttonType="RAISED" depthLevel="LEVEL1" rippleAnimateShadow="true" rippleColor="WHITE" styleClass="outline-button" text="Connexion" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                  <MFXButton id="send" onAction="#submitForm" buttonType="RAISED" depthLevel="LEVEL1" rippleAnimateShadow="true" rippleColor="WHITE" styleClass="outline-button" text="Connexion" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
