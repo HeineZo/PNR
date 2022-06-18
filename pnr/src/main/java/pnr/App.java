@@ -1,4 +1,5 @@
 package pnr;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -16,7 +17,7 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("vue/LandingPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("vue/Visualiser.fxml"));
         Scene scene = new Scene(root);
 
         primaryStage.setMaximized(true);
@@ -26,9 +27,5 @@ public class App extends Application {
         scene.getStylesheets().add(getClass().getResource("vue/font/font.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        
-
-        // new FadeIn(root).play();
     }
 }
