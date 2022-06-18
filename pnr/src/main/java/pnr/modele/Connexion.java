@@ -12,13 +12,14 @@ public class Connexion {
 
     public static void main(String[] args) throws JSchException, InterruptedException {
         try {
-            session = new JSch().getSession(username, host, port);
-            session.setPassword(password);
+            session = new JSch().getSession("ubuntu", "141.94.221.193", 56000);
+            session.setPassword("LeBestCSafe56");
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
 
             channel = (ChannelExec) session.openChannel("exec");
-            channel.setCommand(command);
+            channel.setCommand("cd /");
+            channel.setCommand("ls");
             ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
             channel.setOutputStream(responseStream);
             channel.connect();
