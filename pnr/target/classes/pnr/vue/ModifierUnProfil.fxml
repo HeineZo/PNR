@@ -35,7 +35,7 @@
                </GridPane.margin>
             </Text>
             <Group />
-            <Button id="button" fx:id="btnBack" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="137.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 20;" text="Annuler" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <Button id="subtitle" fx:id="btnBack" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="44.0" prefWidth="106.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="50.0" top="50.0" />
                </GridPane.margin>
