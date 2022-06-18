@@ -19,20 +19,20 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="129.33330535888672" minHeight="10.0" prefHeight="108.99999491373698" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="302.66664123535156" minHeight="10.0" prefHeight="302.66664123535156" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="155.00001220703126" minHeight="10.0" prefHeight="155.00001220703126" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="302.66664123535156" minHeight="10.0" prefHeight="203.79998779296875" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="235.99998982747394" minHeight="10.0" prefHeight="41.33335876464844" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="66.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
+            <ImageView id="chouettepic" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
                <image>
                   <Image url="@images/especes/chouette.png" />
                </image>
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets left="40.0" top="10.0" />
                </GridPane.margin>
             </ImageView>
-            <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 22;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
+            <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="40.0" />
                </GridPane.margin>
@@ -43,9 +43,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette">
+            <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets left="80.0" />
+                  <Insets left="150.0" top="10.0" />
                </GridPane.margin>
                <font>
                   <Font name="Arial Rounded MT Bold" size="37.0" />

@@ -20,22 +20,22 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="376.0000061035156" minHeight="10.0" prefHeight="151.19998779296873" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="576.0000015258789" minHeight="10.0" prefHeight="455.40001220703124" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="376.0000061035156" minHeight="10.0" prefHeight="167.79999694824218" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="576.0000015258789" minHeight="10.0" prefHeight="455.8000030517578" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="176.79998779296875" minHeight="10.0" prefHeight="176.79998779296875" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualiser les données" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualiser les données" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <font>
                   <Font name="Arial Rounded MT Bold" size="37.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="60.0" />
+                  <Insets left="150.0" top="10.0" />
                </GridPane.margin>
             </Text>
-            <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 14;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
+            <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
                <font>
-                  <Font name="Arial Rounded MT Bold" size="22.0" />
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
                <GridPane.margin>
                   <Insets right="40.0" />
@@ -44,10 +44,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+            <ImageView id="chouettepic" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                <image>
                   <Image url="@images/especes/chouette.png" />
                </image>
+               <GridPane.margin>
+                  <Insets left="40.0" top="10.0" />
+               </GridPane.margin>
             </ImageView>
             <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="117.0" promptText="Diagramme" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #73ac9a #73ac9a; -fx-border-radius: 10; -fx-border-width: 2;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
             <ImageView fitHeight="350.0" fitWidth="547.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">

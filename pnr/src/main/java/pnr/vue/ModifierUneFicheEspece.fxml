@@ -20,8 +20,8 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="130.99998321533204" minHeight="10.0" prefHeight="130.99998321533204" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="112.5999969482422" minHeight="10.0" prefHeight="103.80001678466797" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -38,7 +38,7 @@
                </font>
             </Text>
             <TextField fx:id="id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Nom de l'attribut" style="-fx-background-radius: 5;" text="[data]" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Button id="subtitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #73ac9a #73ac9a; -fx-background-radius: 10; -fx-font-size: 18;" text="Créer" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+            <Button id="subtitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #2D936D; -fx-background-radius: 10; -fx-font-size: 18;" text="Créer" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
                <font>
                   <Font size="20.0" />
                </font>
@@ -62,7 +62,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button id="button" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 20;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
+            <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
@@ -82,7 +82,7 @@
                   <Image url="@images/CreerUneFicheEspece/poubelle.png" />
                </image>
             </ImageView>
-            <Button id="subtitle" fx:id="btnNouveauProfil" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 18;" text="Nouveau profil" textAlignment="RIGHT" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+            <Button id="subtitle" fx:id="btnNouveauProfil" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: #73ac9a; -fx-background-radius: 30; -fx-font-size: 18;" text="Nouveau" textAlignment="RIGHT" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
