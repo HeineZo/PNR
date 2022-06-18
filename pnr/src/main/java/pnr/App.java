@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 
 public class App extends Application {
     public static void main(String[] args) {
-        ConnectVPS connect = new ConnectVPS("jdbc:mysql://localhost:3306/bd_pnr", "root", "BigoLeBoss@56");
         launch(args);
     }
 

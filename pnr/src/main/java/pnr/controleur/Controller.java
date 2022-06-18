@@ -6,8 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pnr.modele.ConnectVPS;
 
 public class Controller {
+
+    ConnectVPS connect;
+    public Controller() {
+        connect = new ConnectVPS("jdbc:mysql://141.94.221.193:3306/bd_pnr", "root", "BigoLeBoss@56");
+    }
 
     public void loadStage(String fxml, ActionEvent event) {
         try {

@@ -21,22 +21,22 @@ public class ControllerLandingPage extends Controller {
     private Button send;
 
     @FXML
-    private final MFXTextField username = new MFXTextField("");
+    private MFXTextField username;
 
     @FXML
-    private final MFXPasswordField password = new MFXPasswordField("");
+    private MFXPasswordField password;
 
-    private String[] credentials = new String[0];
+    private String[] credentials = new String[1];
 
     @FXML
     void submitForm(ActionEvent event) throws SQLException {
         boolean user = false;
         boolean pwd = false;
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_pnr", "pnr", "mdp_pnr");
-        ResultSet rs = c.createStatement()
-                .executeQuery("SELECT nom, mdpUtilisateur, permission FROM Utilisateur ");
+        
+        ResultSet rs = connect.executeQuery("SELECT nom, mdpUtilisateur, permission FROM Utilisateur");
 
         while (rs.next() && !user) {
+            System.out.println(rs.getString(1));
             if (rs.getString("nom").equals(password.getText())) {
                 credentials[0] = rs.getString("mdpUtilisateur");
                 credentials[1] = rs.getString("permission");
