@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import pnr.modele.ConnectVPS;
 
 // import animatefx.animation.*;
 import javafx.application.Application;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 
 public class App extends Application {
     public static void main(String[] args) {
+        ConnectVPS connect = new ConnectVPS("jdbc:mysql://localhost:3306/bd_pnr", "root", "BigoLeBoss@56");
         launch(args);
     }
 
@@ -26,7 +28,7 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        System.out.println("test");
+        
 
         // new FadeIn(root).play();
     }
