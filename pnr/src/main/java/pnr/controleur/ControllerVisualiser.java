@@ -2,6 +2,7 @@ package pnr.controleur;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -31,7 +32,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private BarChart<String, Number> barChart;
 
     @FXML
-    private LineChart<String, Number> lineChart;
+    private LineChart<Time, Double> lineChart;
 
     @FXML
     private ComboBox<String> comboBoxChoices;
@@ -42,7 +43,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private ObservableList<String> tlistChoices = FXCollections.observableArrayList();
     private ObservableList<String> tlistSpecies = FXCollections.observableArrayList();
     private ObservableList data = FXCollections.observableArrayList();
-    private XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+    private XYChart.Series<String, Number> seriesBar = new XYChart.Series<String, Number>();
+    private XYChart.Series<Time, Double> seriesLine = new XYChart.Series<Time, Double>();
 
     @FXML
     private Label label;
@@ -73,94 +75,182 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
     @FXML
     private void comboChoice(ActionEvent event) {
-        //comboGraph(String.valueOf(comboBoxChoices.getValue()), String.valueOf(comboBoxSpecies.getValue()));
+        comboGraph(String.valueOf(comboBoxChoices.getValue()), String.valueOf(comboBoxSpecies.getValue()));
     }
 
-    // private void comboGraph(String chart, String species) {
-    //     if (chart != null && species != null) {
-    //         if (chart.equals("Camembert")) {
-    //             if (species.equals("Batracien")) {
-    //                 try {
-    //                     ResultSet rs = connect
-    //                             .executeQuery("SELECT COUNT(obsB), espece FROM Obs_Batracien GROUP BY espece ");
-    //                     while (rs.next()) {
-    //                         data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
-    //                     }
-    //                 } catch (Exception e) {
-    //                     e.getMessage();
-    //                 }
-    //             } else if (species.equals("Chouette")) {
-    //                 try {
-    //                     ResultSet rs = connect
-    //                             .executeQuery("SELECT COUNT(numIndividu), espece FROM Chouette GROUP BY espece ");
-    //                     while (rs.next()) {
-    //                         data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
-    //                     }
-    //                 } catch (Exception e) {
-    //                     e.getMessage();
-    //                 }
-    //             } else if (species.equals("Hippocampe")) {
-    //                 try {
-    //                     ResultSet rs = connect
-    //                             .executeQuery("SELECT COUNT(obsH), espece FROM Obs_Hippocampe GROUP BY espece ");
-    //                     while (rs.next()) {
-    //                         data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
-    //                     }
-    //                 } catch (Exception e) {
-    //                     e.getMessage();
-    //                 }
-    //             } else {
-    //                 label.setVisible(true);
-    //             }
+    private void comboGraph(String chart, String species) {
+        if (chart != null && species != null) {
+            if (chart.equals("Camembert")) {
+                pieChart.getData().clear();
 
-    //             pieChart.getData().addAll(data);
+                if (species.equals("Batracien")) {
+                    try {
+                        ResultSet rs = connect
+                                .executeQuery("SELECT COUNT(obsB), espece FROM Obs_Batracien GROUP BY espece ");
+                        while (rs.next()) {
+                            data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                        }
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                } else if (species.equals("Chouette")) {
+                    try {
+                        ResultSet rs = connect
+                                .executeQuery("SELECT COUNT(numIndividu), espece FROM Chouette GROUP BY espece ");
+                        while (rs.next()) {
+                            data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                        }
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                } else if (species.equals("Hippocampe")) {
+                    try {
+                        ResultSet rs = connect
+                                .executeQuery("SELECT COUNT(obsH), espece FROM Obs_Hippocampe GROUP BY espece ");
+                        while (rs.next()) {
+                            data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                        }
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                } else {
+                    label.setVisible(true);
+                }
 
-    //             label.setVisible(false);
-    //             pieChart.setVisible(true);
-    //             barChart.setVisible(false);
-    //             // lineChart.setVisible(false);
-    //         } else if (chart.equals("Barres")) {
-    //             if (species.equals("Tous")) {
-    //                 try {
-    //                     ResultSet rsBatracien = connect.executeQuery("SELECT COUNT(obsB) FROM Obs_Batracien ");
-    //                     ResultSet rsChouette = connect.executeQuery("SELECT COUNT(numObs) FROM Obs_Chouette ");
-    //                     ResultSet rsGCI = connect.executeQuery("SELECT COUNT(obsG) FROM Obs_GCI ");
-    //                     ResultSet rsHippocampe = connect.executeQuery("SELECT COUNT(obsH) FROM Obs_Hippocampe ");
-    //                     ResultSet rsLoutre = connect.executeQuery("SELECT COUNT(ObsL) FROM Obs_Loutre ");
+                pieChart.getData().addAll(data);
 
-    //                     series.getData().add(new XYChart.Data<String, Number>("Batracien", rsBatracien.getDouble(1)));
-    //                     series.getData().add(new XYChart.Data<String, Number>("Chouette", rsChouette.getDouble(1)));
-    //                     series.getData().add(new XYChart.Data<String, Number>("GCI", rsGCI.getDouble(1)));
-    //                     series.getData().add(new XYChart.Data<String, Number>("Hippocampe", rsHippocampe.getDouble(1)));
-    //                     series.getData().add(new XYChart.Data<String, Number>("Loutre", rsLoutre.getDouble(1)));
+                label.setVisible(false);
+                pieChart.setVisible(true);
+                barChart.setVisible(false);
+                lineChart.setVisible(false);
+            } else if (chart.equals("Barres")) {
+                if (species.equals("Tous")) {
+                    try {
+                        ResultSet rsBatracien = connect.executeQuery("SELECT COUNT(obsB) FROM Obs_Batracien ");
+                        ResultSet rsChouette = connect.executeQuery("SELECT COUNT(numObs) FROM Obs_Chouette ");
+                        ResultSet rsGCI = connect.executeQuery("SELECT COUNT(obsG) FROM Obs_GCI ");
+                        ResultSet rsHippocampe = connect.executeQuery("SELECT COUNT(obsH) FROM Obs_Hippocampe ");
+                        ResultSet rsLoutre = connect.executeQuery("SELECT COUNT(ObsL) FROM Obs_Loutre ");
 
-    //                     series.setName("nb_obs/espèce");
+                        seriesBar.getData()
+                                .add(new XYChart.Data<String, Number>("Batracien", rsBatracien.getDouble(1)));
+                        seriesBar.getData().add(new XYChart.Data<String, Number>("Chouette", rsChouette.getDouble(1)));
+                        seriesBar.getData().add(new XYChart.Data<String, Number>("GCI", rsGCI.getDouble(1)));
+                        seriesBar.getData()
+                                .add(new XYChart.Data<String, Number>("Hippocampe", rsHippocampe.getDouble(1)));
+                        seriesBar.getData().add(new XYChart.Data<String, Number>("Loutre", rsLoutre.getDouble(1)));
 
-    //                     xAxis.setLabel("espèce");
-    //                     yAxis.setLabel("observations");
-    //                 } catch (Exception e) {
-    //                     e.getMessage();
-    //                 }
-    //             } else {
-    //                 label.setVisible(true);
-    //             }
+                        seriesBar.setName("nb_obs/espèce");
 
-    //             barChart.getData().add(series);
+                        xAxis.setLabel("espèce");
+                        yAxis.setLabel("observations");
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                } else {
+                    label.setVisible(true);
+                }
 
-    //             label.setVisible(false);
-    //             pieChart.setVisible(false);
-    //             barChart.setVisible(true);
-    //             // lineChart.setVisible(false);
-    //         } else if (chart.equals("Lignes")) {
-    //             label.setVisible(false);
-    //             pieChart.setVisible(false);
-    //             barChart.setVisible(false);
-    //             // lineChart.setVisible(true);
-    //         }
-    //     } else {
-    //         label.setVisible(true);
-    //     }
-    // }
+                barChart.getData().add(seriesBar);
+
+                label.setVisible(false);
+                pieChart.setVisible(false);
+                barChart.setVisible(true);
+                // lineChart.setVisible(false);
+            } else if (chart.equals("Lignes")) {
+                if (species.equals("Batracien")) {
+                    try {
+                        ResultSet rs = connect.executeQuery(
+                                "SELECT heureObs, COUNT(obsB) FROM Obs_Batracien JOIN Observation ON idObs = obsB GROUP BY heureObs ");
+
+                        seriesLine.getData().add(new XYChart.Data<Time, Double>(rs.getTime(1), rs.getDouble(2)));
+
+                        seriesLine.setName("heure/temps");
+
+                        xAxis.setLabel("heure");
+                        yAxis.setLabel("no_obs");
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                    // } else if (species.equals("Chouette")) {
+                    // try {
+                    // ResultSet rs = connect.executeQuery(
+                    // "SELECT heureObs, COUNT(numObs) FROM Obs_Chouette JOIN Observation ON idObs =
+                    // numObs GROUP BY heureObs ");
+
+                    // seriesLine.getData().add(new XYChart.Data<Time, Double>(rs.getTime(1),
+                    // rs.getDouble(2)));
+
+                    // seriesLine.setName("heure/temps");
+
+                    // xAxis.setLabel("heure");
+                    // yAxis.setLabel("no_obs");
+                    // } catch (Exception e) {
+                    // e.getMessage();
+                    // }
+                    // } else if (species.equals("GCI")) {
+                    // try {
+                    // ResultSet rs = connect.executeQuery(
+                    // "SELECT heureObs, COUNT(obsG) FROM Obs_GCI JOIN Observation ON idObs = obsG
+                    // GROUP BY heureObs ");
+
+                    // seriesLine.getData().add(new XYChart.Data<Time, Double>(rs.getTime(1),
+                    // rs.getDouble(2)));
+
+                    // seriesLine.setName("heure/temps");
+
+                    // xAxis.setLabel("heure");
+                    // yAxis.setLabel("no_obs");
+                    // } catch (Exception e) {
+                    // e.getMessage();
+                    // }
+                    // } else if (species.equals("Hippocampe")) {
+                    // try {
+                    // ResultSet rs = connect.executeQuery(
+                    // "SELECT heureObs, COUNT(obsh) FROM Obs_Hippocampe JOIN Observation ON idObs =
+                    // obsH GROUP BY heureObs ");
+
+                    // seriesLine.getData().add(new XYChart.Data<Time, Double>(rs.getTime(1),
+                    // rs.getDouble(2)));
+
+                    // seriesLine.setName("heure/temps");
+
+                    // xAxis.setLabel("heure");
+                    // yAxis.setLabel("no_obs");
+                    // } catch (Exception e) {
+                    // e.getMessage();
+                    // }
+                    // } else if (species.equals("Loutre")) {
+                    // try {
+                    // ResultSet rs = connect.executeQuery(
+                    // "SELECT heureObs, COUNT(obsL) FROM Obs_Loutre JOIN Observation ON idObs =
+                    // obsL GROUP BY heureObs ");
+
+                    // seriesLine.getData().add(new XYChart.Data<Time, Double>(rs.getTime(1),
+                    // rs.getDouble(2)));
+
+                    // seriesLine.setName("heure/temps");
+
+                    // xAxis.setLabel("heure");
+                    // yAxis.setLabel("no_obs");
+                    // } catch (Exception e) {
+                    // e.getMessage();
+                    // }
+                } else {
+                    label.setVisible(true);
+                }
+
+                lineChart.getData().add(seriesLine);
+
+                label.setVisible(false);
+                pieChart.setVisible(false);
+                barChart.setVisible(false);
+                lineChart.setVisible(true);
+            }
+        } else {
+            label.setVisible(true);
+        }
+    }
 
     @FXML
     void handleBtnClick(ActionEvent event) {
