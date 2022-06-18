@@ -5,6 +5,7 @@ import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -21,10 +22,10 @@ public class ControllerLandingPage extends Controller {
     private Button send;
 
     @FXML
-    private MFXTextField username;
+    private MFXPasswordField password = new MFXPasswordField();
 
     @FXML
-    private MFXPasswordField password;
+    private MFXTextField username = new MFXTextField();
 
     private String[] credentials = new String[1];
 
@@ -35,9 +36,19 @@ public class ControllerLandingPage extends Controller {
         
         ResultSet rs = connect.executeQuery("SELECT nom, mdpUtilisateur, permission FROM Utilisateur");
 
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnCount = rsmd.getColumnCount();
+
+        // The column count starts from 1
+        for (int i = 1; i <= columnCount; i++ ) {
+            String name = rsmd.getColumnName(i);
+            // System.out.println(name);
+        // Do stuff with name
+        }
         while (rs.next() && !user) {
-            System.out.println(rs.getString(1));
+            System.out.println(username.getText());
             if (rs.getString("nom").equals(password.getText())) {
+                System.out.println("ok");
                 credentials[0] = rs.getString("mdpUtilisateur");
                 credentials[1] = rs.getString("permission");
                 user = true;

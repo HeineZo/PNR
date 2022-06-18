@@ -12,7 +12,7 @@ public class Controller {
 
     ConnectVPS connect;
     public Controller() {
-        connect = new ConnectVPS("jdbc:mysql://141.94.221.193:3306/bd_pnr", "root", "BigoLeBoss@56");
+        connect = new ConnectVPS("jdbc:mysql://141.94.221.193:3306/bd_pnr", "user", "Mdp@user1");
     }
 
     public void loadStage(String fxml, ActionEvent event) {
