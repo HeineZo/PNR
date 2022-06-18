@@ -25,7 +25,12 @@ public class Connexion {
             sftp.connect();
             System.err.println(sftp.pwd());
 
-            Connection c = DriverManager.getConnection("jdbc:mysql://141.94.221.193:3306/bd_pnr?useSSL=false", "ubuntu", "salutLaFamax@2");
+            Connection c = DriverManager.getConnection("jdbc:mysql://141.94.221.193:3306/bd_pnr?allowPublicKeyRetrieval=true&useSSL=false", "root", "Jesuisroot44");
+            Statement stmt=c.createStatement();  
+            ResultSet rs=stmt.executeQuery("select * from aobserve");  
+            while(rs.next())  
+                System.out.println(rs.getInt(1)+" "+rs.getString(2)+""+rs.getString(3));  
+            c.close(); 
             // Channel channel = session.openChannel("exec");
             // ((ChannelExec)channel).setCommand("mysql -u ubuntu -p;");
             // channel.setInputStream(null);
