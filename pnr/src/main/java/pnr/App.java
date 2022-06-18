@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
-import pnr.modele.ConnectVPS;
+
 
 // import animatefx.animation.*;
 import javafx.application.Application;
@@ -17,7 +17,7 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("vue/Visualiser.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("vue/LandingPage.fxml"));
         Scene scene = new Scene(root);
 
         primaryStage.setMaximized(true);
