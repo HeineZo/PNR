@@ -58,11 +58,14 @@ public class ControllerNouveauProfil extends Controller implements Initializable
                 String nom=res.getString("nom");
                 unique.add(nom);
             }
+
             if(unique.contains(this.txtPseudo.getText())){
                 super.error("Pseudonyme déjà utilisé",anchorPane);
             } else {
                 connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtMdp.getText()+"','"+this.getPerm(this.cbPerm)+"','"+this.txtPrenom.getText()+"');");
                 System.out.println("Utilisateur créé");
+                initConfirmation("NouveauProfil");
+                loadStage("../vue/Confirmation.fxml", event);
             }
         } else {
             System.out.println("controller profil : Données nulles");
