@@ -14,7 +14,7 @@
             <Rectangle2D />
          </viewport>
          <image>
-            <Image url="@/pnr/vue/images/GererProfils/DefaultProfile.png" />
+            <Image url="@images/GererProfils/DefaultProfile.png" />
          </image>
       </ImageView>
    </children>

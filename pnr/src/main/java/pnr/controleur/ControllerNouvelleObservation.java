@@ -40,7 +40,6 @@ public class ControllerNouvelleObservation extends Controller implements Initial
         observatorList.setItems(listObservator);
         observatorList.features().enableBounceEffect();
 		observatorList.features().enableSmoothScrolling(0.5);
-        
     }
 
     @FXML

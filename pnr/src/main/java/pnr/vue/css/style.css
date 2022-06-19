@@ -43,5 +43,13 @@
 	-mfx-main: #2d936d;
 }
 
+.mfx-list-view .virtual-flow .mfx-list-cell {
+    -fx-font-size: 22;
+    
+}
+
+.mfx-list-cell .data-label {
+    -fx-padding: 50;
+}
 
 
