@@ -2,6 +2,7 @@ package pnr.controleur;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,9 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class ControllerNouveauProfil extends Controller implements Initializable{
 
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private Button btnBack;
@@ -44,16 +48,22 @@ public class ControllerNouveauProfil extends Controller implements Initializable
     }
 
     @FXML
-    private void handleBtnClick(ActionEvent event) {
+    private void handleBtnClick(ActionEvent event) throws SQLException {
         if (event.getSource() == btnBack) {
             loadStage("../vue/GererProfilsVide.fxml", event);
         } else if((event.getSource() == btnCreer)&&(txtMdp.getText() != null)&&(cbPerm.getValue() != null)&&(txtPrenom.getText() != null)) { 
-            System.out.println(this.txtPseudo.getText());
-            System.out.println(this.txtMdp.getText());
-            System.out.println(this.getPerm(this.cbPerm));
-            System.out.println(this.txtPrenom.getText());
-            connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtMdp.getText()+"','"+this.getPerm(this.cbPerm)+"','"+this.txtPrenom.getText()+"');");
-            System.out.println("Utilisateur créé");
+            ArrayList<String> unique = new ArrayList<String>();
+            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur");
+            while(res.next()){
+                String nom=res.getString("nom");
+                unique.add(nom);
+            }
+            if(unique.contains(this.txtPseudo.getText())){
+                super.error("Pseudonyme déjà utilisé",anchorPane);
+            } else {
+                connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtMdp.getText()+"','"+this.getPerm(this.cbPerm)+"','"+this.txtPrenom.getText()+"');");
+                System.out.println("Utilisateur créé");
+            }
         } else {
             System.out.println("controller profil : Données nulles");
         }
