@@ -1,30 +1,21 @@
 package pnr.controleur;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 // import animatefx.animation.*;
 import javafx.event.ActionEvent;
 
-public class ControllerChoixAction extends Controller {
-    /*
-    public ControllerChoixAction(String urlImage) {
-        super();
-        if(urlImage != null) {
-            changeImage(urlImage);
-        }
-    }
-    */
-
-    public void changeImage(String url) {
-        Image image = new Image(new File(url).toURI().toString());
-        imgEspece = new ImageView(image);
-    }
+public class ControllerChoixAction extends Controller implements Initializable{
+    private String eventSrc;
 
     @FXML
     private AnchorPane rootPane;
@@ -58,5 +49,30 @@ public class ControllerChoixAction extends Controller {
         } else if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixEspeces.fxml", event);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.eventSrc = this.getEventSrcVisualiser();
+        String urlImage;
+        if (this.eventSrc.equals("Batracien")) {
+            urlImage = "../../../../../target/classes/pnr/vue/images/especes/batracien.png";
+        } else if (this.eventSrc.equals("Chouette")) {
+            urlImage = "../../../../../target/classes/pnr/vue/images/especes/chouette.png";
+        } else if (this.eventSrc.equals("GCI")) {
+            urlImage = "../../../../../target/classes/pnr/vue/images/especes/gci.png";
+        } else if (this.eventSrc.equals("Hippocampe")) {
+            urlImage = "../../../../../target/classes/pnr/vue/images/especes/hippocampe.png";
+        } else if (this.eventSrc.equals("Loutre")) {
+            urlImage = "pnr/target/classes/pnr/vue/images/especes/loutre.png";
+        } else {
+            urlImage = "../../../../../target/classes/pnr/vue/images/especes/batracien.png";
+        }
+        changeImage(urlImage);
+    }
+
+    public void changeImage(String url) {
+        Image image = new Image(new File(url).toURI().toString());
+        imgEspece = new ImageView(image);
     }
 }
