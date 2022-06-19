@@ -19,6 +19,12 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     private Button btnBack;
 
     @FXML
+    private Button envoi;
+
+    @FXML
+    private Button supprimer;
+
+    @FXML
     private ComboBox<String> credentials;
 
     @FXML
@@ -61,7 +67,13 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
             loadStage("../vue/GererProfils.fxml", event);
-        } 
+        } else if (event.getSource() == supprimer){
+            initConfirmation("SuppressionProfil");
+            loadStage("../vue/Confirmation.fxml", event);
+        } else if (event.getSource() == envoi){
+            initConfirmation("ModifierProfil");
+            loadStage("../vue/Confirmation.fxml", event);
+        }
     }
 
 
