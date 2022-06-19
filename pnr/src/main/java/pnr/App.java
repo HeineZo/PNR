@@ -17,7 +17,7 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("vue/LandingPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("vue/NouvelleObservation.fxml"));
         Scene scene = new Scene(root);
 
         primaryStage.setMaximized(true);

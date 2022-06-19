@@ -32,3 +32,16 @@
     -fx-border-color: #2d936d;
     -fx-text-fill: #2d936d;
 }
+
+.root {
+    -fx-background-color:  white;
+}
+
+
+
+.mfx-checkbox {
+	-mfx-main: #2d936d;
+}
+
+
+
