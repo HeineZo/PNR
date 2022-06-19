@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -14,8 +16,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.collections.*?>
-<?import java.lang.String?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerNouveauProfil">
    <children>
@@ -37,7 +37,7 @@
                </GridPane.margin>
             </Text>
             <Group />
-            <Button id="subtitle" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="106.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <Button id="subtitle" fx:id="btnBack" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="44.0" prefWidth="106.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="50.0" top="50.0" />
                </GridPane.margin>
@@ -76,22 +76,22 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Nom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                        <TextField fx:id="txtNom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Nom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets bottom="10.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField layoutX="140.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Prénom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                        <TextField fx:id="txtPrenom" layoutX="140.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Prénom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField layoutX="320.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Mot de passe" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        <TextField fx:id="txtMdp" layoutX="320.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Mot de passe" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets left="10.0" top="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Permission" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #73ac9a #73ac9a; -fx-border-radius: 10; -fx-border-width: 2;" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        <ComboBox fx:id="cbPerm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Permission" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #73ac9a #73ac9a; -fx-border-radius: 10; -fx-border-width: 2;" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets right="10.0" top="10.0" />
                            </GridPane.margin>
@@ -120,7 +120,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #2D936D; -fx-background-radius: 10; -fx-font-size: 16;" text="Créer" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Button id="button" fx:id="btnCreer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #2D936D; -fx-background-radius: 10; -fx-font-size: 16;" text="Créer" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                      </font>

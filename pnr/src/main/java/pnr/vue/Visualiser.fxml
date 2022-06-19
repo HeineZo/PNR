@@ -89,7 +89,7 @@
                         <Insets right="25.0" top="15.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <ComboBox fx:id="comboBoxSpecies" layoutX="368.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#comboChoice" prefHeight="54.0" prefWidth="117.0" promptText="Animal" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #73ac9a #73ac9a; -fx-border-radius: 10; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                  <ComboBox fx:id="comboBoxTypes" layoutX="368.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#comboChoice" prefHeight="54.0" prefWidth="117.0" promptText="Type" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #73ac9a #73ac9a; -fx-border-radius: 10; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="25.0" top="15.0" />
                      </GridPane.margin>
