@@ -1,11 +1,15 @@
 package pnr.controleur;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
-public class ControllerChoixEspeces extends Controller {
+public class ControllerChoixEspeces extends Controller implements Initializable{
 
     @FXML
     private Button btnBatracien;
@@ -47,6 +51,16 @@ public class ControllerChoixEspeces extends Controller {
             loadStage("../vue/ChoixAction.fxml", event);
         } else if (event.getSource() == btnDeco) {
             loadStage("../vue/LandingPage.fxml", event);
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        String name = this.getEventSrcVisualiser();
+        if (name != null) {
+            this.nameUser.setText(this.getEventSrcVisualiser());
+        } else {
+            this.nameUser.setText("Utilisateur inconnu");
         }
     }
 }

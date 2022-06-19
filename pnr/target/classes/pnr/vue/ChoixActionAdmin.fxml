@@ -42,7 +42,7 @@
                         <Font name="Arial Rounded MT Bold" size="37.0" />
                      </font>
                   </Text>
-                  <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="[utilisateur]" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                  <Text id="title" fx:id="nameUser" strokeType="OUTSIDE" strokeWidth="0.0" text="[utilisateur]" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="37.0" />
                      </font>
