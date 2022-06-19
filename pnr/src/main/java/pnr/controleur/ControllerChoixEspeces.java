@@ -3,6 +3,7 @@ package pnr.controleur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 public class ControllerChoixEspeces extends Controller {
 
@@ -11,6 +12,9 @@ public class ControllerChoixEspeces extends Controller {
 
     @FXML
     private Button btnChouette;
+
+    @FXML
+    private Button btnDeco;
 
     @FXML
     private Button btnGCI;
@@ -22,8 +26,10 @@ public class ControllerChoixEspeces extends Controller {
     private Button btnLoutre;
 
     @FXML
+    private Text nameUser;
+
+    @FXML
     private void handleBtnClick(ActionEvent event) {
-        ControllerChoixAction controller;
         if (event.getSource() == btnBatracien) {
             initVisualiser("Batracien");
             loadStage("../vue/ChoixAction.fxml", event);
@@ -39,6 +45,8 @@ public class ControllerChoixEspeces extends Controller {
         } else if (event.getSource() == btnLoutre) {
             initVisualiser("Loutre");
             loadStage("../vue/ChoixAction.fxml", event);
+        } else if (event.getSource() == btnDeco) {
+            loadStage("../vue/LandingPage.fxml", event);
         }
     }
 }

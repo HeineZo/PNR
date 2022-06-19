@@ -25,6 +25,7 @@
             <RowConstraints maxHeight="250.66664632161462" minHeight="10.0" prefHeight="132.00001017252606" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="250.66664632161462" minHeight="10.0" prefHeight="134.66662597656247" vgrow="SOMETIMES" />
             <RowConstraints fillHeight="false" maxHeight="250.66664632161462" minHeight="0.0" percentHeight="5.0" prefHeight="13.3333740234375" vgrow="SOMETIMES" />
+            <RowConstraints fillHeight="false" maxHeight="250.66664632161462" minHeight="0.0" percentHeight="5.0" prefHeight="13.3333740234375" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <GridPane prefHeight="43.0" prefWidth="987.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -178,6 +179,14 @@
                   <Font name="Arial Rounded MT Bold" size="24.0" />
                </font>
             </Text>
+            <Button id="subtitle" fx:id="btnDeco" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="39.0" prefWidth="179.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Déconnexion" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="22.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </GridPane>
    </children>

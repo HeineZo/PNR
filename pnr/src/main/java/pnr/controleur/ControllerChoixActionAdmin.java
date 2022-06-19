@@ -10,6 +10,9 @@ public class ControllerChoixActionAdmin extends Controller {
     private Button btnChoixAction;
 
     @FXML
+    private Button btnDeco;
+
+    @FXML
     private Button btnExport;
 
     @FXML
@@ -33,6 +36,8 @@ public class ControllerChoixActionAdmin extends Controller {
             loadStage("../vue/Sauvegarde.fxml", event);
         } else if (event.getSource() == btnChoixAction) {
             loadStage("../vue/ChoixAction.fxml", event);
+        } else if (event.getSource() == btnDeco) {
+            loadStage("../vue/LandingPage.fxml", event);
         }
     }
 
