@@ -3,6 +3,7 @@ package pnr.controleur;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,10 +19,10 @@ public class ControllerChoixAction extends Controller implements Initializable{
     private String eventSrc;
 
     @FXML
-    private AnchorPane rootPane;
+    private Button btnBack;
 
     @FXML
-    private GridPane gridPane;
+    private Button btnModObs;
 
     @FXML
     private Button btnNewObs;
@@ -30,13 +31,16 @@ public class ControllerChoixAction extends Controller implements Initializable{
     private Button btnVisObs;
 
     @FXML
-    private Button btnModObs;
-
-    @FXML
-    private Button btnBack;
+    private GridPane gridPane;
 
     @FXML
     private ImageView imgEspece;
+
+    @FXML
+    private Text nameEspece;
+
+    @FXML
+    private AnchorPane rootPane;
 
     @FXML
     private void handleBtnClick(ActionEvent event) {
@@ -55,24 +59,40 @@ public class ControllerChoixAction extends Controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         this.eventSrc = this.getEventSrcVisualiser();
         String urlImage;
+        String nameEspece;
         if (this.eventSrc.equals("Batracien")) {
-            urlImage = "../../../../../target/classes/pnr/vue/images/especes/batracien.png";
+            urlImage = "especes/batracien.png";
+            nameEspece = "Batracien";
         } else if (this.eventSrc.equals("Chouette")) {
-            urlImage = "../../../../../target/classes/pnr/vue/images/especes/chouette.png";
+            urlImage = "especes/chouette.png";
+            nameEspece = "Chouette";
         } else if (this.eventSrc.equals("GCI")) {
-            urlImage = "../../../../../target/classes/pnr/vue/images/especes/gci.png";
+            urlImage = "especes/gci.png";
+            nameEspece = "GCI";
         } else if (this.eventSrc.equals("Hippocampe")) {
-            urlImage = "../../../../../target/classes/pnr/vue/images/especes/hippocampe.png";
+            urlImage = "especes/hippocampe.png";
+            nameEspece = "Hippocampe";
         } else if (this.eventSrc.equals("Loutre")) {
-            urlImage = "pnr/target/classes/pnr/vue/images/especes/loutre.png";
+            urlImage = "especes/loutre.png";
+            nameEspece = "Loutre";
         } else {
-            urlImage = "../../../../../target/classes/pnr/vue/images/especes/batracien.png";
+            urlImage = "especes/null.png";
+            nameEspece = "Espece inconnue";
         }
         changeImage(urlImage);
+        changeText(nameEspece);
     }
 
     public void changeImage(String url) {
-        Image image = new Image(new File(url).toURI().toString());
-        imgEspece = new ImageView(image);
+        //File file = new File(url);
+        //Image image = new Image(url);
+        //this.imgEspece.setImage(image);
+
+        Image imProfile = new Image(getClass().getResourceAsStream(url));
+        this.imgEspece.setImage(imProfile);
+    }
+
+    public void changeText(String text) {
+        this.nameEspece.setText(text);
     }
 }
