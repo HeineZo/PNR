@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.*;
+import java.util.Scanner;
 
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -38,4 +35,38 @@ public class Controller {
         }
     }
 
+    public void initVisualiser(String event) {
+        String fileName = "visualiserSrc.txt";
+        File f = new File(fileName);
+
+        f.delete();
+
+        try {
+            FileWriter writer = new FileWriter(fileName);
+
+            writer.write(event);
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+    }
+
+    public String getEventSrcVisualiser() {
+        String fileName = "visualiserSrc.txt";
+        String src = null;
+
+        try {
+            FileReader reader = new FileReader(fileName);
+            Scanner scanner = new Scanner(reader);
+
+            src = scanner.nextLine();
+
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+
+        return src;
+    }
 }
