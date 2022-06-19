@@ -60,24 +60,11 @@ public class ControllerLandingPage extends Controller {
         }
 
         if (!found){
-            this.error("Utilisateur et/ou mot de passe incorrect");
+            super.error("Utilisateur et/ou mot de passe incorrect", anchorPane);
         } 
     }
     
-	private void error(String messageContent) {
-        Stage stage = (Stage) anchorPane.getScene().getWindow();
-        MFXNotificationSystem.instance().initOwner(stage);
-		MFXNotificationCenterSystem.instance().initOwner(stage);
-		MFXNotificationSystem.instance()
-				.setPosition(NotificationPos.BOTTOM_LEFT)
-				.publish(createNotification(messageContent));
-	}
-
-    private INotification createNotification(String content) {
-		ExampleNotification notification = new ExampleNotification();
-		notification.setContentText(content);
-		return notification;
-	}
+	
 
         // if (!user) {
         //     System.err.println("Invalid credentials, please check username");

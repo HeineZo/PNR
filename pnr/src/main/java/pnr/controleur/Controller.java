@@ -6,6 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import io.github.palexdev.materialfx.enums.NotificationPos;
+import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
+import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
+import io.github.palexdev.materialfx.notifications.base.INotification;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -69,4 +73,19 @@ public class Controller {
 
         return src;
     }
+
+    protected void error(String messageContent,AnchorPane anchorPane) {
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        MFXNotificationSystem.instance().initOwner(stage);
+		MFXNotificationCenterSystem.instance().initOwner(stage);
+		MFXNotificationSystem.instance()
+				.setPosition(NotificationPos.BOTTOM_LEFT)
+				.publish(createNotification(messageContent));
+	}
+
+    private INotification createNotification(String content) {
+		ExampleNotification notification = new ExampleNotification();
+		notification.setContentText(content);
+		return notification;
+	}
 }
