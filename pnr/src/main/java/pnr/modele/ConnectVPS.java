@@ -114,4 +114,22 @@ public class ConnectVPS {
          * return ret;
          */
     }
+
+    
+    /**
+     * It executes an update query on the database
+     * 
+     * @param query the query to execute
+     */
+    public void executeUpdate(String query) {
+        if (query != null && isConnected()) {
+            try {
+                stmt.executeUpdate(query);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else {
+            System.err.println("ERROR executeUpdate : query is null");
+        }
+    }
 }
