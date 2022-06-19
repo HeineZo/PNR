@@ -36,7 +36,7 @@ public class ControllerNouveauProfil extends Controller {
         if (event.getSource() == btnBack) {
             loadStage("../vue/GererProfilsVide.fxml", event);
         } else if((event.getSource() == btnCreer)&&(txtMdp.getText() != null)&&(cbPerm.getValue() != null)&&(txtNom.getText() != null)) {
-            ResultSet rs = connect.executeQuery("INSERT INTO Utilisateur VALUES(2,"+this.txtPrenom.getText()+","+this.txtMdp.getText()+","+this.getPerm(this.cbPerm));
+            connect.executeUpdate("INSERT INTO Utilisateur VALUES(2,"+this.txtPrenom.getText()+","+this.txtMdp.getText()+","+this.getPerm(this.cbPerm));
             System.out.println("Utilisateur créé");
         } else {
             System.out.println("controller profil : Données nulles");

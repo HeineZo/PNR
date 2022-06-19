@@ -7,7 +7,7 @@ public class WwdEmbedded {
         ConnectVPS c = new ConnectVPS("jdbc:mysql://141.94.221.193:3306/bd_pnr","user","Mdp@user1");
         ResultSet rs = c.executeQuery("SELECT * FROM Utilisateur");
         String ret = "";
-        while(rs.next()) {
+        while(rs.next()) { 
             ret = ret + rs.getString(1);
         }
         System.out.println(ret);
