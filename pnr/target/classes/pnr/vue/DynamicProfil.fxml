@@ -27,7 +27,7 @@
             <Insets bottom="20.0" left="5.0" />
          </GridPane.margin>
       </ImageView>
-      <Button id="subtitle" fx:id="btnModifierProfil" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="182.0" prefWidth="230.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 22;" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Button id="subtitle" fx:id="btnModifierProfil" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="182.0" prefWidth="230.0" style="-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 22;" text="[nom]" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font name="Arial Rounded MT Bold" size="22.0" />
          </font>
