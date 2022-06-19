@@ -53,7 +53,7 @@ public class ControllerLandingPage extends Controller {
                 if (rs.getString("permission").equals("0")) {
                     loadStage("../vue/ChoixEspeces.fxml", event);
                 } else if (rs.getString("permission").equals("1")) {
-                    loadStage("../vue/ChoixAdmin.fxml", event);
+                    loadStage("../vue/ChoixActionAdmin.fxml", event);
                 } 
             } 
             

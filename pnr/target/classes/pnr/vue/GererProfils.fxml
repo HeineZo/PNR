@@ -33,26 +33,26 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets right="30.0" />
+                        <Insets right="30.0" top="50.0" />
                      </GridPane.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Gérer les profils" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                  <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Gérer les profils" GridPane.valignment="TOP">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="37.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="50.0" />
+                        <Insets left="50.0" top="50.0" />
                      </GridPane.margin>
                   </Text>
-                  <Button id="subtitle" fx:id="btnNouveauProfil" layoutX="865.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 18;" text="Nouveau profil" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button id="subtitle" fx:id="btnNouveauProfil" layoutX="865.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="38.0" prefWidth="200.0" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 18;" text="Nouveau profil" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
@@ -65,13 +65,16 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <GridPane.margin>
+                        <Insets right="150.0" top="50.0" />
+                     </GridPane.margin>
                   </Button>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <image>
                         <Image url="@images/GererProfilsVide/plus.png" />
                      </image>
                      <GridPane.margin>
-                        <Insets right="150.0" />
+                        <Insets right="315.0" top="63.0" />
                      </GridPane.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
