@@ -51,8 +51,10 @@ public class ControllerLandingPage extends Controller {
             if(rs.getString("nom").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
                 found = true;
                 if (rs.getString("permission").equals("0")) {
+                    initVisualiser(username.getText());
                     loadStage("../vue/ChoixEspeces.fxml", event);
                 } else if (rs.getString("permission").equals("1")) {
+                    initVisualiser(username.getText());
                     loadStage("../vue/ChoixActionAdmin.fxml", event);
                 } 
             } 
