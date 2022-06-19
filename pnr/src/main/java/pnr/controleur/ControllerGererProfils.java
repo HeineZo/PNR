@@ -12,14 +12,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import io.github.palexdev.materialfx.controls.MFXTableView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 public class ControllerGererProfils extends Controller implements Initializable{
@@ -34,12 +30,12 @@ public class ControllerGererProfils extends Controller implements Initializable{
     private Button btnNouveauProfil;
 
     @FXML
-    private MFXTableView<GridPane> table;
+    private GridPane gridPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            loadUI("../vue/DynamicProfil.fxml", table);
+            loadUI("../vue/DynamicProfil.fxml", gridPane);
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -56,24 +52,24 @@ public class ControllerGererProfils extends Controller implements Initializable{
         }
     }
 
-    public void loadUI(String ui, MFXTableView<GridPane> table) throws SQLException, IOException{
+    public void loadUI(String ui, GridPane gridPane) throws SQLException, IOException{
         
         int i = 0;
         int j = 0;
         GridPane root = FXMLLoader.load(getClass().getResource(ui));
-
-        ArrayList<GridPane> list = new ArrayList<GridPane>();
         
         ResultSet rs = connect.executeQuery("SELECT nom FROM Utilisateur");
         
         while(rs.next()) {
+            if (i > 2) {
+                i = 0;
+            } 
+
             ((Labeled) root.getChildren().get(1)).setText(rs.getString("nom"));
-            list.add(root);
+            gridPane.add(root, i, j);
+            i++;
+            j++;
         }
-        
-        System.out.println(list.toString());
-        ObservableList<GridPane> buttonList= FXCollections.observableArrayList(list);
-        table.setItems(buttonList);
         
         connect.disconnect();
     }
