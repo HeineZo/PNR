@@ -51,8 +51,10 @@ public class ControllerLandingPage extends Controller {
             if(rs.getString("nom").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
                 found = true;
                 if (rs.getString("permission").equals("0")) {
+                    initVisualiser(username.getText());
                     loadStage("../vue/ChoixEspeces.fxml", event);
                 } else if (rs.getString("permission").equals("1")) {
+                    initVisualiser(username.getText());
                     loadStage("../vue/ChoixActionAdmin.fxml", event);
                 } 
             } 
@@ -60,24 +62,11 @@ public class ControllerLandingPage extends Controller {
         }
 
         if (!found){
-            this.error("Utilisateur et/ou mot de passe incorrect");
+            super.error("Utilisateur et/ou mot de passe incorrect", anchorPane);
         } 
     }
     
-	private void error(String messageContent) {
-        Stage stage = (Stage) anchorPane.getScene().getWindow();
-        MFXNotificationSystem.instance().initOwner(stage);
-		MFXNotificationCenterSystem.instance().initOwner(stage);
-		MFXNotificationSystem.instance()
-				.setPosition(NotificationPos.BOTTOM_LEFT)
-				.publish(createNotification(messageContent));
-	}
-
-    private INotification createNotification(String content) {
-		ExampleNotification notification = new ExampleNotification();
-		notification.setContentText(content);
-		return notification;
-	}
+	
 
         // if (!user) {
         //     System.err.println("Invalid credentials, please check username");

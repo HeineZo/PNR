@@ -43,7 +43,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette" GridPane.valignment="CENTER">
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="150.0" top="10.0" />
                </GridPane.margin>
