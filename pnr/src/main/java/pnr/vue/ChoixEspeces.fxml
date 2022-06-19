@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerChoixEspeces">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -36,7 +36,7 @@
                   <RowConstraints maxHeight="217.00001525878906" minHeight="1.0000101725260464" prefHeight="83.39998779296872" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button id="button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Chouette" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <Button id="button" fx:id="btnChouette" alignment="CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Chouette" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -49,7 +49,7 @@
                         <Font name="Arial Rounded MT Bold" size="22.0" />
                      </font>
                   </Text>
-                  <Button id="button" alignment="CENTER" layoutX="410.0" layoutY="91.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Hippocampe" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <Button id="button" fx:id="btnHippo" alignment="CENTER" layoutX="410.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Hippocampe" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -57,7 +57,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="button" alignment="CENTER" layoutX="410.0" layoutY="171.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Loutre" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                  <Button id="button" fx:id="btnLoutre" alignment="CENTER" layoutX="410.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Loutre" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -65,7 +65,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="button" alignment="CENTER" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="GCI" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <Button id="button" fx:id="btnGCI" alignment="CENTER" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="GCI" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -73,7 +73,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="button" alignment="CENTER" layoutX="410.0" layoutY="331.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Batracien" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                  <Button id="button" fx:id="btnBatracien" alignment="CENTER" layoutX="410.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Batracien" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -97,7 +97,7 @@
                         <Insets right="5.0" />
                      </GridPane.margin>
                   </Text>
-                  <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="[utilisateur]" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                  <Text id="title" fx:id="nameUser" strokeType="OUTSIDE" strokeWidth="0.0" text="[utilisateur]" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="37.0" />
                      </font>

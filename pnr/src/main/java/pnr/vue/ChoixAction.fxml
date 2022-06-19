@@ -24,7 +24,7 @@
             <RowConstraints maxHeight="235.99998982747394" minHeight="10.0" prefHeight="41.33335876464844" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView id="chouettepic" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
+            <ImageView id="chouettepic" fx:id="imgEspece" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
                <image>
                   <Image url="@images/especes/chouette.png" />
                </image>
