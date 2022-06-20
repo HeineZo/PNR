@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerSauvegarde">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerSauvegarde">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="711.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -44,7 +44,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text id="subtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Sauvegarder/Importer" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Text id="subtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Exporter / Importer" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial Rounded MT Bold" size="30.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button id="button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Exporter" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Button id="button" fx:id="export" alignment="CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Exporter" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <font>
                   <Font name="Arial Rounded MT Bold" size="22.0" />
                </font>
