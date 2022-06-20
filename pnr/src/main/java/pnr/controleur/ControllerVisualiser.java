@@ -112,12 +112,17 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 this.tlistTypes.add("Espèce");
             } else if (this.eventSrc.equals("Chouette")) {
                 this.tlistTypes.add("Espèce");
+                this.tlistTypes.add("TypeObs");
+                this.tlistTypes.add("Sexe");
             } else if (this.eventSrc.equals("GCI")) {
                 this.tlistTypes.add("Plage");
+                this.tlistTypes.add("RaisonArrêtObs");
+                this.tlistTypes.add("Nature");
             } else if (this.eventSrc.equals("Hippocampe")) {
                 this.tlistTypes.add("Espèce");
+                this.tlistTypes.add("Sexe");
             } else if (this.eventSrc.equals("Loutre")) {
-                this.tlistTypes.add("Indice");
+                this.tlistTypes.add("Commune");
             }
 
             this.tlistTypes.add("Observateur");
@@ -155,7 +160,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             if (this.eventSrc.equals("Batracien")) {
                 try {
                     ResultSet rs = connect
-                            .executeQuery("SELECT COUNT(obsB), espece FROM Obs_Batracien GROUP BY espece ");
+                            .executeQuery("SELECT COUNT(*), espece FROM Obs_Batracien GROUP BY espece ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -166,7 +171,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("Chouette")) {
                 try {
                     ResultSet rs = connect
-                            .executeQuery("SELECT COUNT(numIndividu), espece FROM Chouette GROUP BY espece ");
+                            .executeQuery("SELECT COUNT(*), espece FROM Chouette GROUP BY espece ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -177,7 +182,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("Hippocampe")) {
                 try {
                     ResultSet rs = connect
-                            .executeQuery("SELECT COUNT(obsH), espece FROM Obs_Hippocampe GROUP BY espece ");
+                            .executeQuery("SELECT COUNT(*), espece FROM Obs_Hippocampe GROUP BY espece ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -185,14 +190,12 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 } catch (Exception e) {
                     e.getMessage();
                 }
-            } else {
-                this.label.setVisible(true);
             }
         } else if (type.equals("Observateur")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(obsB), nom FROM Obs_Batracien JOIN AObserve ON obsB = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+                            "SELECT COUNT(*), nom FROM Obs_Batracien JOIN AObserve ON obsB = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -203,7 +206,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("Chouette")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(numIndividu), nom FROM Chouette JOIN AObserve ON numIndividu = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+                            "SELECT COUNT(*), nom FROM Obs_Chouette JOIN AObserve ON numObs = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -214,7 +217,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("GCI")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(obsG), nom FROM Obs_GCI JOIN AObserve ON obsG = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+                            "SELECT COUNT(*), nom FROM Obs_GCI JOIN AObserve ON obsG = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -225,7 +228,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("Hippocampe")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(obsH), nom FROM Obs_Hippocampe JOIN AObserve ON obsH = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+                            "SELECT COUNT(*), nom FROM Obs_Hippocampe JOIN AObserve ON obsH = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -236,7 +239,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("Loutre")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(obsL), nom FROM Obs_Loutre JOIN AObserve ON obsL = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+                            "SELECT COUNT(*), nom FROM Obs_Loutre JOIN AObserve ON obsL = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
 
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
@@ -244,8 +247,106 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 } catch (Exception e) {
                     e.getMessage();
                 }
-            } else {
-                this.label.setVisible(true);
+            }
+        } else if (type.equals("Plage")) {
+            if (this.eventSrc.equals("GCI")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), nomPlage FROM Nid_GCI GROUP BY nomPlage ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("TypeObs")) {
+            if (this.eventSrc.equals("Chouette")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), typeObs FROM Obs_Chouette GROUP BY typeObs ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("Commune")) {
+            if (this.eventSrc.equals("Loutre")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), commune FROM Obs_Chouette GROUP BY commune ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("Sexe")) {
+            if (this.eventSrc.equals("Chouette")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), sexe FROM Chouette GROUP BY sexe ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            } else if (this.eventSrc.equals("GCI")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), bagueMale, bagueFemelle FROM Obs_GCI GROUP BY bagueMale, bagueFemelle ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            } else if (this.eventSrc.equals("Hippocampe")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), sexe FROM Obs_Hippocampe GROUP BY sexe ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("RaisonArrêtObs")) {
+            if (this.eventSrc.equals("GCI")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), raisonArretObservation FROM Nid_GCI GROUP BY raisonArretObservation ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("Nature")) {
+            if (this.eventSrc.equals("GCI")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), nature FROM Obs_GCI GROUP BY nature ");
+
+                    while (rs.next()) {
+                        this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             }
         }
 
@@ -263,16 +364,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
         if (type.equals("Date")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
-                    ResultSet rsBatracien = connect.executeQuery(
-                            "SELECT COUNT(obsB), dateObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY dateObs ");
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), dateObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY dateObs ");
 
-                    while (rsBatracien.next()) {
-                        if (rsBatracien.getString(2) != null) {
-                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rsBatracien.getString(2),
-                                    rsBatracien.getDouble(1)));
+                    while (rs.next()) {
+                        if (rs.getString(2) != null) {
+                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                    rs.getDouble(1)));
                         } else {
                             this.seriesBar.getData().add(
-                                    new XYChart.Data<String, Number>("date inconnue", rsBatracien.getDouble(1)));
+                                    new XYChart.Data<String, Number>("date inconnue", rs.getDouble(1)));
                         }
                     }
 
@@ -289,16 +390,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
         } else if (type.equals("Heure")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
-                    ResultSet rsBatracien = connect.executeQuery(
-                            "SELECT COUNT(obsB), heureObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY heureObs ");
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), heureObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY heureObs ");
 
-                    while (rsBatracien.next()) {
-                        if (rsBatracien.getString(2) != null) {
-                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rsBatracien.getString(2),
-                                    rsBatracien.getDouble(1)));
+                    while (rs.next()) {
+                        if (rs.getString(2) != null) {
+                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                    rs.getDouble(1)));
                         } else {
                             this.seriesBar.getData().add(
-                                    new XYChart.Data<String, Number>("heure inconnue", rsBatracien.getDouble(1)));
+                                    new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
                         }
                     }
 
@@ -309,8 +410,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 } catch (Exception e) {
                     e.getMessage();
                 }
-            } else {
-                this.label.setVisible(true);
             }
         }
 
@@ -330,16 +429,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
         if (type.equals("Heure")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
-                    ResultSet rsBatracien = connect.executeQuery(
+                    ResultSet rs = connect.executeQuery(
                             "SELECT COUNT(obsB), heureObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY heureObs ");
 
-                    while (rsBatracien.next()) {
-                        if (rsBatracien.getString(2) != null) {
-                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rsBatracien.getString(2),
-                                    rsBatracien.getDouble(1)));
+                    while (rs.next()) {
+                        if (rs.getString(2) != null) {
+                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                    rs.getDouble(1)));
                         } else {
                             this.seriesBar.getData().add(
-                                    new XYChart.Data<String, Number>("heure inconnue", rsBatracien.getDouble(1)));
+                                    new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
                         }
                     }
 
@@ -350,8 +449,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 } catch (Exception e) {
                     e.getMessage();
                 }
-            } else {
-                this.label.setVisible(true);
             }
         }
 
