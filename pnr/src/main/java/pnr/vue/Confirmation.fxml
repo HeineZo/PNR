@@ -56,7 +56,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MFXButton>
-                  <MFXButton fx:id="btn1" layoutX="211.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="200.0" rippleColor="WHITE" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Nouvelle &#10;observation" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3">
+                  <MFXButton fx:id="btn1" buttonType="RAISED" depthLevel="LEVEL1" layoutX="211.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="200.0" rippleColor="WHITE" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Nouvelle &#10;observation" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="3">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

@@ -5,8 +5,17 @@ import pnr.modele.donneeAddsOn.*;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
+
+
+import io.github.palexdev.materialfx.controls.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.MFXTableView;
+import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +32,9 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 
     private String eventSrc;
 
+    @FXML
+    private MFXTableView<ObsBatracien> batracien;
+    
     @FXML
     private ImageView imgEspece;
 
@@ -77,7 +89,13 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         this.eventSrc = this.getEventSrcVisualiser();
 
         imgIcn();
-        table();
+        // table();
+        try {
+            setupTable();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private void imgIcn() {
@@ -137,6 +155,39 @@ public class ControllerVisualiserTables extends Controller implements Initializa
             this.tbvHippocampe.setVisible(false);
             this.tbvLoutre.setVisible(true);
         }
+    }
+
+    private void setupTable() throws SQLException {
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Batracien");
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnCount = rsmd.getColumnCount();
+        
+        ArrayList<String> list = new ArrayList<String>();
+        // The column count starts from 1
+        for (int i = 1; i <= columnCount; i++ ) {
+         String name = rsmd.getColumnName(i);
+         list.add(name);
+        }
+
+        
+       
+        // while (rs.next()) {
+        //     if (rs.getString("nom").equals(this.eventSrc)) {
+        //         this.nom.setText(rs.getString("nom"));
+        //         this.prenom.setText(rs.getString("prenom"));
+        //         this.password.setText(rs.getString("mdpUtilisateur"));
+        //         this.username.setText(rs.getString("pseudonyme"));
+        //         if (rs.getString("permission").equals("0")){
+        //             this.credentials.setValue("Utilisateur");
+        //         } else {
+        //             this.credentials.setValue("Administrateur");
+        //         }
+        //     }
+        // }
+        MFXTableColumn<EspeceBatracien> nameColumn = new MFXTableColumn<>("Name", true);
+        // nameColumn.setRowCellFactory(batracien -> new MFXTableRowCell<>(ObsBatracien::getEspeceBatracien));
+
+        
     }
 
     @FXML
