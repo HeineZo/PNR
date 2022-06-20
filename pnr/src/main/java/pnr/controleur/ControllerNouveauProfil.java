@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -26,6 +27,9 @@ public class ControllerNouveauProfil extends Controller implements Initializable
 
     @FXML
     private Button btnCreer;
+
+    @FXML
+    private Label livePseudo;
 
     @FXML
     private TextField txtPrenom;
@@ -60,6 +64,7 @@ public class ControllerNouveauProfil extends Controller implements Initializable
             checkDisable();
         });
         this.txtPseudo.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.livePseudo.setText(newValue);
             checkDisable();
         });
         this.cbPerm.valueProperty().addListener((observable, oldValue, newValue) -> {
