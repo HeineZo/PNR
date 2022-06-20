@@ -60,24 +60,22 @@ public class ControllerChoixAction extends Controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         String urlImage = "";
         String nameEspece = "";
-        if (this.eventSrc != null) {
-            this.eventSrc = this.getEventSrcVisualiser();
-            if (this.eventSrc.equals("Batracien")) {
-                urlImage = "especes/batracien.png";
-                nameEspece = "Batracien";
-            } else if (this.eventSrc.equals("Chouette")) {
-                urlImage = "especes/chouette.png";
-                nameEspece = "Chouette";
-            } else if (this.eventSrc.equals("GCI")) {
-                urlImage = "especes/gci.png";
-                nameEspece = "GCI";
-            } else if (this.eventSrc.equals("Hippocampe")) {
-                urlImage = "especes/hippocampe.png";
-                nameEspece = "Hippocampe";
-            } else if (this.eventSrc.equals("Loutre")) {
-                urlImage = "especes/loutre.png";
-                nameEspece = "Loutre";
-            } 
+        this.eventSrc = this.getEventSrcVisualiser();
+        if (this.eventSrc.equals("Batracien")) {
+            urlImage = "especes/batracien.png";
+            nameEspece = "Batracien";
+        } else if (this.eventSrc.equals("Chouette")) {
+            urlImage = "especes/chouette.png";
+            nameEspece = "Chouette";
+        } else if (this.eventSrc.equals("GCI")) {
+            urlImage = "especes/gci.png";
+            nameEspece = "GCI";
+        } else if (this.eventSrc.equals("Hippocampe")) {
+            urlImage = "especes/hippocampe.png";
+            nameEspece = "Hippocampe";
+        } else if (this.eventSrc.equals("Loutre")) {
+            urlImage = "especes/loutre.png";
+            nameEspece = "Loutre";
         } else {
             urlImage = "especes/null.png";
             nameEspece = "Espece inconnue";
