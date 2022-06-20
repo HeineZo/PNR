@@ -1,149 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerChoixAction">
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerChoixAction">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="80.0" />
+   </rowConstraints>
    <children>
-      <GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView id="chouettepic" fx:id="imgEspece" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
+         <image>
+            <Image url="@images/especes/chouette.png" />
+         </image>
+         <GridPane.margin>
+            <Insets left="40.0" top="10.0" />
+         </GridPane.margin>
+      </ImageView>
+      <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="40.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Arial Rounded MT Bold" size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets left="150.0" top="10.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Arial Rounded MT Bold" size="37.0" />
+         </font>
+      </Text>
+      <Text id="subtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Que voulez-vous faire ?" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="30.0" />
+         </font>
+      </Text>
+      <GridPane GridPane.rowIndex="1">
         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="155.00001220703126" minHeight="10.0" prefHeight="155.00001220703126" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="302.66664123535156" minHeight="10.0" prefHeight="203.79998779296875" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="235.99998982747394" minHeight="10.0" prefHeight="41.33335876464844" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView id="chouettepic" fx:id="imgEspece" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
-               <image>
-                  <Image url="@images/especes/chouette.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="40.0" top="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
-               <GridPane.margin>
-                  <Insets right="40.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="22.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets left="150.0" top="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="37.0" />
-               </font>
-            </Text>
-            <GridPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="171.0" prefWidth="1000.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <AnchorPane fx:id="btnNewObs" onMouseClicked="#handleBtnClick" prefHeight="250.0" prefWidth="200.0" styleClass="choice" stylesheets="@css/style.css" GridPane.columnIndex="1">
-                     <children>
-                        <Label alignment="TOP_CENTER" layoutX="43.0" layoutY="24.0" text="Nouvelle&#10;observation" textAlignment="CENTER" />
-                        <ImageView fitHeight="52.0" fitWidth="46.0" layoutX="77.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/ChoixAction/NO.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <GridPane GridPane.columnIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@images/ChoixAction/VD.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <Button id="subtitle" fx:id="btnVisObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" styleClass="choice" stylesheets="@css/style.css" text="Visualiser &#10;les données" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="22.0" />
-                     </font>
+            <MFXButton fx:id="btnModObs" contentDisplay="BOTTOM" onAction="#handleBtnClick" prefHeight="184.0" prefWidth="181.0" rippleAnimateShadow="true" styleClass="choice" stylesheets="@css/style.css" text="Modifier&#10;les données" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <graphic>
+                  <ImageView fitHeight="82.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/ChoixAction/MD.png" />
+                     </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </Button>
-                  <GridPane layoutX="250.0" layoutY="10.0" GridPane.columnIndex="3">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <ImageView fitHeight="82.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@images/ChoixAction/MD.png" />
-                           </image>
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </GridPane>
-                  <Button id="subtitle" fx:id="btnModObs" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="170.0" prefWidth="190.0" styleClass="choice" stylesheets="@css/style.css" text="Modifier&#10;les données" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="22.0" />
-                     </font>
+                  </ImageView>
+               </graphic>
+            </MFXButton>
+            <MFXButton fx:id="btnNewObs" contentDisplay="BOTTOM" onAction="#handleBtnClick" prefHeight="184.0" prefWidth="181.0" rippleAnimateShadow="true" styleClass="choice" stylesheets="@css/style.css" text="Nouvelle&#10;observation" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <graphic>
+                  <ImageView fitHeight="52.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/ChoixAction/NO.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MFXButton>
+            <MFXButton fx:id="btnVisObs" contentDisplay="BOTTOM" onAction="#handleBtnClick" prefHeight="184.0" prefWidth="181.0" rippleAnimateShadow="true" styleClass="choice" stylesheets="@css/style.css" text="Visualiser&#10;les données" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <graphic>
+                  <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/ChoixAction/VD.png" />
+                     </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </Button>
-               </children>
-            </GridPane>
-            <Text id="subtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Que voulez-vous faire ?" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="30.0" />
-               </font>
-            </Text>
+                  </ImageView>
+               </graphic>
+            </MFXButton>
          </children>
       </GridPane>
    </children>
-</AnchorPane>
+</GridPane>

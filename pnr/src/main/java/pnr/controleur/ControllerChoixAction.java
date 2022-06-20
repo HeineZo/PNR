@@ -12,6 +12,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 // import animatefx.animation.*;
 import javafx.event.ActionEvent;
 
@@ -22,13 +23,13 @@ public class ControllerChoixAction extends Controller implements Initializable{
     private Button btnBack;
 
     @FXML
-    private Button btnModObs;
+    private AnchorPane btnModObs;
 
     @FXML
-    private Button btnNewObs;
+    private MFXButton btnNewObs;
 
     @FXML
-    private Button btnVisObs;
+    private AnchorPane btnVisObs;
 
     @FXML
     private GridPane gridPane;
