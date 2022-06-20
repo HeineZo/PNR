@@ -61,7 +61,7 @@ public class Controller {
     }
 
     public void initPermission(String event) {
-        String fileName = "permissionSrc.txt";
+        String fileName = "logs/permissionSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -78,7 +78,7 @@ public class Controller {
     }
 
     public void initNomUser(String event) {
-        String fileName = "nomUserSrc.txt";
+        String fileName = "logs/nomUserSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -95,7 +95,7 @@ public class Controller {
     }
 
     public void initVisualiser(String event) {
-        String fileName = "visualiserSrc.txt";
+        String fileName = "logs/visualiserSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -112,7 +112,7 @@ public class Controller {
     }
 
     public void initConfirmation(String event) {
-        String fileName = "confirmationSrc.txt";
+        String fileName = "logs/confirmationSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -129,7 +129,7 @@ public class Controller {
     }
 
     public String getEventSrcVisualiser() {
-        String fileName = "visualiserSrc.txt";
+        String fileName = "logs/visualiserSrc.txt";
         String src = null;
 
         try {
@@ -147,7 +147,7 @@ public class Controller {
     }
 
     public String getEventSrcPermission() {
-        String fileName = "PermissionSrc.txt";
+        String fileName = "logs/permissionSrc.txt";
         String src = null;
 
         try {
@@ -165,7 +165,7 @@ public class Controller {
     }
 
     public String getEventSrcNomUser() {
-        String fileName = "nomUserSrc.txt";
+        String fileName = "logs/nomUserSrc.txt";
         String src = null;
 
         try {
@@ -183,7 +183,7 @@ public class Controller {
     }
 
     public String getEventSrcConfirmation() {
-        String fileName = "confirmationSrc.txt";
+        String fileName = "logs/confirmationSrc.txt";
         String src = null;
 
         try {
