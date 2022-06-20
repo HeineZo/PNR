@@ -26,6 +26,14 @@
             <RowConstraints maxHeight="176.79998779296875" minHeight="10.0" prefHeight="114.66664632161462" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <Text id="title" fx:id="nameUser" fill="#2d936d" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="37.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
             <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="462.0" prefWidth="1000.0" GridPane.rowIndex="2">
                <columnConstraints>
                   <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -85,33 +93,6 @@
                      </cursor>
                   </Button>
                </children>
-            </GridPane>
-            <GridPane prefHeight="43.0" prefWidth="987.0" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-               <children>
-                  <Text id="title" fill="#2d936d" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue" GridPane.halignment="RIGHT">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="37.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets right="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text id="title" fx:id="nameUser" strokeType="OUTSIDE" strokeWidth="0.0" text="[utilisateur]" GridPane.columnIndex="1" GridPane.halignment="LEFT">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="37.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="5.0" />
-                     </GridPane.margin>
-                  </Text>
-               </children>
-               <rowConstraints>
-                  <RowConstraints />
-               </rowConstraints>
             </GridPane>
             <MFXButton fx:id="btnDeco" onAction="#handleBtnClick" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Déconnexion" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <GridPane.margin>
