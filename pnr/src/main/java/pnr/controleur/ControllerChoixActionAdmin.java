@@ -44,7 +44,7 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
         } else if (event.getSource() == btnExport) {
             loadStage("../vue/Sauvegarde.fxml", event);
         } else if (event.getSource() == btnChoixAction) {
-            loadStage("../vue/ChoixAction.fxml", event);
+            loadStage("../vue/ChoixEspeces.fxml", event);
         } else if (event.getSource() == btnDeco) {
             loadStage("../vue/LandingPage.fxml", event);
         }

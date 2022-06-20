@@ -50,7 +50,11 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
             initVisualiser("Loutre");
             loadStage("../vue/ChoixAction.fxml", event);
         } else if (event.getSource() == btnDeco) {
-            loadStage("../vue/LandingPage.fxml", event);
+            if (btnDeco.getText().equals("Retour")){
+                loadStage("../vue/ChoixActionAdmin.fxml", event);
+            } else {
+                loadStage("../vue/LandingPage.fxml", event);
+            }
         }
     }
 
@@ -61,6 +65,10 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
             this.nameUser.setText(this.getEventSrcNomUser());
         } else {
             this.nameUser.setText("Utilisateur inconnu");
+        }
+
+        if (this.getEventSrcPermission().equals("1")){
+            this.btnDeco.setText("Retour");
         }
     }
 }
