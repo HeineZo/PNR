@@ -87,14 +87,14 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         }
         if (!(this.pseudonyme.getText().equals(""))){
             ArrayList<String> unique = new ArrayList<String>();
-            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"');");
+            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
             while(res.next()){
                 String nom=res.getString("nom");
                 unique.add(nom);
             }
             if ((event.getSource() == supprimer)){
                 if(unique.contains(this.pseudonyme.getText())){
-                    connect.executeUpdate("DELETE FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"');");
+                    connect.executeUpdate("DELETE FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
                     initConfirmation("SuppressionProfil");
                     loadStage("../vue/Confirmation.fxml", event);
                 } else {
@@ -103,7 +103,7 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
             } else if (event.getSource() == envoi){
                 if(unique.contains(this.pseudonyme.getText())){
                     ArrayList<String> lUser = new ArrayList<String>();
-                    ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur WHERE nom ='"+pseudo+"');");
+                    ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
                     while(rs.next()){
                         lUser.add(rs.getString("nom"));
                         lUser.add(rs.getString("mdpUtilisateur"));
@@ -111,24 +111,24 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                         lUser.add(rs.getString("prenom"));
                     }
                     if (!(lUser.get(0).equals(this.pseudonyme.getText()))){
-                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+pseudo+"');");
+                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+this.pseudonyme.getText()+"';");
                     }
                     if ((!(lUser.get(1).equals(this.password.getText()))) && this.password.getText() != null){
-                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET mdpUtilisateur ='"+this.password.getText()+"');");
+                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET mdpUtilisateur ='"+this.password.getText()+"';");
                     }
                     if (lUser.get(2).equals("0")){
                         String permission = "Utilisateur";
                         if ((!(permission.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
-                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '1');");
+                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '1';");
                         }
                     } else {
                         String permission2 = "Administrateur";
                         if ((!(permission2.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
-                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '0');");
+                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '0';");
                         }
                     }
                     if ((!(lUser.get(3).equals(this.prenom.getText()))) && this.prenom.getText() != null){
-                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+this.prenom.getText()+"');");
+                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+this.prenom.getText()+"';");
                     }
                     initConfirmation("ModifierProfil");
                     loadStage("../vue/Confirmation.fxml", event);
