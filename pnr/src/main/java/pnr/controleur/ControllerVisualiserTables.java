@@ -16,34 +16,29 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-public class ControllerVisualiser extends Controller implements Initializable {
+public class ControllerVisualiserTables extends Controller implements Initializable {
 
     private String eventSrc;
 
     @FXML
-    private GridPane gridpane;
+    private TableView<> tbvBatracien;
 
     @FXML
-    private ImageView imgEspece;
+    private TableView<> tbvChouette;
 
     @FXML
-    private PieChart pieChart;
+    private TableView<> tbvGCI;
 
     @FXML
-    private BarChart<String, Number> barChart;
+    private TableView<> tbvHippocampe;
 
     @FXML
-    private LineChart<String, Number> lineChart;
-
-    @FXML
-    private ComboBox<String> comboBoxChoices;
-
-    @FXML
-    private ComboBox<String> comboBoxTypes;
+    private TableView<> tbvLoutre;
 
     private ObservableList<String> tlistChoices = FXCollections.observableArrayList();
     private ObservableList<String> tlistTypes = FXCollections.observableArrayList();
@@ -54,10 +49,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private XYChart.Series<String, Number> seriesLine = new XYChart.Series<String, Number>();
 
     @FXML
-    private Label label;
-
-    @FXML
-    private Button bddView;
+    private Label count;
 
     @FXML
     private Button btnBack;
@@ -69,7 +61,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
         imgIcn();
 
         this.gridpane.setVisible(false);
-        this.label.setVisible(true);
+        this.count.setVisible(true);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(false);
@@ -111,7 +103,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
         this.comboBoxTypes.getItems().clear();
 
         this.gridpane.setVisible(false);
-        this.label.setVisible(true);
+        this.count.setVisible(true);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(false);
@@ -192,7 +184,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             position(type);
         } else {
             this.gridpane.setVisible(false);
-            this.label.setVisible(true);
+            this.count.setVisible(true);
         }
     }
 
@@ -396,7 +388,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
         this.pieChart.setData(this.dataPie);
 
         this.gridpane.setVisible(true);
-        this.label.setVisible(false);
+        this.count.setVisible(false);
         this.pieChart.setVisible(true);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(false);
@@ -427,7 +419,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 }
             } else {
                 this.gridpane.setVisible(false);
-                this.label.setVisible(true);
+                this.count.setVisible(true);
             }
         }
 
@@ -435,7 +427,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
         this.barChart.setData(this.dataBar);
 
         this.gridpane.setVisible(true);
-        this.label.setVisible(false);
+        this.count.setVisible(false);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(true);
         this.lineChart.setVisible(false);
@@ -507,14 +499,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
             }
         } else {
             this.gridpane.setVisible(false);
-            this.label.setVisible(true);
+            this.count.setVisible(true);
         }
 
         this.dataLine.add(this.seriesLine);
         this.lineChart.setData(this.dataLine);
 
         this.gridpane.setVisible(true);
-        this.label.setVisible(false);
+        this.count.setVisible(false);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(true);

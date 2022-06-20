@@ -110,25 +110,25 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         if (event.getSource() == btnBack) {
             loadStage("../vue/GererProfils.fxml", event);
         }
-        if (!(this.nom.getText().equals(""))){
+        if (!(this.username.getText().equals(""))){
             ArrayList<String> unique = new ArrayList<String>();
-            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur WHERE nom ='"+this.nom.getText()+"';");
+            ResultSet res = connect.executeQuery("SELECT pseudonyme FROM Utilisateur WHERE pseudonyme ='"+this.username.getText()+"';");
             while(res.next()){
-                String nom=res.getString("nom");
-                unique.add(nom);
+                String pseudo=res.getString("pseudonyme");
+                unique.add(pseudo);
             }
             if ((event.getSource() == supprimer)){
-                if(unique.contains(this.nom.getText())){
-                    connect.executeUpdate("DELETE FROM Utilisateur WHERE nom ='"+this.nom.getText()+"';");
+                if(unique.contains(this.username.getText())){
+                    connect.executeUpdate("DELETE FROM Utilisateur WHERE pseudonyme ='"+this.username.getText()+"';");
                     initConfirmation("SuppressionProfil");
                     loadStage("../vue/Confirmation.fxml", event);
                 } else {
                     super.error("L'utilisateur n'existe pas",anchorPane);
                 }   
             } else if (event.getSource() == envoi){
-                if(unique.contains(this.nom.getText())){
+                if(unique.contains(this.username.getText())){
                     ArrayList<String> lUser = new ArrayList<String>();
-                    ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur WHERE nom ='"+this.nom.getText()+"';");
+                    ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur WHERE pseudonyme ='"+this.username.getText()+"';");
                     while(rs.next()){
                         lUser.add(rs.getString("nom"));
                         lUser.add(rs.getString("mdpUtilisateur"));
@@ -137,28 +137,28 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                         lUser.add(rs.getString("pseudonyme"));
                     }
 
-                    if (!(lUser.get(0).equals(this.nom.getText()))){
-                        connect.executeUpdate("UPDATE Utilisateur SET nom ='"+this.nom.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
+                    if ((!(lUser.get(0).equals(this.nom.getText()))) && this.nom.getText() != null){
+                        connect.executeUpdate("UPDATE Utilisateur SET nom ='"+this.nom.getText()+"' WHERE pseudonyme ='"+lUser.get(4)+"' ;");
                     }
                     if ((!(lUser.get(1).equals(this.password.getText()))) && this.password.getText() != null){
-                        connect.executeUpdate("UPDATE Utilisateur SET mdpUtilisateur ='"+this.password.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
+                        connect.executeUpdate("UPDATE Utilisateur SET mdpUtilisateur ='"+this.password.getText()+"' WHERE pseudonyme ='"+lUser.get(4)+"' ;");
                     }
                     if (lUser.get(2).equals("0")){
                         String permission = "Utilisateur";
                         if ((!(permission.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
-                            connect.executeUpdate("UPDATE Utilisateur SET permission = '1' WHERE nom ='"+lUser.get(0)+"' ;");
+                            connect.executeUpdate("UPDATE Utilisateur SET permission = '1' WHERE pseudonyme ='"+lUser.get(4)+"';");
                         }
                     } else {
                         String permission2 = "Administrateur";
                         if ((!(permission2.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
-                            connect.executeUpdate("UPDATE Utilisateur SET permission = '0' WHERE nom ='"+lUser.get(0)+"' ;");
+                            connect.executeUpdate("UPDATE Utilisateur SET permission = '0' WHERE pseudonyme ='"+lUser.get(4)+"';");
                         }
                     }
                     if ((!(lUser.get(3).equals(this.prenom.getText()))) && this.prenom.getText() != null){
-                        connect.executeUpdate("UPDATE Utilisateur SET prenom ='"+this.prenom.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
+                        connect.executeUpdate("UPDATE Utilisateur SET prenom ='"+this.prenom.getText()+"' WHERE pseudonyme ='"+lUser.get(4)+"';");
                     }
                     if ((!(lUser.get(4).equals(this.username.getText()))) && this.username.getText() != null){
-                        connect.executeUpdate("UPDATE Utilisateur SET pseudonyme ='"+this.username.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
+                        connect.executeUpdate("UPDATE Utilisateur SET pseudonyme ='"+this.username.getText()+"' WHERE pseudonyme ='"+lUser.get(4)+"';");
                     }
                     initConfirmation("ModifierProfil");
                     loadStage("../vue/Confirmation.fxml", event);
@@ -167,7 +167,7 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                 }
             }
         } else {
-            super.error("Veuillez renseigner un nom",anchorPane);
+            super.error("Veuillez renseigner un pseudonyme",anchorPane);
         }            
     }
 }

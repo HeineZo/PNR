@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerVisualiserTables">
+   <children>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="376.0000061035156" minHeight="10.0" prefHeight="167.79999694824218" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="576.0000015258789" minHeight="10.0" prefHeight="455.8000030517578" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="176.79998779296875" minHeight="10.0" prefHeight="176.79998779296875" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text id="title" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualiser les tables" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="37.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="150.0" top="10.0" />
+               </GridPane.margin>
+            </Text>
+            <Button id="subtitle" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textFill="WHITE" GridPane.halignment="RIGHT">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView id="chouettepic" fx:id="imgEspece" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@images/especes/chouette.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets left="40.0" top="10.0" />
+               </GridPane.margin>
+            </ImageView>
+            <GridPane GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="count" text="espece" textFill="#73ac9a" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="457.0" layoutY="81.0" text="Nombre d' entrées" textFill="#73ac9a" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="30.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="25.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+            </GridPane>
+            <TableView fx:id="tbvBatracien" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <columns>
+                  <TableColumn fx:id="obsB" prefWidth="75.0" text="id" />
+                  <TableColumn fx:id="espece" prefWidth="75.0" text="espece" />
+                  <TableColumn fx:id="nombreAdultes" prefWidth="75.0" text="nombre adultes" />
+                  <TableColumn fx:id="nombreAmplexus" prefWidth="75.0" text="nombre amplexus" />
+                  <TableColumn fx:id="nombrePonte" prefWidth="75.0" text="nombre ponte" />
+                  <TableColumn fx:id="nombreTetard" prefWidth="75.0" text="nombre tetard" />
+                  <TableColumn fx:id="temperature" prefWidth="75.0" text="temperature" />
+                  <TableColumn fx:id="meteoCiel" prefWidth="75.0" text="meteo ciel" />
+                  <TableColumn fx:id="meteoTemp" prefWidth="75.0" text="meteo temp" />
+                  <TableColumn fx:id="meteovent" prefWidth="75.0" text="meteo vent" />
+                  <TableColumn fx:id="concerneZh" prefWidth="75.0" text="meteo pluie" />
+                  <TableColumn prefWidth="75.0" text="concerne zh" />
+                  <TableColumn fx:id="concerneVerge" prefWidth="75.0" text="concerne verge" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <TableView fx:id="tbvChouette" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+              <columns>
+                  <TableColumn fx:id="numObs" prefWidth="75.0" text="id" />
+                  <TableColumn fx:id="numIndividu" prefWidth="75.0" text="num individu" />
+                  <TableColumn fx:id="espece" prefWidth="75.0" text="espece" />
+                  <TableColumn fx:id="sexe" prefWidth="75.0" text="sexe" />
+                  <TableColumn fx:id="protocole" prefWidth="75.0" text="protocole" />
+                  <TableColumn fx:id="typeObs" prefWidth="75.0" text="typeObs" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <TableView fx:id="tbvGCI" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <columns>
+                  <TableColumn fx:id="obsG" prefWidth="75.0" text="id" />
+                  <TableColumn fx:id="idNid" prefWidth="75.0" text="id nid" />
+                  <TableColumn fx:id="nomPlage" prefWidth="75.0" text="nom plage" />
+                  <TableColumn fx:id="nature" prefWidth="75.0" text="nature" />
+                  <TableColumn fx:id="nombre" prefWidth="75.0" text="nombre" />
+                  <TableColumn fx:id="presentMaisNonObs" prefWidth="75.0" text="present non obs" />
+                  <TableColumn fx:id="nbEnvol" prefWidth="75.0" text="nb envol" />
+                  <TableColumn fx:id="protection" prefWidth="75.0" text="protection" />
+                  <TableColumn fx:id="bagueMale" prefWidth="75.0" text="bague male" />
+                  <TableColumn fx:id="bagueFemelle" prefWidth="75.0" text="bague femelle" />
+                  <TableColumn fx:id="raisonArretObservation" prefWidth="75.0" text="raison arret obs" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <TableView fx:id="tbvHippocampe" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <columns>
+                  <TableColumn fx:id="obsH" prefWidth="75.0" text="id" />
+                  <TableColumn fx:id="espece" prefWidth="75.0" text="espece" />
+                  <TableColumn fx:id="sexe" prefWidth="75.0" text="sexe" />
+                  <TableColumn fx:id="temperatureEau" prefWidth="75.0" text="temperature eau" />
+                  <TableColumn fx:id="typePeche" prefWidth="75.0" text="type peche" />
+                  <TableColumn fx:id="taille" prefWidth="75.0" text="taille" />
+                  <TableColumn fx:id="gestant" prefWidth="75.0" text="gestant" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <TableView fx:id="tbvLoutre" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <columns>
+                  <TableColumn fx:id="ObsL" prefWidth="75.0" text="id" />
+                  <TableColumn fx:id="commune" prefWidth="75.0" text="commune" />
+                  <TableColumn fx:id="lieuDit" prefWidth="75.0" text="lieu dit" />
+                  <TableColumn fx:id="indice" prefWidth="75.0" text="indice" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
