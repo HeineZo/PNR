@@ -18,14 +18,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import io.github.palexdev.materialfx.controls.MFXContextMenuItem;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.cell.MFXListCell;
 import io.github.palexdev.materialfx.font.MFXFontIcon;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,8 +64,11 @@ public class ControllerGererProfils extends Controller implements Initializable{
         profileList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                String user = new String(profileList.getSelectionModel().getSelectedValues().get(0));
                 
-                System.out.println("clicked on " + profileList.getSelectionModel().getSelectedValues());
+                // profileList.getSelectionModel().getSelectedValues();
+                loadUser("../vue/ModifierUnProfil.fxml", event, user);
+                // System.out.println("clicked on " + user);
             }
         });
 
@@ -85,33 +84,6 @@ public class ControllerGererProfils extends Controller implements Initializable{
         } else if (event.getSource() == btnNouveauProfil) {
             loadStage("../vue/NouveauProfil.fxml", event);
         }
-    }
-
-    public void loadUI(String ui, GridPane gridPane) throws SQLException, IOException{
-        
-        int i = 0;
-        int j = 0;
-        AnchorPane root = FXMLLoader.load(getClass().getResource(ui));
-        
-        ResultSet rs = connect.executeQuery("SELECT nom FROM Utilisateur");
-        
-        while(rs.next()) {
-            if (i > 2) {
-                i = 0;
-                j++;
-            } 
-
-            Button b1= new Button(rs.getString("nom"));
-            b1.getStyleClass().add("choice");
-
-            // ((Labeled) root.getChildren().get(0)).setText(rs.getString("nom"));
-            // System.out.println(root.getChildren().get(1));
-            gridPane.add(b1, i, j);
-            i++;
-            
-        }
-        
-        connect.disconnect();
     }
 
 	private static class PersonCellFactory extends MFXListCell<String> {

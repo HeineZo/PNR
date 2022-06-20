@@ -10,18 +10,19 @@ import io.github.palexdev.materialfx.enums.NotificationPos;
 import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
 import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
 import io.github.palexdev.materialfx.notifications.base.INotification;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import pnr.modele.ConnectVPS;
+import io.github.palexdev.materialfx.controls.MFXListView;
 
 public class Controller {
 
     ConnectVPS connect;
+    public static String userClicked;
 
     public Controller() {
         connect = new ConnectVPS("jdbc:mysql://141.94.221.193:3306/bd_pnr", "user", "Mdp@user1");
@@ -38,6 +39,25 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadUser(String fxml, MouseEvent event, String user) {
+        userClicked = user;
+        try {
+            AnchorPane root = FXMLLoader.load(getClass().getResource(fxml));
+            Stage stage = (Stage) ((MFXListView<?>) (event.getSource())).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.setMaximized(true);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public String getUserClicked() {
+        return userClicked;
     }
 
     public void initPermission(String event) {

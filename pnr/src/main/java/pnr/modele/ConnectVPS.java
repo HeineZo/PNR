@@ -41,7 +41,7 @@ public class ConnectVPS {
             try {
                 this.con = DriverManager.getConnection(this.url, this.user, this.password);
                 this.stmt = con.createStatement();
-                System.out.println("BDD connected");
+                // System.out.println("BDD connected");
                 this.connected = true;
             } catch (Exception e) {
                 System.out.println(e);

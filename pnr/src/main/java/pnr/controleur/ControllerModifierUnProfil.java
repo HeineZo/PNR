@@ -54,10 +54,12 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         this.permissionChoices.add("Administrateur");
         this.credentials.setItems(this.permissionChoices);
 
-        this.eventSrc = this.getEventSrcNomUser();
+        this.eventSrc = getUserClicked().split(" ")[0];
+        // System.out.println(this.eventSrc);
         ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur"); 
         try {
             while (rs.next()) {
+                System.out.println(rs.getString("nom"));
                 if (rs.getString("nom").equals(this.eventSrc)) {
                     this.pseudonyme.setText(rs.getString("nom"));
                     this.prenom.setText(rs.getString("prenom"));

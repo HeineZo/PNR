@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -105,22 +108,26 @@
                         <Insets left="5.0" />
                      </GridPane.margin>
                   </Text>
-                  <Button id="subtitle" fx:id="btnDeco" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="39.0" prefWidth="179.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Déconnexion" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="22.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <GridPane.margin>
-                        <Insets right="50.0" top="30.0" />
-                     </GridPane.margin>
-                  </Button>
                </children>
                <rowConstraints>
                   <RowConstraints />
                </rowConstraints>
             </GridPane>
+            <MFXButton fx:id="btnDeco" onAction="#handleBtnClick" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Déconnexion" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logo/turn-off.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MFXButton>
          </children>
       </GridPane>
    </children>
