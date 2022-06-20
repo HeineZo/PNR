@@ -68,17 +68,11 @@ public class ControllerGererProfils extends Controller implements Initializable{
         profileList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                
                 System.out.println("clicked on " + profileList.getSelectionModel().getSelectedValues());
             }
         });
-        // System.out.println(profileList.getSelectionModel());
-        //When a profile is selected, the gridPane is filled with the profile's informations
-        // profileList.getSelectionModel().selectionProperty().addListener(observable, oldValue, newValue) -> {
-        //     if (newValue != null) {
-        //         gridPane.getChildren().clear();
-        //         ResultSet rs2 = connect.executeQuery("SELECT * FROM Observateur WHERE nom = '" + newValue.split(" ")[0] + "' AND prenom = '" + newValue.split(" ")[1] + "'");
 
-        // System.out.println(profileList.getSelectionModel().selectionProperty()) ;//.addListener((observable, oldValue, newValue) -> {
             
     }
 
