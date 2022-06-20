@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXCheckListView?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -21,55 +24,46 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MFXTextField fx:id="commune" floatMode="BORDER" floatingText="Nom de l'observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <MFXTextField fx:id="txtCoordX" floatMode="BORDER" floatingText="Coordonnées Lambert X" layoutX="150.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <textFill>
             <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
          </textFill>
       </MFXTextField>
-      <MFXTextField fx:id="commune1" floatMode="BORDER" floatingText="Coordonnées Lambert X" layoutX="150.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <MFXTextField fx:id="txtCoordY" floatMode="BORDER" floatingText="Coordonnées Lambert Y" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <textFill>
             <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
          </textFill>
       </MFXTextField>
-      <MFXTextField fx:id="commune2" floatMode="BORDER" floatingText="Prénom de l'observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+      <MFXTextField fx:id="txtHeure" floatMode="BORDER" floatingText="Heure de l'observation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <textFill>
             <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
          </textFill>
       </MFXTextField>
-      <MFXTextField fx:id="commune3" floatMode="BORDER" floatingText="Coordonnées Lambert Y" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <textFill>
-            <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
-         </textFill>
-      </MFXTextField>
-      <MFXTextField fx:id="commune311" floatMode="BORDER" floatingText="Heure de l'observation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-         <textFill>
-            <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
-         </textFill>
-      </MFXTextField>
-      <MFXDatePicker floatMode="BORDER" floatingText="Date de l'observation" prefHeight="38.0" prefWidth="158.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <MFXDatePicker fx:id="txtDate" floatMode="BORDER" floatingText="Date de l'observation" prefHeight="38.0" prefWidth="158.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <textFill>
             <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
          </textFill>
       </MFXDatePicker>
-      <MFXTextField fx:id="commune21" floatMode="BORDER" floatingText="Espèce" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-         <textFill>
-            <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
-         </textFill>
-      </MFXTextField>
-      <MFXTextField fx:id="commune211" floatMode="BORDER" floatingText="Sexe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-         <textFill>
-            <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
-         </textFill>
-      </MFXTextField>
-      <MFXTextField fx:id="commune212" floatMode="BORDER" floatingText="Protocole" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-         <textFill>
-            <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
-         </textFill>
-      </MFXTextField>
-      <MFXTextField fx:id="commune2121" floatMode="BORDER" floatingText="Type d'observation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-         <textFill>
-            <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
-         </textFill>
-      </MFXTextField>
+      <MFXCheckListView fx:id="observatorList" depthLevel="LEVEL1" stylesheets="@css/style.css" thumbColor="#2d936d" thumbHoverColor="#73ac9a" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <ComboBox fx:id="cbSexe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Sexe" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </ComboBox>
+      <ComboBox fx:id="cbEspece" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Espèce" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </ComboBox>
+      <ComboBox fx:id="cbProto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Protocole" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </ComboBox>
+      <ComboBox fx:id="cbTypeObs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Type d'observation" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </ComboBox>
    </children>
 </GridPane>
