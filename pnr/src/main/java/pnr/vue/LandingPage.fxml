@@ -63,7 +63,7 @@
                         <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                      </textFill>
                   </MFXPasswordField>
-                  <MFXButton id="send" buttonType="RAISED" depthLevel="LEVEL1" onAction="#submitForm" rippleAnimateShadow="true" rippleColor="WHITE" styleClass="outline-button" text="Connexion" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                  <MFXButton id="send" buttonType="RAISED" depthLevel="LEVEL1" onAction="#submitForm" onKeyPressed="#keyPressed" rippleAnimateShadow="true" rippleColor="WHITE" styleClass="outline-button" text="Connexion" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
