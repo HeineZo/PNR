@@ -10,6 +10,7 @@ import io.github.palexdev.materialfx.enums.NotificationPos;
 import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
 import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
 import io.github.palexdev.materialfx.notifications.base.INotification;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -28,9 +29,14 @@ public class Controller {
 
     public void loadStage(String fxml, ActionEvent event) {
         try {
-            AnchorPane root = FXMLLoader.load(getClass().getResource(fxml));
             Stage stage = (Stage) ((Button) (event.getSource())).getScene().getWindow();
-            stage.getScene().setRoot(root);
+            try {
+                AnchorPane root = FXMLLoader.load(getClass().getResource(fxml));
+                stage.getScene().setRoot(root);
+            } catch (Exception e) {
+                GridPane root = FXMLLoader.load(getClass().getResource(fxml));
+                stage.getScene().setRoot(root);
+            }
             stage.setMaximized(true);
             stage.show();
 

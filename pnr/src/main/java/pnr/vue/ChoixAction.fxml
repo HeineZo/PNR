@@ -78,6 +78,9 @@
                      </cursor>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </MFXButton>
             <MFXButton fx:id="btnNewObs" contentDisplay="BOTTOM" onAction="#handleBtnClick" prefHeight="184.0" prefWidth="181.0" rippleAnimateShadow="true" styleClass="choice" stylesheets="@css/style.css" text="Nouvelle&#10;observation" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <graphic>
@@ -87,6 +90,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </MFXButton>
             <MFXButton fx:id="btnVisObs" contentDisplay="BOTTOM" onAction="#handleBtnClick" prefHeight="184.0" prefWidth="181.0" rippleAnimateShadow="true" styleClass="choice" stylesheets="@css/style.css" text="Visualiser&#10;les données" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <graphic>
@@ -99,6 +105,9 @@
                      </cursor>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </MFXButton>
          </children>
       </GridPane>
