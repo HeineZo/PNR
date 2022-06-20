@@ -23,13 +23,13 @@ public class ControllerChoixAction extends Controller implements Initializable{
     private Button btnBack;
 
     @FXML
-    private AnchorPane btnModObs;
+    private MFXButton btnModObs;
 
     @FXML
     private MFXButton btnNewObs;
 
     @FXML
-    private AnchorPane btnVisObs;
+    private MFXButton btnVisObs;
 
     @FXML
     private GridPane gridPane;
