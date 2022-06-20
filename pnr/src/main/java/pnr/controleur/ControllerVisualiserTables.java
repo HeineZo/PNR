@@ -107,15 +107,35 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 
     private void table() {
         if (this.eventSrc.equals("Batracien")) {
-            //
+            this.tpBatracien.setVisible(true);
+            this.tpChouette.setVisible(false);
+            this.tpGCI.setVisible(false);
+            this.tbvHippocampe.setVisible(false);
+            this.tbvLoutre.setVisible(false);
         } else if (this.eventSrc.equals("Chouette")) {
-            //
+            this.tpBatracien.setVisible(false);
+            this.tpChouette.setVisible(true);
+            this.tpGCI.setVisible(false);
+            this.tbvHippocampe.setVisible(false);
+            this.tbvLoutre.setVisible(false);
         } else if (this.eventSrc.equals("GCI")) {
-            //
+            this.tpBatracien.setVisible(false);
+            this.tpChouette.setVisible(false);
+            this.tpGCI.setVisible(true);
+            this.tbvHippocampe.setVisible(false);
+            this.tbvLoutre.setVisible(false);
         } else if (this.eventSrc.equals("Hippocampe")) {
-            //
+            this.tpBatracien.setVisible(false);
+            this.tpChouette.setVisible(false);
+            this.tpGCI.setVisible(false);
+            this.tbvHippocampe.setVisible(true);
+            this.tbvLoutre.setVisible(false);
         } else if (this.eventSrc.equals("Loutre")) {
-            //
+            this.tpBatracien.setVisible(false);
+            this.tpChouette.setVisible(false);
+            this.tpGCI.setVisible(false);
+            this.tbvHippocampe.setVisible(false);
+            this.tbvLoutre.setVisible(true);
         }
     }
 
