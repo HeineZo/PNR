@@ -5,10 +5,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -16,6 +18,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 public class ControllerModifierUnProfil extends Controller implements Initializable{
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private Button btnBack;
@@ -48,7 +53,7 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         this.permissionChoices.add("Utilisateur");
         this.permissionChoices.add("Administrateur");
         this.credentials.setItems(this.permissionChoices);
-        
+
         this.eventSrc = this.getEventSrcNomUser();
         ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur"); 
         try {
@@ -76,17 +81,63 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     }
 
     @FXML
-    private void handleBtnClick(ActionEvent event) {
+    private void handleBtnClick(ActionEvent event) throws SQLException {
         if (event.getSource() == btnBack) {
             loadStage("../vue/GererProfils.fxml", event);
-        } else if (event.getSource() == supprimer){
-            initConfirmation("SuppressionProfil");
-            loadStage("../vue/Confirmation.fxml", event);
-        } else if (event.getSource() == envoi){
-            initConfirmation("ModifierProfil");
-            loadStage("../vue/Confirmation.fxml", event);
         }
+        if (!(this.pseudonyme.getText().equals(""))){
+            ArrayList<String> unique = new ArrayList<String>();
+            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
+            while(res.next()){
+                String nom=res.getString("nom");
+                unique.add(nom);
+            }
+            if ((event.getSource() == supprimer)){
+                if(unique.contains(this.pseudonyme.getText())){
+                    connect.executeUpdate("DELETE FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
+                    initConfirmation("SuppressionProfil");
+                    loadStage("../vue/Confirmation.fxml", event);
+                } else {
+                    super.error("L'utilisateur n'existe pas",anchorPane);
+                }   
+            } else if (event.getSource() == envoi){
+                if(unique.contains(this.pseudonyme.getText())){
+                    ArrayList<String> lUser = new ArrayList<String>();
+                    ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
+                    while(rs.next()){
+                        lUser.add(rs.getString("nom"));
+                        lUser.add(rs.getString("mdpUtilisateur"));
+                        lUser.add(rs.getString("permission"));
+                        lUser.add(rs.getString("prenom"));
+                    }
+                    if (!(lUser.get(0).equals(this.pseudonyme.getText()))){
+                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+this.pseudonyme.getText()+"';");
+                    }
+                    if ((!(lUser.get(1).equals(this.password.getText()))) && this.password.getText() != null){
+                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET mdpUtilisateur ='"+this.password.getText()+"';");
+                    }
+                    if (lUser.get(2).equals("0")){
+                        String permission = "Utilisateur";
+                        if ((!(permission.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
+                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '1';");
+                        }
+                    } else {
+                        String permission2 = "Administrateur";
+                        if ((!(permission2.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
+                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '0';");
+                        }
+                    }
+                    if ((!(lUser.get(3).equals(this.prenom.getText()))) && this.prenom.getText() != null){
+                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+this.prenom.getText()+"';");
+                    }
+                    initConfirmation("ModifierProfil");
+                    loadStage("../vue/Confirmation.fxml", event);
+                } else {
+                    super.error("L'utilisateur n'existe pas",anchorPane);
+                }
+            }
+        } else {
+            super.error("Veuillez renseigner un pseudonyme ",anchorPane);
+        }            
     }
-
-
 }
