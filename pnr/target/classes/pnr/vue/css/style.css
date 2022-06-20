@@ -1,6 +1,11 @@
 .floating-text {
     -fx-text-fill: #2d936d;
-    -fx-background-color: rgba(0,0,0,0);
+    /* -fx-background-color: rgba(0,0,0,0); */
+}
+
+.mfx-text-field .text-field {
+	-fx-highlight-fill: #73AC9A; /* Selected text highlight */
+    -fx-text-fill: #2f2e2e; /* Text color */
 }
 
 .outline-button {
@@ -18,7 +23,6 @@
 
 
 .choice {
-    -fx-background-color:  rgba(0, 0, 0, 0);
     -fx-border-color:  black;
     -fx-border-width: 4;
     -fx-border-radius: 50;
@@ -37,7 +41,6 @@
 .root {
     -fx-background-color:  white;
 }
-
 
 
 .mfx-checkbox {

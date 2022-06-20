@@ -167,7 +167,7 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                 }
             }
         } else {
-            super.error("Veuillez renseigner un nom ",anchorPane);
+            super.error("Veuillez renseigner un nom",anchorPane);
         }            
     }
 }
