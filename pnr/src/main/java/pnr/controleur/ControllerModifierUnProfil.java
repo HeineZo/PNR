@@ -41,9 +41,10 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     private TextField password = new TextField();
 
     @FXML
-    private TextField pseudonyme = new TextField();
+    private TextField nom = new TextField();
 
     private String eventSrc;
+
 
     private ObservableList<String> permissionChoices = FXCollections.observableArrayList();
 
@@ -53,15 +54,15 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         this.permissionChoices.add("Utilisateur");
         this.permissionChoices.add("Administrateur");
         this.credentials.setItems(this.permissionChoices);
+    
 
         this.eventSrc = getUserClicked().split(" ")[0];
         // System.out.println(this.eventSrc);
         ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur"); 
         try {
             while (rs.next()) {
-                System.out.println(rs.getString("nom"));
                 if (rs.getString("nom").equals(this.eventSrc)) {
-                    this.pseudonyme.setText(rs.getString("nom"));
+                    this.nom.setText(rs.getString("nom"));
                     this.prenom.setText(rs.getString("prenom"));
                     this.password.setText(rs.getString("mdpUtilisateur"));
                     if (rs.getString("permission").equals("0")){
@@ -70,16 +71,23 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                         this.credentials.setValue("Administrateur");
                     }
                 }
-                // System.out.println(name.setText("")); 
-                // name.setText(rs.getString("nom"));//rs.getString("nom"));
-                // System.out.println(rs.getString("nom"));
-                // System.out.println(rs.getString("prenom"));
-                // System.out.println(rs.getString("mdpUtilisateur"));
-                // System.out.println(rs.getString("permission"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        this.prenom.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.envoi.setDisable(false);
+        });
+        this.nom.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.envoi.setDisable(false);
+        });
+        this.password.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.envoi.setDisable(false);
+        });
+        this.credentials.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.envoi.setDisable(false);
+        });
     }
 
     @FXML
@@ -87,25 +95,25 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         if (event.getSource() == btnBack) {
             loadStage("../vue/GererProfils.fxml", event);
         }
-        if (!(this.pseudonyme.getText().equals(""))){
+        if (!(this.nom.getText().equals(""))){
             ArrayList<String> unique = new ArrayList<String>();
-            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
+            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur WHERE nom ='"+this.nom.getText()+"';");
             while(res.next()){
                 String nom=res.getString("nom");
                 unique.add(nom);
             }
             if ((event.getSource() == supprimer)){
-                if(unique.contains(this.pseudonyme.getText())){
-                    connect.executeUpdate("DELETE FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
+                if(unique.contains(this.nom.getText())){
+                    connect.executeUpdate("DELETE FROM Utilisateur WHERE nom ='"+this.nom.getText()+"';");
                     initConfirmation("SuppressionProfil");
                     loadStage("../vue/Confirmation.fxml", event);
                 } else {
                     super.error("L'utilisateur n'existe pas",anchorPane);
                 }   
             } else if (event.getSource() == envoi){
-                if(unique.contains(this.pseudonyme.getText())){
+                if(unique.contains(this.nom.getText())){
                     ArrayList<String> lUser = new ArrayList<String>();
-                    ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur WHERE nom ='"+this.pseudonyme.getText()+"';");
+                    ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur WHERE nom ='"+this.nom.getText()+"';");
                     while(rs.next()){
                         lUser.add(rs.getString("nom"));
                         lUser.add(rs.getString("mdpUtilisateur"));
@@ -117,8 +125,8 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                         System.out.println(s);
                     }
 
-                    if (!(lUser.get(0).equals(this.pseudonyme.getText()))){
-                        connect.executeUpdate("UPDATE Utilisateur SET nom ='"+this.pseudonyme.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
+                    if (!(lUser.get(0).equals(this.nom.getText()))){
+                        connect.executeUpdate("UPDATE Utilisateur SET nom ='"+this.nom.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
                     }
                     if ((!(lUser.get(1).equals(this.password.getText()))) && this.password.getText() != null){
                         connect.executeUpdate("UPDATE Utilisateur SET mdpUtilisateur ='"+this.password.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
@@ -144,7 +152,11 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                 }
             }
         } else {
-            super.error("Veuillez renseigner un pseudonyme ",anchorPane);
+            super.error("Veuillez renseigner un nom ",anchorPane);
         }            
+    }
+
+    private void hasChanged() {
+        this.envoi.setDisable(false);
     }
 }
