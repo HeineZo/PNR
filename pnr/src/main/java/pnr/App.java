@@ -22,7 +22,7 @@ public class App extends Application {
 
         primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("PNR - Page d'accueil");
+        primaryStage.setTitle("PNR");
         primaryStage.getIcons().add(new Image("file:vue/images/logo/logo.png"));
         scene.getStylesheets().add(getClass().getResource("vue/font/font.css").toExternalForm());
         primaryStage.setScene(scene);
