@@ -149,11 +149,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
     }
 
     private void pie(String type) {
+        this.pieChart.getData().clear();
+
         if (type.equals("Espèce")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
                     ResultSet rs = connect
                             .executeQuery("SELECT COUNT(obsB), espece FROM Obs_Batracien GROUP BY espece ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -164,6 +167,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 try {
                     ResultSet rs = connect
                             .executeQuery("SELECT COUNT(numIndividu), espece FROM Chouette GROUP BY espece ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -174,6 +178,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 try {
                     ResultSet rs = connect
                             .executeQuery("SELECT COUNT(obsH), espece FROM Obs_Hippocampe GROUP BY espece ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -188,6 +193,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT COUNT(obsB), nom FROM Obs_Batracien JOIN AObserve ON obsB = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -198,6 +204,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT COUNT(numIndividu), nom FROM Chouette JOIN AObserve ON numIndividu = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -208,6 +215,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT COUNT(obsG), nom FROM Obs_GCI JOIN AObserve ON obsG = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -218,6 +226,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT COUNT(obsH), nom FROM Obs_Hippocampe JOIN AObserve ON obsH = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -228,6 +237,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT COUNT(obsL), nom FROM Obs_Loutre JOIN AObserve ON obsL = lobservation JOIN Observateur ON idObservateur = lobservateur GROUP BY nom ");
+
                     while (rs.next()) {
                         this.data.add(new PieChart.Data(rs.getString(2), rs.getDouble(1)));
                     }
@@ -248,6 +258,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
     }
 
     private void bar(String type) {
+        this.barChart.getData().clear();
+
         if (type.equals("Date")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
@@ -313,6 +325,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
     }
 
     private void lines(String type) {
+        this.lineChart.getData().clear();
+
         if (type.equals("Heure")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
@@ -341,7 +355,9 @@ public class ControllerVisualiser extends Controller implements Initializable {
             }
         }
 
-        this.lineChart.getData().add(this.seriesLine);
+        ObservableList add = FXCollections.observableArrayList(this.seriesLine);
+
+        this.lineChart.setData(add);
 
         this.label.setVisible(false);
         this.pieChart.setVisible(false);
