@@ -48,7 +48,7 @@ public class ControllerGererProfils extends Controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<String> list = new ArrayList<String>();
         
-        ResultSet rs = connect.executeQuery("SELECT nom, prenom FROM Observateur");
+        ResultSet rs = connect.executeQuery("SELECT nom, prenom FROM Utilisateur");
         try {
             while (rs.next()){
                 list.add(rs.getString("nom") + " " + rs.getString("prenom"));

@@ -40,7 +40,7 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
         } else if (event.getSource() == btnModifierFiche) {
             loadStage("../vue/ModifierFiches.fxml", event);
         } else if (event.getSource() == btnGererProfils) {
-            loadStage("../vue/GererProfilsVide.fxml", event);
+            loadStage("../vue/GererProfils.fxml", event);
         } else if (event.getSource() == btnExport) {
             loadStage("../vue/Sauvegarde.fxml", event);
         } else if (event.getSource() == btnChoixAction) {
