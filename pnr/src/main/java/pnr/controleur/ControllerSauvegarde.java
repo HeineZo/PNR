@@ -27,32 +27,31 @@ public class ControllerSauvegarde extends Controller {
     @FXML
     private Button export;
 
-    // @FXML
-    // private AnchorPane ap;
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixActionAdmin.fxml", event);
-        // } else if (event.getSource() == export){
-        //     this.exportTableToFile("yo");
-        // }
+        } else if (event.getSource() == export){
+            this.exportTableToFile("yo");
         }
     }
 
-    // private void exportTableToFile(String csvString) {
-    //     FileChooser fileChooser = new FileChooser();
+    private void exportTableToFile(String csvString) {
+        FileChooser fileChooser = new FileChooser();
         
-    //     Stage stage = (Stage) ap.getScene().getWindow();
-    //     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-    //     fileChooser.getExtensionFilters().add(extFilter);
-    //     java.io.File file = fileChooser.showSaveDialog(stage);
-    //     if(file != null){
-    //         try {
-    //             Files.write( file.toPath(), csvString.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
-    //         } catch (IOException e) {
-    //             throw new RuntimeException(e);
-    //         }
-    //     }
-    // }
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+        fileChooser.getExtensionFilters().add(extFilter);
+        java.io.File file = fileChooser.showSaveDialog(stage);
+        if(file != null){
+            try {
+                Files.write( file.toPath(), csvString.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
