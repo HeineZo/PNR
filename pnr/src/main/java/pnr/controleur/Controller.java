@@ -29,14 +29,9 @@ public class Controller {
 
     public void loadStage(String fxml, ActionEvent event) {
         try {
+            AnchorPane root = FXMLLoader.load(getClass().getResource(fxml));
             Stage stage = (Stage) ((Button) (event.getSource())).getScene().getWindow();
-            try {
-                AnchorPane root = FXMLLoader.load(getClass().getResource(fxml));
-                stage.getScene().setRoot(root);
-            } catch (Exception e) {
-                GridPane root = FXMLLoader.load(getClass().getResource(fxml));
-                stage.getScene().setRoot(root);
-            }
+            stage.getScene().setRoot(root);
             stage.setMaximized(true);
             stage.show();
 
