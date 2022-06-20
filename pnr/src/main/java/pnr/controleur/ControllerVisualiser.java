@@ -1,8 +1,14 @@
 package pnr.controleur;
 
+import pnr.modele.util.*;
+
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
+
+import com.gluonhq.maps.MapLayer;
+import com.gluonhq.maps.MapPoint;
+import com.gluonhq.maps.MapView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,14 +24,18 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class ControllerVisualiser extends Controller implements Initializable {
 
     private String eventSrc;
 
     @FXML
-    private GridPane gridpane;
+    private Pane pMap;
+
+    private MapView mapView;
 
     @FXML
     private ImageView imgEspece;
@@ -68,8 +78,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
         imgIcn();
 
-        this.gridpane.setVisible(false);
         this.label.setVisible(true);
+        this.pMap.setVisible(false);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(false);
@@ -110,8 +120,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private void comboChoices(ActionEvent event) {
         this.comboBoxTypes.getItems().clear();
 
-        this.gridpane.setVisible(false);
         this.label.setVisible(true);
+        this.pMap.setVisible(false);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(false);
@@ -142,11 +152,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 //
             } else if (this.eventSrc.equals("Chouette")) {
                 //
-                //
-                //
             } else if (this.eventSrc.equals("GCI")) {
-                //
-                //
                 //
             } else if (this.eventSrc.equals("Hippocampe")) {
                 this.tlistTypes.add("Sexe/Espece");
@@ -191,7 +197,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
         } else if (chart.equals("Position")) {
             position(type);
         } else {
-            this.gridpane.setVisible(false);
             this.label.setVisible(true);
         }
     }
@@ -395,8 +400,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
         this.pieChart.setData(this.dataPie);
 
-        this.gridpane.setVisible(true);
         this.label.setVisible(false);
+        this.pMap.setVisible(false);
         this.pieChart.setVisible(true);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(false);
@@ -426,7 +431,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else {
-                this.gridpane.setVisible(false);
                 this.label.setVisible(true);
             }
         }
@@ -434,8 +438,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
         this.dataBar.add(this.seriesBar);
         this.barChart.setData(this.dataBar);
 
-        this.gridpane.setVisible(true);
         this.label.setVisible(false);
+        this.pMap.setVisible(false);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(true);
         this.lineChart.setVisible(false);
@@ -506,15 +510,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 }
             }
         } else {
-            this.gridpane.setVisible(false);
             this.label.setVisible(true);
         }
 
         this.dataLine.add(this.seriesLine);
         this.lineChart.setData(this.dataLine);
 
-        this.gridpane.setVisible(true);
         this.label.setVisible(false);
+        this.pMap.setVisible(false);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(false);
         this.lineChart.setVisible(true);
@@ -522,8 +525,31 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
     private void position(String type) {
         if (type.equals("Carte")) {
+            System.setProperty("javafx.platform", "desktop");
+            System.setProperty("http.agent", "Gluon Mobile/1.0.3");
+
             if (this.eventSrc.equals("Batracien")) {
-                //
+                this.mapView = new MapView();
+                this.pMap.getChildren().add(this.mapView);
+
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Batracien On obsB = idObs ");
+
+                    while (rs.next()) {
+                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
+
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                        mapView.addLayer(mapLayer);
+
+                        Circle circle = new Circle(5, Color.RED);
+
+                        this.pMap.getChildren().add(circle);
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             } else if (this.eventSrc.equals("Chouette")) {
                 //
             } else if (this.eventSrc.equals("GCI")) {
@@ -533,6 +559,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("Loutre")) {
                 //
             }
+
+            // this.mapView.setZoom(2);
+            this.label.setVisible(false);
+            this.pMap.setVisible(true);
         } else if (type.equals("Graphe")) {
             if (this.eventSrc.equals("Batracien")) {
                 //
@@ -546,6 +576,38 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 //
             }
         }
+    }
+
+    double[] lambert93toWGS84(double lambertE, double lambertN) {
+        double GRS80E = (float) 0.081819191042816;
+        double LONG_0 = 3;
+        double XS = 700000;
+        double YS = (float) 12655612.0499;
+        double N = (float) 0.7256077650532670;
+        double C = (float) 11754255.4261;
+
+        double delX = lambertE - XS;
+        double delY = lambertN - YS;
+        double gamma = Math.atan(-delX / delY);
+        double R = Math.sqrt(delX * delX + delY * delY);
+        double latiso = Math.log(C / R) / N;
+
+        double sinPhiit0 = Math.tanh(latiso + GRS80E * Math.atan(GRS80E * Math.sin(1)));
+        double sinPhiit1 = Math.tanh(latiso + GRS80E * Math.atan(GRS80E * sinPhiit0));
+        double sinPhiit2 = Math.tanh(latiso + GRS80E * Math.atan(GRS80E * sinPhiit1));
+        double sinPhiit3 = Math.tanh(latiso + GRS80E * Math.atan(GRS80E * sinPhiit2));
+        double sinPhiit4 = Math.tanh(latiso + GRS80E * Math.atan(GRS80E * sinPhiit3));
+        double sinPhiit5 = Math.tanh(latiso + GRS80E * Math.atan(GRS80E * sinPhiit4));
+        double sinPhiit6 = Math.tanh(latiso + GRS80E * Math.atan(GRS80E * sinPhiit5));
+
+        double longRad = Math.asin(sinPhiit6);
+        double latRad = gamma / N + LONG_0 / 180 * Math.PI;
+
+        double longitude = latRad / Math.PI * 180;
+        double latitude = longRad / Math.PI * 180;
+
+        double[] values = { latitude, longitude };
+        return (values);
     }
 
     @FXML
