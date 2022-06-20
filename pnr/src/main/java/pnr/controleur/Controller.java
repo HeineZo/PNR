@@ -10,6 +10,7 @@ import io.github.palexdev.materialfx.enums.NotificationPos;
 import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
 import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
 import io.github.palexdev.materialfx.notifications.base.INotification;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
