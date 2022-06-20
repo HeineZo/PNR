@@ -19,10 +19,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ControllerVisualiser extends Controller implements Initializable {
 
     private String eventSrc;
+
+    @FXML
+    private ImageView imgEspece;
 
     @FXML
     private PieChart pieChart;
@@ -31,7 +36,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private NumberAxis yAxis = new NumberAxis();
 
     @FXML
-    private BarChart<String, Number> barChart;
+    private BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis, yAxis);
 
     @FXML
     private LineChart<Time, Double> lineChart;
@@ -58,6 +63,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.eventSrc = this.getEventSrcVisualiser();
 
+        imgIcn();
+
         this.label.setVisible(true);
         this.pieChart.setVisible(false);
         this.barChart.setVisible(false);
@@ -69,11 +76,38 @@ public class ControllerVisualiser extends Controller implements Initializable {
         this.comboBoxChoices.setItems(this.tlistChoices);
     }
 
+    private void imgIcn() {
+        String urlImage = "";
+
+        if (this.eventSrc.equals("Batracien")) {
+            urlImage = "especes/batracien.png";
+        } else if (this.eventSrc.equals("Chouette")) {
+            urlImage = "especes/chouette.png";
+        } else if (this.eventSrc.equals("GCI")) {
+            urlImage = "especes/gci.png";
+        } else if (this.eventSrc.equals("Hippocampe")) {
+            urlImage = "especes/hippocampe.png";
+        } else if (this.eventSrc.equals("Loutre")) {
+            urlImage = "especes/loutre.png";
+        } else {
+            urlImage = "especes/null.png";
+        }
+
+        changeImage(urlImage);
+    }
+
+    public void changeImage(String url) {
+        Image imProfile = new Image(getClass().getResourceAsStream(url));
+        this.imgEspece.setImage(imProfile);
+    }
+
     @FXML
     private void comboChoices(ActionEvent event) {
         this.comboBoxTypes.getItems().clear();
 
-        if (String.valueOf(this.comboBoxChoices.getValue()).equals("Camembert")) {
+        String choice = String.valueOf(this.comboBoxChoices.getValue());
+
+        if (choice.equals("Camembert")) {
             if (this.eventSrc.equals("Batracien")) {
                 this.tlistTypes.add("Espèce");
             } else if (this.eventSrc.equals("Chouette")) {
@@ -87,41 +121,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
             }
 
             this.tlistTypes.add("Observateur");
-
-            this.comboBoxTypes.setItems(this.tlistTypes);
-        } else if (String.valueOf(this.comboBoxChoices.getValue()).equals("Barres")) {
-            if (this.eventSrc.equals("Batracien")) {
-                this.tlistTypes.add("Espèce");
-            } else if (this.eventSrc.equals("Chouette")) {
-                this.tlistTypes.add("Espèce");
-            } else if (this.eventSrc.equals("GCI")) {
-                this.tlistTypes.add("Plage");
-            } else if (this.eventSrc.equals("Hippocampe")) {
-                this.tlistTypes.add("Espèce");
-            } else if (this.eventSrc.equals("Loutre")) {
-                this.tlistTypes.add("Indice");
-            }
-
-            this.tlistTypes.add("Observateur");
-
-            this.comboBoxTypes.setItems(this.tlistTypes);
-        } else if (String.valueOf(this.comboBoxChoices.getValue()).equals("Lignes")) {
-            if (this.eventSrc.equals("Batracien")) {
-                this.tlistTypes.add("Espèce");
-            } else if (this.eventSrc.equals("Chouette")) {
-                this.tlistTypes.add("Espèce");
-            } else if (this.eventSrc.equals("GCI")) {
-                this.tlistTypes.add("Plage");
-            } else if (this.eventSrc.equals("Hippocampe")) {
-                this.tlistTypes.add("Espèce");
-            } else if (this.eventSrc.equals("Loutre")) {
-                this.tlistTypes.add("Indice");
-            }
-
-            this.tlistTypes.add("Observateur");
-
-            this.comboBoxTypes.setItems(this.tlistTypes);
+        } else if (choice.equals("Barres")) {
+            this.tlistTypes.add("Date");
+            this.tlistTypes.add("Heure");
+        } else if (choice.equals("Lignes")) {
+            this.tlistTypes.add("Heure");
         }
+
+        this.comboBoxTypes.setItems(this.tlistTypes);
     }
 
     @FXML
@@ -130,16 +137,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
     }
 
     private void graph(String chart, String type) {
-        if (chart != null) {
-            if (chart.equals("Camembert")) {
-                pie(String.valueOf(this.comboBoxTypes.getValue()));
-            } else if (chart.equals("Barres")) {
-                bar(String.valueOf(this.comboBoxTypes.getValue()));
-            } else if (chart.equals("Lignes")) {
-                lines(String.valueOf(this.comboBoxTypes.getValue()));
-            } else {
-                this.label.setVisible(true);
-            }
+        if (chart.equals("Camembert")) {
+            pie(type);
+        } else if (chart.equals("Barres")) {
+            bar(type);
+        } else if (chart.equals("Lignes")) {
+            lines(type);
+        } else {
+            this.label.setVisible(true);
         }
     }
 
@@ -234,7 +239,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             }
         }
 
-        this.pieChart.getData().addAll(this.data);
+        this.pieChart.setData(this.data);
 
         this.label.setVisible(false);
         this.pieChart.setVisible(true);
@@ -247,10 +252,17 @@ public class ControllerVisualiser extends Controller implements Initializable {
             if (this.eventSrc.equals("Batracien")) {
                 try {
                     ResultSet rsBatracien = connect.executeQuery(
-                            "SELECT COUNT(obsB), dateObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation ");
+                            "SELECT COUNT(obsB), dateObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY dateObs ");
 
-                    this.seriesBar.getData()
-                            .add(new XYChart.Data<String, Number>("Batracien", rsBatracien.getDouble(1)));
+                    while (rsBatracien.next()) {
+                        if (rsBatracien.getString(2) != null) {
+                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rsBatracien.getString(2),
+                                    rsBatracien.getDouble(1)));
+                        } else {
+                            this.seriesBar.getData().add(
+                                    new XYChart.Data<String, Number>("date inconnue", rsBatracien.getDouble(1)));
+                        }
+                    }
 
                     this.seriesBar.setName("nb_obs/batracien");
 
@@ -262,9 +274,37 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else {
                 this.label.setVisible(true);
             }
+        } else if (type.equals("Heure")) {
+            if (this.eventSrc.equals("Batracien")) {
+                try {
+                    ResultSet rsBatracien = connect.executeQuery(
+                            "SELECT COUNT(obsB), heureObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY heureObs ");
+
+                    while (rsBatracien.next()) {
+                        if (rsBatracien.getString(2) != null) {
+                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rsBatracien.getString(2),
+                                    rsBatracien.getDouble(1)));
+                        } else {
+                            this.seriesBar.getData().add(
+                                    new XYChart.Data<String, Number>("heure inconnue", rsBatracien.getDouble(1)));
+                        }
+                    }
+
+                    this.seriesLine.setName("heure/temps");
+
+                    xAxis.setLabel("heure");
+                    yAxis.setLabel("no_obs");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            } else {
+                this.label.setVisible(true);
+            }
         }
 
-        this.barChart.getData().add(this.seriesBar);
+        ObservableList add = FXCollections.observableArrayList(this.seriesBar);
+
+        this.barChart.setData(add);
 
         this.label.setVisible(false);
         this.pieChart.setVisible(false);
@@ -276,11 +316,18 @@ public class ControllerVisualiser extends Controller implements Initializable {
         if (type.equals("Heure")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
-                    ResultSet rs = connect.executeQuery(
-                            "SELECT heureObs, COUNT(obsB) FROM Obs_Batracien JOIN Observation ON idObs = obsB GROUP BY heureObs ");
+                    ResultSet rsBatracien = connect.executeQuery(
+                            "SELECT COUNT(obsB), heureObs FROM Obs_Batracien JOIN AObserve ON lobservation = obsB JOIN Observation ON idObs = lobservation GROUP BY heureObs ");
 
-                    this.seriesLine.getData()
-                            .add(new XYChart.Data<Time, Double>(rs.getTime(1), rs.getDouble(2)));
+                    while (rsBatracien.next()) {
+                        if (rsBatracien.getString(2) != null) {
+                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(rsBatracien.getString(2),
+                                    rsBatracien.getDouble(1)));
+                        } else {
+                            this.seriesBar.getData().add(
+                                    new XYChart.Data<String, Number>("heure inconnue", rsBatracien.getDouble(1)));
+                        }
+                    }
 
                     this.seriesLine.setName("heure/temps");
 
