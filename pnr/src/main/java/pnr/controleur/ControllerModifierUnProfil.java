@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,10 +31,13 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     private Button envoi;
 
     @FXML
-    private Button supprimer;
+    private MFXButton supprimer;
 
     @FXML
     private ComboBox<String> credentials;
+
+    @FXML
+    private MFXTextField username = new MFXTextField();
 
     @FXML
     private TextField prenom = new TextField();
@@ -57,7 +62,6 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     
 
         this.eventSrc = getUserClicked().split(" ")[0];
-        // System.out.println(this.eventSrc);
         ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur"); 
         try {
             while (rs.next()) {
@@ -65,6 +69,7 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                     this.nom.setText(rs.getString("nom"));
                     this.prenom.setText(rs.getString("prenom"));
                     this.password.setText(rs.getString("mdpUtilisateur"));
+                    this.username.setText(rs.getString("pseudonyme"));
                     if (rs.getString("permission").equals("0")){
                         this.credentials.setValue("Utilisateur");
                     } else {
@@ -76,6 +81,9 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
             e.printStackTrace();
         }
 
+        this.username.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.envoi.setDisable(false);
+        });
         this.prenom.textProperty().addListener((observable, oldValue, newValue) -> {
             this.envoi.setDisable(false);
         });
@@ -119,10 +127,7 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                         lUser.add(rs.getString("mdpUtilisateur"));
                         lUser.add(rs.getString("permission"));
                         lUser.add(rs.getString("prenom"));
-                    }
-
-                    for (String s : lUser){
-                        System.out.println(s);
+                        lUser.add(rs.getString("pseudonyme"));
                     }
 
                     if (!(lUser.get(0).equals(this.nom.getText()))){
@@ -145,6 +150,9 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                     if ((!(lUser.get(3).equals(this.prenom.getText()))) && this.prenom.getText() != null){
                         connect.executeUpdate("UPDATE Utilisateur SET prenom ='"+this.prenom.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
                     }
+                    if ((!(lUser.get(4).equals(this.username.getText()))) && this.username.getText() != null){
+                        connect.executeUpdate("UPDATE Utilisateur SET pseudonyme ='"+this.username.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
+                    }
                     initConfirmation("ModifierProfil");
                     loadStage("../vue/Confirmation.fxml", event);
                 } else {
@@ -154,9 +162,5 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         } else {
             super.error("Veuillez renseigner un nom ",anchorPane);
         }            
-    }
-
-    private void hasChanged() {
-        this.envoi.setDisable(false);
     }
 }

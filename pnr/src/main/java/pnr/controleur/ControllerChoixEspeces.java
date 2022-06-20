@@ -63,7 +63,7 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         String name = this.getEventSrcNomUser();
         if (name != null) {
-            this.nameUser.setText(this.getEventSrcNomUser());
+            this.nameUser.setText("Bienvenue "+this.getEventSrcNomUser());
         } else {
             this.nameUser.setText("Utilisateur inconnu");
         }

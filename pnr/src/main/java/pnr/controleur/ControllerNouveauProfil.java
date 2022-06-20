@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,10 +31,13 @@ public class ControllerNouveauProfil extends Controller implements Initializable
     private TextField txtPrenom;
 
     @FXML
-    private TextField txtPseudo;
+    private TextField txtNom;
 
     @FXML
     private TextField txtMdp;
+
+    @FXML
+    private MFXTextField txtPseudo = new MFXTextField();
 
     @FXML
     private ComboBox<String> cbPerm;
@@ -45,25 +49,41 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         this.permissionChoices.add("Utilisateur");
         this.permissionChoices.add("Administrateur");
         this.cbPerm.setItems(this.permissionChoices);
+
+        this.txtPrenom.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtNom.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtMdp.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtPseudo.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbPerm.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        
     }
 
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (event.getSource() == btnBack) {
-            loadStage("../vue/GererProfilsVide.fxml", event);
-        } else if((event.getSource() == btnCreer)&&(txtMdp.getText() != null)&&(cbPerm.getValue() != null)&&(txtPrenom.getText() != null)) { 
+            loadStage("../vue/GererProfils.fxml", event);
+        } else if(event.getSource() == btnCreer) { 
             ArrayList<String> unique = new ArrayList<String>();
-            ResultSet res = connect.executeQuery("SELECT nom FROM Utilisateur");
+            ResultSet res = connect.executeQuery("SELECT pseudonyme FROM Utilisateur");
             while(res.next()){
-                String nom=res.getString("nom");
+                String nom=res.getString("pseudonyme");
                 unique.add(nom);
             }
 
             if(unique.contains(this.txtPseudo.getText())){
                 super.error("Pseudonyme déjà utilisé",anchorPane);
             } else {
-                connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtMdp.getText()+"','"+this.getPerm(this.cbPerm)+"','"+this.txtPrenom.getText()+"');");
-                System.out.println("Utilisateur créé");
+                connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtNom.getText()+"','"+this.txtPrenom.getText()+"','"+this.txtMdp.getText()+"','"+this.getPerm(this.cbPerm)+"');");
                 initConfirmation("NouveauProfil");
                 loadStage("../vue/Confirmation.fxml", event);
             }
@@ -84,5 +104,13 @@ public class ControllerNouveauProfil extends Controller implements Initializable
             System.out.println("getPerm(): combobox nulle");
         }
         return ret;
+    }
+
+    private void checkDisable() {
+        if(!txtPrenom.getText().isEmpty() && !txtNom.getText().isEmpty() && !txtMdp.getText().isEmpty() && !txtPseudo.getText().isEmpty() && cbPerm.getValue() != null) {
+            btnCreer.setDisable(false);
+        } else {
+            btnCreer.setDisable(true);
+        }
     }
 }

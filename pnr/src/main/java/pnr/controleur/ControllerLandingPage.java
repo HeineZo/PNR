@@ -7,8 +7,6 @@ import io.github.palexdev.materialfx.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class ControllerLandingPage extends Controller {
@@ -31,10 +29,10 @@ public class ControllerLandingPage extends Controller {
         
         boolean found = false;
         
-        ResultSet rs = connect.executeQuery("SELECT nom, mdpUtilisateur, permission FROM Utilisateur");
+        ResultSet rs = connect.executeQuery("SELECT pseudonyme, mdpUtilisateur, permission FROM Utilisateur");
         
         while (rs.next() && !found) {
-            if(rs.getString("nom").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
+            if(rs.getString("pseudonyme").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
                 found = true;
                 if (rs.getString("permission").equals("0")) {
                     initNomUser(username.getText());
