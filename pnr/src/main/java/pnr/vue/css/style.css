@@ -27,12 +27,12 @@
     
 }
 
-.choice:hover, .img:hover {
+/* .choice:hover, .img:hover {
     transition: all 1s ease-in-out;
     -fx-translate-y: -50px;
     -fx-border-color: #2d936d;
     -fx-text-fill: #2d936d;
-}
+} */
 
 .root {
     -fx-background-color:  white;
