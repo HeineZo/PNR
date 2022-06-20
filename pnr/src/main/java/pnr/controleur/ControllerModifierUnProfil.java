@@ -112,25 +112,30 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                         lUser.add(rs.getString("permission"));
                         lUser.add(rs.getString("prenom"));
                     }
+
+                    for (String s : lUser){
+                        System.out.println(s);
+                    }
+
                     if (!(lUser.get(0).equals(this.pseudonyme.getText()))){
-                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+this.pseudonyme.getText()+"';");
+                        connect.executeUpdate("UPDATE Utilisateur SET nom ='"+this.pseudonyme.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
                     }
                     if ((!(lUser.get(1).equals(this.password.getText()))) && this.password.getText() != null){
-                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET mdpUtilisateur ='"+this.password.getText()+"';");
+                        connect.executeUpdate("UPDATE Utilisateur SET mdpUtilisateur ='"+this.password.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
                     }
                     if (lUser.get(2).equals("0")){
                         String permission = "Utilisateur";
                         if ((!(permission.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
-                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '1';");
+                            connect.executeUpdate("UPDATE Utilisateur SET permission = '1' WHERE nom ='"+lUser.get(0)+"' ;");
                         }
                     } else {
                         String permission2 = "Administrateur";
                         if ((!(permission2.equals(this.credentials.getValue()))) && this.credentials.getValue() != null){
-                            connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET permission = '0';");
+                            connect.executeUpdate("UPDATE Utilisateur SET permission = '0' WHERE nom ='"+lUser.get(0)+"' ;");
                         }
                     }
                     if ((!(lUser.get(3).equals(this.prenom.getText()))) && this.prenom.getText() != null){
-                        connect.executeUpdate("UPDATE TABLE  Utilisateur WHERE nom ='"+lUser.get(0)+"' SET nom ='"+this.prenom.getText()+"';");
+                        connect.executeUpdate("UPDATE Utilisateur SET prenom ='"+this.prenom.getText()+"' WHERE nom ='"+lUser.get(0)+"' ;");
                     }
                     initConfirmation("ModifierProfil");
                     loadStage("../vue/Confirmation.fxml", event);
