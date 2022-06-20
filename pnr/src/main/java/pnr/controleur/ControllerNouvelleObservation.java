@@ -24,6 +24,9 @@ public class ControllerNouvelleObservation extends Controller implements Initial
     @FXML
     private Button btnBack;
 
+    @FXML
+    private Button envoi;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<String> list = new ArrayList<String>();
@@ -46,7 +49,10 @@ public class ControllerNouvelleObservation extends Controller implements Initial
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixAction.fxml", event);
-        } 
+        } else if (event.getSource() == envoi) {
+            initConfirmation("AjouterObservation");
+            loadStage("../vue/Confirmation.fxml", event);
+        }
     }
 
 

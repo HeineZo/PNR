@@ -26,6 +26,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="283.27101135253906" minHeight="0.0" prefHeight="187.20000610351562" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="680.4541702270508" minHeight="10.0" prefHeight="612.7999938964844" vgrow="SOMETIMES" />
+            <RowConstraints />
         </rowConstraints>
          <children>
             <ImageView id="chouettepic" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
@@ -64,7 +65,7 @@
                   <Insets />
                </GridPane.margin>
             </Text>
-            <Button id="subtitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #73ac9a #73ac9a; -fx-background-radius: 10; -fx-font-size: 16;" text="Créer" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Button id="subtitle" fx:id="envoi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #73ac9a #73ac9a; -fx-background-radius: 10; -fx-font-size: 16;" text="Créer" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <font>
                   <Font size="16.0" />
                </font>
