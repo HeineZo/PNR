@@ -32,15 +32,6 @@ public class ControllerLandingPage extends Controller {
         boolean found = false;
         
         ResultSet rs = connect.executeQuery("SELECT nom, mdpUtilisateur, permission FROM Utilisateur");
-
-        // ResultSetMetaData rsmd = rs.getMetaData();
-        // int columnCount = rsmd.getColumnCount();
-
-        // The column count starts from 1
-        // for (int i = 1; i <= columnCount; i++ ) {
-        //     String name = rsmd.getColumnName(i);
-        //     System.out.println(name);
-        // }
         
         while (rs.next() && !found) {
             if(rs.getString("nom").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
@@ -62,32 +53,4 @@ public class ControllerLandingPage extends Controller {
             super.error("Utilisateur et/ou mot de passe incorrect", anchorPane);
         } 
     }
-
-    @FXML
-    public void keyPressed(KeyEvent ke) {
-        if( ke.getCode() == KeyCode.ENTER) {
-
-        }
-    }
-	
-
-        // if (!user) {
-        //     System.err.println("Invalid credentials, please check username");
-        // } else {
-        //     if (credentials[0].equals(password.getText())) {
-        //         pwd = true;
-        //     }
-        // }
-
-        // if (!pwd) {
-        //     System.err.println("Invalid credentials, please check password");
-        // } else {
-        //     if (credentials[1].equals(String.valueOf(0))) {
-        //         loadStage("../vue/ChoixAction.fxml", event);
-        //     } else {
-        //         loadStage("../vue/ChoixActionAdmin.fxml", event);
-        //     }
-        // }
-    
-
 }

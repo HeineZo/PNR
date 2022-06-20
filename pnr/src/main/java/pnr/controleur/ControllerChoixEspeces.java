@@ -3,6 +3,7 @@ package pnr.controleur;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +19,7 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
     private Button btnChouette;
 
     @FXML
-    private Button btnDeco;
+    private MFXButton btnDeco;
 
     @FXML
     private Button btnGCI;

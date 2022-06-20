@@ -6,8 +6,8 @@
 .outline-button {
 	-fx-background-color: white;
 	-fx-border-color:  #2d936d;
-	-fx-border-radius: 3;
-
+	-fx-border-radius: 8;
+    -fx-background-radius: 8;
 	-fx-text-fill:  #2d936d;
 }
 
@@ -15,6 +15,7 @@
 	-fx-background-color:  #2d936d;
 	-fx-text-fill: white;
 }
+
 
 .choice {
     -fx-background-color:  rgba(0, 0, 0, 0);
