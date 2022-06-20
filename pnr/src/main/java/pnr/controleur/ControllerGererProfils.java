@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -22,10 +23,13 @@ import java.util.logging.Logger;
 
 import io.github.palexdev.materialfx.controls.MFXContextMenuItem;
 import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.cell.MFXListCell;
 import io.github.palexdev.materialfx.font.MFXFontIcon;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class ControllerGererProfils extends Controller implements Initializable{
 
@@ -60,14 +64,15 @@ public class ControllerGererProfils extends Controller implements Initializable{
         profileList.setItems(listProfile);
         profileList.features().enableBounceEffect();
 		profileList.features().enableSmoothScrolling(0.5);
-        // System.out.println(profileList.getSelectionModel());
-        //When a profile is selected, the gridPane is filled with the profile's informations
-        // profileList.getSelectionModel().selectionProperty().addListener(observable, oldValue, newValue) -> {
-        //     if (newValue != null) {
-        //         gridPane.getChildren().clear();
-        //         ResultSet rs2 = connect.executeQuery("SELECT * FROM Observateur WHERE nom = '" + newValue.split(" ")[0] + "' AND prenom = '" + newValue.split(" ")[1] + "'");
+        profileList.setCellFactory(person -> new PersonCellFactory(profileList, person));
+        profileList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                
+                System.out.println("clicked on " + profileList.getSelectionModel().getSelectedValues());
+            }
+        });
 
-        // System.out.println(profileList.getSelectionModel().selectionProperty()) ;//.addListener((observable, oldValue, newValue) -> {
             
     }
 
@@ -109,28 +114,24 @@ public class ControllerGererProfils extends Controller implements Initializable{
         connect.disconnect();
     }
 
-    public InputStream multipleFXML(String ui) throws IOException{
-        URL fxmlResource = getClass().getResource(ui);
-        InputStream inputStream = fxmlResource.openStream();
-        byte[] buffer = new byte[8192];
-        int totalBytes = 0 ;
-        int bytesRead ;
-        while((bytesRead = inputStream.read(buffer, totalBytes, buffer.length - totalBytes)) != -1) {
-            totalBytes += bytesRead ;
-            if (totalBytes == buffer.length) {
-                byte[] newBuffer = new byte[2 * buffer.length];
-                System.arraycopy(buffer, 0, newBuffer, 0, buffer.length);
-                buffer = newBuffer ;
-            }
-        }
-    
-        inputStream.close();
-        byte[] content = new byte[totalBytes];
-        System.arraycopy(buffer, 0, content, 0, totalBytes);
-    
-        InputStream fxml = new ByteArrayInputStream(content);
-        
-        return fxml;
-    }
+	private static class PersonCellFactory extends MFXListCell<String> {
+		private final MFXFontIcon userIcon;
+
+		public PersonCellFactory(MFXListView<String> listView, String data) {
+			super(listView, data);
+
+			userIcon = new MFXFontIcon("mfx-user", 18);
+            // delete-icon = new MFXFontIcon("mfx-delete", 18);
+			userIcon.getStyleClass().add("user-icon");
+			render(data);
+		}
+
+		@Override
+		protected void render(String data) {
+			super.render(data);
+			if (userIcon != null) getChildren().add(0, userIcon);
+
+		}
+	}
 
 }

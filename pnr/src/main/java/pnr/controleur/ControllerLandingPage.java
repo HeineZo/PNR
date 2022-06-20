@@ -7,6 +7,8 @@ import io.github.palexdev.materialfx.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class ControllerLandingPage extends Controller {
@@ -60,7 +62,13 @@ public class ControllerLandingPage extends Controller {
             super.error("Utilisateur et/ou mot de passe incorrect", anchorPane);
         } 
     }
-    
+
+    @FXML
+    public void keyPressed(KeyEvent ke) {
+        if( ke.getCode() == KeyCode.ENTER) {
+
+        }
+    }
 	
 
         // if (!user) {
