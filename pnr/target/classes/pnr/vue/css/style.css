@@ -3,6 +3,10 @@
     /* -fx-background-color: rgba(0,0,0,0); */
 }
 
+.unavailable .floating-text {
+    -fx-text-fill: #C8C8C9;
+}
+
 .mfx-text-field .text-field {
 	-fx-highlight-fill: #73AC9A; /* Selected text highlight */
     -fx-text-fill: #2f2e2e; /* Text color */
@@ -28,8 +32,9 @@
     -fx-border-radius: 50;
     -fx-background-radius:  50;
     -fx-font-size: 22;
-    
 }
+
+
 
 /* .choice:hover, .img:hover {
     transition: all 1s ease-in-out;

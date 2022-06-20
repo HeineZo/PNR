@@ -128,7 +128,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MFXButton>
-                  <MFXTextField fx:id="username" editable="false" floatMode="BORDER" floatingText="Pseudonyme" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                  <MFXTextField fx:id="username" disable="true" editable="false" floatMode="BORDER" floatingText="Pseudonyme" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #C8C8C9;" styleClass="unavailable" stylesheets="@css/style.css" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                      <textFill>
                         <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                      </textFill>
