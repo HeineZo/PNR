@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.ResourceBundle;
 
 import io.github.palexdev.materialfx.controls.MFXCheckListView;
 import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +28,30 @@ public class ControllerNouvelleObservation extends Controller implements Initial
 
     @FXML
     private Button envoi;
+
+    @FXML
+    private MFXTextField txtDate;
+
+    @FXML
+    private MFXTextField txtHeure;
+
+    @FXML
+    private MFXTextField txtCoordX;
+
+    @FXML
+    private MFXTextField txtCoordY;
+
+    @FXML
+    private ComboBox<String> cbSexe;
+
+    @FXML
+    private ComboBox<String> cbProto;
+
+    @FXML
+    private ComboBox<String> cbTypeObs;
+
+    @FXML
+    private ComboBox<String> cbEspece;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,8 +86,5 @@ public class ControllerNouvelleObservation extends Controller implements Initial
             loadStage("../vue/Confirmation.fxml", event);
         }
     }
-
-
-
 
 }
