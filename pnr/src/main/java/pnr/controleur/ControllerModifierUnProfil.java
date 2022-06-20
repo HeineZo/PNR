@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 public class ControllerModifierUnProfil extends Controller implements Initializable{
@@ -28,30 +30,41 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     private ComboBox<String> credentials;
 
     @FXML
-    private TextField name = new TextField();
+    private TextField prenom = new TextField();
 
     @FXML
     private TextField password = new TextField();
 
     @FXML
-    private TextField surname = new TextField();
+    private TextField pseudonyme = new TextField();
 
     private String eventSrc;
 
+    private ObservableList<String> permissionChoices = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.eventSrc = this.getEventSrcVisualiser();
+
+        this.permissionChoices.add("Utilisateur");
+        this.permissionChoices.add("Administrateur");
+        this.credentials.setItems(this.permissionChoices);
+        
+        this.eventSrc = this.getEventSrcNomUser();
         ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur"); 
         try {
             while (rs.next()) {
                 if (rs.getString("nom").equals(this.eventSrc)) {
-                    this.name.setText(rs.getString("nom"));
-                    this.surname.setText(rs.getString("prenom"));
-                    this.password.setText(rs.getString("password"));
-                    this.credentials.setValue(rs.getString("credentials"));
+                    this.pseudonyme.setText(rs.getString("nom"));
+                    this.prenom.setText(rs.getString("prenom"));
+                    this.password.setText(rs.getString("mdpUtilisateur"));
+                    if (rs.getString("permission").equals("0")){
+                        this.credentials.setValue("Utilisateur");
+                    } else {
+                        this.credentials.setValue("Administrateur");
+                    }
                 }
                 // System.out.println(name.setText("")); 
-                name.setText(rs.getString("nom"));//rs.getString("nom"));
+                // name.setText(rs.getString("nom"));//rs.getString("nom"));
                 // System.out.println(rs.getString("nom"));
                 // System.out.println(rs.getString("prenom"));
                 // System.out.println(rs.getString("mdpUtilisateur"));
@@ -60,7 +73,6 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(this.eventSrc);
     }
 
     @FXML

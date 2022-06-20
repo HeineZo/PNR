@@ -72,12 +72,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="name" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Nom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                        <TextField fx:id="prenom" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Prénom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets bottom="10.0" right="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="surname" alignment="CENTER" layoutX="140.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Prénom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                        <TextField fx:id="pseudonyme" alignment="CENTER" layoutX="140.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Pseudonyme" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" />
                            </GridPane.margin>
