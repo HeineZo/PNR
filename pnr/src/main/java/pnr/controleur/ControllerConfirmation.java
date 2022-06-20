@@ -41,7 +41,7 @@ public class ControllerConfirmation extends Controller implements Initializable{
             } else if (this.eventSrcConfirmation.equals("SuppressionProfil")){
                 loadStage("../vue/NouveauProfil.fxml", event);
             } else if (this.eventSrcConfirmation.equals("ModifierProfil")){
-                loadStage("../vue/ModifierUnProfil.fxml", event);
+                loadStage("../vue/GererProfils.fxml", event);
             } else if (this.eventSrcConfirmation.equals("NouveauProfil")){
                 loadStage("../vue/NouveauProfil.fxml", event);
             } else if (this.eventSrcConfirmation.equals("ModifierFicheEspece")){

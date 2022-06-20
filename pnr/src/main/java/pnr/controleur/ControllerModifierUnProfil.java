@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -29,6 +30,9 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
 
     @FXML
     private Button envoi;
+
+    @FXML
+    private Label livePseudo;
 
     @FXML
     private MFXButton supprimer;
@@ -81,7 +85,10 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
             e.printStackTrace();
         }
 
+        this.livePseudo.setText(this.username.getText());
+
         this.username.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.livePseudo.setText(newValue);
             this.envoi.setDisable(false);
         });
         this.prenom.textProperty().addListener((observable, oldValue, newValue) -> {
