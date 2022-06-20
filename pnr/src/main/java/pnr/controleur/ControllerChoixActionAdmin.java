@@ -52,9 +52,9 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String name = this.getEventSrcVisualiser();
+        String name = this.getEventSrcNomUser();
         if (name != null) {
-            this.nameUser.setText(this.getEventSrcVisualiser());
+            this.nameUser.setText(name);
         } else {
             this.nameUser.setText("Utilisateur inconnu");
         }

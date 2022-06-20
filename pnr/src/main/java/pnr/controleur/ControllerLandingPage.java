@@ -1,20 +1,13 @@
 package pnr.controleur;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import io.github.palexdev.materialfx.controls.*;
-import io.github.palexdev.materialfx.enums.NotificationPos;
-import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
-import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
-import io.github.palexdev.materialfx.notifications.base.INotification;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
 
 public class ControllerLandingPage extends Controller {
 
@@ -51,10 +44,12 @@ public class ControllerLandingPage extends Controller {
             if(rs.getString("nom").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
                 found = true;
                 if (rs.getString("permission").equals("0")) {
-                    initVisualiser(username.getText());
+                    initNomUser(username.getText());
+                    initPermission("0");
                     loadStage("../vue/ChoixEspeces.fxml", event);
                 } else if (rs.getString("permission").equals("1")) {
-                    initVisualiser(username.getText());
+                    initNomUser(username.getText());
+                    initPermission("1");
                     loadStage("../vue/ChoixActionAdmin.fxml", event);
                 } 
             } 

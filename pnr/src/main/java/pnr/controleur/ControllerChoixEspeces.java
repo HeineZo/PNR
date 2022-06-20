@@ -56,9 +56,9 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String name = this.getEventSrcVisualiser();
+        String name = this.getEventSrcNomUser();
         if (name != null) {
-            this.nameUser.setText(this.getEventSrcVisualiser());
+            this.nameUser.setText(this.getEventSrcNomUser());
         } else {
             this.nameUser.setText("Utilisateur inconnu");
         }

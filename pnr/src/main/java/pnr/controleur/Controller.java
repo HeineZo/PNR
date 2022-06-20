@@ -39,6 +39,40 @@ public class Controller {
         }
     }
 
+    public void initPermission(String event) {
+        String fileName = "permissionSrc.txt";
+        File f = new File(fileName);
+
+        f.delete();
+
+        try {
+            FileWriter writer = new FileWriter(fileName);
+
+            writer.write(event);
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+    }
+
+    public void initNomUser(String event) {
+        String fileName = "nomUserSrc.txt";
+        File f = new File(fileName);
+
+        f.delete();
+
+        try {
+            FileWriter writer = new FileWriter(fileName);
+
+            writer.write(event);
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+    }
+
     public void initVisualiser(String event) {
         String fileName = "visualiserSrc.txt";
         File f = new File(fileName);
@@ -56,8 +90,79 @@ public class Controller {
         }
     }
 
+    public void initConfirmation(String event) {
+        String fileName = "confirmationSrc.txt";
+        File f = new File(fileName);
+
+        f.delete();
+
+        try {
+            FileWriter writer = new FileWriter(fileName);
+
+            writer.write(event);
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+    }
+
     public String getEventSrcVisualiser() {
         String fileName = "visualiserSrc.txt";
+        String src = null;
+
+        try {
+            FileReader reader = new FileReader(fileName);
+            Scanner scanner = new Scanner(reader);
+
+            src = scanner.nextLine();
+
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+
+        return src;
+    }
+
+    public String getEventSrcPermission() {
+        String fileName = "PermissionSrc.txt";
+        String src = null;
+
+        try {
+            FileReader reader = new FileReader(fileName);
+            Scanner scanner = new Scanner(reader);
+
+            src = scanner.nextLine();
+
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+
+        return src;
+    }
+
+    public String getEventSrcNomUser() {
+        String fileName = "nomUserSrc.txt";
+        String src = null;
+
+        try {
+            FileReader reader = new FileReader(fileName);
+            Scanner scanner = new Scanner(reader);
+
+            src = scanner.nextLine();
+
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+
+        return src;
+    }
+
+    public String getEventSrcConfirmation() {
+        String fileName = "confirmationSrc.txt";
         String src = null;
 
         try {

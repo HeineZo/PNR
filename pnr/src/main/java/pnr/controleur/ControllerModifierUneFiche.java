@@ -9,9 +9,15 @@ public class ControllerModifierUneFiche extends Controller{
     private Button btnBack;
 
     @FXML
+    private Button envoi;
+
+    @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ModifierFiches.fxml", event);
+        } else if (event.getSource() == envoi) {
+            initConfirmation("ModifierObservation");
+            loadStage("../vue/Confirmation.fxml", event);
         }
     }
 }

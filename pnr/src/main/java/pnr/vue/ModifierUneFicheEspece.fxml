@@ -38,7 +38,7 @@
                </font>
             </Text>
             <TextField fx:id="id" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Nom de l'attribut" style="-fx-background-radius: 5;" text="[data]" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Button id="subtitle" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #2D936D; -fx-background-radius: 10; -fx-font-size: 18;" text="Créer" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+            <Button id="subtitle" fx:id="envoi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #2D936D; -fx-background-radius: 10; -fx-font-size: 18;" text="Modifier" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
                <font>
                   <Font size="20.0" />
                </font>
