@@ -11,12 +11,18 @@ public class ControllerModifierUneFicheEspece extends Controller {
     private Button btnBack;
 
     @FXML
+    private Button envoi;
+
+    @FXML
     private ImageView delete;
 
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixActionAdmin.fxml", event);
+        } else if (event.getSource() == envoi){
+            initConfirmation("ModifierFicheEspece");
+            loadStage("../vue/Confirmation.fxml", event);
         }
     }
 }

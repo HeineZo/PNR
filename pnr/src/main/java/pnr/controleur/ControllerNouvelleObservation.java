@@ -46,7 +46,7 @@ public class ControllerNouvelleObservation extends Controller implements Initial
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixAction.fxml", event);
-        }
+        } 
     }
 
 
