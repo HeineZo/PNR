@@ -34,7 +34,7 @@ public class ControllerLandingPage extends Controller {
         
         while (rs.next() && !found) {
             EncryptString cryptMdp = new EncryptString(username.getText());
-            if(rs.getString("pseudonyme").equals(cryptMdp.getEncryptedPassword()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
+            if(rs.getString("pseudonyme").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(cryptMdp.getEncryptedPassword())) {
                 found = true;
                 if (rs.getString("permission").equals("0")) {
                     initNomUser(username.getText());
