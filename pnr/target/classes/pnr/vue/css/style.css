@@ -41,25 +41,20 @@
 .mfx-ripple-generator {
     -fx-color: white;
 }
-
-
 .date-picker-popup .months-combo .virtual-flow .mfx-combo-box-cell:selected .label,
 .date-picker-popup .years-combo .virtual-flow .mfx-combo-box-cell:selected .label {
 	-fx-text-fill: white;
 }
-
 .date-picker-popup .mfx-date-cell:current {
 	-fx-background-color: #2d936d;
     -fx-text-fill: white;
 }
-
 .date-picker-popup .mfx-date-cell:selected {
 	-fx-background-color: transparent;
     -fx-border-color: #2d936d;
     -fx-border-width: 2;
 	-fx-text-fill: #2d936d;
 }
-
 .date-picker-popup .months-combo .virtual-flow .mfx-combo-box-cell:hover,
 .date-picker-popup .years-combo .virtual-flow .mfx-combo-box-cell:hover,
 .date-picker-popup .months-combo .virtual-flow .mfx-combo-box-cell:selected,
@@ -67,13 +62,11 @@
 	-fx-background-color: #73AC9A;
     -fx-text-fill: white;
 }
-
 .mfx-date-picker .date-picker-popup .left-arrow .mfx-ripple-generator,
 .mfx-date-picker .date-picker-popup .right-arrow .mfx-ripple-generator {
 	-mfx-ripple-color: #bddfd2;
     color:  #f8f7fa;
 }
-
 /* Notification */
 .notification {
 	-fx-background-color: white;
@@ -82,12 +75,10 @@
 	-fx-border-width: 3;
 	-fx-border-radius: 10;
 }
-
 .notification .content {
 	-fx-padding: 10;
 	-fx-font-family: 'Avenir LT Std 65 Medium';
 }
-
 
 /* .choice:hover, .img:hover {
     transition: all 1s ease-in-out;
@@ -105,10 +96,40 @@
 	-mfx-main: #2d936d;
 }
 
+/* .mfx-combo-box-cell:hover{
+    -fx-background-color: #73AC9A;
+}
+
+.scrollbar, .mfx-combo-box-cell:selected {
+    -fx-background-color: #2d936d;
+    -fx-text-fill: white;
+} */
+
 .mfx-list-view .virtual-flow .mfx-list-cell {
     -fx-font-size: 22;
 }
 
+.mfx-combo-box, .mfx-combo-box .combo-popup .virtual-flow {
+    -fx-border-color: #2d936d;
+}
 
+.mfx-combo-box-cell {
+	-mfx-hover: #73AC9A;
+	-mfx-selected: #2d936d;
+	-fx-background-radius: 5;
+	-fx-padding: 5;
+}
+
+.mfx-combo-box-cell:hover .data-label, .mfx-combo-box-cell:selected .data-label {
+	-fx-text-fill: white;
+}
+
+.mfx-combo-box .caret .mfx-ripple-generator {
+	-mfx-ripple-color: #b9e4d6;
+}
+
+.mfx-combo-box:focus-within .caret .mfx-font-icon {
+	-mfx-color: #2d936d;
+}
 
 

@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,19 +34,19 @@ public class ControllerNouveauProfil extends Controller implements Initializable
     private Label livePseudo;
 
     @FXML
-    private TextField txtPrenom;
+    private MFXTextField txtMdp;
 
     @FXML
-    private TextField txtNom;
+    private MFXTextField txtNom;
 
     @FXML
-    private TextField txtMdp;
+    private MFXTextField txtPrenom;
 
     @FXML
     private MFXTextField txtPseudo = new MFXTextField();
 
     @FXML
-    private ComboBox<String> cbPerm;
+    private MFXComboBox<String> cbPerm;
 
     private ObservableList<String> permissionChoices = FXCollections.observableArrayList();
 
@@ -99,7 +100,7 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         }
     }
 
-    public int getPerm(ComboBox<String> perm) {
+    public int getPerm(MFXComboBox<String> perm) {
         int ret = -1;
         if(perm != null) {
             if (perm.getValue().equals("Administrateur")) {

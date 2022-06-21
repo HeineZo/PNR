@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,19 +40,19 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     private MFXButton supprimer;
 
     @FXML
-    private ComboBox<String> credentials;
+    private MFXComboBox<String> credentials;
 
     @FXML
     private MFXTextField username = new MFXTextField();
 
     @FXML
-    private TextField prenom = new TextField();
+    private MFXTextField nom = new MFXTextField();
 
     @FXML
-    private TextField password = new TextField();
+    private MFXTextField password = new MFXTextField();
 
     @FXML
-    private TextField nom = new TextField();
+    private MFXTextField prenom = new MFXTextField();
 
     private String eventSrc;
 
