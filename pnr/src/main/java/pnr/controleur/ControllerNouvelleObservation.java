@@ -80,19 +80,19 @@ public class ControllerNouvelleObservation extends Controller implements Initial
         try {
             switch (eventSrc) {
                 case "Batracien":
-                    loadUI("../vue/ObservationBatracien.fxml");
+                    loadUI("../vue/ObservationBatracien.fxml", scrollPane);
                     break;
                 case "Chouette":
-                    loadUI("../vue/ObservationChouette.fxml");
+                    loadUI("../vue/ObservationChouette.fxml", scrollPane);
                     break;
                 case "GCI":
-                    loadUI("../vue/ObservationGCI.fxml");
+                    loadUI("../vue/ObservationGCI.fxml", scrollPane);
                     break;
                 case "Hippocampe":
-                    loadUI("../vue/ObservationHippocampe.fxml");
+                    loadUI("../vue/ObservationHippocampe.fxml", scrollPane);
                     break;
                 case "Loutre":
-                    loadUI("../vue/ObservationLoutre.fxml");
+                    loadUI("../vue/ObservationLoutre.fxml", scrollPane);
                     break;
                 default:
                     break;
@@ -120,20 +120,6 @@ public class ControllerNouvelleObservation extends Controller implements Initial
         observatorList.setItems(listObservator);
         observatorList.features().enableBounceEffect();
 		observatorList.features().enableSmoothScrolling(0.5);
-    }
-
-    public void loadUI(String ui) throws IOException{
-
-        // int i = 0;
-        // int j = 0;
-        AnchorPane pane = FXMLLoader.load(getClass().getResource(ui));
-
-        // ResultSet rs = connect.executeQuery("SELECT nom FROM Utilisateur");
-        // ((Labeled) root.getChildren().get(1)).setText(rs.getString("nom"));
-        // ((Labeled) root.getChildren().get(0)).setText(rs.getString("nom"));
-        // System.out.println(root.getChildren().get(1));
-        scrollPane.setContent(pane);
-
     }
 
     @FXML

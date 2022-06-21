@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import pnr.modele.ConnectVPS;
 import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 
 public class Controller {
 
@@ -56,11 +57,15 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public String getUserClicked() {
         return userClicked;
+    }
+
+    public void loadUI(String ui, MFXScrollPane scrollPane) throws IOException{
+        AnchorPane pane = FXMLLoader.load(getClass().getResource(ui));
+        scrollPane.setContent(pane);
     }
 
     public void initPermission(String event) {

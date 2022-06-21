@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 
 public class ExampleNotification extends MFXSimpleNotification {
@@ -37,7 +38,7 @@ public class ExampleNotification extends MFXSimpleNotification {
         container.getStyleClass().add("notification");
         container.setTop(header);
         container.setCenter(contentLabel);
-        container.getStylesheets().add(getClass().getResource("NotificationStyle.css").toExternalForm());
+        container.getStylesheets().add(getClass().getResource("../vue/css/style.css").toExternalForm());
         container.setPrefHeight(100);
         container.setPrefWidth(350);
 

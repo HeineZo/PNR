@@ -60,7 +60,7 @@ public class ControllerGererProfils extends Controller implements Initializable{
         profileList.setItems(listProfile);
         profileList.features().enableBounceEffect();
 		profileList.features().enableSmoothScrolling(0.5);
-        profileList.setCellFactory(person -> new PersonCellFactory(profileList, person));
+        profileList.setCellFactory(person -> new PersonCellFactory(profileList, person, "mfx-user"));
         profileList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -68,9 +68,7 @@ public class ControllerGererProfils extends Controller implements Initializable{
                 
                 loadUser("../vue/ModifierUnProfil.fxml", event, user);
             }
-        });
-
-            
+        });  
     }
 
     @FXML
@@ -83,25 +81,4 @@ public class ControllerGererProfils extends Controller implements Initializable{
             loadStage("../vue/NouveauProfil.fxml", event);
         }
     }
-
-	private static class PersonCellFactory extends MFXListCell<String> {
-		private final MFXFontIcon userIcon;
-
-		public PersonCellFactory(MFXListView<String> listView, String data) {
-			super(listView, data);
-
-			userIcon = new MFXFontIcon("mfx-user", 18);
-            // delete-icon = new MFXFontIcon("mfx-delete", 18);
-			userIcon.getStyleClass().add("user-icon");
-			render(data);
-		}
-
-		@Override
-		protected void render(String data) {
-			super.render(data);
-			if (userIcon != null) getChildren().add(0, userIcon);
-
-		}
-	}
-
 }
