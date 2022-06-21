@@ -11,6 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -72,6 +73,17 @@ public class ControllerNouvelleObservationGCI extends Controller implements Init
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleBtnClick(ActionEvent event) {
+        if (event.getSource() == btnBack) {
+            loadStage("../vue/ChoixAction.fxml", event);
+        } else if (event.getSource() == envoi) {
+            
+            initConfirmation("AjouterObservation");
+            loadStage("../vue/Confirmation.fxml", event);
         }
     }
 }
