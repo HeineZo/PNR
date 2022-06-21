@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -36,14 +37,49 @@ public class ControllerDernierObservation extends Controller implements Initiali
     @FXML
     private Text nameEspece;
 
+    private String table, id, eventSrc;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<String> list = new ArrayList<String>();
-        
-        ResultSet rs = connect.executeQuery("SELECT idObs, dateObs FROM Observation ORDER BY dateObs DESC");
+        ArrayList<Integer> listId = new ArrayList<Integer>();
+        eventSrc = initPage(imgEspece, nameEspece);
+        switch (eventSrc) {
+            case "Batracien":
+                table = "JOIN Obs_Batracien ";
+                id = "ON obsB=idObs";
+                break;
+            case "Chouette":
+                table = "JOIN Obs_Chouette ";
+                id = "ON numObs=idObs";
+                break;
+            case "GCI":
+                table = "JOIN Obs_GCI ";
+                id = "ON obsG=idObs";
+                break;
+            case "Hippocampe":
+                table = "JOIN Obs_Hippocampe ";
+                id = "ON obsH=idObs";
+                break;
+            case "Loutre":
+                table = "JOIN Obs_Loutre ";
+                id = "ON obsL=idObs";
+                break;
+            default:
+                table ="";
+                id = "";
+                break;
+        }
+
+        ResultSet rs = connect.executeQuery("SELECT idObs, dateObs FROM Observation "+table+id+" ORDER BY dateObs DESC");
         try {
             while (rs.next()){
-                list.add("Observation du "+rs.getDate("dateObs"));
+                listId.add(rs.getInt("idObs"));
+                if (rs.getDate("dateObs") != null){
+                    list.add("Observation du "+new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("dateObs")));
+                } else {
+                    list.add("Date indisponible");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,12 +92,13 @@ public class ControllerDernierObservation extends Controller implements Initiali
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String user = new String(listView.getSelectionModel().getSelectedValues().get(0));
+                String idClicked = new String(listView.getSelectionModel().getSelectedValues().get(0));
                 
-                loadUser("../vue/ModifierUneObservation.fxml", event, user);
+                loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked);
             }
         });  
     }
+
 
     @FXML
     private void handleBtnClick(ActionEvent event) {

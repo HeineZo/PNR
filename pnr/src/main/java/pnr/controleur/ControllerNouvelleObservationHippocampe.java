@@ -77,7 +77,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
             }
             this.cbObservateur.setItems(this.observateur);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

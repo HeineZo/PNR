@@ -48,12 +48,8 @@ public class ControllerModifierUneObservation extends Controller implements Init
                     rs = connect.executeQuery("SELECT * FROM Obs_Batracien"); 
                     break;
                 case "Chouette":
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    ControllerChouette fooController = (ControllerChouette) fxmlLoader.getController();
-                    System.out.println(fooController.toString());
                     loadUI("../vue/ObservationChouette.fxml", scrollPane);
                     rs = connect.executeQuery("SELECT * FROM Obs_Chouette"); 
-                    fooController.initModify();
                     break;
                 case "GCI":
                     loadUI("../vue/ObservationGCI.fxml", scrollPane);
