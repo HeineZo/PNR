@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -70,30 +68,35 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="txtPrenom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Prénom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                        <MFXTextField fx:id="txtPrenom" floatMode="BORDER" floatingText="Prénom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                           <textFill>
+                              <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+                           </textFill>
                            <GridPane.margin>
                               <Insets bottom="10.0" right="10.0" />
                            </GridPane.margin>
-                        </TextField>
-                        <TextField fx:id="txtNom" layoutX="140.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Nom" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                        </MFXTextField>
+                        <MFXTextField fx:id="txtNom" floatMode="BORDER" floatingText="Nom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                           <textFill>
+                              <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+                           </textFill>
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" />
                            </GridPane.margin>
-                        </TextField>
-                        <TextField fx:id="txtMdp" layoutX="320.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Mot de passe" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #73ac9a; -fx-border-width: 2; -fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        </MFXTextField>
+                        <MFXTextField fx:id="txtMdp" floatMode="BORDER" floatingText="Mot de passe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                           <textFill>
+                              <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+                           </textFill>
                            <GridPane.margin>
                               <Insets left="10.0" top="10.0" />
                            </GridPane.margin>
-                        </TextField>
-                        <ComboBox fx:id="cbPerm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" promptText="Permission" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #73ac9a #73ac9a; -fx-border-radius: 10; -fx-border-width: 2;" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        </MFXTextField>
+                        <MFXComboBox fx:id="cbPerm" floatMode="BORDER" floatingText="Permission" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="160.0" stylesheets="@css/style.css" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets right="10.0" top="10.0" />
                            </GridPane.margin>
-                           <items>
-                              <FXCollections fx:factory="observableArrayList">
-                              </FXCollections>
-                           </items>
-                        </ComboBox>
+                        </MFXComboBox>
                      </children>
                   </GridPane>
                   <Button id="button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" style="-fx-border-radius: 15; -fx-border-color: #000000; -fx-border-width: 4; -fx-background-color: RGBA000000;" GridPane.halignment="CENTER" GridPane.valignment="TOP">
