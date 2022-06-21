@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import pnr.modele.EncryptString;
 
 public class ControllerLandingPage extends Controller {
 
@@ -32,7 +33,8 @@ public class ControllerLandingPage extends Controller {
         ResultSet rs = connect.executeQuery("SELECT pseudonyme, mdpUtilisateur, permission FROM Utilisateur");
         
         while (rs.next() && !found) {
-            if(rs.getString("pseudonyme").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(password.getText())) {
+            EncryptString cryptMdp = new EncryptString(username.getText());
+            if(rs.getString("pseudonyme").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(cryptMdp.getEncryptedPassword())) {
                 found = true;
                 if (rs.getString("permission").equals("0")) {
                     initNomUser(username.getText());
