@@ -37,7 +37,17 @@ public class ControllerConfirmation extends Controller implements Initializable{
             if(this.eventSrcConfirmation.equals("ModifierObservation")){
                 loadStage("../vue/ModifierUneObservation.fxml", event);
             } else if (this.eventSrcConfirmation.equals("AjouterObservation")){
-                loadStage("../vue/NouvelleObservation.fxml", event);
+                if (this.getEventSrcVisualiser().equals("Batracien")) {
+                    loadStage("../vue/NouvelleObservationBatracien.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("Chouette")) {
+                    loadStage("../vue/NouvelleObservationChouette.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("GCI")) {
+                    loadStage("../vue/NouvelleObservationGCI.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("Hippocampe")) {
+                    loadStage("../vue/NouvelleObservationHippocampe.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("Loutre")) {
+                    loadStage("../vue/NouvelleObservationLoutre.fxml", event);
+                }
             } else if (this.eventSrcConfirmation.equals("SuppressionProfil")){
                 loadStage("../vue/NouveauProfil.fxml", event);
             } else if (this.eventSrcConfirmation.equals("ModifierProfil")){

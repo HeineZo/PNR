@@ -53,12 +53,14 @@ public class ControllerNouvelleObservationGCI extends Controller implements Init
 
     @FXML
     private ComboBox<String> cbNature;
+    private ObservableList<String> nature  = FXCollections.observableArrayList();
 
     @FXML
     private MFXTextField txtNombre;
 
     @FXML
     private ComboBox<String> cbPresent;
+    private ObservableList<String> present  = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,6 +76,15 @@ public class ControllerNouvelleObservationGCI extends Controller implements Init
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        this.nature.add("Oeuf");
+        this.nature.add("Poussin");
+        this.nature.add("Nid");
+        this.cbNature.setItems(this.nature);
+
+        this.present.add("non");
+        this.present.add("oui");
+        this.cbPresent.setItems(this.present);
     }
 
     @FXML

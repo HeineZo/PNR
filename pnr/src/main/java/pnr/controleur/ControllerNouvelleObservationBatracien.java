@@ -53,6 +53,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
 
     @FXML
     private ComboBox<String> cbEspece;
+    private ObservableList<String> espece = FXCollections.observableArrayList();
 
     @FXML
     private MFXTextField txtAdulte;
@@ -68,15 +69,19 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
 
     @FXML
     private ComboBox<String> cbTemperature;
+    private ObservableList<String> temp = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbCiel;
+    private ObservableList<String> ciel = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbPluie;
+    private ObservableList<String> pluie = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbVent;
+    private ObservableList<String> vent = FXCollections.observableArrayList();
 
     @FXML
     private MFXTextField txtZoneHumide;
@@ -98,6 +103,32 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        this.ciel.add("dégagé");
+        this.ciel.add("semi-dégagé");
+        this.ciel.add("nuageux");
+        this.cbCiel.setItems(this.ciel);
+
+        this.pluie.add("non");
+        this.pluie.add("légère");
+        this.pluie.add("moyenne");
+        this.pluie.add("forte");
+        this.cbPluie.setItems(this.pluie);
+
+        this.temp.add("froid");
+        this.temp.add("moyen");
+        this.temp.add("chaud");
+        this.cbTemperature.setItems(this.temp);
+
+        this.vent.add("non");
+        this.vent.add("léger");
+        this.vent.add("moyen");
+        this.vent.add("fort");
+        this.cbVent.setItems(this.vent);
+
+        this.espece.add("calamite");
+        this.espece.add("pelodyte");
+        this.cbEspece.setItems(this.espece);
     }
 
     @FXML
