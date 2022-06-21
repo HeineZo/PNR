@@ -33,7 +33,7 @@ public class ControllerLandingPage extends Controller {
         ResultSet rs = connect.executeQuery("SELECT pseudonyme, mdpUtilisateur, permission FROM Utilisateur");
         
         while (rs.next() && !found) {
-            EncryptString cryptMdp = new EncryptString(username.getText());
+            EncryptString cryptMdp = new EncryptString(password.getText());
             if(rs.getString("pseudonyme").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(cryptMdp.getEncryptedPassword())) {
                 found = true;
                 if (rs.getString("permission").equals("0")) {
