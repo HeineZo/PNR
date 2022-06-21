@@ -97,7 +97,7 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         }
     }
 
-    private int getPerm(ComboBox<String> perm) {
+    public int getPerm(ComboBox<String> perm) {
         int ret = -1;
         if(perm != null) {
             if (perm.getValue().equals("Administrateur")) {
