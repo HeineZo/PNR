@@ -88,7 +88,6 @@ public class ControllerNouvelleObservationChouette extends Controller implements
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
     }
 
 
@@ -161,6 +160,7 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixAction.fxml", event);
         } else if (event.getSource() == envoi) {
+            
             initConfirmation("AjouterObservation");
             loadStage("../vue/Confirmation.fxml", event);
         }
