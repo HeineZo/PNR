@@ -25,6 +25,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -184,7 +186,7 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         //         }
         //     }
         // }
-        MFXTableColumn<EspeceBatracien> nameColumn = new MFXTableColumn<>("Name", true);
+        MFXTableColumn<String> nameColumn = new MFXTableColumn<>("Name", true);
         // nameColumn.setRowCellFactory(batracien -> new MFXTableRowCell<>(ObsBatracien::getEspeceBatracien));
 
         

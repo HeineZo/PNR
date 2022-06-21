@@ -1,11 +1,13 @@
 package pnr.controleur;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import java.util.ResourceBundle;
 
 import io.github.palexdev.materialfx.controls.MFXCheckListView;
 import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +31,9 @@ public class ControllerNouvelleObservation extends Controller implements Initial
 
     @FXML
     private Button envoi;
+
+    @FXML
+    private MFXScrollPane scrollPane;
 
     @FXML
     private MFXTextField txtDate;
@@ -55,8 +61,13 @@ public class ControllerNouvelleObservation extends Controller implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadList();
-
+        try {
+            loadUI("../vue/ObservationChouette.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // loadList();
+        
     }
 
 
@@ -75,6 +86,20 @@ public class ControllerNouvelleObservation extends Controller implements Initial
         observatorList.setItems(listObservator);
         observatorList.features().enableBounceEffect();
 		observatorList.features().enableSmoothScrolling(0.5);
+    }
+
+    public void loadUI(String ui) throws IOException{
+
+        // int i = 0;
+        // int j = 0;
+        AnchorPane pane = FXMLLoader.load(getClass().getResource(ui));
+
+        // ResultSet rs = connect.executeQuery("SELECT nom FROM Utilisateur");
+        // ((Labeled) root.getChildren().get(1)).setText(rs.getString("nom"));
+        // ((Labeled) root.getChildren().get(0)).setText(rs.getString("nom"));
+        // System.out.println(root.getChildren().get(1));
+        scrollPane.setContent(pane);
+
     }
 
     @FXML

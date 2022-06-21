@@ -70,7 +70,10 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MFXScrollPane fitToWidth="true" hbarPolicy="NEVER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <MFXScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="571.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></MFXScrollPane>
          </children>
       </GridPane>
    </children>
