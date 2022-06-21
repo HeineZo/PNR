@@ -74,7 +74,19 @@
     color:  #f8f7fa;
 }
 
+/* Notification */
+.notification {
+	-fx-background-color: white;
+	-fx-background-radius: 10;
+	-fx-border-color: #2d936d;
+	-fx-border-width: 3;
+	-fx-border-radius: 10;
+}
 
+.notification .content {
+	-fx-padding: 10;
+	-fx-font-family: 'Avenir LT Std 65 Medium';
+}
 
 
 /* .choice:hover, .img:hover {
@@ -95,8 +107,8 @@
 
 .mfx-list-view .virtual-flow .mfx-list-cell {
     -fx-font-size: 22;
-    
 }
+
 
 
 

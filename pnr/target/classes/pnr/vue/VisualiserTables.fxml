@@ -242,7 +242,7 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <TableView fx:id="tbvHippocampe" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <TableView fx:id="tbvHippocampe" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" GridPane.rowIndex="1">
                <columns>
                   <TableColumn fx:id="obsH" prefWidth="75.0" text="id" />
                   <TableColumn fx:id="espece" prefWidth="75.0" text="espece" />
@@ -256,7 +256,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TableView fx:id="tbvLoutre" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <TableView fx:id="tbvLoutre" layoutX="10.0" layoutY="177.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" GridPane.rowIndex="1">
                <columns>
                   <TableColumn fx:id="ObsL" prefWidth="75.0" text="id" />
                   <TableColumn fx:id="commune" prefWidth="75.0" text="commune" />
