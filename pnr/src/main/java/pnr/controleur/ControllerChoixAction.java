@@ -45,7 +45,17 @@ public class ControllerChoixAction extends Controller implements Initializable {
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnNewObs) {
-            loadStage("../vue/NouvelleObservation.fxml", event);
+            if (this.getEventSrcVisualiser().equals("Batracien")) {
+                loadStage("../vue/NouvelleObservationBatracien.fxml", event);
+            } else if (this.getEventSrcVisualiser().equals("Chouette")) {
+                loadStage("../vue/NouvelleObservationChouette.fxml", event);
+            } else if (this.getEventSrcVisualiser().equals("GCI")) {
+                loadStage("../vue/NouvelleObservationGCI.fxml", event);
+            } else if (this.getEventSrcVisualiser().equals("Hippocampe")) {
+                loadStage("../vue/NouvelleObservationHippocampe.fxml", event);
+            } else if (this.getEventSrcVisualiser().equals("Loutre")) {
+                loadStage("../vue/NouvelleObservationLoutre.fxml", event);
+            }
         } else if (event.getSource() == btnVisObs) {
             loadStage("../vue/Visualiser.fxml", event);
         } else if (event.getSource() == btnModObs) {
