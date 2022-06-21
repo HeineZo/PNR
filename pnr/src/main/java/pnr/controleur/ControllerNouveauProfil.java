@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import pnr.modele.EncryptString;
 
 public class ControllerNouveauProfil extends Controller implements Initializable{
 
@@ -88,7 +89,8 @@ public class ControllerNouveauProfil extends Controller implements Initializable
             if(unique.contains(this.txtPseudo.getText())){
                 super.error("Pseudonyme déjà utilisé",anchorPane);
             } else {
-                connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtNom.getText()+"','"+this.txtPrenom.getText()+"','"+this.txtMdp.getText()+"','"+this.getPerm(this.cbPerm)+"');");
+                EncryptString cryptMdp = new EncryptString(this.txtMdp.getText());
+                connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtNom.getText()+"','"+this.txtPrenom.getText()+"','"+cryptMdp.getEncryptedPassword()+"','"+this.getPerm(this.cbPerm)+"');");
                 initConfirmation("NouveauProfil");
                 loadStage("../vue/Confirmation.fxml", event);
             }

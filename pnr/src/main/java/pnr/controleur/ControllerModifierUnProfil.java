@@ -19,6 +19,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import pnr.modele.EncryptString;
 
 public class ControllerModifierUnProfil extends Controller implements Initializable{
 
@@ -141,7 +142,8 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                         connect.executeUpdate("UPDATE Utilisateur SET nom ='"+this.nom.getText()+"' WHERE pseudonyme ='"+lUser.get(4)+"' ;");
                     }
                     if ((!(lUser.get(1).equals(this.password.getText()))) && this.password.getText() != null){
-                        connect.executeUpdate("UPDATE Utilisateur SET mdpUtilisateur ='"+this.password.getText()+"' WHERE pseudonyme ='"+lUser.get(4)+"' ;");
+                        EncryptString cryptMdp = new EncryptString(this.password.getText());
+                        connect.executeUpdate("UPDATE Utilisateur SET mdpUtilisateur ='"+cryptMdp.getEncryptedPassword()+"' WHERE pseudonyme ='"+lUser.get(4)+"' ;");
                     }
                     if (lUser.get(2).equals("0")){
                         String permission = "Utilisateur";
