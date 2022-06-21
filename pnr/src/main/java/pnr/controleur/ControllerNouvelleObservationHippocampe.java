@@ -53,18 +53,22 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
     @FXML
     private ComboBox<String> cbEspece;
+    private ObservableList<String> espece = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbSexe;
+    private ObservableList<String> sexe = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbTypePeche;
+    private ObservableList<String> typePeche = FXCollections.observableArrayList();
 
     @FXML
     private MFXTextField txtTemperature;
 
     @FXML
     private ComboBox<String> cbGestant;
+    private ObservableList<String> gestant = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,6 +84,27 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        this.espece.add("Syngnathus acus");
+        this.espece.add("Hippocampus guttulatus");
+        this.espece.add("Hippocampus Hippocampus");
+        this.espece.add("Entelurus aequoreus");
+        this.cbEspece.setItems(this.espece);
+
+        this.sexe.add("MALE");
+        this.sexe.add("FEMELLE");
+        this.sexe.add("INCONNU");
+        this.cbSexe.setItems(this.sexe);
+
+        this.typePeche.add("casierCrevettes");
+        this.typePeche.add("casierMorgates");
+        this.typePeche.add("PetitFilet");
+        this.typePeche.add("verveuxAnguilles");
+        this.cbTypePeche.setItems(this.typePeche);
+
+        this.gestant.add("non");
+        this.gestant.add("oui");
+        this.cbGestant.setItems(this.gestant);
     }
 
     @FXML

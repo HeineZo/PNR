@@ -62,6 +62,7 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
 
     @FXML
     private ComboBox<String> cbIndice;
+    private ObservableList<String> indice  = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,6 +78,11 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        this.indice.add("Positif");
+        this.indice.add("Negatif");
+        this.indice.add("Non prospection");
+        this.cbIndice.setItems(this.indice);
     }
 
     @FXML
