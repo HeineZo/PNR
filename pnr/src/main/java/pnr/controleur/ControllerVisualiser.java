@@ -4,6 +4,7 @@ import pnr.modele.util.*;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.gluonhq.maps.MapLayer;
@@ -526,41 +527,110 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private void position(String type) {
         if (type.equals("Carte")) {
             System.setProperty("javafx.platform", "desktop");
-            System.setProperty("http.agent", "Gluon Mobile/1.0.3");
+            System.setProperty("http.agent", "Gluon Maps/2.0.0");
+
+            this.mapView = new MapView();
+            MapPoint mpMorbihan = new MapPoint(47., -3.);
+            this.mapView.setZoom(5);
+            this.mapView.flyTo(0, mpMorbihan, 0.1);
+
+            ArrayList<MapPoint> mpArray = new ArrayList<MapPoint>();
 
             if (this.eventSrc.equals("Batracien")) {
-                this.mapView = new MapView();
-                this.pMap.getChildren().add(this.mapView);
-
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Batracien On obsB = idObs ");
 
                     while (rs.next()) {
                         double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                        // System.out.println(save[0] + " " + save[1]);
                         MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                        mpArray.add(mapPoint);
 
                         MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
-                        mapView.addLayer(mapLayer);
-
-                        Circle circle = new Circle(5, Color.RED);
-
-                        this.pMap.getChildren().add(circle);
+                        this.mapView.addLayer(mapLayer);
                     }
+
+                    // PoiLayer poi = new PoiLayer();
+
+                    // for (MapPoint mapPoint : mpArray) {
+                    // poi.addPoint(mapPoint, new Circle(5, Color.BLUE));
+                    // }
                 } catch (Exception e) {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Chouette")) {
-                //
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Chouette On numIndividu = idObs ");
+
+                    while (rs.next()) {
+                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                        // System.out.println(save[0] + " " + save[1]);
+                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                        mpArray.add(mapPoint);
+
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                        this.mapView.addLayer(mapLayer);
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             } else if (this.eventSrc.equals("GCI")) {
-                //
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_GCI On obsG = idObs ");
+
+                    while (rs.next()) {
+                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                        // System.out.println(save[0] + " " + save[1]);
+                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                        mpArray.add(mapPoint);
+
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                        this.mapView.addLayer(mapLayer);
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             } else if (this.eventSrc.equals("Hippocampe")) {
-                //
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Hippocampe On obsH = idObs ");
+
+                    while (rs.next()) {
+                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                        // System.out.println(save[0] + " " + save[1]);
+                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                        mpArray.add(mapPoint);
+
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                        this.mapView.addLayer(mapLayer);
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             } else if (this.eventSrc.equals("Loutre")) {
-                //
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Loutre On obsL = idObs ");
+
+                    while (rs.next()) {
+                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                        // System.out.println(save[0] + " " + save[1]);
+                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                        mpArray.add(mapPoint);
+
+                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                        this.mapView.addLayer(mapLayer);
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             }
 
-            // this.mapView.setZoom(2);
+            this.pMap.getChildren().add(this.mapView);
+
             this.label.setVisible(false);
             this.pMap.setVisible(true);
         } else if (type.equals("Graphe")) {
