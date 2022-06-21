@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -50,6 +51,9 @@ public class ControllerVisualiser extends Controller implements Initializable {
     @FXML
     private LineChart<String, Number> lineChart;
 
+    private NumberAxis xAxis = new NumberAxis();
+    private NumberAxis yAxis = new NumberAxis();
+
     @FXML
     private ComboBox<String> comboBoxChoices;
 
@@ -63,6 +67,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private ObservableList dataLine = FXCollections.observableArrayList();
     private XYChart.Series<String, Number> seriesBar = new XYChart.Series<String, Number>();
     private XYChart.Series<String, Number> seriesLine = new XYChart.Series<String, Number>();
+    private XYChart.Series<String, Number> seriesLine2 = new XYChart.Series<String, Number>();
 
     @FXML
     private Label label;
@@ -90,6 +95,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
         this.tlistChoices.add("Lignes");
         this.tlistChoices.add("Position");
         this.comboBoxChoices.setItems(this.tlistChoices);
+
+        this.comboBoxTypes.setDisable(true);
     }
 
     private void imgIcn() {
@@ -166,7 +173,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             } else if (this.eventSrc.equals("Chouette")) {
                 //
             } else if (this.eventSrc.equals("GCI")) {
-                //
+                this.tlistTypes.add("Temps");
             } else if (this.eventSrc.equals("Hippocampe")) {
                 this.tlistTypes.add("Température");
             } else if (this.eventSrc.equals("Loutre")) {
@@ -181,6 +188,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
         }
 
         this.comboBoxTypes.setItems(this.tlistTypes);
+        this.comboBoxTypes.setDisable(false);
     }
 
     @FXML
@@ -199,6 +207,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             position(type);
         } else {
             this.label.setVisible(true);
+            this.comboBoxTypes.setDisable(true);
         }
     }
 
@@ -431,8 +440,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 } catch (Exception e) {
                     e.getMessage();
                 }
-            } else {
-                this.label.setVisible(true);
             }
         }
 
@@ -453,16 +460,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
             if (this.eventSrc.equals("Hippocampe")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT temperatureEau, heureObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY temperatureEau, heureObs ");
+                            "SELECT temperatureEau, idObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH ");
+                    ResultSet avg = connect.executeQuery("SELECT AVG(temperatureEau) FROM Obs_Hippocampe ");
 
                     while (rs.next()) {
-                        if (rs.getString(2) != null) {
-                            this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
-                                    rs.getDouble(1)));
-                        } else {
-                            this.seriesLine.getData().add(
-                                    new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
-                        }
+                        this.seriesLine.getData()
+                                .add(new XYChart.Data<String, Number>(rs.getString(2), rs.getDouble(1)));
+                        this.seriesLine2.getData().add(new XYChart.Data<String, Number>("Average",
+                                avg.getDouble(1)));
                     }
                 } catch (Exception e) {
                     e.getMessage();
@@ -472,7 +477,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             if (this.eventSrc.equals("Batracien")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(obsB), dateObs FROM Obs_Batracien JOIN Observation ON idObs = obsB GROUP BY dateObs ");
+                            "SELECT COUNT(*), dateObs FROM Obs_Batracien JOIN Observation ON idObs = obsB GROUP BY dateObs ORDER BY dateObs ");
 
                     while (rs.next()) {
                         if (rs.getString(2) != null) {
@@ -480,20 +485,106 @@ public class ControllerVisualiser extends Controller implements Initializable {
                                     rs.getDouble(1)));
                         } else {
                             this.seriesLine.getData().add(
-                                    new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
+                                    new XYChart.Data<String, Number>("date inconnue", rs.getDouble(1)));
                         }
                     }
 
-                    this.seriesLine.setName("heure/temps");
+                    this.seriesLine.setName("nbObs/date");
+                    this.xAxis.setLabel("date");
+                    this.yAxis.setLabel("ndObs");
                 } catch (Exception e) {
                     e.getMessage();
                 }
+            } else if (this.eventSrc.equals("Chouette")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), dateObs FROM Chouette JOIN Observation ON idObs = numindividu GROUP BY dateObs ORDER BY dateObs ");
+
+                    while (rs.next()) {
+                        if (rs.getString(2) != null) {
+                            this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                    rs.getDouble(1)));
+                        } else {
+                            this.seriesLine.getData().add(
+                                    new XYChart.Data<String, Number>("date inconnue", rs.getDouble(1)));
+                        }
+                    }
+
+                    this.seriesLine.setName("nbObs/date");
+                    this.xAxis.setLabel("date");
+                    this.yAxis.setLabel("ndObs");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (this.eventSrc.equals("GCI")) {
+            try {
+                ResultSet rs = connect.executeQuery(
+                        "SELECT COUNT(*), dateObs FROM Obs_GCI JOIN Observation ON idObs = obsG GROUP BY dateObs ORDER BY dateObs ");
+
+                while (rs.next()) {
+                    if (rs.getString(2) != null) {
+                        this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                rs.getDouble(1)));
+                    } else {
+                        this.seriesLine.getData().add(
+                                new XYChart.Data<String, Number>("date inconnue", rs.getDouble(1)));
+                    }
+                }
+
+                this.seriesLine.setName("nbObs/date");
+                this.xAxis.setLabel("date");
+                this.yAxis.setLabel("ndObs");
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        } else if (this.eventSrc.equals("Hippocampe")) {
+            try {
+                ResultSet rs = connect.executeQuery(
+                        "SELECT COUNT(*), dateObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY dateObs ORDER BY dateObs ");
+
+                while (rs.next()) {
+                    if (rs.getString(2) != null) {
+                        this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                rs.getDouble(1)));
+                    } else {
+                        this.seriesLine.getData().add(
+                                new XYChart.Data<String, Number>("date inconnue", rs.getDouble(1)));
+                    }
+                }
+
+                this.seriesLine.setName("nbObs/date");
+                this.xAxis.setLabel("date");
+                this.yAxis.setLabel("ndObs");
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        } else if (this.eventSrc.equals("Loutre")) {
+            try {
+                ResultSet rs = connect.executeQuery(
+                        "SELECT COUNT(*), dateObs FROM Obs_Loutre JOIN Observation ON idObs = obsL GROUP BY dateObs ORDER BY dateObs ");
+
+                while (rs.next()) {
+                    if (rs.getString(2) != null) {
+                        this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                rs.getDouble(1)));
+                    } else {
+                        this.seriesLine.getData().add(
+                                new XYChart.Data<String, Number>("date inconnue", rs.getDouble(1)));
+                    }
+                }
+
+                this.seriesLine.setName("nbObs/date");
+                this.xAxis.setLabel("date");
+                this.yAxis.setLabel("ndObs");
+            } catch (Exception e) {
+                e.getMessage();
             }
         } else if (type.equals("Heure")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(*), heureObs FROM Obs_Batracien JOIN Observation ON idObs = obsB GROUP BY heureObs ");
+                            "SELECT COUNT(*), heureObs FROM Obs_Batracien JOIN Observation ON idObs = obsB GROUP BY heureObs ORDER BY heureObs ");
 
                     while (rs.next()) {
                         if (rs.getString(2) != null) {
@@ -505,17 +596,137 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         }
                     }
 
+                    this.seriesLine.setName("nbObs/heure");
+                    this.xAxis.setLabel("heure");
+                    this.yAxis.setLabel("ndObs");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (this.eventSrc.equals("Chouette")) {
+            try {
+                ResultSet rs = connect.executeQuery(
+                        "SELECT COUNT(*), heureObs FROM Chouette JOIN Observation ON idObs = numIndividu GROUP BY heureObs ORDER BY heureObs ");
+
+                while (rs.next()) {
+                    if (rs.getString(2) != null) {
+                        this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                rs.getDouble(1)));
+                    } else {
+                        this.seriesLine.getData().add(
+                                new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
+                    }
+                }
+
+                this.seriesLine.setName("nbObs/heure");
+                this.xAxis.setLabel("heure");
+                this.yAxis.setLabel("ndObs");
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        } else if (this.eventSrc.equals("GCI")) {
+            try {
+                ResultSet rs = connect.executeQuery(
+                        "SELECT COUNT(*), heureObs FROM Obs_GCI JOIN Observation ON idObs = obsG GROUP BY heureObs ORDER BY heureObs ");
+
+                while (rs.next()) {
+                    if (rs.getString(2) != null) {
+                        this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                rs.getDouble(1)));
+                    } else {
+                        this.seriesLine.getData().add(
+                                new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
+                    }
+                }
+
+                this.seriesLine.setName("nbObs/heure");
+                this.xAxis.setLabel("heure");
+                this.yAxis.setLabel("ndObs");
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        } else if (this.eventSrc.equals("Hippocampe")) {
+            try {
+                ResultSet rs = connect.executeQuery(
+                        "SELECT COUNT(*), heureObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY heureObs ORDER BY heureObs ");
+
+                while (rs.next()) {
+                    if (rs.getString(2) != null) {
+                        this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                rs.getDouble(1)));
+                    } else {
+                        this.seriesLine.getData().add(
+                                new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
+                    }
+                }
+
+                this.seriesLine.setName("nbObs/heure");
+                this.xAxis.setLabel("heure");
+                this.yAxis.setLabel("ndObs");
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        } else if (this.eventSrc.equals("Loutre")) {
+            try {
+                ResultSet rs = connect.executeQuery(
+                        "SELECT COUNT(*), heureObs FROM Obs_Loutre JOIN Observation ON idObs = obsL GROUP BY heureObs ORDER BY heureObs ");
+
+                while (rs.next()) {
+                    if (rs.getString(2) != null) {
+                        this.seriesLine.getData().add(new XYChart.Data<String, Number>(rs.getString(2),
+                                rs.getDouble(1)));
+                    } else {
+                        this.seriesLine.getData().add(
+                                new XYChart.Data<String, Number>("heure inconnue", rs.getDouble(1)));
+                    }
+                }
+
+                this.seriesLine.setName("nbObs/heure");
+                this.xAxis.setLabel("heure");
+                this.yAxis.setLabel("ndObs");
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        } else if (type.equals("Temps")) {
+            if (this.eventSrc.equals("GCI")) {
+                try {
+                    ResultSet rsEnvol = connect.executeQuery(
+                            "SELECT COUNT(nbEnvol), dateObs FROM Nid_GCI JOIN Obs_GCI ON leNid = idNid JOIN Observation ON idObs = obsG GROUP BY dateObs ");
+                    ResultSet rsNombre = connect.executeQuery(
+                            "SELECT COUNT(nombre), dateObs FROM Obs_GCI JOIN Observation ON idObs = obsG GROUP BY dateObs ");
+
+                    while (rsEnvol.next()) {
+                        if (rsEnvol.getString(2) != null) {
+                            this.seriesLine.getData().add(new XYChart.Data<String, Number>(rsEnvol.getString(2),
+                                    rsEnvol.getDouble(1)));
+                        } else {
+                            this.seriesLine.getData().add(
+                                    new XYChart.Data<String, Number>("heure inconnue", rsEnvol.getDouble(1)));
+                        }
+                    }
+
+                    while (rsNombre.next()) {
+                        if (rsNombre.getString(2) != null) {
+                            this.seriesLine2.getData().add(new XYChart.Data<String, Number>(rsNombre.getString(2),
+                                    rsNombre.getDouble(1)));
+                        } else {
+                            this.seriesLine2.getData().add(
+                                    new XYChart.Data<String, Number>("heure inconnue", rsNombre.getDouble(1)));
+                        }
+                    }
+
                     this.seriesLine.setName("heure/temps");
                 } catch (Exception e) {
                     e.getMessage();
                 }
             }
-        } else {
-            this.label.setVisible(true);
         }
 
         this.dataLine.add(this.seriesLine);
+        // this.dataLine.add(this.seriesLine2);
         this.lineChart.setData(this.dataLine);
+        // this.lineChart = new LineChart(xAxis, yAxis, this.dataLine);
+        this.lineChart.setCreateSymbols(false);
 
         this.label.setVisible(false);
         this.pMap.setVisible(false);
@@ -545,7 +756,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Batracien On obsB = idObs ");
 
                     while (rs.next()) {
-                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                        if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
                             // System.out.println(save[0] + " " + save[1]);
@@ -571,7 +782,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Chouette On numIndividu = idObs ");
 
                     while (rs.next()) {
-                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                        if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
                             // System.out.println(save[0] + " " + save[1]);
@@ -591,7 +802,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_GCI On obsG = idObs ");
 
                     while (rs.next()) {
-                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                        if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
                             // System.out.println(save[0] + " " + save[1]);
@@ -611,7 +822,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Hippocampe On obsH = idObs ");
 
                     while (rs.next()) {
-                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                        if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
                             // System.out.println(save[0] + " " + save[1]);
@@ -631,7 +842,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Loutre On obsL = idObs ");
 
                     while (rs.next()) {
-                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                        if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
                             // System.out.println(save[0] + " " + save[1]);
