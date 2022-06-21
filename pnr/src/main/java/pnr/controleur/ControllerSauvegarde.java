@@ -92,7 +92,7 @@ public class ControllerSauvegarde extends Controller {
         fileChooser.setInitialFileName(fileName);
         java.io.File file = fileChooser.showSaveDialog(stage);
         if(file != null){
-                Files.copy(in,file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.write( file.toPath(), fileName.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
         }
     }
 }
