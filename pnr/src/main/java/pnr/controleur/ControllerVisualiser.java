@@ -530,8 +530,11 @@ public class ControllerVisualiser extends Controller implements Initializable {
             System.setProperty("http.agent", "Gluon Maps/2.0.0");
 
             this.mapView = new MapView();
-            MapPoint mpMorbihan = new MapPoint(47., -3.);
+            this.mapView.setDisable(true);
+            // MapPoint mpMorbihan = new MapPoint(47.227638, -2.213749);
+            MapPoint mpMorbihan = new MapPoint(60.227638, -40.213749);
             this.mapView.setZoom(5);
+            // this.mapView.setCenter(mpMorbihan);
             this.mapView.flyTo(0, mpMorbihan, 0.1);
 
             ArrayList<MapPoint> mpArray = new ArrayList<MapPoint>();
@@ -542,13 +545,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Batracien On obsB = idObs ");
 
                     while (rs.next()) {
-                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                        // System.out.println(save[0] + " " + save[1]);
-                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
-                        mpArray.add(mapPoint);
+                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                                && rs.getString(2) != null) {
+                            double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                            // System.out.println(save[0] + " " + save[1]);
+                            MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                            mpArray.add(mapPoint);
 
-                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
-                        this.mapView.addLayer(mapLayer);
+                            MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                            this.mapView.addLayer(mapLayer);
+                        }
                     }
 
                     // PoiLayer poi = new PoiLayer();
@@ -565,13 +571,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Chouette On numIndividu = idObs ");
 
                     while (rs.next()) {
-                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                        // System.out.println(save[0] + " " + save[1]);
-                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
-                        mpArray.add(mapPoint);
+                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                                && rs.getString(2) != null) {
+                            double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                            // System.out.println(save[0] + " " + save[1]);
+                            MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                            mpArray.add(mapPoint);
 
-                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
-                        this.mapView.addLayer(mapLayer);
+                            MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                            this.mapView.addLayer(mapLayer);
+                        }
                     }
                 } catch (Exception e) {
                     e.getMessage();
@@ -582,13 +591,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_GCI On obsG = idObs ");
 
                     while (rs.next()) {
-                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                        // System.out.println(save[0] + " " + save[1]);
-                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
-                        mpArray.add(mapPoint);
+                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                                && rs.getString(2) != null) {
+                            double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                            // System.out.println(save[0] + " " + save[1]);
+                            MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                            mpArray.add(mapPoint);
 
-                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
-                        this.mapView.addLayer(mapLayer);
+                            MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                            this.mapView.addLayer(mapLayer);
+                        }
                     }
                 } catch (Exception e) {
                     e.getMessage();
@@ -599,13 +611,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Hippocampe On obsH = idObs ");
 
                     while (rs.next()) {
-                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                        // System.out.println(save[0] + " " + save[1]);
-                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
-                        mpArray.add(mapPoint);
+                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                                && rs.getString(2) != null) {
+                            double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                            // System.out.println(save[0] + " " + save[1]);
+                            MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                            mpArray.add(mapPoint);
 
-                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
-                        this.mapView.addLayer(mapLayer);
+                            MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                            this.mapView.addLayer(mapLayer);
+                        }
                     }
                 } catch (Exception e) {
                     e.getMessage();
@@ -616,13 +631,16 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Loutre On obsL = idObs ");
 
                     while (rs.next()) {
-                        double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                        // System.out.println(save[0] + " " + save[1]);
-                        MapPoint mapPoint = new MapPoint(save[0], save[1]);
-                        mpArray.add(mapPoint);
+                        if (rs.getDouble(1) != 0 && rs.getDouble(2) != 0 && rs.getString(1) != null
+                                && rs.getString(2) != null) {
+                            double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
+                            // System.out.println(save[0] + " " + save[1]);
+                            MapPoint mapPoint = new MapPoint(save[0], save[1]);
+                            mpArray.add(mapPoint);
 
-                        MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
-                        this.mapView.addLayer(mapLayer);
+                            MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
+                            this.mapView.addLayer(mapLayer);
+                        }
                     }
                 } catch (Exception e) {
                     e.getMessage();
