@@ -65,7 +65,6 @@ public class ControllerGererProfils extends Controller implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 String user = new String(profileList.getSelectionModel().getSelectedValues().get(0));
-                
                 loadUser("../vue/ModifierUnProfil.fxml", event, user);
             }
         });  
