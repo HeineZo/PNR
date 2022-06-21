@@ -4,20 +4,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckListView;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.utils.DateTimeUtils;
+import io.github.palexdev.materialfx.utils.others.dates.DateStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,13 +37,19 @@ public class ControllerNouvelleObservation extends Controller implements Initial
     private Button btnBack;
 
     @FXML
-    private Button envoi;
+    private ImageView imgEspece = new ImageView();
+
+    @FXML
+    private Text nameEspece = new Text();
+
+    @FXML
+    private MFXButton envoi;
 
     @FXML
     private MFXScrollPane scrollPane;
 
     @FXML
-    private MFXTextField txtDate;
+    private MFXDatePicker datePicker = new MFXDatePicker();
 
     @FXML
     private MFXTextField txtHeure;
@@ -59,15 +72,36 @@ public class ControllerNouvelleObservation extends Controller implements Initial
     @FXML
     private ComboBox<String> cbEspece;
 
+    private String eventSrc;
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
+        this.eventSrc = initPage(this.imgEspece, this.nameEspece);
         try {
-            loadUI("../vue/ObservationChouette.fxml");
+            switch (eventSrc) {
+                case "Batracien":
+                    loadUI("../vue/ObservationBatracien.fxml");
+                    break;
+                case "Chouette":
+                    loadUI("../vue/ObservationChouette.fxml");
+                    break;
+                case "GCI":
+                    loadUI("../vue/ObservationGCI.fxml");
+                    break;
+                case "Hippocampe":
+                    loadUI("../vue/ObservationHippocampe.fxml");
+                    break;
+                case "Loutre":
+                    loadUI("../vue/ObservationLoutre.fxml");
+                    break;
+                default:
+                    break;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         // loadList();
-        
+
     }
 
 

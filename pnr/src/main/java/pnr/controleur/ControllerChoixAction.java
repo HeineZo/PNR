@@ -16,8 +16,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 // import animatefx.animation.*;
 import javafx.event.ActionEvent;
 
-public class ControllerChoixAction extends Controller implements Initializable{
-    private String eventSrc;
+public class ControllerChoixAction extends Controller implements Initializable {
 
     @FXML
     private Button btnBack;
@@ -58,42 +57,8 @@ public class ControllerChoixAction extends Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String urlImage = "";
-        String nameEspece = "";
-        this.eventSrc = this.getEventSrcVisualiser();
-        if (this.eventSrc.equals("Batracien")) {
-            urlImage = "especes/batracien.png";
-            nameEspece = "Batracien";
-        } else if (this.eventSrc.equals("Chouette")) {
-            urlImage = "especes/chouette.png";
-            nameEspece = "Chouette";
-        } else if (this.eventSrc.equals("GCI")) {
-            urlImage = "especes/gci.png";
-            nameEspece = "GCI";
-        } else if (this.eventSrc.equals("Hippocampe")) {
-            urlImage = "especes/hippocampe.png";
-            nameEspece = "Hippocampe";
-        } else if (this.eventSrc.equals("Loutre")) {
-            urlImage = "especes/loutre.png";
-            nameEspece = "Loutre";
-        } else {
-            urlImage = "especes/null.png";
-            nameEspece = "Espece inconnue";
-        }
-        changeImage(urlImage);
-        changeText(nameEspece);
+        initPage(imgEspece, nameEspece);
     }
 
-    public void changeImage(String url) {
-        //File file = new File(url);
-        //Image image = new Image(url);
-        //this.imgEspece.setImage(image);
 
-        Image imProfile = new Image(getClass().getResourceAsStream(url));
-        this.imgEspece.setImage(imProfile);
-    }
-
-    public void changeText(String text) {
-        this.nameEspece.setText(text);
-    }
 }

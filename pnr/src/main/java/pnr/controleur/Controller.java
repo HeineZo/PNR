@@ -11,10 +11,13 @@ import io.github.palexdev.materialfx.notifications.MFXNotificationCenterSystem;
 import io.github.palexdev.materialfx.notifications.MFXNotificationSystem;
 import io.github.palexdev.materialfx.notifications.base.INotification;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import pnr.modele.ConnectVPS;
 import io.github.palexdev.materialfx.controls.MFXListView;
@@ -200,7 +203,45 @@ public class Controller {
         return src;
     }
 
-    protected void error(String messageContent,AnchorPane anchorPane) {
+    public String initPage(ImageView imgEspece, Text nameEspece) {
+        String urlImage = "";
+        String textEspece = "";
+        String eventSrc;
+        eventSrc = this.getEventSrcVisualiser();
+        if (eventSrc.equals("Batracien")) {
+            urlImage = "especes/batracien.png";
+            textEspece = "Batracien";
+        } else if (eventSrc.equals("Chouette")) {
+            urlImage = "especes/chouette.png";
+            textEspece = "Chouette";
+        } else if (eventSrc.equals("GCI")) {
+            urlImage = "especes/gci.png";
+            textEspece = "GCI";
+        } else if (eventSrc.equals("Hippocampe")) {
+            urlImage = "especes/hippocampe.png";
+            textEspece = "Hippocampe";
+        } else if (eventSrc.equals("Loutre")) {
+            urlImage = "especes/loutre.png";
+            textEspece = "Loutre";
+        } else {
+            urlImage = "especes/null.png";
+            textEspece = "Espece inconnue";
+        }
+        changeImage(urlImage, imgEspece);
+        changeText(textEspece, nameEspece);
+        return eventSrc;
+    }
+
+    public void changeImage(String url, ImageView imgEspece) {
+        Image imProfile = new Image(getClass().getResourceAsStream(url));
+        imgEspece.setImage(imProfile);
+    }
+
+    public void changeText(String text, Text nameEspece) {
+        nameEspece.setText(text);
+    }
+
+    protected void error(String messageContent, AnchorPane anchorPane) {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         MFXNotificationSystem.instance().initOwner(stage);
 		MFXNotificationCenterSystem.instance().initOwner(stage);
