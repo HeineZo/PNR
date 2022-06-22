@@ -20,6 +20,5 @@ public class PersonCellFactory extends MFXListCell<String> {
     protected void render(String data) {
         super.render(data);
         if (userIcon != null) getChildren().add(0, userIcon);
-
     }
 }

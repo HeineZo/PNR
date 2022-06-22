@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -22,7 +23,7 @@ import io.github.palexdev.materialfx.font.MFXFontIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
-import pnr.modele.donnee.*;
+import pnr.modele.util.*;
 
 public class ControllerDernierObservation extends Controller implements Initializable{
 
@@ -33,7 +34,7 @@ public class ControllerDernierObservation extends Controller implements Initiali
     private ImageView imgEspece;
 
     @FXML
-    private MFXListView<Observation> listView = new MFXListView<>();
+    private MFXListView<ObservationFactory> listView = new MFXListView<>();
 
     @FXML
     private Text nameEspece;
@@ -42,8 +43,7 @@ public class ControllerDernierObservation extends Controller implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> list = new ArrayList<String>();
-        ArrayList<String> listId = new ArrayList<>();
+        ArrayList<ObservationFactory> list = new ArrayList<>();
         eventSrc = initPage(imgEspece, nameEspece);
         switch (eventSrc) {
             case "Batracien":
@@ -75,28 +75,36 @@ public class ControllerDernierObservation extends Controller implements Initiali
         ResultSet rs = connect.executeQuery("SELECT idObs, dateObs FROM Observation "+table+id+" ORDER BY dateObs DESC");
         try {
             while (rs.next()){
-                listId.add(rs.getString("idObs"));
+                list.add(new ObservationFactory(rs.getInt("idObs"), rs.getDate("dateObs")));
                 if (rs.getDate("dateObs") != null){
-                    list.add("Observation du "+new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("dateObs")));
+                    // list.add("Observation du "+new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("dateObs")));
                 } else {
-                    list.add("Date indisponible");
+                    // list.add("Date indisponible");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        listView.setItems(getMessages());
+        // listView.setItems(getMessages());
+        listView.getItems().addAll(list);
         listView.features().enableBounceEffect();
 		listView.features().enableSmoothScrolling(0.5);
-        listView.setCellFactory(person -> new PersonCellFactory(listView, person, "mfx-file"));
+        // listView.setCellFactory(person -> new PersonCellFactory(listView, person.getDate(), "mfx-file"));
+        // listView.setCellFactory(lv -> new MFXListCell<ObservationFactory>(listView, lv) {
+        //     @Override
+        //     public void updateItem(ObservationFactory artwork, boolean empty) {
+        //         super.updateItem(artwork, empty) ;
+        //         setText(empty ? null : artwork.getDate());
+        //     }
+        // });
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String idClicked = new String(listView.getSelectionModel().getSelectedValues().get(1));
-                System.out.println(idClicked);
+                // String idClicked = new String(listView.getSelectionModel().getSelectedValues().get(1));
+                // System.out.println(idClicked);
                 
-                loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked);
+                // loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked);
             }
         });  
     }

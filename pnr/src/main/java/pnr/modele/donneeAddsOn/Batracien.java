@@ -6,77 +6,77 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Batracien {
 
-    private SimpleIntegerProperty obsB, nombreAdultes, nombreAmplexus, nombrePonte, nombreTetard, concerne_zh,
+    private int obsB, nombreAdultes, nombreAmplexus, nombrePonte, nombreTetard, concerne_zh,
             concernes_vege;
-    private SimpleStringProperty espece, meteo_ciel, meteo_temp, meteo_vent, meteo_pluie;
-    private SimpleDoubleProperty temperature;
+    private String espece, meteo_ciel, meteo_temp, meteo_vent, meteo_pluie;
+    private double temperature;
 
     public Batracien(int id, String espece, int nbAd, int nbAm, int nbP, int nbT, double temp, String mc, String mt,
             String mv, String mp, int zh, int vege) {
-        this.obsB = new SimpleIntegerProperty(id);
-        this.espece = new SimpleStringProperty(espece);
-        this.nombreAdultes = new SimpleIntegerProperty(nbAd);
-        this.nombreAmplexus = new SimpleIntegerProperty(nbAm);
-        this.nombrePonte = new SimpleIntegerProperty(nbP);
-        this.nombreTetard = new SimpleIntegerProperty(nbT);
-        this.temperature = new SimpleDoubleProperty(temp);
-        this.meteo_ciel = new SimpleStringProperty(mc);
-        this.meteo_temp = new SimpleStringProperty(mt);
-        this.meteo_vent = new SimpleStringProperty(mv);
-        this.meteo_pluie = new SimpleStringProperty(mp);
-        this.concerne_zh = new SimpleIntegerProperty(zh);
-        this.concernes_vege = new SimpleIntegerProperty(vege);
+        this.obsB = (id);
+        this.espece = (espece);
+        this.nombreAdultes = (nbAd);
+        this.nombreAmplexus = (nbAm);
+        this.nombrePonte = (nbP);
+        this.nombreTetard = (nbT);
+        this.temperature = temp;
+        this.meteo_ciel = (mc);
+        this.meteo_temp = (mt);
+        this.meteo_vent = (mv);
+        this.meteo_pluie = (mp);
+        this.concerne_zh = (zh);
+        this.concernes_vege = (vege);
     }
 
-    public SimpleIntegerProperty getObsB() {
+    public int getObsB() {
         return this.obsB;
     }
 
-    public SimpleStringProperty getEspece() {
+    public String getEspece() {
         return this.espece;
     }
 
-    public SimpleIntegerProperty getNombreAdultes() {
+    public int getNombreAdultes() {
         return this.nombreAdultes;
     }
 
-    public SimpleIntegerProperty getNombreAmplexus() {
+    public int getNombreAmplexus() {
         return this.nombreAmplexus;
     }
 
-    public SimpleIntegerProperty getnombrePonte() {
+    public int getNombrePonte() {
         return this.nombrePonte;
     }
 
-    public SimpleIntegerProperty getNombreTetard() {
+    public int getNombreTetard() {
         return this.nombreTetard;
     }
 
-    public SimpleDoubleProperty getTemperatue() {
+    public double getTemperature() {
         return this.temperature;
     }
 
-    public SimpleStringProperty getMeteoCiel() {
+    public String getMeteoCiel() {
         return this.meteo_ciel;
     }
 
-    public SimpleStringProperty getMeteoTemp() {
+    public String getMeteoTemp() {
         return this.meteo_temp;
     }
 
-    public SimpleStringProperty getMeteoVent() {
+    public String getMeteoVent() {
         return this.meteo_vent;
     }
 
-    public SimpleStringProperty getMeteoPluie() {
+    public String getMeteoPluie() {
         return this.meteo_pluie;
     }
 
-    public SimpleIntegerProperty getConcerneZh() {
+    public int getConcerneZh() {
         return this.concerne_zh;
     }
 
-    public SimpleIntegerProperty getConcernesvege() {
+    public int getConcernesvege() {
         return this.concernes_vege;
     }
 }
