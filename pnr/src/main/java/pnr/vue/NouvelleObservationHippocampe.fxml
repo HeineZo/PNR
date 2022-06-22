@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -157,14 +158,6 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </ComboBox>
-                              <ComboBox fx:id="cbObservateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" promptText="Observateur" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="2">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <GridPane.margin>
-                                    <Insets left="50.0" />
-                                 </GridPane.margin>
-                              </ComboBox>
                               <MFXTextField fx:id="txtTaille" floatMode="BORDER" floatingText="Taille" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
@@ -173,6 +166,11 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
+                              <MFXFilterComboBox fx:id="cbObservateur" floatMode="BORDER" floatingText="Observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" searchText="" GridPane.columnIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </MFXFilterComboBox>
                            </children>
                         </GridPane>
                      </children>

@@ -8,12 +8,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.utils.StringUtils;
 import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,8 +54,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     private MFXDatePicker txtDate;
 
     @FXML
-    private MFXFilterComboBox<TabObservateur> cbObservateur = new MFXFilterComboBox<>();
-    private ObservableList<TabObservateur> observateur = FXCollections.observableArrayList();
+    private MFXFilterComboBox<String> cbObservateur = new MFXFilterComboBox<>();
+    private ObservableList<String> observateur = FXCollections.observableArrayList();
 
     @FXML
     private MFXTextField txtHeure = new MFXTextField();
@@ -85,21 +86,21 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             resetUserClicked();
         }
 
-        ResultSet rs = connect.executeQuery("SELECT * FROM Observateur ORDER BY nom,prenom;");
+        ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
             while (rs.next()) {
-                if(rs.getString("nom") != null){
-                   this.observateur.add(new TabObservateur(rs.getInt("idObservateur"), rs.getString("nom"), rs.getString("prenom"))); 
+                if (rs.getString("nom") != null){
+                    this.observateur.add(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.observateur.add(rs.getString("prenom"));
                 }
             }
-            StringConverter<TabObservateur> converter = FunctionalStringConverter.to(person -> (person == null) ? "" : person.getNom() + " " + person.getPrenom());
-            Function<String, Predicate<TabObservateur>> filterFunction = s -> obs -> StringUtils.containsIgnoreCase((CharSequence) converter.toString(obs), (CharSequence) s);
             this.cbObservateur.setItems(this.observateur);
-            this.cbObservateur.setFilterFunction(filterFunction);
         } catch (SQLException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        }        
 
         this.indice.add("Positif");
         this.indice.add("Negatif");
@@ -143,8 +144,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
 
     private void modifierObs() {
         this.nameEspece.setText("Modifier une observation");
-        this.txtCoordX.setDisable(true);
-        this.txtCoordY.setDisable(true);
+        // this.txtCoordX.setDisable(true);
+        // this.txtCoordY.setDisable(true);
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = '" + this.idObs + "';");
         try {
             while (rs.next()) {
@@ -168,8 +169,9 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         while (rs.next()) {
             idDerniereObs = rs.getInt("idObs");
         }
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,'"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
-        System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        // System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
@@ -177,11 +179,11 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             
         }
         connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
-        System.out.println("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        // System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+        
+        // System.out.println("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         connect.executeUpdate("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");  
-        System.out.println("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");
+        // System.out.println("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");
 
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);
@@ -189,27 +191,28 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
 
 
     private void updateDonnees(ActionEvent event) throws SQLException{
-
-        connect.executeUpdate("UPDATE Observation SET dateObs='"+this.txtDate.getText()+", heureObs=null, lieu_Lambert_X='"+this.txtCoordX.getText()+"', lieu_Lambert_Y='"+this.txtCoordY.getText()+"' WHERE idObs='"+idObs+"'';");
+        connect.executeUpdate("UPDATE Lieu SET coord_Lambert_X="+this.txtCoordX.getText()+" WHERE coord_Lambert_Y="+this.txtCoordY.getText()+";");  
+        connect.executeUpdate("UPDATE Lieu SET coord_Lambert_Y="+this.txtCoordY.getText()+" WHERE coord_Lambert_X="+this.txtCoordX.getText()+";");  
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+this.txtDate.getText()+", heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
         ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
             lObservateur = rs.getInt("idObservateur");
         }
-        connect.executeUpdate("UPDATE AObserve SET lObservateur='"+lObservateur+"' WHERE lObservation='"+idObs+"';");
+        connect.executeUpdate("UPDATE AObserve SET lObservateur="+lObservateur+" WHERE lObservation='"+idObs+"';");
 
-        // connect.executeUpdate("UPDATE Lieu SET coord_Lambert_X="+this.txtCoordX.getText()+" WHERE coord_Lambert_Y='"+this.txtCoordY.getText()+"';");  
-        // connect.executeUpdate("UPDATE Lieu SET coord_Lambert_Y="+this.txtCoordY.getText()+" WHERE coord_Lambert_X='"+this.txtCoordX.getText()+"';");  
+        
 
-        connect.executeUpdate("UPDATE Obs_Loutre SET commune='"+this.txtCommune.getText()+"', lieuDit='"+this.txtLieuDit.getText()+"', indice='"+this.cbIndice.getValue()+"' WHERE ObsL='"+idObs+"';");  
+        connect.executeUpdate("UPDATE Obs_Loutre SET commune='"+this.txtCommune.getText()+"', lieuDit='"+this.txtLieuDit.getText()+"', indice='"+this.cbIndice.getValue()+"' WHERE ObsL="+idObs+";");  
 
 
-        // initConfirmation("AjouterObservation");
+        initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
     
     private void checkDisable() {
-        if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtCommune.getText().isEmpty() && !txtLieuDit.getText().isEmpty() && !txtDate.getText().isEmpty() && cbIndice.getValue() != null) {
+        if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtCommune.getText().isEmpty() && !txtLieuDit.getText().isEmpty() 
+        && !txtDate.getText().isEmpty() && cbIndice.getValue() != null ) {
             envoi.setDisable(false);
         } else {
             envoi.setDisable(true);
