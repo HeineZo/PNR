@@ -40,7 +40,7 @@
                   <Image url="@images/especes/chouette.png" />
                </image>
             </ImageView>
-            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="383.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="601.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <font>
                   <Font name="Arial Rounded MT Bold" size="37.0" />
                </font>
@@ -117,11 +117,6 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXDatePicker>
-                              <MFXFilterComboBox fx:id="cbObservateur" floatMode="BORDER" floatingText="Observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" searchText="" GridPane.columnIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="50.0" />
-                                 </GridPane.margin>
-                              </MFXFilterComboBox>
                               <MFXComboBox fx:id="cbEspece" floatMode="BORDER" floatingText="Espèce" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <GridPane.margin>
                                     <Insets right="50.0" />
@@ -142,6 +137,11 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
+                              <MFXFilterComboBox fx:id="cbObservateur" floatMode="BORDER" floatingText="Observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" searchText="" GridPane.columnIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </MFXFilterComboBox>
                            </children>
                         </GridPane>
                      </children>

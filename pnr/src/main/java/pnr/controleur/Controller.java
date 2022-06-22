@@ -84,6 +84,10 @@ public class Controller {
         return userClicked;
     }
 
+    public void resetUserClicked() {
+        userClicked = null; 
+    }
+
     /**
      * Writes in a file the current permission
      * @param event the permission : 0 or 1
