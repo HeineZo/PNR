@@ -63,6 +63,10 @@ public class Controller {
         return userClicked;
     }
 
+    public void resetUserClicked() {
+        userClicked = null; 
+    }
+
     public void loadUI(String ui, MFXScrollPane scrollPane) throws IOException{
         AnchorPane pane = FXMLLoader.load(getClass().getResource(ui));
         scrollPane.setContent(pane);
