@@ -17,9 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class ControllerNouvelleObservationLoutre extends Controller implements Initializable{
+
+    @FXML
+    private AnchorPane anchorPane;
+    
     @FXML
     private Button btnBack;
 
@@ -36,7 +41,7 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     private MFXScrollPane scrollPane;
 
     @FXML
-    private MFXDatePicker datePicker;
+    private MFXDatePicker txtDate;
 
     @FXML
     private ComboBox<String> cbObservateur;
@@ -69,11 +74,17 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         modifierObs();
-        ResultSet rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur ORDER BY pseudonyme;");
+
+        ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
             while (rs.next()) {
-                this.observateur.add(rs.getString("pseudonyme"));
+                if(rs.getString("nom") != null){
+                   this.observateur.add(rs.getString("nom")); 
+                } else {
+                    this.observateur.add(rs.getString("prenom"));
+                }
+                
             }
             this.cbObservateur.setItems(this.observateur);
         } catch (SQLException e) {
@@ -88,13 +99,12 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     }
 
     @FXML
-    private void handleBtnClick(ActionEvent event) {
+    private void handleBtnClick(
+    ActionEvent event) throws SQLException {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixAction.fxml", event);
         } else if (event.getSource() == envoi) {
-            
-            initConfirmation("AjouterObservation");
-            loadStage("../vue/Confirmation.fxml", event);
+            ajouteDonnees(event);
         }
     }
 
@@ -114,6 +124,37 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    private void ajouteDonnees(ActionEvent event) throws SQLException{
+        if ((!(this.txtDate.getText().equals(""))) && (!(this.cbObservateur.getValue().equals("Observateur"))) && (!(this.txtHeure.getText().equals(""))) && 
+        (!(this.txtCoordX.getText().equals(""))) && (!(this.txtCoordY.getText().equals(""))) && (!(this.txtCommune.getText().equals(""))) && 
+        (!(this.txtLieuDit.getText().equals("")))&& (!(this.cbIndice.getValue().equals("Indice")))){
+            ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
+            int idDerniereObs = 0;
+            while (rs.next()) {
+                idDerniereObs = rs.getInt("idObs");
+            }
+            connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,'"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+            System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+            rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+            int lObservateur = 0;
+            while (rs.next()) {
+                lObservateur = rs.getInt("idObservateur");
+                
+            }
+            connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+            System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+            connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
+            System.out.println("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+            connect.executeUpdate("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");  
+            System.out.println("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");
+
+            initConfirmation("AjouterObservation");
+            loadStage("../vue/Confirmation.fxml", event);
+        } else {
+            super.error("Veuillez remplir tous les champs",anchorPane);
         }
 
     }

@@ -1,49 +1,45 @@
 package pnr.modele.donneeAddsOn;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Hippocampe {
 
-    private SimpleIntegerProperty obsH, temperatureEau, gestant;
-    private SimpleStringProperty espece, sexe, typePeche;
-    private SimpleDoubleProperty taille;
+    private int obsH, temperatureEau, gestant;
+    private String espece, sexe, typePeche;
+    private double taille;
 
     public Hippocampe(int obs, String espece, String sexe, int tempEau, String peche, double taille, int gestant) {
-        this.obsH = new SimpleIntegerProperty(obs);
-        this.espece = new SimpleStringProperty(espece);
-        this.temperatureEau = new SimpleIntegerProperty(tempEau);
-        this.typePeche = new SimpleStringProperty(peche);
-        this.taille = new SimpleDoubleProperty(taille);
-        this.gestant = new SimpleIntegerProperty(gestant);
+        this.obsH = obs;
+        this.espece = espece;
+        this.temperatureEau = tempEau;
+        this.typePeche = peche;
+        this.taille = taille;
+        this.gestant = gestant;
     }
 
-    public SimpleIntegerProperty getObsH() {
+    public int getObsH() {
         return this.obsH;
     }
 
-    public SimpleStringProperty getEspece() {
+    public String getEspece() {
         return this.espece;
     }
 
-    public SimpleStringProperty getSexe() {
+    public String getSexe() {
         return this.sexe;
     }
 
-    public SimpleIntegerProperty getTemperatureEau() {
+    public int getTemperatureEau() {
         return this.temperatureEau;
     }
 
-    public SimpleStringProperty getTypePeche() {
+    public String getTypePeche() {
         return this.typePeche;
     }
 
-    public SimpleDoubleProperty getTaille() {
+    public double getTaille() {
         return this.taille;
     }
 
-    public SimpleIntegerProperty getGestant() {
+    public int getGestant() {
         return this.gestant;
     }
 }

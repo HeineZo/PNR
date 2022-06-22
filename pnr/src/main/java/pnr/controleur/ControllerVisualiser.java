@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -45,14 +46,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
     @FXML
     private PieChart pieChart;
 
-    @FXML
-    private BarChart<String, Number> barChart;
-
-    @FXML
-    private LineChart<String, Number> lineChart;
-
-    private NumberAxis xAxis = new NumberAxis();
+    private CategoryAxis xAxis = new CategoryAxis();
     private NumberAxis yAxis = new NumberAxis();
+
+    @FXML
+    private BarChart<String, Number> barChart = new BarChart(xAxis, yAxis);
+
+    @FXML
+    private LineChart<String, Number> lineChart = new LineChart(xAxis, yAxis);
 
     @FXML
     private ComboBox<String> comboBoxChoices;
@@ -66,6 +67,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private ObservableList dataBar = FXCollections.observableArrayList();
     private ObservableList dataLine = FXCollections.observableArrayList();
     private XYChart.Series<String, Number> seriesBar = new XYChart.Series<String, Number>();
+    private XYChart.Series<String, Number> seriesBar2 = new XYChart.Series<String, Number>();
+    private XYChart.Series<String, Number> seriesBar3 = new XYChart.Series<String, Number>();
     private XYChart.Series<String, Number> seriesLine = new XYChart.Series<String, Number>();
     private XYChart.Series<String, Number> seriesLine2 = new XYChart.Series<String, Number>();
 
@@ -159,7 +162,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             if (this.eventSrc.equals("Batracien")) {
                 //
             } else if (this.eventSrc.equals("Chouette")) {
-                //
+                this.tlistTypes.add("Sexe/Espece");
             } else if (this.eventSrc.equals("GCI")) {
                 //
             } else if (this.eventSrc.equals("Hippocampe")) {
@@ -198,13 +201,55 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
     private void graph(String chart, String type) {
         if (chart.equals("Camembert")) {
+            this.pieChart.setAnimated(false);
+            this.pieChart.getData().clear();
+
             pie(type);
+
+            this.pieChart.setData(this.dataPie);
+
+            this.label.setVisible(false);
+            this.pMap.setVisible(false);
+            this.pieChart.setVisible(true);
+            this.barChart.setVisible(false);
+            this.lineChart.setVisible(false);
         } else if (chart.equals("Barres")) {
+            this.barChart.setAnimated(false);
+            this.barChart.getData().clear();
+
             bar(type);
+
+            this.barChart.setData(this.dataBar);
+
+            this.label.setVisible(false);
+            this.pMap.setVisible(false);
+            this.pieChart.setVisible(false);
+            this.barChart.setVisible(true);
+            this.lineChart.setVisible(false);
         } else if (chart.equals("Lignes")) {
+            this.lineChart.setAnimated(false);
+            this.lineChart.getData().clear();
+            this.seriesLine.getData().clear();
+            this.seriesLine2.getData().clear();
+
             lines(type);
+
+            this.dataLine.add(this.seriesLine);
+            this.lineChart.setData(this.dataLine);
+            this.lineChart.setCreateSymbols(false);
+
+            this.label.setVisible(false);
+            this.pMap.setVisible(false);
+            this.pieChart.setVisible(false);
+            this.barChart.setVisible(false);
+            this.lineChart.setVisible(true);
         } else if (chart.equals("Position")) {
             position(type);
+
+            this.pMap.getChildren().add(this.mapView);
+
+            this.label.setVisible(false);
+            this.pMap.setVisible(true);
         } else {
             this.label.setVisible(true);
             this.comboBoxTypes.setDisable(true);
@@ -212,8 +257,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
     }
 
     private void pie(String type) {
-        this.pieChart.getData().clear();
-
         if (type.equals("Espèce")) {
             if (this.eventSrc.equals("Batracien")) {
                 try {
@@ -407,61 +450,126 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 }
             }
         }
-
-        this.pieChart.setData(this.dataPie);
-
-        this.label.setVisible(false);
-        this.pMap.setVisible(false);
-        this.pieChart.setVisible(true);
-        this.barChart.setVisible(false);
-        this.lineChart.setVisible(false);
     }
 
     private void bar(String type) {
-        this.barChart.getData().clear();
-
         if (type.equals("Sexe/Espece")) {
-            if (this.eventSrc.equals("Hippocampe")) {
+            if (this.eventSrc.equals("Chouette")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT COUNT(*), sexe, espece FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY sexe, espece ");
+                            "SELECT COUNT(*), sexe, espece FROM Chouette WHERE sexe = 'male' GROUP BY sexe, espece ");
 
                     while (rs.next()) {
-                        if (rs.getString(2) != null) {
-                            this.seriesBar.getData().add(new XYChart.Data<String, Number>(
-                                    rs.getString(2) + " " + rs.getString(3), rs.getDouble(1)));
+                        if (rs.getString(3) != null) {
+                            this.seriesBar.getData()
+                                    .add(new XYChart.Data<String, Number>(rs.getString(3), rs.getDouble(1)));
                         } else {
                             this.seriesBar.getData().add(
-                                    new XYChart.Data<String, Number>("date inconnue", rs.getDouble(1)));
+                                    new XYChart.Data<String, Number>("espece inconnue", rs.getDouble(1)));
                         }
                     }
 
-                    this.seriesBar.setName("nb_obs/batracien");
+                    ResultSet rs2 = connect.executeQuery(
+                            "SELECT COUNT(*), sexe, espece FROM Chouette WHERE sexe = 'femelle' GROUP BY sexe, espece ");
+
+                    while (rs2.next()) {
+                        if (rs2.getString(3) != null) {
+                            this.seriesBar2.getData()
+                                    .add(new XYChart.Data<String, Number>(rs2.getString(3), rs2.getDouble(1)));
+                        } else {
+                            this.seriesBar2.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs2.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs3 = connect.executeQuery(
+                            "SELECT COUNT(*), sexe, espece FROM Chouette WHERE sexe = 'inconnu' GROUP BY sexe, espece ");
+
+                    while (rs3.next()) {
+                        if (rs3.getString(3) != null) {
+                            this.seriesBar3.getData()
+                                    .add(new XYChart.Data<String, Number>(rs3.getString(3), rs3.getDouble(1)));
+                        } else {
+                            this.seriesBar3.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs3.getDouble(1)));
+                        }
+                    }
+
+                    this.dataBar.addAll(this.seriesBar, this.seriesBar2, this.seriesBar3);
+
+                    this.seriesBar.setName("male");
+                    this.seriesBar2.setName("femelle");
+                    this.seriesBar3.setName("inconnu");
+
+                    this.xAxis.setLabel("espece");
+                    this.yAxis.setLabel("count");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            } else if (this.eventSrc.equals("Hippocampe")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), sexe, espece FROM Obs_Hippocampe WHERE sexe = 'male' GROUP BY sexe, espece ");
+
+                    while (rs.next()) {
+                        if (rs.getString(3) != null) {
+                            this.seriesBar.getData()
+                                    .add(new XYChart.Data<String, Number>(rs.getString(3), rs.getDouble(1)));
+                        } else {
+                            this.seriesBar.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs2 = connect.executeQuery(
+                            "SELECT COUNT(*), sexe, espece FROM Obs_Hippocampe WHERE sexe = 'femelle' GROUP BY sexe, espece ");
+
+                    while (rs2.next()) {
+                        if (rs2.getString(3) != null) {
+                            this.seriesBar2.getData()
+                                    .add(new XYChart.Data<String, Number>(rs2.getString(3), rs2.getDouble(1)));
+                        } else {
+                            this.seriesBar2.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs2.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs3 = connect.executeQuery(
+                            "SELECT COUNT(*), sexe, espece FROM Obs_Hippocampe WHERE sexe = 'inconnu' GROUP BY sexe, espece ");
+
+                    while (rs3.next()) {
+                        if (rs3.getString(3) != null) {
+                            this.seriesBar3.getData()
+                                    .add(new XYChart.Data<String, Number>(rs3.getString(3), rs3.getDouble(1)));
+                        } else {
+                            this.seriesBar3.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs3.getDouble(1)));
+                        }
+                    }
+
+                    this.dataBar.addAll(this.seriesBar, this.seriesBar2, this.seriesBar3);
+
+                    this.seriesBar.setName("male");
+                    this.seriesBar2.setName("femelle");
+                    this.seriesBar3.setName("inconnu");
+
+                    this.xAxis.setLabel("espece");
+                    this.yAxis.setLabel("count");
                 } catch (Exception e) {
                     e.getMessage();
                 }
             }
         }
-
-        this.dataBar.add(this.seriesBar);
-        this.barChart.setData(this.dataBar);
-
-        this.label.setVisible(false);
-        this.pMap.setVisible(false);
-        this.pieChart.setVisible(false);
-        this.barChart.setVisible(true);
-        this.lineChart.setVisible(false);
     }
 
     private void lines(String type) {
-        this.lineChart.getData().clear();
-
         if (type.equals("Température")) {
             if (this.eventSrc.equals("Hippocampe")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT temperatureEau, idObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH ");
-                    ResultSet avg = connect.executeQuery("SELECT AVG(temperatureEau) FROM Obs_Hippocampe ");
+                            "SELECT temperatureEau, heureObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY heureObs ");
+                    ResultSet avg = connect.executeQuery(
+                            "SELECT AVG(temperatureEau), heureObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY heureObs ");
 
                     while (rs.next()) {
                         this.seriesLine.getData()
@@ -472,6 +580,13 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 } catch (Exception e) {
                     e.getMessage();
                 }
+
+                this.dataLine.add(this.seriesLine2);
+
+                this.seriesLine.setName("tempEau/idObs");
+                this.seriesLine2.setName("avg tempEau");
+                this.xAxis.setLabel("date");
+                this.yAxis.setLabel("ndObs");
             }
         } else if (type.equals("Date")) {
             if (this.eventSrc.equals("Batracien")) {
@@ -721,18 +836,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 }
             }
         }
-
-        this.dataLine.add(this.seriesLine);
-        // this.dataLine.add(this.seriesLine2);
-        this.lineChart.setData(this.dataLine);
-        // this.lineChart = new LineChart(xAxis, yAxis, this.dataLine);
-        this.lineChart.setCreateSymbols(false);
-
-        this.label.setVisible(false);
-        this.pMap.setVisible(false);
-        this.pieChart.setVisible(false);
-        this.barChart.setVisible(false);
-        this.lineChart.setVisible(true);
     }
 
     private void position(String type) {
@@ -743,7 +846,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.mapView = new MapView();
             this.mapView.setDisable(true);
             // MapPoint mpMorbihan = new MapPoint(47.227638, -2.213749);
-            MapPoint mpMorbihan = new MapPoint(60.227638, -40.213749);
+            MapPoint mpMorbihan = new MapPoint(50.227638, -30.213749);
             this.mapView.setZoom(5);
             // this.mapView.setCenter(mpMorbihan);
             this.mapView.flyTo(0, mpMorbihan, 0.1);
@@ -857,11 +960,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             }
-
-            this.pMap.getChildren().add(this.mapView);
-
-            this.label.setVisible(false);
-            this.pMap.setVisible(true);
         } else if (type.equals("Graphe")) {
             if (this.eventSrc.equals("Batracien")) {
                 //

@@ -1,37 +1,34 @@
 package pnr.modele.donneeAddsOn;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Vegetation {
 
-    private SimpleIntegerProperty idVege, decrit_LieuVege;
-    private SimpleStringProperty natureVege, vegetation;
+    private int idVege, decrit_LieuVege;
+    private String natureVege, vegetation;
 
     public Vegetation(int id, String nature, String vege, int lieu) {
         if (nature != null && vege != null) {
-            this.idVege = new SimpleIntegerProperty(id);
-            this.natureVege = new SimpleStringProperty(nature);
-            this.vegetation = new SimpleStringProperty(vege);
-            this.decrit_LieuVege = new SimpleIntegerProperty(lieu);
+            this.idVege = id;
+            this.natureVege = nature;
+            this.vegetation = vege;
+            this.decrit_LieuVege = lieu;
         } else {
             throw new IllegalArgumentException("Erreur - Vegetation(Constructeur)");
         }
     }
 
-    public SimpleIntegerProperty getId() {
+    public int getId() {
         return this.idVege;
     }
 
-    public SimpleStringProperty getNatureVege() {
+    public String getNatureVege() {
         return this.natureVege;
     }
 
-    public SimpleStringProperty getVegetation() {
+    public String getVegetation() {
         return this.vegetation;
     }
 
-    public SimpleIntegerProperty getDecritLieuVege() {
+    public int getDecritLieuVege() {
         return this.decrit_LieuVege;
     }
 }
