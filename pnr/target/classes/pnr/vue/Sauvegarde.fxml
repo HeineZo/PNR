@@ -20,8 +20,8 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="129.33331298828125" minHeight="10.0" prefHeight="97.66666158040366" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="203.66667938232422" minHeight="10.0" prefHeight="136.80001831054685" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="240.3333282470703" minHeight="10.0" prefHeight="207.9999816894532" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="203.66667938232422" minHeight="10.0" prefHeight="75.66666666666669" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="240.3333282470703" minHeight="10.0" prefHeight="220.33333333333331" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="240.3333282470703" minHeight="10.0" prefHeight="220.33333333333331" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -44,12 +44,23 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text id="subtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Exporter des données au format CSV" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Text id="subtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Exporter / Importer" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial Rounded MT Bold" size="30.0" />
                </font>
             </Text>
-            <Button id="buttonObs" fx:id="export" alignment="CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Observateur" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Button id="button" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Importer" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="22.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button id="button" fx:id="export" alignment="CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Exporter" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <font>
                   <Font name="Arial Rounded MT Bold" size="22.0" />
                </font>
@@ -65,26 +76,20 @@
             </Button>
             <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <image>
+                  <Image url="@images/sauvegarde/export.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets right="135.0" top="32.0" />
+               </GridPane.margin>
+            </ImageView>
+            <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <image>
                   <Image url="@images/Sauvegarde/import.png" />
                </image>
                <GridPane.margin>
-                  <Insets right="155.0" top="34.0" />
+                  <Insets right="135.0" top="22.0" />
                </GridPane.margin>
             </ImageView>
-            <Button id="buttonObs" fx:id="export1" alignment="CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50px; -fx-background-color: #2D936D; -fx-font-size: 22;" text="Loutre" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="22.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <GridPane.margin>
-                  <Insets top="20.0" />
-               </GridPane.margin>
-            </Button>
          </children>
       </GridPane>
    </children>
