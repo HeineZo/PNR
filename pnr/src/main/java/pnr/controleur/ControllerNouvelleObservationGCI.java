@@ -65,11 +65,15 @@ public class ControllerNouvelleObservationGCI extends Controller implements Init
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ResultSet rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur ORDER BY pseudonyme;");
+        ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
             while (rs.next()) {
-                this.observateur.add(rs.getString("pseudonyme"));
+                if (rs.getString("nom") != null){
+                    this.observateur.add(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.observateur.add(rs.getString("prenom"));
+                }
             }
             this.cbObservateur.setItems(this.observateur);
         } catch (SQLException e) {

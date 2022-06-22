@@ -90,22 +90,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         //     modifierObs();
         //     resetUserClicked();
         // }
-
-        // ResultSet rs = connect.executeQuery("SELECT * FROM Observateur ORDER BY nom,prenom;");
-
-        // try {
-        //     while (rs.next()) {
-        //         if(rs.getString("nom") != null){
-        //            this.observateur.add(new TabObservateur(rs.getInt("idObservateur"), rs.getString("nom"), rs.getString("prenom"))); 
-        //         } 
-        //     }
-        //     StringConverter<TabObservateur> converter = FunctionalStringConverter.to(person -> (person == null) ? "" : person.getNom() + " " + person.getPrenom());
-        //     Function<String, Predicate<TabObservateur>> filterFunction = s -> obs -> StringUtils.containsIgnoreCase((CharSequence) converter.toString(obs), (CharSequence) s);
-        //     this.cbObservateur.setItems(this.observateur);
-        //     this.cbObservateur.setFilterFunction(filterFunction);
-        // } catch (SQLException e) {
-        //     e.printStackTrace();
-        // }
         ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
