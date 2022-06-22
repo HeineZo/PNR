@@ -49,8 +49,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
     private MFXDatePicker txtDate = new MFXDatePicker();
 
     @FXML
-    // private MFXFilterComboBox<TabObservateur> cbObservateur = new MFXFilterComboBox<>();
-    // private ObservableList<TabObservateur> observateur = FXCollections.observableArrayList();
     private MFXFilterComboBox<String> cbObservateur = new MFXFilterComboBox<>();
     private ObservableList<String> observateur = FXCollections.observableArrayList();
     
@@ -157,6 +155,9 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         this.cbGestant.valueProperty().addListener((observable, oldValue, newValue) -> {
             checkDisable();
         });
+        this.cbObservateur.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
         this.txtTaille.textProperty().addListener((observable, oldValue, newValue) -> {
             checkDisable();
         });
@@ -209,10 +210,12 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservateur = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH="+idObs+";");
         
         try {
+            String datePasFormate = "";
             while (rs.next()) {
+                datePasFormate = rs.getString("dateObs");
                 if (rs.getString("nom") != null){
                     this.cbObservateur.setText(rs.getString("nom"));
-                } else {
+                } else if (rs.getString("prenom") != null){
                     this.cbObservateur.setText(rs.getString("prenom"));
                 }
 
@@ -231,6 +234,8 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
                 this.txtTemperature.setText(rs.getString("temperatureEau"));
                 this.txtTaille.setText(rs.getString("taille"));
             }
+            String laDate = date.formatToDate(datePasFormate); 
+            this.txtDate.setText(laDate);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -260,8 +265,8 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
 
     private void checkDisable() {
-        if(!txtCoordY.getText().isEmpty() && !txtTaille.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtTemperature.getText().isEmpty() 
-        && !txtDate.getText().isEmpty() && cbEspece.getValue()!= null && cbSexe.getValue() != null && cbTypePeche.getValue() != null && cbGestant.getValue() != null ) {
+        if(!txtCoordY.getText().isEmpty() && !txtTaille.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtTemperature.getText().isEmpty() && !txtDate.getText().isEmpty() 
+        && cbEspece.getValue()!= null && cbSexe.getValue() != null && cbTypePeche.getValue() != null && cbGestant.getValue() != null && cbObservateur.getValue() != null) {
             envoi.setDisable(false);
         } else {
             envoi.setDisable(true);
