@@ -247,9 +247,8 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.barChart.setVisible(false);
             this.lineChart.setVisible(true);
         } else if (chart.equals("Position")) {
-            this.pMap.setMaxSize(25, 25);
-            this.pMap.setDisable(true);
-            this.pMap.setMouseTransparent(true);
+            // this.pMap.setDisable(true);
+            // this.pMap.setMouseTransparent(true);
 
             position(type);
 
@@ -1020,18 +1019,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
             System.setProperty("http.agent", "Gluon Maps/2.0.0");
 
             this.mapView = new MapView();
-            MapPoint mpMorbihan = new MapPoint(47.227638, -2.213749);
-            this.mapView.setZoom(5);
-            this.mapView.flyTo(0, mpMorbihan, 0.1);
+            this.mapView.setMaxSize(1920, 1080);
+            MapPoint mpMorbihan = new MapPoint(47.541935030262756, -2.871214650208961);
+            this.mapView.setZoom(10.5);
+            this.mapView.flyTo(0, mpMorbihan, 2);
 
             ArrayList<MapPoint> mpArray = new ArrayList<MapPoint>();
 
             if (this.eventSrc.equals("Batracien")) {
-                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                // MapPoint mpMorbihan = new MapPoint(46.227638, 2.213749);
-                // this.mapView.setZoom(5);
-                // this.mapView.flyTo(0, mpMorbihan, 0.1);
-
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Batracien On obsB = idObs ");
@@ -1047,20 +1042,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                             this.mapView.addLayer(mapLayer);
                         }
                     }
-
-                    // PoiLayer poi = new PoiLayer();
-
-                    // for (MapPoint mapPoint : mpArray) {
-                    // poi.addPoint(mapPoint, new Circle(5, Color.BLUE));
-                    // }
                 } catch (Exception e) {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Chouette")) {
-                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                // this.mapView.setZoom(9.5);
-                // this.mapView.flyTo(0, mpMorbihan, 0.1);
-
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Chouette On numIndividu = idObs ");
@@ -1080,10 +1065,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("GCI")) {
-                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                // this.mapView.setZoom(9.5);
-                // this.mapView.flyTo(0, mpMorbihan, 0.1);
-
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_GCI On obsG = idObs ");
@@ -1103,10 +1084,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Hippocampe")) {
-                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                // this.mapView.setZoom(9.5);
-                // this.mapView.flyTo(0, mpMorbihan, 0.1);
-
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Hippocampe On obsH = idObs ");
@@ -1126,10 +1103,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Loutre")) {
-                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                // this.mapView.setZoom(9.5);
-                // this.mapView.flyTo(0, mpMorbihan, 0.1);
-
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Loutre On obsL = idObs ");

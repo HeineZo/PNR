@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-
 // import animatefx.animation.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +19,9 @@ public class App extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("vue/LandingPage.fxml"));
         Scene scene = new Scene(root);
 
-        primaryStage.setMaximized(true);
+        // primaryStage.setMaximized(true);
+        primaryStage.setWidth(1920);
+        primaryStage.setHeight(1080);
         primaryStage.setResizable(false);
         primaryStage.setTitle("PNR");
         primaryStage.getIcons().add(new Image("file:vue/images/logo/logo.png"));
@@ -28,6 +29,5 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        
     }
 }
