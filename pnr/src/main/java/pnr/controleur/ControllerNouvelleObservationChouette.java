@@ -58,8 +58,8 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     private MFXDatePicker datePicker;
 
     @FXML
-    private MFXFilterComboBox<TabObservateur> cbObservateur = new MFXFilterComboBox<>();
-    private ObservableList<TabObservateur> observateur = FXCollections.observableArrayList();
+    private MFXFilterComboBox<String> cbObservateur = new MFXFilterComboBox<>();
+    private ObservableList<String> observateur = FXCollections.observableArrayList();
 
     @FXML
     private MFXTextField txtHeure;
@@ -95,19 +95,19 @@ public class ControllerNouvelleObservationChouette extends Controller implements
             modifierObs();
             resetUserClicked();
         }
-        ResultSet rs = connect.executeQuery("SELECT * FROM Observateur ORDER BY nom,prenom;");
+        ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
             while (rs.next()) {
-                if(rs.getString("nom") != null){
-                   this.observateur.add(new TabObservateur(rs.getInt("idObservateur"), rs.getString("nom"), rs.getString("prenom"))); 
+                if (rs.getString("nom") != null){
+                    this.observateur.add(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.observateur.add(rs.getString("prenom"));
                 }
             }
-            StringConverter<TabObservateur> converter = FunctionalStringConverter.to(person -> (person == null) ? "" : person.getNom() + " " + person.getPrenom());
-            Function<String, Predicate<TabObservateur>> filterFunction = s -> obs -> StringUtils.containsIgnoreCase((CharSequence) converter.toString(obs), (CharSequence) s);
             this.cbObservateur.setItems(this.observateur);
-            this.cbObservateur.setFilterFunction(filterFunction);
         } catch (SQLException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
