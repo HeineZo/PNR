@@ -55,7 +55,7 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     private MFXScrollPane scrollPane;
 
     @FXML
-    private MFXDatePicker datePicker;
+    private MFXDatePicker txtDate;
 
     @FXML
     private MFXFilterComboBox<String> cbObservateur = new MFXFilterComboBox<>();
@@ -132,6 +132,37 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         this.typeObs.add("VISUEL");
         this.typeObs.add("SONORE ET VISUEL");
         this.cbTypeObs.setItems(this.typeObs);
+
+        this.txtHeure.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordY.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordX.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbEspece.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });        
+        this.cbSexe.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });       
+        this.txtDate.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbObservateur.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbProto.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });      
+        this.cbTypeObs.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtNumInd.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
     }
 
     @FXML
@@ -168,57 +199,36 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     }
 
     private void ajouteDonnees(ActionEvent event) throws SQLException{
+        ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
+        int idDerniereObs = 0;
+        while (rs.next()) {
+            idDerniereObs = rs.getInt("idObs");
+        }
+        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+        int lObservateur = 0;
+        while (rs.next()) {
+            lObservateur = rs.getInt("idObservateur");
+            
+        }
+        connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+        connect.executeUpdate("INSERT INTO Chouette VALUES ('"+this.txtNumInd.getText()+"','"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"');");
+        connect.executeUpdate("INSERT INTO Obs_Chouette VALUES ("+this.cbProto.getValue()+",'"+this.cbTypeObs.getValue()+"','"+this.txtNumInd.getText()+"',"+(idDerniereObs + 1)+");");
+        initConfirmation("AjouterObservation");
+        loadStage("../vue/Confirmation.fxml", event);
     }
 
     private void updateDonnees(ActionEvent event) throws SQLException{
     }
 
-    // @Override
-    // public void initialize(URL location, ResourceBundle resources){
-    //     this.eventSrc = initPage(this.imgEspece, this.nameEspece);
-    //     try {
-    //         switch (eventSrc) {
-    //             case "Batracien":
-    //                 loadUI("../vue/ObservationBatracien.fxml");
-    //                 break;
-    //             case "Chouette":
-    //                 loadUI("../vue/ObservationChouette.fxml");
-    //                 break;
-    //             case "GCI":
-    //                 loadUI("../vue/ObservationGCI.fxml");
-    //                 break;
-    //             case "Hippocampe":
-    //                 loadUI("../vue/ObservationHippocampe.fxml");
-    //                 break;
-    //             case "Loutre":
-    //                 loadUI("../vue/ObservationLoutre.fxml");
-    //                 break;
-    //             default:
-    //                 break;
-    //         }
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    //     // loadList();
-
-    // }
-
-
-    // private void loadList() {
-    //     ArrayList<String> list = new ArrayList<String>();
-        
-    //     ResultSet rs = connect.executeQuery("SELECT * FROM Observateur");
-    //     try {
-    //         while (rs.next()){
-    //             list.add(rs.getString("nom") + " " + rs.getString("prenom"));
-    //         }
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    //     ObservableList<String> listObservator = FXCollections.observableArrayList(list);
-    //     observatorList.setItems(listObservator);
-    //     observatorList.features().enableBounceEffect();
-	// 	observatorList.features().enableSmoothScrolling(0.5);
-    // }
+    private void checkDisable() {
+        if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtNumInd.getText().isEmpty() && !txtCoordX.getText().isEmpty()
+        && cbTypeObs.getValue()!= null && cbSexe.getValue() != null && cbEspece.getValue() != null && cbProto.getValue() != null) {
+            envoi.setDisable(false);
+        } else {
+            envoi.setDisable(true);
+        }
+    }
 
 }
