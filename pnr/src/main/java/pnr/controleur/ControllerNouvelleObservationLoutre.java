@@ -144,13 +144,18 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
 
     private void modifierObs() {
         this.nameEspece.setText("Modifier une observation");
-        // this.txtCoordX.setDisable(true);
-        // this.txtCoordY.setDisable(true);
-        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = '" + this.idObs + "';");
+        this.txtCoordX.setDisable(true);
+        this.txtCoordY.setDisable(true);
+        // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = " + idObs + ";");
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre, Observation, Observateur,AObserve WHERE ObsL=idObs AND lobservateur = idObservateur AND lobservation  = idObs;");
         try {
             while (rs.next()) {
                 this.txtDate.setText(rs.getString("dateObs"));
-                // this.cbObservateur.setValue(rs.getString("lobservateur"));
+                // if (rs.getString("nom") != null){
+                //     this.cbObservateur.setValue(rs.getString("nom"));
+                // } else if (rs.getString("prenom") != null){
+                //     this.cbObservateur.setValue(rs.getString("prenom"));
+                // }
                 this.txtHeure.setText(rs.getString("heureObs"));
                 this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
                 this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
@@ -191,21 +196,16 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
 
 
     private void updateDonnees(ActionEvent event) throws SQLException{
-        connect.executeUpdate("UPDATE Lieu SET coord_Lambert_X="+this.txtCoordX.getText()+" WHERE coord_Lambert_Y="+this.txtCoordY.getText()+";");  
-        connect.executeUpdate("UPDATE Lieu SET coord_Lambert_Y="+this.txtCoordY.getText()+" WHERE coord_Lambert_X="+this.txtCoordX.getText()+";");  
-        connect.executeUpdate("UPDATE Observation SET dateObs='"+this.txtDate.getText()+", heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
+        // connect.executeUpdate("UPDATE Lieu SET coord_Lambert_X="+this.txtCoordX.getText()+" WHERE coord_Lambert_Y="+this.txtCoordY.getText()+";");  
+        // connect.executeUpdate("UPDATE Lieu SET coord_Lambert_Y="+this.txtCoordY.getText()+" WHERE coord_Lambert_X="+this.txtCoordX.getText()+";");  
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+this.txtDate.getText()+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs="+idObs+";");
         ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
             lObservateur = rs.getInt("idObservateur");
         }
-        connect.executeUpdate("UPDATE AObserve SET lObservateur="+lObservateur+" WHERE lObservation='"+idObs+"';");
-
-        
-
+        connect.executeUpdate("UPDATE AObserve SET lObservateur="+lObservateur+" WHERE lObservation="+idObs+";");
         connect.executeUpdate("UPDATE Obs_Loutre SET commune='"+this.txtCommune.getText()+"', lieuDit='"+this.txtLieuDit.getText()+"', indice='"+this.cbIndice.getValue()+"' WHERE ObsL="+idObs+";");  
-
-
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
