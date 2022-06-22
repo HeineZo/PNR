@@ -68,6 +68,7 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
     
 
         this.eventSrc = getUserClicked().split(" ")[0];
+        resetUserClicked();
         ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur"); 
         try {
             while (rs.next()) {
