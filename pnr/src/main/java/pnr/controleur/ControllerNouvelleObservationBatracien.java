@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
@@ -15,7 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -39,7 +40,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     private MFXDatePicker datePicker;
 
     @FXML
-    private ComboBox<String> cbObservateur;
+    private MFXFilterComboBox<String> cbObservateur;
     private ObservableList<String> observateur = FXCollections.observableArrayList();
 
     @FXML
@@ -52,7 +53,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     private MFXTextField txtCoordX;
 
     @FXML
-    private ComboBox<String> cbEspece;
+    private MFXComboBox<String> cbEspece;
     private ObservableList<String> espece = FXCollections.observableArrayList();
 
     @FXML
@@ -68,35 +69,67 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     private MFXTextField txtTemperature;
 
     @FXML
-    private ComboBox<String> cbTemperature;
+    private MFXComboBox<String> cbTemperature;
     private ObservableList<String> temp = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox<String> cbCiel;
+    private MFXComboBox<String> cbCiel;
     private ObservableList<String> ciel = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox<String> cbPluie;
+    private MFXComboBox<String> cbPluie;
     private ObservableList<String> pluie = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox<String> cbVent;
+    private MFXComboBox<String> cbVent;
     private ObservableList<String> vent = FXCollections.observableArrayList();
 
     @FXML
-    private MFXTextField txtZoneHumide;
+    private MFXComboBox<String> cbZHTemp;
+    private ObservableList<String> temporaire = FXCollections.observableArrayList();
 
     @FXML
-    private MFXTextField txtVegetation;
+    private MFXTextField txtProfondeur;
+
+    @FXML
+    private MFXTextField txtSurface;
+
+    @FXML
+    private MFXComboBox<String> cbTypeMare;
+    private ObservableList<String> typeMare = FXCollections.observableArrayList();
+
+    @FXML
+    private MFXComboBox<String> cbPente;
+    private ObservableList<String> pente = FXCollections.observableArrayList();
+
+    @FXML
+    private MFXComboBox<String> cbOuverture;
+    private ObservableList<String> ouverture = FXCollections.observableArrayList();
+
+    @FXML
+    private MFXComboBox<String> cbNatureVege;
+    private ObservableList<String> natureVege = FXCollections.observableArrayList();
+
+    @FXML
+    private MFXTextField txtVegetation;    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (getUserClicked() != null) {
+            idObs = getUserClicked();
+            modifierObs();
+            resetUserClicked();
+        }
 
-        ResultSet rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur ORDER BY pseudonyme;");
+        ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
             while (rs.next()) {
-                this.observateur.add(rs.getString("pseudonyme"));
+                if (rs.getString("nom") != null){
+                    this.observateur.add(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.observateur.add(rs.getString("prenom"));
+                }
             }
             this.cbObservateur.setItems(this.observateur);
         } catch (SQLException e) {
@@ -129,6 +162,16 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         this.espece.add("calamite");
         this.espece.add("pelodyte");
         this.cbEspece.setItems(this.espece);
+
+        this.temporaire.add("0");
+        this.temporaire.add("1");
+        this.cbZHTemp.setItems(this.temporaire);
+
+        this.typeMare.add("Prairie");
+        this.typeMare.add("Etang");
+        this.typeMare.add("Marais");
+        this.typeMare.add("Mare");
+        this.cbTypeMare.setItems(this.typeMar);
     }
 
     @FXML
