@@ -60,7 +60,15 @@ public class ControllerGererProfils extends Controller implements Initializable{
         profileList.setItems(listProfile);
         profileList.features().enableBounceEffect();
 		profileList.features().enableSmoothScrolling(0.5);
-        profileList.setCellFactory(person -> new PersonCellFactory(profileList, person, "mfx-user"));
+        profileList.setCellFactory(pl -> new MFXListCell<String>(profileList, pl) {
+            @Override
+            public void render(String observation) {                
+                super.render(observation);
+                MFXFontIcon userIcon = new MFXFontIcon("mfx-user", 18);
+                userIcon.getStyleClass().add("user-icon");
+                if (userIcon != null) getChildren().add(0, userIcon);
+            }
+        });
         profileList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

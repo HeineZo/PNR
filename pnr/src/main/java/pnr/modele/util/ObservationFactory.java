@@ -16,8 +16,18 @@ public class ObservationFactory {
             return new SimpleDateFormat("dd/MM/yyyy").format(date);
         }
     
-        public int getId() {
-            return id ;
+        public String getId() {
+            return String.valueOf(id) ;
+        }
+
+        public String toString() {
+            String ret;
+            if (this.date != null){
+                ret = "Observation du "+this.getDate();
+            } else {
+                ret =  "Date indisponible";
+            }
+            return ret;
         }
 }
 
