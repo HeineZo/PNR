@@ -1,14 +1,17 @@
 package pnr.controleur;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -43,9 +46,20 @@ public class ControllerChoixAction extends Controller implements Initializable {
     private AnchorPane rootPane;
 
     @FXML
-    private void handleBtnClick(ActionEvent event) {
+    private void handleBtnClick(ActionEvent event) throws IOException {
         if (event.getSource() == btnNewObs) {
-            loadStage("../vue/NouvelleObservation.fxml", event);
+            if (this.getEventSrcVisualiser().equals("Batracien")) {
+                loadStage("../vue/NouvelleObservationBatracien.fxml", event);
+
+            } else if (this.getEventSrcVisualiser().equals("Chouette")) {
+                loadStage("../vue/NouvelleObservationChouette.fxml", event);
+            } else if (this.getEventSrcVisualiser().equals("GCI")) {
+                loadStage("../vue/NouvelleObservationGCI.fxml", event);
+            } else if (this.getEventSrcVisualiser().equals("Hippocampe")) {
+                loadStage("../vue/NouvelleObservationHippocampe.fxml", event);
+            } else if (this.getEventSrcVisualiser().equals("Loutre")) {
+                loadStage("../vue/NouvelleObservationLoutre.fxml", event);
+            }
         } else if (event.getSource() == btnVisObs) {
             loadStage("../vue/Visualiser.fxml", event);
         } else if (event.getSource() == btnModObs) {

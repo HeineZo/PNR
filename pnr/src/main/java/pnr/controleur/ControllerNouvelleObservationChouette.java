@@ -64,15 +64,19 @@ public class ControllerNouvelleObservationChouette extends Controller implements
 
     @FXML
     private ComboBox<String> cbTypeObs;
+    private ObservableList<String> typeObs = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbEspece;
+    private ObservableList<String> espece = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbProto;
+    private ObservableList<String> protocole = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> cbSexe;
+    private ObservableList<String> sexe = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,7 +92,25 @@ public class ControllerNouvelleObservationChouette extends Controller implements
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
+        this.espece.add("EFFRAIE");
+        this.espece.add("CHEVECHE");
+        this.espece.add("HULOTTE");
+        this.cbEspece.setItems(this.espece);
+
+        this.sexe.add("MALE");
+        this.sexe.add("FEMELLE");
+        this.sexe.add("INCONNU");
+        this.cbSexe.setItems(this.sexe);
+
+        this.protocole.add("0");
+        this.protocole.add("1");
+        this.cbProto.setItems(this.protocole);
+
+        this.typeObs.add("SONORE");
+        this.typeObs.add("VISUEL");
+        this.typeObs.add("SONORE ET VISUEL");
+        this.cbTypeObs.setItems(this.typeObs);
     }
 
 
@@ -161,6 +183,7 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixAction.fxml", event);
         } else if (event.getSource() == envoi) {
+            
             initConfirmation("AjouterObservation");
             loadStage("../vue/Confirmation.fxml", event);
         }

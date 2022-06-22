@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import pnr.modele.EncryptString;
 
 public class ControllerNouveauProfil extends Controller implements Initializable{
 
@@ -32,19 +34,19 @@ public class ControllerNouveauProfil extends Controller implements Initializable
     private Label livePseudo;
 
     @FXML
-    private TextField txtPrenom;
+    private MFXTextField txtMdp;
 
     @FXML
-    private TextField txtNom;
+    private MFXTextField txtNom;
 
     @FXML
-    private TextField txtMdp;
+    private MFXTextField txtPrenom;
 
     @FXML
     private MFXTextField txtPseudo = new MFXTextField();
 
     @FXML
-    private ComboBox<String> cbPerm;
+    private MFXComboBox<String> cbPerm;
 
     private ObservableList<String> permissionChoices = FXCollections.observableArrayList();
 
@@ -88,7 +90,8 @@ public class ControllerNouveauProfil extends Controller implements Initializable
             if(unique.contains(this.txtPseudo.getText())){
                 super.error("Pseudonyme déjà utilisé",anchorPane);
             } else {
-                connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtNom.getText()+"','"+this.txtPrenom.getText()+"','"+this.txtMdp.getText()+"','"+this.getPerm(this.cbPerm)+"');");
+                EncryptString cryptMdp = new EncryptString(this.txtMdp.getText());
+                connect.executeUpdate("INSERT INTO Utilisateur VALUES('"+this.txtPseudo.getText()+"','"+this.txtNom.getText()+"','"+this.txtPrenom.getText()+"','"+cryptMdp.getEncryptedPassword()+"','"+this.getPerm(this.cbPerm)+"');");
                 initConfirmation("NouveauProfil");
                 loadStage("../vue/Confirmation.fxml", event);
             }
@@ -97,7 +100,7 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         }
     }
 
-    public int getPerm(ComboBox<String> perm) {
+    public int getPerm(MFXComboBox<String> perm) {
         int ret = -1;
         if(perm != null) {
             if (perm.getValue().equals("Administrateur")) {
