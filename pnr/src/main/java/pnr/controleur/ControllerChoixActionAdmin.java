@@ -35,11 +35,6 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
     @FXML
     private Text nameUser;
 
-    /**
-     * Handles the button's action
-     * @param event enabled when the button is clicked
-     * @throws IOException
-     */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnNouvelleFiche) {
@@ -57,9 +52,6 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
         }
     }
 
-    /**
-     * Initializes the page
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ResultSet rs = connect.executeQuery("SELECT prenom, nom FROM Utilisateur WHERE pseudonyme='" + this.getEventSrcNomUser()+"';");

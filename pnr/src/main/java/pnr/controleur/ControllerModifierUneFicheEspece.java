@@ -16,11 +16,6 @@ public class ControllerModifierUneFicheEspece extends Controller {
     @FXML
     private ImageView delete;
 
-    /**
-     * Handles the button's action
-     * @param event enabled when the button is clicked
-     * @throws IOException
-     */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {

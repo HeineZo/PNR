@@ -44,9 +44,6 @@ public class ControllerGererProfils extends Controller implements Initializable{
     @FXML
     private GridPane gridPane;
 
-    /**
-     * Initializes the page
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<String> list = new ArrayList<String>();
@@ -81,11 +78,6 @@ public class ControllerGererProfils extends Controller implements Initializable{
         });  
     }
 
-    /**
-     * Handles the button's action
-     * @param event enabled when the button is clicked
-     * @throws IOException
-     */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
