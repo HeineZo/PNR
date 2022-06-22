@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
+import pnr.modele.util.Dates;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -86,6 +87,8 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
     private MFXTextField txtTaille = new MFXTextField();
 
     private int idObs;
+
+    private Dates date = new Dates();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -177,9 +180,9 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         while (rs.next()) {
             idDerniereObs = rs.getInt("idObs");
         }
-        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
-        
+        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");"); 
+        String laDate = date.dateToFormat(this.txtDate.getText());   
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {

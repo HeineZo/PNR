@@ -109,7 +109,7 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXDatePicker fx:id="datePicker" floatMode="BORDER" floatingText="Date de l'observation" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                              <MFXDatePicker fx:id="txtDate" floatMode="BORDER" floatingText="Date de l'observation" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
@@ -137,11 +137,19 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXComboBox fx:id="cbTypeObs" floatMode="BORDER" floatingText="Type d'observation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                              <MFXComboBox fx:id="cbTypeObs" floatMode="BORDER" floatingText="Type d'observation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
+                              <MFXTextField fx:id="txtNumInd" floatMode="BORDER" floatingText="Numéro de l'individu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <textFill>
+                                    <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+                                 </textFill>
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </MFXTextField>
                            </children>
                         </GridPane>
                      </children>
