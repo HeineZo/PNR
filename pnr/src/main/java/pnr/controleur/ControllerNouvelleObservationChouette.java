@@ -10,6 +10,7 @@ import pnr.modele.donneeAddsOn.TabObservateur;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import pnr.modele.util.Dates;
 
 import java.io.IOException;
 import java.net.URL;
@@ -87,6 +88,8 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     private ObservableList<String> sexe = FXCollections.observableArrayList();
 
     private String idObs;
+
+    Dates date = new Dates();
 
     @FXML
     private MFXTextField txtNumInd;
@@ -204,8 +207,9 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         while (rs.next()) {
             idDerniereObs = rs.getInt("idObs");
         }
-        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        String laDate = date.dateToFormat(this.txtDate.getText());  
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
@@ -230,5 +234,4 @@ public class ControllerNouvelleObservationChouette extends Controller implements
             envoi.setDisable(true);
         }
     }
-
 }
