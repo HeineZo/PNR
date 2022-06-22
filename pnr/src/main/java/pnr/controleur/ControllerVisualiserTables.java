@@ -62,7 +62,10 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     private MFXTableView<Loutre> loutre = new MFXTableView<>();
 
     @FXML
-    private Label count;
+    private MFXTableView<JointureGCI> gci = new MFXTableView<>();
+
+    @FXML
+    private MFXTableView<Hippocampe> hippocampe = new MFXTableView<>();
 
     @FXML
     private Button btnBack;
@@ -78,15 +81,15 @@ public class ControllerVisualiserTables extends Controller implements Initializa
             setupTableChouette();
             chouette.autosizeColumnsOnInitialization();
         } else if (this.eventSrc.equals("GCI")) {
-            //urlImage = "especes/gci.png";
+            setupTableGCI();
+            gci.autosizeColumnsOnInitialization();
         } else if (this.eventSrc.equals("Hippocampe")) {
-            //urlImage = "especes/hippocampe.png";
+            setupTableHippocampe();
+            hippocampe.autosizeColumnsOnInitialization();
         } else if (this.eventSrc.equals("Loutre")) {
             setupTableLoutre();
             loutre.autosizeColumnsOnInitialization();
-        } else {
-            //urlImage = "especes/null.png";
-        }
+        } 
     }
 
     private void imgIcn() {
@@ -113,15 +116,15 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     }
 
     private void setupTableBatracien() {
-		MFXTableColumn<Batracien> id = new MFXTableColumn<>("id", true, Comparator.comparing(Batracien::getObsB));
-		MFXTableColumn<Batracien> espece = new MFXTableColumn<>("Espece", true, Comparator.comparing(Batracien::getEspece));
-		MFXTableColumn<Batracien> nbrAdulte = new MFXTableColumn<>("Nombre d'adulte", true, Comparator.comparing(Batracien::getNombreAdultes));
+		MFXTableColumn<Batracien> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(Batracien::getObsB));
+		MFXTableColumn<Batracien> espece = new MFXTableColumn<>("Espèce", true, Comparator.comparing(Batracien::getEspece));
+		MFXTableColumn<Batracien> nbrAdulte = new MFXTableColumn<>("Nombre d'adultes", true, Comparator.comparing(Batracien::getNombreAdultes));
 		MFXTableColumn<Batracien> nbrAmplexus = new MFXTableColumn<>("Nombre d'amplexus", true, Comparator.comparing(Batracien::getNombreAmplexus));
 		MFXTableColumn<Batracien> nbrPonte = new MFXTableColumn<>("Nombre de ponte", true, Comparator.comparing(Batracien::getNombrePonte));
 		MFXTableColumn<Batracien> nbrTetard = new MFXTableColumn<>("Nombre de tétard", true, Comparator.comparing(Batracien::getNombreTetard));
 		MFXTableColumn<Batracien> temp= new MFXTableColumn<>("Température", true, Comparator.comparing(Batracien::getTemperature));
 		MFXTableColumn<Batracien> meteo_ciel= new MFXTableColumn<>("Météo du ciel", true, Comparator.comparing(Batracien::getMeteoCiel));
-		MFXTableColumn<Batracien> meteo_temp= new MFXTableColumn<>("Ressentie de température", true, Comparator.comparing(Batracien::getMeteoTemp));
+		MFXTableColumn<Batracien> meteo_temp= new MFXTableColumn<>("Ressenti de température", true, Comparator.comparing(Batracien::getMeteoTemp));
 		MFXTableColumn<Batracien> meteo_vent = new MFXTableColumn<>("Type du vent", true, Comparator.comparing(Batracien::getMeteoVent));
 		MFXTableColumn<Batracien> meteo_pluie = new MFXTableColumn<>("Pluie", true, Comparator.comparing(Batracien::getMeteoPluie));
 		MFXTableColumn<Batracien> zh = new MFXTableColumn<>("Zone humide", true, Comparator.comparing(Batracien::getConcerneZh));
@@ -144,15 +147,15 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 
 		batracien.getTableColumns().addAll(id, espece, nbrAdulte, nbrAmplexus, nbrPonte, nbrTetard, temp, meteo_ciel, meteo_temp, meteo_vent, meteo_pluie, zh, vege);
 		batracien.getFilters().addAll(
-                new IntegerFilter<>("id", Batracien::getObsB),
-				new StringFilter<>("Espece", Batracien::getEspece),
+                new IntegerFilter<>("Identifiant", Batracien::getObsB),
+				new StringFilter<>("Espèce", Batracien::getEspece),
 				new IntegerFilter<>("Nombre d'adultes", Batracien::getNombreAdultes),
 				new IntegerFilter<>("Nombre d'amplexus", Batracien::getNombreAmplexus),
 				new IntegerFilter<>("Nombre de ponte", Batracien::getNombrePonte),
 				new IntegerFilter<>("Nombre de tétard", Batracien::getNombreTetard),
 				new DoubleFilter<>("Température", Batracien::getTemperature),
 				new StringFilter<>("Météo du ciel", Batracien::getMeteoCiel),
-				new StringFilter<>("Ressentie de température", Batracien::getMeteoTemp),
+				new StringFilter<>("Ressenti de température", Batracien::getMeteoTemp),
 				new StringFilter<>("Type du vent", Batracien::getMeteoVent),
 				new StringFilter<>("Pluie", Batracien::getMeteoPluie),
 				new IntegerFilter<>("Zone humide", Batracien::getConcerneZh),
@@ -188,12 +191,12 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 	}
 
     private void setupTableChouette() {
-		MFXTableColumn<JointureChouette> id = new MFXTableColumn<>("id", true, Comparator.comparing(JointureChouette::getLeNumIndividu));
-		MFXTableColumn<JointureChouette> espece = new MFXTableColumn<>("Espece", true, Comparator.comparing(JointureChouette::getEspece));
+		MFXTableColumn<JointureChouette> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(JointureChouette::getLeNumIndividu));
+		MFXTableColumn<JointureChouette> espece = new MFXTableColumn<>("Espèce", true, Comparator.comparing(JointureChouette::getEspece));
 		MFXTableColumn<JointureChouette> sexe = new MFXTableColumn<>("Sexe", true, Comparator.comparing(JointureChouette::getSexe));
 		MFXTableColumn<JointureChouette> protocole = new MFXTableColumn<>("Protocole", true, Comparator.comparing(JointureChouette::getProtocole));
 		MFXTableColumn<JointureChouette> typeObs = new MFXTableColumn<>("Type d'observation", true, Comparator.comparing(JointureChouette::getTypeObs));
-        MFXTableColumn<JointureChouette> numObs = new MFXTableColumn<>("numero de l'observation", true, Comparator.comparing(JointureChouette::getNumObs));
+        MFXTableColumn<JointureChouette> numObs = new MFXTableColumn<>("Numéro de l'observation", true, Comparator.comparing(JointureChouette::getNumObs));
 
         id.setRowCellFactory(person -> new MFXTableRowCell<>(JointureChouette::getLeNumIndividu));
         espece.setRowCellFactory(person -> new MFXTableRowCell<>(JointureChouette::getEspece));
@@ -204,12 +207,12 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 
 		chouette.getTableColumns().addAll(id, espece, sexe, protocole, typeObs, numObs);
 		chouette.getFilters().addAll(
-                new StringFilter<>("id", JointureChouette::getLeNumIndividu),
-				new StringFilter<>("Espece", JointureChouette::getEspece),
+                new StringFilter<>("Identifiant", JointureChouette::getLeNumIndividu),
+				new StringFilter<>("Espèce", JointureChouette::getEspece),
 				new StringFilter<>("Sexe", JointureChouette::getSexe),
 				new IntegerFilter<>("Protocole", JointureChouette::getProtocole),
 				new StringFilter<>("Type d'observation", JointureChouette::getTypeObs),
-				new IntegerFilter<>("numero de l'observation", JointureChouette::getNumObs)
+				new IntegerFilter<>("Numéro de l'observation", JointureChouette::getNumObs)
 		);
 
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Chouette, Chouette WHERE numIndividu = leNumIndividu;");
@@ -234,7 +237,7 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     }
 
     private void setupTableLoutre() {
-		MFXTableColumn<Loutre> id = new MFXTableColumn<>("id", true, Comparator.comparing(Loutre::getObsL));
+		MFXTableColumn<Loutre> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(Loutre::getObsL));
 		MFXTableColumn<Loutre> commune = new MFXTableColumn<>("Commune", true, Comparator.comparing(Loutre::getCommune));
 		MFXTableColumn<Loutre> lieuDit = new MFXTableColumn<>("Lieu dit", true, Comparator.comparing(Loutre::getLieuDit));
 		MFXTableColumn<Loutre> indice = new MFXTableColumn<>("Indice", true, Comparator.comparing(Loutre::getIndice));
@@ -246,7 +249,7 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 
 		loutre.getTableColumns().addAll(id, commune, lieuDit, indice);
 		loutre.getFilters().addAll(
-                new IntegerFilter<>("id", Loutre::getObsL),
+                new IntegerFilter<>("Identifiant", Loutre::getObsL),
 				new StringFilter<>("Commune", Loutre::getCommune),
                 new StringFilter<>("Lieu dit", Loutre::getLieuDit),
 				new StringFilter<>("Indice", Loutre::getIndice)
@@ -271,7 +274,122 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 		loutre.setItems(listProfile);
 	}
 
-    
+    private void setupTableGCI() {
+		MFXTableColumn<JointureGCI> id = new MFXTableColumn<>("Identifiant nid", true, Comparator.comparing(JointureGCI::getIdNid));
+        MFXTableColumn<JointureGCI> nom = new MFXTableColumn<>("Plage", true, Comparator.comparing(JointureGCI::getNomPlage));
+        MFXTableColumn<JointureGCI> raison = new MFXTableColumn<>("Raison de l'arrêt", true, Comparator.comparing(JointureGCI::getRaisonArretObservation));
+        MFXTableColumn<JointureGCI> nbEnvol = new MFXTableColumn<>("Nombre d'envols", true, Comparator.comparing(JointureGCI::getNbEnvol));
+        MFXTableColumn<JointureGCI> protection = new MFXTableColumn<>("Protection", true, Comparator.comparing(JointureGCI::getProtection));
+        MFXTableColumn<JointureGCI> bagueMale = new MFXTableColumn<>("Bague mâle", true, Comparator.comparing(JointureGCI::getBagueMale));
+        MFXTableColumn<JointureGCI> bagueFemelle = new MFXTableColumn<>("Bague femelle", true, Comparator.comparing(JointureGCI::getBagueFemelle));
+        MFXTableColumn<JointureGCI> obsG = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(JointureGCI::getObsG));
+        MFXTableColumn<JointureGCI> nature = new MFXTableColumn<>("Nature de l'observation", true, Comparator.comparing(JointureGCI::getNature));
+        MFXTableColumn<JointureGCI> nombre = new MFXTableColumn<>("Nombre", true, Comparator.comparing(JointureGCI::getNombre));
+        MFXTableColumn<JointureGCI> present = new MFXTableColumn<>("Présent mais non observé", true, Comparator.comparing(JointureGCI::getPresentmainsNonObs));
+
+        id.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getIdNid));
+        nom.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNomPlage));
+        raison.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getRaisonArretObservation));
+        nbEnvol.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNbEnvol));
+        protection.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getProtection));
+        bagueMale.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getBagueMale));
+        bagueFemelle.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getBagueFemelle));
+        obsG.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getObsG));
+        nature.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNature));
+        nombre.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNombre));
+        present.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getPresentmainsNonObs));
+
+		gci.getTableColumns().addAll(id, nom, raison, nbEnvol, protection, bagueMale, bagueFemelle, obsG, nature, nombre, present);
+		gci.getFilters().addAll(
+                new IntegerFilter<>("Identifiant", JointureGCI::getIdNid),
+				new StringFilter<>("Plage", JointureGCI::getNomPlage),
+                new StringFilter<>("Raison de l'arrêt", JointureGCI::getRaisonArretObservation),
+				new IntegerFilter<>("Nombre d'envols", JointureGCI::getNbEnvol),
+                new IntegerFilter<>("Protection", JointureGCI::getProtection),
+				new StringFilter<>("Bague mâle", JointureGCI::getBagueMale),
+                new StringFilter<>("Bague femelle", JointureGCI::getBagueFemelle),
+				new IntegerFilter<>("Identifiant", JointureGCI::getObsG),
+                new StringFilter<>("Nature de l'observation", JointureGCI::getNature),
+                new IntegerFilter<>("Nombre", JointureGCI::getNombre),
+				new IntegerFilter<>("Présent mais non observé", JointureGCI::getPresentmainsNonObs)
+		);
+
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_GCI, Nid_GCI WHERE idNid = leNid");
+        ArrayList<JointureGCI> list = new ArrayList<>();
+        
+        try {
+            while (rs.next()){
+                list.add(new JointureGCI(
+                    rs.getInt("idNid"),
+                        rs.getString("nomPlage"),
+                        rs.getString("raisonArretObservation"),
+                        rs.getInt("nbEnvol"),
+                        rs.getInt("protection"),
+                        rs.getString("bagueMale"),
+                        rs.getString("bagueFemelle"),
+                        rs.getInt("obsG"),
+                        rs.getString("nature"),
+                        rs.getInt("nombre"),
+                        rs.getInt("presentMaisNonObs")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ObservableList<JointureGCI> listProfile = FXCollections.observableArrayList(list);
+		gci.setItems(listProfile);
+	}
+
+    private void setupTableHippocampe() {
+		MFXTableColumn<Hippocampe> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(Hippocampe::getObsH));
+        MFXTableColumn<Hippocampe> espece = new MFXTableColumn<>("Espèce", true, Comparator.comparing(Hippocampe::getEspece));
+        MFXTableColumn<Hippocampe> sexe = new MFXTableColumn<>("Sexe", true, Comparator.comparing(Hippocampe::getSexe));
+        MFXTableColumn<Hippocampe> temp = new MFXTableColumn<>("Température", true, Comparator.comparing(Hippocampe::getTemperatureEau));
+        MFXTableColumn<Hippocampe> peche = new MFXTableColumn<>("Type de pêche", true, Comparator.comparing(Hippocampe::getTypePeche));
+        MFXTableColumn<Hippocampe> taille = new MFXTableColumn<>("Taille", true, Comparator.comparing(Hippocampe::getTaille));
+        MFXTableColumn<Hippocampe> gestant = new MFXTableColumn<>("Gestant", true, Comparator.comparing(Hippocampe::getGestant));
+
+        id.setRowCellFactory(person -> new MFXTableRowCell<>(Hippocampe::getObsH));
+        espece.setRowCellFactory(person -> new MFXTableRowCell<>(Hippocampe::getEspece));
+        sexe.setRowCellFactory(person -> new MFXTableRowCell<>(Hippocampe::getSexe));
+        temp.setRowCellFactory(person -> new MFXTableRowCell<>(Hippocampe::getTemperatureEau));
+        peche.setRowCellFactory(person -> new MFXTableRowCell<>(Hippocampe::getTypePeche));
+        taille.setRowCellFactory(person -> new MFXTableRowCell<>(Hippocampe::getTaille));
+        gestant.setRowCellFactory(person -> new MFXTableRowCell<>(Hippocampe::getGestant));
+
+		hippocampe.getTableColumns().addAll(id, espece, sexe, temp, peche, taille, gestant);
+		hippocampe.getFilters().addAll(
+                new IntegerFilter<>("Identifiant", Hippocampe::getObsH),
+				new StringFilter<>("Espèce", Hippocampe::getEspece),
+                new StringFilter<>("Sexe", Hippocampe::getSexe),
+				new IntegerFilter<>("Température", Hippocampe::getTemperatureEau),
+                new StringFilter<>("Type de pêche", Hippocampe::getTypePeche),
+				new DoubleFilter<>("Taille", Hippocampe::getTaille),
+                new IntegerFilter<>("Gestant", Hippocampe::getGestant)
+		);
+
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe");
+        ArrayList<Hippocampe> list = new ArrayList<>();
+        
+        try {
+            while (rs.next()){
+                list.add(new Hippocampe(
+                    rs.getInt("obsH"),
+                    rs.getString("espece"),
+                    rs.getString("sexe"),
+                    rs.getInt("temperatureEau"),
+                    rs.getString("typePeche"),
+                    rs.getDouble("taille"),
+                    rs.getInt("gestant")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ObservableList<Hippocampe> listProfile = FXCollections.observableArrayList(list);
+		hippocampe.setItems(listProfile);
+	}
+
 
     @FXML
     void handleBtnClick(ActionEvent event) throws Exception {
