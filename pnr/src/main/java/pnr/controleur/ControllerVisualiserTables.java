@@ -62,7 +62,10 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     private MFXTableView<Loutre> loutre = new MFXTableView<>();
 
     @FXML
-    private Label count;
+    private MFXTableView<JointureGCI> gci = new MFXTableView<>();
+
+    @FXML
+    private MFXTableView<Hippocampe> hippocampe = new MFXTableView<>();
 
     @FXML
     private Button btnBack;
@@ -78,15 +81,14 @@ public class ControllerVisualiserTables extends Controller implements Initializa
             setupTableChouette();
             chouette.autosizeColumnsOnInitialization();
         } else if (this.eventSrc.equals("GCI")) {
-            //urlImage = "especes/gci.png";
+            setupTableGCI();
+            gci.autosizeColumnsOnInitialization();
         } else if (this.eventSrc.equals("Hippocampe")) {
             //urlImage = "especes/hippocampe.png";
         } else if (this.eventSrc.equals("Loutre")) {
             setupTableLoutre();
             loutre.autosizeColumnsOnInitialization();
-        } else {
-            //urlImage = "especes/null.png";
-        }
+        } 
     }
 
     private void imgIcn() {
@@ -271,7 +273,72 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 		loutre.setItems(listProfile);
 	}
 
-    
+    private void setupTableGCI() {
+		MFXTableColumn<JointureGCI> id = new MFXTableColumn<>("id nid", true, Comparator.comparing(JointureGCI::getIdNid));
+        MFXTableColumn<JointureGCI> nom = new MFXTableColumn<>("Plage", true, Comparator.comparing(JointureGCI::getNomPlage));
+        MFXTableColumn<JointureGCI> raison = new MFXTableColumn<>("Raison de l'arrêt", true, Comparator.comparing(JointureGCI::getRaisonArretObservation));
+        MFXTableColumn<JointureGCI> nbEnvol = new MFXTableColumn<>("Nombre d'envols", true, Comparator.comparing(JointureGCI::getNbEnvol));
+        MFXTableColumn<JointureGCI> protection = new MFXTableColumn<>("Protection", true, Comparator.comparing(JointureGCI::getProtection));
+        MFXTableColumn<JointureGCI> bagueMale = new MFXTableColumn<>("Bague male", true, Comparator.comparing(JointureGCI::getBagueMale));
+        MFXTableColumn<JointureGCI> bagueFemelle = new MFXTableColumn<>("Bague femelle", true, Comparator.comparing(JointureGCI::getBagueFemelle));
+        MFXTableColumn<JointureGCI> obsG = new MFXTableColumn<>("id", true, Comparator.comparing(JointureGCI::getObsG));
+        MFXTableColumn<JointureGCI> nature = new MFXTableColumn<>("Nature de l'observation", true, Comparator.comparing(JointureGCI::getNature));
+        MFXTableColumn<JointureGCI> nombre = new MFXTableColumn<>("Nombre", true, Comparator.comparing(JointureGCI::getNombre));
+        MFXTableColumn<JointureGCI> present = new MFXTableColumn<>("Present mais non observé", true, Comparator.comparing(JointureGCI::getPresentmainsNonObs));
+
+        id.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getIdNid));
+        nom.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNomPlage));
+        raison.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getRaisonArretObservation));
+        nbEnvol.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNbEnvol));
+        protection.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getProtection));
+        bagueMale.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getBagueMale));
+        bagueFemelle.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getBagueFemelle));
+        obsG.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getObsG));
+        nature.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNature));
+        nombre.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getNombre));
+        present.setRowCellFactory(person -> new MFXTableRowCell<>(JointureGCI::getPresentmainsNonObs));
+
+		gci.getTableColumns().addAll(id, nom, raison, nbEnvol, protection, bagueMale, bagueFemelle, obsG, nature, nombre, present);
+		gci.getFilters().addAll(
+                new IntegerFilter<>("id", JointureGCI::getIdNid),
+				new StringFilter<>("Plage", JointureGCI::getNomPlage),
+                new StringFilter<>("Raison de l'arret", JointureGCI::getRaisonArretObservation),
+				new IntegerFilter<>("Nombre d'envols", JointureGCI::getNbEnvol),
+                new IntegerFilter<>("Protection", JointureGCI::getProtection),
+				new StringFilter<>("Bague male", JointureGCI::getBagueMale),
+                new StringFilter<>("Bague femelle", JointureGCI::getBagueFemelle),
+				new IntegerFilter<>("id", JointureGCI::getObsG),
+                new StringFilter<>("Nature de l'observation", JointureGCI::getNature),
+                new IntegerFilter<>("Nombre", JointureGCI::getNombre),
+				new IntegerFilter<>("Present mais non observé", JointureGCI::getPresentmainsNonObs)
+		);
+
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_GCI, Nid_GCI WHERE idNid = leNid");
+        ArrayList<JointureGCI> list = new ArrayList<>();
+        
+        try {
+            while (rs.next()){
+                list.add(new JointureGCI(
+                    rs.getInt("idNid"),
+                        rs.getString("nomPlage"),
+                        rs.getString("raisonArretObservation"),
+                        rs.getInt("nbEnvol"),
+                        rs.getInt("protection"),
+                        rs.getString("bagueMale"),
+                        rs.getString("bagueFemelle"),
+                        rs.getInt("obsG"),
+                        rs.getString("nature"),
+                        rs.getInt("nombre"),
+                        rs.getInt("presentMaisNonObs")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ObservableList<JointureGCI> listProfile = FXCollections.observableArrayList(list);
+		gci.setItems(listProfile);
+	}
+
 
     @FXML
     void handleBtnClick(ActionEvent event) throws Exception {
