@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.DoubleFilter;
 import io.github.palexdev.materialfx.filter.EnumFilter;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
@@ -40,7 +41,7 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     private String eventSrc;
 
     @FXML
-    private MFXTableView<ObsBatracien> batracien = new MFXTableView<ObsBatracien>();
+    private MFXTableView<Batracien> batracien = new MFXTableView<>();
     
     @FXML
     private ImageView imgEspece;
@@ -87,17 +88,17 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     @FXML
     private TableView<Vegetation> tbvBatracienVegetation;
 
-    @FXML
-    private TableView<Chouette> tbvChouette;
+    // @FXML
+    // private TableView<Chouette> tbvChouette;
 
-    @FXML
-    private TableView<ObsChouette> tbvChouetteObs;
+    // @FXML
+    // private TableView<ObsChouette> tbvChouetteObs;
 
     @FXML
     private TableView<NidGCI> tbvGCI;
 
-    @FXML
-    private TableView<ObsGCI> tbvGCIObs;
+    // @FXML
+    // private TableView<ObsGCI> tbvGCIObs;
 
     @FXML
     private TableView<ObsHippocampe> tbvHippocampe;
@@ -108,10 +109,10 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     private ObservableList<ObsBatracien> tlistBatracien = FXCollections.observableArrayList();
     private ObservableList<ZoneHumide> tlistBatracienZoneHumide = FXCollections.observableArrayList();
     private ObservableList<Vegetation> tlistVegetation = FXCollections.observableArrayList();
-    private ObservableList<Chouette> tlistChouette = FXCollections.observableArrayList();
-    private ObservableList<ObsChouette> tlistChouetteObs = FXCollections.observableArrayList();
+    // private ObservableList<Chouette> tlistChouette = FXCollections.observableArrayList();
+    // private ObservableList<ObsChouette> tlistChouetteObs = FXCollections.observableArrayList();
     private ObservableList<NidGCI> tlistGCI = FXCollections.observableArrayList();
-    private ObservableList<ObsGCI> tlistGCIObs = FXCollections.observableArrayList();
+    // private ObservableList<ObsGCI> tlistGCIObs = FXCollections.observableArrayList();
     private ObservableList<ObsHippocampe> tlistHippocampe = FXCollections.observableArrayList();
     private ObservableList<ObsLoutre> tlistLoutre = FXCollections.observableArrayList();
 
@@ -189,103 +190,79 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         }
     }
 
-    // private void setupTable() throws SQLException {
-    //     ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Batracien");
-    //     ResultSetMetaData rsmd = rs.getMetaData();
-    //     int columnCount = rsmd.getColumnCount();
-        
-    //     ArrayList<String> list = new ArrayList<String>();
-    //     // The column count starts from 1
-    //     for (int i = 1; i <= columnCount; i++ ) {
-    //      String name = rsmd.getColumnName(i);
-    //      list.add(name);
-    //     }
-
-        
-       
-    //     // while (rs.next()) {
-    //     //     if (rs.getString("nom").equals(this.eventSrc)) {
-    //     //         this.nom.setText(rs.getString("nom"));
-    //     //         this.prenom.setText(rs.getString("prenom"));
-    //     //         this.password.setText(rs.getString("mdpUtilisateur"));
-    //     //         this.username.setText(rs.getString("pseudonyme"));
-    //     //         if (rs.getString("permission").equals("0")){
-    //     //             this.credentials.setValue("Utilisateur");
-    //     //         } else {
-    //     //             this.credentials.setValue("Administrateur");
-    //     //         }
-    //     //     }
-    //     // }
-    //     MFXTableColumn<String> nameColumn = new MFXTableColumn<>("Name", true);
-    //     // nameColumn.setRowCellFactory(batracien -> new MFXTableRowCell<>(ObsBatracien::getEspeceBatracien));
-
-        
-    // }
     private void setupTable() {
-		MFXTableColumn<Observation> id = new MFXTableColumn<>("Id", true, Comparator.comparing(Observation::getIdObs));
-		MFXTableColumn<Observation> dateObs = new MFXTableColumn<>("Date", true, Comparator.comparing(Observation::getDateObs));
-		MFXTableColumn<Observation> heureObs = new MFXTableColumn<>("Heure", true, Comparator.comparing(Observation::getHeureObs));
-		MFXTableColumn<Observation> lieu = new MFXTableColumn<>("Lieu", true);
-		MFXTableColumn<Observateur> observateur = new MFXTableColumn<>("Observateur", true, Comparator.comparing(Observateur::getNom));
-		MFXTableColumn<ObsBatracien> nbrAdulte = new MFXTableColumn<>("Nombre d'adulte", true, Comparator.comparing(ObsBatracien::getNombreAdultes));
-		MFXTableColumn<ObsBatracien> nbrAmplexus= new MFXTableColumn<>("Nombre d'Amplexus'", true, Comparator.comparing(ObsBatracien::getNombreAmplexus));
-		MFXTableColumn<ObsBatracien> nbrTetard= new MFXTableColumn<>("Nombre de tetard", true, Comparator.comparing(ObsBatracien::getNombreTetard));
-		MFXTableColumn<ObsBatracien> nbrPonte= new MFXTableColumn<>("Nombre de ponte", true, Comparator.comparing(ObsBatracien::getNombrePonte));
-		MFXTableColumn<ObsBatracien> espece = new MFXTableColumn<>("espece", true, Comparator.comparing(ObsBatracien::getEspeceBatracien));
+		MFXTableColumn<Batracien> id = new MFXTableColumn<>("id", true, Comparator.comparing(Batracien::getObsB));
+		MFXTableColumn<Batracien> espece = new MFXTableColumn<>("Espece", true, Comparator.comparing(Batracien::getEspece));
+		MFXTableColumn<Batracien> nbrAdulte = new MFXTableColumn<>("Nombre d'adulte", true, Comparator.comparing(Batracien::getNombreAdultes));
+		MFXTableColumn<Batracien> nbrAmplexus = new MFXTableColumn<>("Nombre d'amplexus", true, Comparator.comparing(Batracien::getNombreAmplexus));
+		MFXTableColumn<Batracien> nbrPonte = new MFXTableColumn<>("Nombre de ponte", true, Comparator.comparing(Batracien::getNombrePonte));
+		MFXTableColumn<Batracien> nbrTetard = new MFXTableColumn<>("Nombre de tétard", true, Comparator.comparing(Batracien::getNombreTetard));
+		MFXTableColumn<Batracien> temp= new MFXTableColumn<>("Température", true, Comparator.comparing(Batracien::getTemperature));
+		MFXTableColumn<Batracien> meteo_ciel= new MFXTableColumn<>("Météo du ciel", true, Comparator.comparing(Batracien::getMeteoCiel));
+		MFXTableColumn<Batracien> meteo_temp= new MFXTableColumn<>("Ressentie de température", true, Comparator.comparing(Batracien::getMeteoTemp));
+		MFXTableColumn<Batracien> meteo_vent = new MFXTableColumn<>("Type du vent", true, Comparator.comparing(Batracien::getMeteoVent));
+		MFXTableColumn<Batracien> meteo_pluie = new MFXTableColumn<>("Pluie", true, Comparator.comparing(Batracien::getMeteoPluie));
+		MFXTableColumn<Batracien> zh = new MFXTableColumn<>("Zone humide", true, Comparator.comparing(Batracien::getConcerneZh));
+		MFXTableColumn<Batracien> vege = new MFXTableColumn<>("Végétation", true, Comparator.comparing(Batracien::getConcernesvege));
 
-        id.setRowCellFactory(person -> new MFXTableRowCell<>(Observation::getIdObs));
-        dateObs.setRowCellFactory(person -> new MFXTableRowCell<>(Observation::getDateObs));
-        heureObs.setRowCellFactory(person -> new MFXTableRowCell<>(Observation::getHeureObs));
-        lieu.setRowCellFactory(person -> new MFXTableRowCell<>(Observation::getLieuObs));
-        observateur.setRowCellFactory(person -> new MFXTableRowCell<>(Observateur::getNom));
-        nbrAdulte.setRowCellFactory(person -> new MFXTableRowCell<>(ObsBatracien::getNombreAdultes));
-		nbrAmplexus.setRowCellFactory(person -> new MFXTableRowCell<>(ObsBatracien::getNombreAmplexus));
-		nbrTetard.setRowCellFactory(person -> new MFXTableRowCell<>(ObsBatracien::getNombreTetard));
-		nbrPonte.setRowCellFactory(person -> new MFXTableRowCell<>(ObsBatracien::getNombrePonte));
-		espece.setRowCellFactory(person -> new MFXTableRowCell<>(ObsBatracien::getEspeceBatracien) {{
-			setAlignment(Pos.CENTER_RIGHT);
-		}});
-		nbrPonte.setAlignment(Pos.CENTER_RIGHT);
+        id.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getObsB));
+        espece.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getEspece));
+        nbrAdulte.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getNombreAdultes));
+        nbrAmplexus.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getNombreAmplexus));
+        nbrPonte.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getNombrePonte));
+		nbrTetard.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getNombreTetard));
+		temp.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getTemperature));
+		meteo_ciel.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getMeteoCiel));
+		meteo_temp.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getMeteoTemp));
+		meteo_vent.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getMeteoVent));
+		meteo_pluie.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getMeteoPluie));
+		zh.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getConcerneZh));
+		vege.setRowCellFactory(person -> new MFXTableRowCell<>(Batracien::getConcernesvege));
 
 
-		batracien.getTableColumns().addAll(nbrAdulte, nbrAmplexus, nbrTetard, nbrPonte, espece);
+		batracien.getTableColumns().addAll(id, espece, nbrAdulte, nbrAmplexus, nbrPonte, nbrTetard, temp, meteo_ciel, meteo_temp, meteo_vent, meteo_pluie, zh, vege);
 		batracien.getFilters().addAll(
-				// new EnumFilter<>("Name", EspeceBatracien::v),
-				new IntegerFilter<>("Nombre adultes", ObsBatracien::getNombreAdultes),
-				new IntegerFilter<>("Nombre Pontes", ObsBatracien::getNombrePonte)
+                new IntegerFilter<>("id", Batracien::getObsB),
+				new StringFilter<>("Espece", Batracien::getEspece),
+				new IntegerFilter<>("Nombre d'adultes", Batracien::getNombreAdultes),
+				new IntegerFilter<>("Nombre d'amplexus", Batracien::getNombreAmplexus),
+				new IntegerFilter<>("Nombre de ponte", Batracien::getNombrePonte),
+				new IntegerFilter<>("Nombre de tétard", Batracien::getNombreTetard),
+				new DoubleFilter<>("Température", Batracien::getTemperature),
+				new StringFilter<>("Météo du ciel", Batracien::getMeteoCiel),
+				new StringFilter<>("Ressentie de température", Batracien::getMeteoTemp),
+				new StringFilter<>("Type du vent", Batracien::getMeteoVent),
+				new StringFilter<>("Pluie", Batracien::getMeteoPluie),
+				new IntegerFilter<>("Zone humide", Batracien::getConcerneZh),
+				new IntegerFilter<>("Végétation", Batracien::getConcernesvege)
 		);
 
-        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Batracien JOIN Observation ON idObs=obsB JOIN AObserve ON lobservation=idObs JOIN Observateur ON lobservateur=idObservateur;");
-        ArrayList<ObsBatracien> list = new ArrayList<ObsBatracien>();
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Batracien;");
+        ArrayList<Batracien> list = new ArrayList<>();
         
         try {
             while (rs.next()){
-                int[] resObs = {rs.getInt("nombreAdultes"), rs.getInt("nombreAmplexus"), rs.getInt("nombreTetard"), rs.getInt("nombrePonte")};
-                ArrayList<Observateur> observateurList = new ArrayList<Observateur>();
-                observateurList.add(new Observateur(rs.getInt("idObservateur"), rs.getString("nom"), rs.getString("prenom")));
-                list.add(new ObsBatracien(
+                list.add(new Batracien(
                     rs.getInt("obsB"), 
-                    rs.getDate("dateObs"),
-                    rs.getTime("heureObs"), 
-                    new Lieu(rs.getFloat("lieu_Lambert_X"),  rs.getFloat("lieu_Lambert_Y")),
-                    observateurList,
-                    resObs,
-                    EspeceBatracien.valueOf(rs.getString("espece").toUpperCase())
+                    rs.getString("espece"),
+                    rs.getInt("nombreAdultes"),
+                    rs.getInt("nombreAmplexus"),
+                    rs.getInt("nombrePonte"),
+                    rs.getInt("nombreTetard"),
+                    rs.getDouble("temperature"),
+                    rs.getString("meteo_ciel"),
+                    rs.getString("meteo_temp"),
+                    rs.getString("meteo_vent"),
+                    rs.getString("meteo_pluie"),
+                    rs.getInt("concerne_ZH"),
+                    rs.getInt("concernes_vege")
                 ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ObservableList<ObsBatracien> listProfile = FXCollections.observableArrayList(list);
+        ObservableList<Batracien> listProfile = FXCollections.observableArrayList(list);
 		batracien.setItems(listProfile);
-        // list.add(new ObsBatracien(
-        //     rs.getInt("obsB"), 
-        //     rs.getDate("dateObs"),
-        //     rs.getTime("heureObs"), 
-        //     new Lieu(rs.getFloat("lieu_Lambert_X"),  rs.getFloat("lieu_Lambert_Y")),
-        //     observateurList,
-        //     resObs,
-        //     EspeceBatracien.valueOf(rs.getString("espece").toUpperCase())
 	}
 
     

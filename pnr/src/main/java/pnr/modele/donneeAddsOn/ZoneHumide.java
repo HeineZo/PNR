@@ -36,15 +36,15 @@ public class ZoneHumide {
         return this.zh_surface;
     }
 
-    public String getTypeMare() {
+    public String getgetTypeMare() {
         return this.zh_typeMare;
     }
 
-    public String getPente() {
+    public String getgetPente() {
         return this.zh_pente;
     }
 
-    public String getOuverture() {
+    public String getgetOuverture() {
         return this.zh_ouverture;
     }
 }
