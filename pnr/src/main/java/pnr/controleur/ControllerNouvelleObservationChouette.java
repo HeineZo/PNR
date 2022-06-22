@@ -88,6 +88,9 @@ public class ControllerNouvelleObservationChouette extends Controller implements
 
     private String idObs;
 
+    @FXML
+    private MFXTextField txtNumInd;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
@@ -95,19 +98,19 @@ public class ControllerNouvelleObservationChouette extends Controller implements
             modifierObs();
             resetUserClicked();
         }
-        ResultSet rs = connect.executeQuery("SELECT * FROM Observateur ORDER BY nom,prenom;");
+        ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
             while (rs.next()) {
-                if(rs.getString("nom") != null){
-                   this.observateur.add(new TabObservateur(rs.getInt("idObservateur"), rs.getString("nom"), rs.getString("prenom"))); 
+                if (rs.getString("nom") != null){
+                    this.observateur.add(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.observateur.add(rs.getString("prenom"));
                 }
             }
-            StringConverter<TabObservateur> converter = FunctionalStringConverter.to(person -> (person == null) ? "" : person.getNom() + " " + person.getPrenom());
-            Function<String, Predicate<TabObservateur>> filterFunction = s -> obs -> StringUtils.containsIgnoreCase((CharSequence) converter.toString(obs), (CharSequence) s);
             this.cbObservateur.setItems(this.observateur);
-            this.cbObservateur.setFilterFunction(filterFunction);
         } catch (SQLException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -216,21 +219,6 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     //     observatorList.setItems(listObservator);
     //     observatorList.features().enableBounceEffect();
 	// 	observatorList.features().enableSmoothScrolling(0.5);
-    // }
-
-    // public void loadUI(String ui) throws IOException{
-
-    //     // int i = 0;
-    //     // int j = 0;
-    //     FXMLLoader.setController(new ControllerObservationChouette());
-    //     AnchorPane pane = FXMLLoader.load(getClass().getResource(ui));
-
-    //     // ResultSet rs = connect.executeQuery("SELECT nom FROM Utilisateur");
-    //     // ((Labeled) root.getChildren().get(1)).setText(rs.getString("nom"));
-    //     // ((Labeled) root.getChildren().get(0)).setText(rs.getString("nom"));
-    //     // System.out.println(root.getChildren().get(1));
-    //     scrollPane.setContent(pane);
-
     // }
 
 }
