@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -76,35 +77,34 @@ public class ControllerDernierObservation extends Controller implements Initiali
         try {
             while (rs.next()){
                 list.add(new ObservationFactory(rs.getInt("idObs"), rs.getDate("dateObs")));
-                if (rs.getDate("dateObs") != null){
-                    // list.add("Observation du "+new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("dateObs")));
-                } else {
-                    // list.add("Date indisponible");
-                }
+                // if (rs.getDate("dateObs") != null){
+                //     list.add("Observation du "+new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("dateObs")));
+                // } else {
+                //     list.add("Date indisponible");
+                // }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // listView.setItems(getMessages());
         listView.getItems().addAll(list);
         listView.features().enableBounceEffect();
 		listView.features().enableSmoothScrolling(0.5);
-        // listView.setCellFactory(person -> new PersonCellFactory(listView, person.getDate(), "mfx-file"));
-        // listView.setCellFactory(lv -> new MFXListCell<ObservationFactory>(listView, lv) {
-        //     @Override
-        //     public void updateItem(ObservationFactory artwork, boolean empty) {
-        //         super.updateItem(artwork, empty) ;
-        //         setText(empty ? null : artwork.getDate());
-        //     }
-        // });
+        listView.setCellFactory(lv -> new MFXListCell<ObservationFactory>(listView, lv) {
+            @Override
+            public void render(ObservationFactory observation) {                
+                super.render(observation);
+                MFXFontIcon userIcon = new MFXFontIcon("mfx-file", 18);
+                userIcon.getStyleClass().add("user-icon");
+                if (userIcon != null) getChildren().add(0, userIcon);
+            }
+        });
+
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                // String idClicked = new String(listView.getSelectionModel().getSelectedValues().get(1));
-                // System.out.println(idClicked);
-                
-                // loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked);
+                ObservationFactory idClicked = listView.getSelectionModel().getSelectedValues().get(0);
+                loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked.getId());
             }
         });  
     }

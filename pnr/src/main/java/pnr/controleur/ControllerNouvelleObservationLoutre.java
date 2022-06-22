@@ -60,13 +60,15 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     @FXML
     private ComboBox<String> cbProto;
 
+    private String eventSrc;
+
     @FXML
     private ComboBox<String> cbIndice;
     private ObservableList<String> indice  = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        modifierObs();
         ResultSet rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur ORDER BY pseudonyme;");
 
         try {
@@ -94,5 +96,25 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             initConfirmation("AjouterObservation");
             loadStage("../vue/Confirmation.fxml", event);
         }
+    }
+
+    private void modifierObs() {
+        this.eventSrc = getUserClicked();
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs WHERE ObsL = '" + this.eventSrc + "';");
+        try {
+            while (rs.next()) {
+                // this.datePicker.setText(rs.getString("dateObs"));
+                // this.cbObservateur.setValue(rs.getString("observateur"));
+                this.txtHeure.setText(rs.getString("heureObs"));
+                this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
+                this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
+                this.txtCommune.setText(rs.getString("commune"));
+                this.txtLieuDit.setText(rs.getString("lieuDit"));
+                this.cbIndice.setValue(rs.getString("indice"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
