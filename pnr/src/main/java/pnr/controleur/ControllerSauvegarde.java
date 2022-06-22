@@ -31,6 +31,11 @@ public class ControllerSauvegarde extends Controller {
     @FXML
     private AnchorPane anchorPane;
 
+    /**
+     * Handles the button's action
+     * @param event enabled when the button is clicked
+     * @throws IOException
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws Exception {
         if (event.getSource() == btnBack) {
@@ -40,6 +45,11 @@ public class ControllerSauvegarde extends Controller {
         }
     }
 
+    /**
+     * Creates a CSV file for the Observateur table
+     * @throws IOException
+     * @throws SQLException
+     */
     public void observateurfileCSV() throws IOException, SQLException {
         TabObservateur tb = new TabObservateur(0,null, null);
         ArrayList<TabObservateur> addArr = new ArrayList<TabObservateur>();
@@ -75,6 +85,11 @@ public class ControllerSauvegarde extends Controller {
         }
     }
 
+    /**
+     * Creates a CSV file for the Batracien table
+     * @throws IOException
+     * @throws SQLException
+     */
     public void batracienfileCSV() throws IOException, SQLException {
         Batracien tb = new Batracien(0, null, 0, 0, 0, 0, 0, null, null, null, null, 0, 0);
         ArrayList<Batracien> addArr = new ArrayList<Batracien>();
@@ -122,6 +137,11 @@ public class ControllerSauvegarde extends Controller {
         }
     }
 
+    /**
+     * Creates a CSV file for the Loutre table
+     * @throws IOException
+     * @throws SQLException
+     */
     public void loutrefileCSV() throws IOException, SQLException {
         Loutre tb = new Loutre(0, null, null, null);
         ArrayList<Loutre> addArr = new ArrayList<Loutre>();
@@ -158,6 +178,11 @@ public class ControllerSauvegarde extends Controller {
         }
     }
 
+    /**
+     * Creates a CSV file for the Hippocampe table
+     * @throws IOException
+     * @throws SQLException
+     */
     public void hippocampefileCSV() throws IOException, SQLException {
         Hippocampe tb = new Hippocampe(0, null, null, 0, null, 0, 0);
         ArrayList<Hippocampe> addArr = new ArrayList<Hippocampe>();
@@ -198,6 +223,11 @@ public class ControllerSauvegarde extends Controller {
         }
     }
 
+    /**
+     * Creates a CSV file for the Chouette table
+     * @throws IOException
+     * @throws SQLException
+     */
     public void chouettefileCSV() throws IOException, SQLException {
         JointureChouette tb = new JointureChouette(null, null, null, 0, null, 0);
         ArrayList<JointureChouette> addArr = new ArrayList<JointureChouette>();
@@ -237,6 +267,11 @@ public class ControllerSauvegarde extends Controller {
         }
     }
 
+    /**
+     * Creates a CSV file for the GCI table
+     * @throws IOException
+     * @throws SQLException
+     */
     public void GCIfileCSV() throws IOException, SQLException {
         JointureGCI tb = new JointureGCI(0, null, null, 0, 0, null, null, 0, null, 0, 0);
         ArrayList<JointureGCI> addArr = new ArrayList<JointureGCI>();

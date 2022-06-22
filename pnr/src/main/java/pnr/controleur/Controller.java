@@ -23,15 +23,26 @@ import pnr.modele.ConnectVPS;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 
+/**
+ * Main controller class for the application
+ */
 public class Controller {
 
     ConnectVPS connect;
     public static String userClicked;
 
+    /**
+     * Constrctor that initializes a connextion to the database
+     */
     public Controller() {
         connect = new ConnectVPS("jdbc:mysql://141.94.221.193:3306/bd_pnr", "user", "Mdp@user1");
     }
 
+    /**
+     * Loads a given stage
+     * @param fxml the name of the fxml page
+     * @param event event given to the page
+     */
     public void loadStage(String fxml, ActionEvent event) {
         try {
             AnchorPane root = FXMLLoader.load(getClass().getResource(fxml));
@@ -45,6 +56,12 @@ public class Controller {
         }
     }
 
+    /**
+     * Loads a page based on a previous String (name of an user)
+     * @param fxml the fxml page to load
+     * @param event event associed, page loaded with a mouse click 
+     * @param user the user String that has been clicked on
+     */
     public void loadUser(String fxml, MouseEvent event, String user) {
         userClicked = user;
         try {
@@ -59,19 +76,18 @@ public class Controller {
         }
     }
 
+    /**
+     * Gets the user that has been clicked on
+     * @return the user that has been clicked on
+     */
     public String getUserClicked() {
         return userClicked;
     }
 
-    public void resetUserClicked() {
-        userClicked = null; 
-    }
-
-    public void loadUI(String ui, MFXScrollPane scrollPane) throws IOException{
-        AnchorPane pane = FXMLLoader.load(getClass().getResource(ui));
-        scrollPane.setContent(pane);
-    }
-
+    /**
+     * Writes in a file the current permission
+     * @param event the permission : 0 or 1
+     */
     public void initPermission(String event) {
         String fileName = "logs/permissionSrc.txt";
         File f = new File(fileName);
@@ -89,6 +105,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Writes in a file the current username
+     * @param event the username
+     */
     public void initNomUser(String event) {
         String fileName = "logs/nomUserSrc.txt";
         File f = new File(fileName);
@@ -106,6 +126,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Writes in a file the current species
+     * @param event the species
+     */
     public void initVisualiser(String event) {
         String fileName = "logs/visualiserSrc.txt";
         File f = new File(fileName);
@@ -123,6 +147,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Writes in a file the needed confirmation message
+     * @param event needed confirmation message
+     */
     public void initConfirmation(String event) {
         String fileName = "logs/confirmationSrc.txt";
         File f = new File(fileName);
@@ -140,6 +168,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Gets the user the current species
+     * @return the current species
+     */
     public String getEventSrcVisualiser() {
         String fileName = "logs/visualiserSrc.txt";
         String src = null;
@@ -158,6 +190,10 @@ public class Controller {
         return src;
     }
 
+    /**
+     * Gets the current permision
+     * @return the current permision
+     */
     public String getEventSrcPermission() {
         String fileName = "logs/permissionSrc.txt";
         String src = null;
@@ -176,6 +212,10 @@ public class Controller {
         return src;
     }
 
+    /**
+     * Gets the current username
+     * @return the current username
+     */
     public String getEventSrcNomUser() {
         String fileName = "logs/nomUserSrc.txt";
         String src = null;
@@ -194,6 +234,10 @@ public class Controller {
         return src;
     }
 
+    /**
+     * Gets the current confirmation name
+     * @return the current confirmation name
+     */
     public String getEventSrcConfirmation() {
         String fileName = "logs/confirmationSrc.txt";
         String src = null;
@@ -212,6 +256,12 @@ public class Controller {
         return src;
     }
 
+    /**
+     * Initializes the page's picture given the previous species
+     * @param imgEspece the picture that will be displayed
+     * @param txtEspece the text that will be displayed
+     * @return the current species
+     */
     public String initPage(ImageView imgEspece, Text nameEspece) {
         String urlImage = "";
         String textEspece = "";
@@ -241,15 +291,30 @@ public class Controller {
         return eventSrc;
     }
 
+    /**
+     * Changes the image displayed
+     * @param url link of the picture that will be displayed
+     * @param imgEspece the picture that will be displayed
+     */
     public void changeImage(String url, ImageView imgEspece) {
         Image imProfile = new Image(getClass().getResourceAsStream(url));
         imgEspece.setImage(imProfile);
     }
 
+    /**
+     * Changes the text displayed
+     * @param txtEspece the text that will be displayed
+     * @param nameEspece the name of the species that will be displayed
+     */
     public void changeText(String text, Text nameEspece) {
         nameEspece.setText(text);
     }
 
+    /**
+     * Creates an error notification
+     * @param messageContent content of the message
+     * @param anchorPane the pane that contains the messgae
+     */
     protected void error(String messageContent, AnchorPane anchorPane) {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         MFXNotificationSystem.instance().initOwner(stage);
@@ -259,6 +324,11 @@ public class Controller {
 				.publish(createNotification(messageContent));
 	}
 
+    /**
+     * Creates a notification that will be displayed
+     * @param content content of the notification
+     * @return the notification created
+     */
     private INotification createNotification(String content) {
 		ExampleNotification notification = new ExampleNotification();
 		notification.setContentText(content);

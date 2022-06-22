@@ -71,7 +71,7 @@
                         <Insets top="60.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <Button id="subtitle" fx:id="btnExport" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="150.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 18;" text="Exporter des&#10;données" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                  <Button id="subtitle" fx:id="btnExport" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="150.0" prefWidth="170.0" style="-fx-background-color: #FFFFFF; -fx-border-color: black; -fx-border-width: 4; -fx-border-radius: 50; -fx-background-radius: 50; -fx-font-size: 18;" text="Exporter/&#10;importer" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="18.0" />
                      </font>

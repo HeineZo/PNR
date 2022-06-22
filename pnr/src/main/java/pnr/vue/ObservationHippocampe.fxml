@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXCheckListView?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane prefHeight="600.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <MFXTextField fx:id="txtCoordX" floatMode="BORDER" floatingText="Coordonnées Lambert X" layoutX="150.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <textFill>
+                  <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+               </textFill>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="txtCoordY" floatMode="BORDER" floatingText="Coordonnées Lambert Y" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <textFill>
+                  <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+               </textFill>
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="txtHeure" floatMode="BORDER" floatingText="Heure de l'observation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <textFill>
+                  <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+               </textFill>
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <MFXDatePicker fx:id="txtDate" floatMode="BORDER" floatingText="Date de l'observation" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <textFill>
+                  <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+               </textFill>
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+            </MFXDatePicker>
+            <MFXCheckListView fx:id="observatorList" depthLevel="LEVEL1" stylesheets="@css/style.css" thumbColor="#2d936d" thumbHoverColor="#73ac9a" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </MFXCheckListView>
+            <ComboBox fx:id="cbSexe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" promptText="Sexe" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbTypePeche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" promptText="Type de pêche" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="cbEspece" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" promptText="Espèce" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <MFXTextField fx:id="txtTemperature" floatMode="BORDER" floatingText="Température de l'eau" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <textFill>
+                  <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+               </textFill>
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <ComboBox fx:id="cbGestant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" promptText="Gestant" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ComboBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

@@ -32,8 +32,4 @@ public class TabObservateur {
     public String getPrenom() {
         return this.prenom;
     }
-
-    public String toString() {
-        return getPrenom() + " " + getNom();
-    }
 }

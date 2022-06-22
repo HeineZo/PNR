@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane styleClass="root" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerChoixAction">
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerChoixAction">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
@@ -43,7 +43,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Chouette" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="150.0" top="10.0" />
                </GridPane.margin>

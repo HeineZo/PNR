@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
-<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -27,29 +26,29 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="283.27101135253906" minHeight="0.0" percentHeight="20.0" prefHeight="187.20000610351562" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="283.27101135253906" minHeight="0.0" prefHeight="187.20000610351562" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="680.4541702270508" minHeight="10.0" prefHeight="612.7999938964844" vgrow="SOMETIMES" />
             <RowConstraints percentHeight="10.0" />
         </rowConstraints>
          <children>
             <ImageView id="chouettepic" fx:id="imgEspece" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets left="40.0" top="10.0" />
+                  <Insets left="40.0" />
                </GridPane.margin>
                <image>
                   <Image url="@images/especes/loutre.png" />
                </image>
             </ImageView>
-            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="576.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="383.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <font>
                   <Font name="Arial Rounded MT Bold" size="37.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="150.0" top="10.0" />
+                  <Insets left="150.0" />
                </GridPane.margin>
             </Text>
             <Group />
-            <Button id="subtitle" fx:id="btnBack" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="37.0" prefWidth="105.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <Button id="subtitle" fx:id="btnBack" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="44.0" prefWidth="106.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="40.0" />
                </GridPane.margin>
@@ -60,7 +59,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MFXButton fx:id="envoi" defaultButton="true" disable="true" maxWidth="100.0" onAction="#handleBtnClick" prefHeight="40.0" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Envoyer" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <MFXButton fx:id="envoi" defaultButton="true" maxWidth="100.0" onAction="#handleBtnClick" prefHeight="40.0" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Envoyer" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></MFXButton>
@@ -141,11 +140,14 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXFilterComboBox fx:id="cbObservateur" floatMode="BORDER" floatingText="Observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" searchText="" GridPane.columnIndex="2">
+                              <ComboBox fx:id="cbObservateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" promptText="Observateur" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #2d936d; -fx-border-radius: 5;" stylesheets="@css/style.css" GridPane.columnIndex="2">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
                                  <GridPane.margin>
                                     <Insets left="50.0" />
                                  </GridPane.margin>
-                              </MFXFilterComboBox>
+                              </ComboBox>
                            </children>
                         </GridPane>
                      </children>

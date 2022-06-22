@@ -25,6 +25,11 @@ public class ControllerLandingPage extends Controller {
     private MFXTextField username = new MFXTextField();
 
 
+    /**
+     * Handles the connexion button
+     * @param event enabled when the button is clicked
+     * @throws SQLException
+     */
     @FXML
     void submitForm(ActionEvent event) throws SQLException {
         

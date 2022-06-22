@@ -23,6 +23,11 @@ public class ControllerConfirmation extends Controller implements Initializable{
     private String eventSrcConfirmation;
     private String eventSrcPermission;
 
+    /**
+     * Handles the button's action
+     * @param event enabled when the button is clicked
+     * @throws IOException
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         this.eventSrcConfirmation = this.getEventSrcConfirmation();
@@ -62,6 +67,9 @@ public class ControllerConfirmation extends Controller implements Initializable{
         }            
     }
 
+    /**
+     * Initializes the page
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.eventSrcConfirmation = this.getEventSrcConfirmation();
