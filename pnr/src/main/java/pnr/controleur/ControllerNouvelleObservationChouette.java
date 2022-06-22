@@ -58,8 +58,8 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     private MFXDatePicker datePicker;
 
     @FXML
-    private MFXFilterComboBox<TabObservateur> cbObservateur = new MFXFilterComboBox<>();
-    private ObservableList<TabObservateur> observateur = FXCollections.observableArrayList();
+    private MFXFilterComboBox<String> cbObservateur = new MFXFilterComboBox<>();
+    private ObservableList<String> observateur = FXCollections.observableArrayList();
 
     @FXML
     private MFXTextField txtHeure;
