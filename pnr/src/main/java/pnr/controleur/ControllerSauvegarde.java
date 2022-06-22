@@ -1,30 +1,24 @@
 package pnr.controleur;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
+import java.io.Writer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File;
-import com.opencsv.CSVWriter;
+import pnr.modele.donneeAddsOn.TableUtilisateur;
 
 import javafx.event.ActionEvent;
 
@@ -40,59 +34,76 @@ public class ControllerSauvegarde extends Controller {
     private AnchorPane anchorPane;
 
     @FXML
-    private void handleBtnClick(ActionEvent event) throws IOException, SQLException {
+    private void handleBtnClick(ActionEvent event) throws Exception {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixActionAdmin.fxml", event);
         } else if (event.getSource() == export){
-            this.fileCSV("test"); 
+            //this.fileCSV("test"); 
+            this.fileCSV(); 
         }
     }
+
+    public void fileCSV() throws IOException, SQLException{
+
+        TableUtilisateur tb  = new TableUtilisateur(null, null, null, null, 0);
+        ArrayList<TableUtilisateur> addArr = new ArrayList<TableUtilisateur>();
+        Writer writer = null;
+        try {
+            ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur");
+            while (rs.next()) {
+                tb = new TableUtilisateur(
+                        rs.getString("pseudonyme"),
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("mdpUtilisateur"),
+                        rs.getInt("permission"));
+                addArr.add(tb);
+            }
+
+            Stage stage = (Stage) anchorPane.getScene().getWindow();
+
+            FileChooser fChooser = new FileChooser();
+            fChooser.setTitle("Choississez un fichier");
+            ExtensionFilter filter = new ExtensionFilter("Comma-separated values (CSV)", "*.csv");
+            fChooser.getExtensionFilters().add(filter);
+            fChooser.setSelectedExtensionFilter(filter);
+            fChooser.setInitialFileName("Utilisateur");
+            String selectedDirPath = fChooser.showSaveDialog(stage).getAbsolutePath();
+
+            File downloadedFile = new File(selectedDirPath);
+            writer = new BufferedWriter(new FileWriter(downloadedFile));
+
+            for (TableUtilisateur ut : addArr) {
+                String text = ut.getPseudoName() + "," + ut.getNom() + "," + ut.getPrenom() + ","+ ut.getMdp()+ ","+ ut.getPerm()+"\n";
+                writer.write(text);
+            }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            finally {
+                writer.flush();
+                writer.close();
+            }
+        }
+    }
+
     
-    // private void exportTableToFile(String csvString) {
+    
+
+
+    // public void fileCSV(String fileName) throws IOException, SQLException{
+
+    //     CSVWriter writer = new CSVWriter(new FileWriter(fileName));
+    //     ResultSet rs = connect.executeQuery("SELECT pseudonyme,nom, prenom,mdpUtilisateur,permission FROM Utilisateur");
+    //     writer.writeAll(rs,true);
     //     FileChooser fileChooser = new FileChooser();
-        
     //     Stage stage = (Stage) anchorPane.getScene().getWindow();
     //     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
     //     fileChooser.getExtensionFilters().add(extFilter);
-    //     fileChooser.setInitialFileName(csvString);
+    //     fileChooser.setInitialFileName(fileName);
     //     java.io.File file = fileChooser.showSaveDialog(stage);
     //     if(file != null){
-    //         try {
-    //             Files.write( file.toPath(), csvString.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
-    //         } catch (IOException e) {
-    //             throw new RuntimeException(e);
-    //         }
+    //             Files.write( file.toPath(), fileName.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
     //     }
     // }
-
-
-    public void fileCSV(String fileName) throws IOException, SQLException{
-
-        CSVWriter writer = new CSVWriter(new FileWriter(fileName));
-        Boolean includeHeaders = true;
-        ResultSet rs = connect.executeQuery("SELECT pseudonyme,nom, prenom,mdpUtilisateur,permission FROM Utilisateur");
-  
-        
-        writer.writeAll(rs,includeHeaders);
-
-        // PrintWriter out = new PrintWriter (fileName);
-        // while (res.next()){
-        //     System.out.println(res.getString("pseudonyme"));
-        //     System.out.println(res.getString("nom"));
-        //     System.out.println(res.getString("prenom"));
-        //     System.out.println(res.getString("mdpUtilisateur"));
-        //     System.out.println(res.getString("permission"));
-        // }
-
-        // InputStream in = new ByteArrayInputStream(fileName.getBytes());
-        FileChooser fileChooser = new FileChooser();
-        Stage stage = (Stage) anchorPane.getScene().getWindow();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setInitialFileName(fileName);
-        java.io.File file = fileChooser.showSaveDialog(stage);
-        if(file != null){
-                Files.write( file.toPath(), fileName.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
-        }
-    }
-}
+//}
