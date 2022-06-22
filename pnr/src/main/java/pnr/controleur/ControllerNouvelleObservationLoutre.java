@@ -29,6 +29,7 @@ import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import pnr.modele.donnee.Observateur;
 import pnr.modele.donneeAddsOn.TabObservateur;
+import pnr.modele.util.Dates;
 
 public class ControllerNouvelleObservationLoutre extends Controller implements Initializable{
 
@@ -77,6 +78,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     @FXML
     private ComboBox<String> cbIndice;
     private ObservableList<String> indice  = FXCollections.observableArrayList();
+
+    private Dates date = new Dates();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -149,8 +152,10 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = " + idObs + ";");
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre, Observation, Observateur,AObserve WHERE ObsL=idObs AND lobservateur = idObservateur AND lobservation  = idObs;");
         try {
+           
+            String datePasFormate = "";
             while (rs.next()) {
-                this.txtDate.setText(rs.getString("dateObs"));
+                datePasFormate = rs.getString("dateObs");
                 // if (rs.getString("nom") != null){
                 //     this.cbObservateur.setValue(rs.getString("nom"));
                 // } else if (rs.getString("prenom") != null){
@@ -163,6 +168,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
                 this.txtLieuDit.setText(rs.getString("lieuDit"));
                 this.cbIndice.setValue(rs.getString("indice"));
             }
+             String laDate = date.formatToDate(datePasFormate); 
+             this.txtDate.setText(laDate);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -175,7 +182,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             idDerniereObs = rs.getInt("idObs");
         }
         connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        String laDate = date.dateToFormat(this.txtDate.getText()); 
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         // System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
@@ -198,7 +206,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     private void updateDonnees(ActionEvent event) throws SQLException{
         // connect.executeUpdate("UPDATE Lieu SET coord_Lambert_X="+this.txtCoordX.getText()+" WHERE coord_Lambert_Y="+this.txtCoordY.getText()+";");  
         // connect.executeUpdate("UPDATE Lieu SET coord_Lambert_Y="+this.txtCoordY.getText()+" WHERE coord_Lambert_X="+this.txtCoordX.getText()+";");  
-        connect.executeUpdate("UPDATE Observation SET dateObs='"+this.txtDate.getText()+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs="+idObs+";");
+        String laDate = date.dateToFormat(this.txtDate.getText()); 
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs="+idObs+";");
         ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
