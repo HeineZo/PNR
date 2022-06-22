@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -165,7 +166,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.tlistTypes.add("Observateur");
         } else if (choice.equals("Barres")) {
             if (this.eventSrc.equals("Batracien")) {
-                //
+                this.tlistTypes.add("Aucun graphique n'est disponible pour le moment");
             } else if (this.eventSrc.equals("Chouette")) {
                 this.tlistTypes.add("Sexe/Espece");
                 this.tlistTypes.add("TypeObs/Espece");
@@ -176,19 +177,11 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 this.tlistTypes.add("Sexe/Espece");
                 this.tlistTypes.add("TypePeche/Espece");
             } else if (this.eventSrc.equals("Loutre")) {
-                //
+                this.tlistTypes.add("Aucun graphique n'est disponible pour le moment");
             }
         } else if (choice.equals("Lignes")) {
-            if (this.eventSrc.equals("Batracien")) {
-                //
-            } else if (this.eventSrc.equals("Chouette")) {
-                //
-            } else if (this.eventSrc.equals("GCI")) {
-                this.tlistTypes.add("Temps");
-            } else if (this.eventSrc.equals("Hippocampe")) {
+            if (this.eventSrc.equals("Hippocampe")) {
                 this.tlistTypes.add("Température");
-            } else if (this.eventSrc.equals("Loutre")) {
-                //
             }
 
             this.tlistTypes.add("Date");
@@ -203,7 +196,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
     @FXML
     private void comboTypes() {
-        graph(String.valueOf(this.comboBoxChoices.getValue()), String.valueOf(this.comboBoxTypes.getValue()));
+        if (!this.comboBoxTypes.getValue().equals("Aucun graphique n'est disponible pour le moment")
+                && this.comboBoxTypes.getValue() != null) {
+            graph(this.comboBoxChoices.getValue(), this.comboBoxTypes.getValue());
+        }
     }
 
     private void graph(String chart, String type) {
@@ -242,8 +238,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
             lines(type);
 
-            this.dataLine.add(this.seriesLine);
-            this.lineChart.setData(this.dataLine);
+            // this.lineChart.setData(this.dataLine);
             this.lineChart.setCreateSymbols(false);
 
             this.label.setVisible(false);
@@ -252,6 +247,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.barChart.setVisible(false);
             this.lineChart.setVisible(true);
         } else if (chart.equals("Position")) {
+            this.pMap.setMaxSize(25, 25);
+            this.pMap.setDisable(true);
+            this.pMap.setMouseTransparent(true);
+
             position(type);
 
             this.pMap.getChildren().add(this.mapView);
@@ -742,9 +741,11 @@ public class ControllerVisualiser extends Controller implements Initializable {
             if (this.eventSrc.equals("Hippocampe")) {
                 try {
                     ResultSet rs = connect.executeQuery(
-                            "SELECT temperatureEau, heureObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY heureObs ");
+                            "SELECT AVG(temperatureEau), dateObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH WHERE temperatureEau IS NOT NULL GROUP BY dateObs ORDER BY dateObs ");
                     ResultSet avg = connect.executeQuery(
-                            "SELECT AVG(temperatureEau), heureObs FROM Obs_Hippocampe JOIN Observation ON idObs = obsH GROUP BY heureObs ");
+                            "SELECT AVG(temperatureEau) FROM Obs_Hippocampe JOIN Observation ON idObs = obsH ");
+
+                    avg.next();
 
                     while (rs.next()) {
                         this.seriesLine.getData()
@@ -752,16 +753,19 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         this.seriesLine2.getData().add(new XYChart.Data<String, Number>("Average",
                                 avg.getDouble(1)));
                     }
+
+                    // this.dataLine.addAll(this.seriesLine, this.seriesLine2);
+
+                    this.seriesLine.setName("tempEau/idObs");
+                    this.seriesLine2.setName("avg tempEau");
+
+                    this.lineChart.getData().addAll(this.seriesLine, this.seriesLine2);
+
+                    this.xAxis.setLabel("date");
+                    this.yAxis.setLabel("ndObs");
                 } catch (Exception e) {
                     e.getMessage();
                 }
-
-                this.dataLine.add(this.seriesLine2);
-
-                this.seriesLine.setName("tempEau/idObs");
-                this.seriesLine2.setName("avg tempEau");
-                this.xAxis.setLabel("date");
-                this.yAxis.setLabel("ndObs");
             }
         } else if (type.equals("Date")) {
             if (this.eventSrc.equals("Batracien")) {
@@ -779,7 +783,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         }
                     }
 
+                    this.dataLine.add(this.seriesLine);
+
                     this.seriesLine.setName("nbObs/date");
+
                     this.xAxis.setLabel("date");
                     this.yAxis.setLabel("ndObs");
                 } catch (Exception e) {
@@ -800,7 +807,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         }
                     }
 
+                    this.dataLine.add(this.seriesLine);
+
                     this.seriesLine.setName("nbObs/date");
+
                     this.xAxis.setLabel("date");
                     this.yAxis.setLabel("ndObs");
                 } catch (Exception e) {
@@ -822,7 +832,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     }
                 }
 
+                this.dataLine.add(this.seriesLine);
+
                 this.seriesLine.setName("nbObs/date");
+
                 this.xAxis.setLabel("date");
                 this.yAxis.setLabel("ndObs");
             } catch (Exception e) {
@@ -843,7 +856,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     }
                 }
 
+                this.dataLine.add(this.seriesLine);
+
                 this.seriesLine.setName("nbObs/date");
+
                 this.xAxis.setLabel("date");
                 this.yAxis.setLabel("ndObs");
             } catch (Exception e) {
@@ -864,7 +880,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     }
                 }
 
+                this.dataLine.add(this.seriesLine);
+
                 this.seriesLine.setName("nbObs/date");
+
                 this.xAxis.setLabel("date");
                 this.yAxis.setLabel("ndObs");
             } catch (Exception e) {
@@ -886,7 +905,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         }
                     }
 
+                    this.dataLine.add(this.seriesLine);
+
                     this.seriesLine.setName("nbObs/heure");
+
                     this.xAxis.setLabel("heure");
                     this.yAxis.setLabel("ndObs");
                 } catch (Exception e) {
@@ -908,7 +930,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     }
                 }
 
+                this.dataLine.add(this.seriesLine);
+
                 this.seriesLine.setName("nbObs/heure");
+
                 this.xAxis.setLabel("heure");
                 this.yAxis.setLabel("ndObs");
             } catch (Exception e) {
@@ -929,7 +954,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     }
                 }
 
+                this.dataLine.add(this.seriesLine);
+
                 this.seriesLine.setName("nbObs/heure");
+
                 this.xAxis.setLabel("heure");
                 this.yAxis.setLabel("ndObs");
             } catch (Exception e) {
@@ -950,7 +978,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     }
                 }
 
+                this.dataLine.add(this.seriesLine);
+
                 this.seriesLine.setName("nbObs/heure");
+
                 this.xAxis.setLabel("heure");
                 this.yAxis.setLabel("ndObs");
             } catch (Exception e) {
@@ -971,44 +1002,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     }
                 }
 
+                this.dataLine.add(this.seriesLine);
+
                 this.seriesLine.setName("nbObs/heure");
+
                 this.xAxis.setLabel("heure");
                 this.yAxis.setLabel("ndObs");
             } catch (Exception e) {
                 e.getMessage();
-            }
-        } else if (type.equals("Temps")) {
-            if (this.eventSrc.equals("GCI")) {
-                try {
-                    ResultSet rsEnvol = connect.executeQuery(
-                            "SELECT COUNT(nbEnvol), dateObs FROM Nid_GCI JOIN Obs_GCI ON leNid = idNid JOIN Observation ON idObs = obsG GROUP BY dateObs ");
-                    ResultSet rsNombre = connect.executeQuery(
-                            "SELECT COUNT(nombre), dateObs FROM Obs_GCI JOIN Observation ON idObs = obsG GROUP BY dateObs ");
-
-                    while (rsEnvol.next()) {
-                        if (rsEnvol.getString(2) != null) {
-                            this.seriesLine.getData().add(new XYChart.Data<String, Number>(rsEnvol.getString(2),
-                                    rsEnvol.getDouble(1)));
-                        } else {
-                            this.seriesLine.getData().add(
-                                    new XYChart.Data<String, Number>("heure inconnue", rsEnvol.getDouble(1)));
-                        }
-                    }
-
-                    while (rsNombre.next()) {
-                        if (rsNombre.getString(2) != null) {
-                            this.seriesLine2.getData().add(new XYChart.Data<String, Number>(rsNombre.getString(2),
-                                    rsNombre.getDouble(1)));
-                        } else {
-                            this.seriesLine2.getData().add(
-                                    new XYChart.Data<String, Number>("heure inconnue", rsNombre.getDouble(1)));
-                        }
-                    }
-
-                    this.seriesLine.setName("heure/temps");
-                } catch (Exception e) {
-                    e.getMessage();
-                }
             }
         }
     }
@@ -1019,15 +1020,17 @@ public class ControllerVisualiser extends Controller implements Initializable {
             System.setProperty("http.agent", "Gluon Maps/2.0.0");
 
             this.mapView = new MapView();
-            this.mapView.setDisable(true);
-            // MapPoint mpMorbihan = new MapPoint(47.227638, -2.213749);
+            MapPoint mpMorbihan = new MapPoint(47.227638, -2.213749);
+            this.mapView.setZoom(5);
+            this.mapView.flyTo(0, mpMorbihan, 0.1);
 
             ArrayList<MapPoint> mpArray = new ArrayList<MapPoint>();
 
             if (this.eventSrc.equals("Batracien")) {
-                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                this.mapView.setZoom(9.5);
-                this.mapView.flyTo(0, mpMorbihan, 0.1);
+                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                // MapPoint mpMorbihan = new MapPoint(46.227638, 2.213749);
+                // this.mapView.setZoom(5);
+                // this.mapView.flyTo(0, mpMorbihan, 0.1);
 
                 try {
                     ResultSet rs = connect.executeQuery(
@@ -1054,9 +1057,9 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Chouette")) {
-                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                this.mapView.setZoom(9.5);
-                this.mapView.flyTo(0, mpMorbihan, 0.1);
+                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                // this.mapView.setZoom(9.5);
+                // this.mapView.flyTo(0, mpMorbihan, 0.1);
 
                 try {
                     ResultSet rs = connect.executeQuery(
@@ -1077,9 +1080,9 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("GCI")) {
-                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                this.mapView.setZoom(9.5);
-                this.mapView.flyTo(0, mpMorbihan, 0.1);
+                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                // this.mapView.setZoom(9.5);
+                // this.mapView.flyTo(0, mpMorbihan, 0.1);
 
                 try {
                     ResultSet rs = connect.executeQuery(
@@ -1100,9 +1103,9 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Hippocampe")) {
-                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                this.mapView.setZoom(9.5);
-                this.mapView.flyTo(0, mpMorbihan, 0.1);
+                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                // this.mapView.setZoom(9.5);
+                // this.mapView.flyTo(0, mpMorbihan, 0.1);
 
                 try {
                     ResultSet rs = connect.executeQuery(
@@ -1123,9 +1126,9 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Loutre")) {
-                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
-                this.mapView.setZoom(9.5);
-                this.mapView.flyTo(0, mpMorbihan, 0.1);
+                // MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                // this.mapView.setZoom(9.5);
+                // this.mapView.flyTo(0, mpMorbihan, 0.1);
 
                 try {
                     ResultSet rs = connect.executeQuery(
@@ -1186,7 +1189,17 @@ public class ControllerVisualiser extends Controller implements Initializable {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixAction.fxml", event);
         } else if (event.getSource() == bddView) {
-            loadStage("../vue/VisualiserTables.fxml", event);
+            if (this.eventSrc.equals("Batracien")) {
+                loadStage("../vue/VisualiserTablesBatracien.fxml", event);
+            } else if (this.eventSrc.equals("Chouette")) {
+                loadStage("../vue/VisualiserTablesChouette.fxml", event);
+            } else if (this.eventSrc.equals("GCI")) {
+                loadStage("../vue/VisualiserTablesGCI.fxml", event);
+            } else if (this.eventSrc.equals("Hippocampe")) {
+                loadStage("../vue/VisualiserTablesHippocampe.fxml", event);
+            } else if (this.eventSrc.equals("Loutre")) {
+                loadStage("../vue/VisualiserTablesLoutre.fxml", event);
+            }
         }
     }
 }
