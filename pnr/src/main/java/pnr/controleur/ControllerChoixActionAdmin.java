@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -52,11 +54,15 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String name = this.getEventSrcNomUser();
-        if (name != null) {
-            this.nameUser.setText("Bienvenue "+name);
-        } else {
-            this.nameUser.setText("Utilisateur inconnu");
+        ResultSet rs = connect.executeQuery("SELECT prenom, nom FROM Utilisateur WHERE pseudonyme='" + this.getEventSrcNomUser()+"';");
+        try {
+            if (rs.next()) {
+                this.nameUser.setText("Bienvenue "+rs.getString("prenom")+" "+rs.getString("nom"));
+            } else {
+                this.nameUser.setText("Utilisateur inconnu");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

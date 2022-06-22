@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import io.github.palexdev.materialfx.controls.MFXListView;
@@ -20,8 +21,8 @@ import io.github.palexdev.materialfx.controls.cell.MFXListCell;
 import io.github.palexdev.materialfx.font.MFXFontIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.*;
+import pnr.modele.donnee.*;
 
 public class ControllerDernierObservation extends Controller implements Initializable{
 
@@ -32,7 +33,7 @@ public class ControllerDernierObservation extends Controller implements Initiali
     private ImageView imgEspece;
 
     @FXML
-    private MFXListView<String> listView = new MFXListView<>();
+    private MFXListView<Observation> listView = new MFXListView<>();
 
     @FXML
     private Text nameEspece;
@@ -42,7 +43,7 @@ public class ControllerDernierObservation extends Controller implements Initiali
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<String> list = new ArrayList<String>();
-        ArrayList<Integer> listId = new ArrayList<Integer>();
+        ArrayList<String> listId = new ArrayList<>();
         eventSrc = initPage(imgEspece, nameEspece);
         switch (eventSrc) {
             case "Batracien":
@@ -74,7 +75,7 @@ public class ControllerDernierObservation extends Controller implements Initiali
         ResultSet rs = connect.executeQuery("SELECT idObs, dateObs FROM Observation "+table+id+" ORDER BY dateObs DESC");
         try {
             while (rs.next()){
-                listId.add(rs.getInt("idObs"));
+                listId.add(rs.getString("idObs"));
                 if (rs.getDate("dateObs") != null){
                     list.add("Observation du "+new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("dateObs")));
                 } else {
@@ -84,21 +85,21 @@ public class ControllerDernierObservation extends Controller implements Initiali
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ObservableList<String> listProfile = FXCollections.observableArrayList(list);
-        listView.setItems(listProfile);
+
+        listView.setItems(getMessages());
         listView.features().enableBounceEffect();
 		listView.features().enableSmoothScrolling(0.5);
         listView.setCellFactory(person -> new PersonCellFactory(listView, person, "mfx-file"));
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String idClicked = new String(listView.getSelectionModel().getSelectedValues().get(0));
+                String idClicked = new String(listView.getSelectionModel().getSelectedValues().get(1));
+                System.out.println(idClicked);
                 
                 loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked);
             }
         });  
     }
-
 
     @FXML
     private void handleBtnClick(ActionEvent event) {
