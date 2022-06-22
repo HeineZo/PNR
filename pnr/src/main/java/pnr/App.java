@@ -27,7 +27,5 @@ public class App extends Application {
         scene.getStylesheets().add(getClass().getResource("vue/font/font.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        
     }
 }
