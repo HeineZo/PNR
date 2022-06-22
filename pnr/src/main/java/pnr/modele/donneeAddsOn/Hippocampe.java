@@ -9,6 +9,7 @@ public class Hippocampe {
     public Hippocampe(int obs, String espece, String sexe, int tempEau, String peche, double taille, int gestant) {
         this.obsH = obs;
         this.espece = espece;
+        this.sexe = sexe;
         this.temperatureEau = tempEau;
         this.typePeche = peche;
         this.taille = taille;
