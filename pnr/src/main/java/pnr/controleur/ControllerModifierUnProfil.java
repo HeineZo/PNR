@@ -59,6 +59,9 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
 
     private ObservableList<String> permissionChoices = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the page
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -107,6 +110,11 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         });
     }
 
+/**
+     * Handles the button's action
+     * @param event enabled when the button is clicked
+     * @throws IOException
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (event.getSource() == btnBack) {

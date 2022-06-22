@@ -45,6 +45,11 @@ public class ControllerChoixAction extends Controller implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
+    /**
+     * Handles the button's action
+     * @param event enabled when the button is clicked
+     * @throws IOException
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws IOException {
         if (event.getSource() == btnNewObs) {
@@ -69,6 +74,9 @@ public class ControllerChoixAction extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Initializes the page
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initPage(imgEspece, nameEspece);

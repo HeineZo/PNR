@@ -17,6 +17,9 @@ import javafx.scene.paint.Color;
 public class ExampleNotification extends MFXSimpleNotification {
     private final SimpleStringProperty contentText = new SimpleStringProperty();
 
+    /**
+     * Creates a notification 
+     */
     public ExampleNotification() {
 
         MFXIconWrapper icon = new MFXIconWrapper("mfx-exclamation-triangle", 20, 32);
@@ -45,14 +48,26 @@ public class ExampleNotification extends MFXSimpleNotification {
         setContent(container);
     }
 
+    /**
+     * get the text content of the notification
+     * @return the text of the notification
+     */
     public String getContentText() {
         return contentText.get();
     }
 
+    /**
+     * gets the property of the text
+     * @return
+     */
     public StringProperty contentTextProperty() {
         return contentText;
     }
 
+    /**
+     * sets the property of the text
+     * @param contentText
+     */
     public void setContentText(String contentText) {
         this.contentText.set(contentText);
     }

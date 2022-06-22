@@ -50,6 +50,9 @@ public class ControllerNouveauProfil extends Controller implements Initializable
 
     private ObservableList<String> permissionChoices = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the page
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.permissionChoices.add("Utilisateur");
@@ -75,6 +78,11 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         
     }
 
+    /**
+     * Handles the button's action
+     * @param event enabled when the button is clicked
+     * @throws IOException
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (event.getSource() == btnBack) {
@@ -100,6 +108,11 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         }
     }
 
+    /**
+     * Get the permission of an user given a combobox
+     * @param perm the combobox of string permissions
+     * @return the permission of the user, 1 or 0
+     */
     public int getPerm(MFXComboBox<String> perm) {
         int ret = -1;
         if(perm != null) {
@@ -114,6 +127,9 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         return ret;
     }
 
+    /**
+     * If there are no changes or an empty field, the create button is disabled
+     */
     private void checkDisable() {
         if(!txtPrenom.getText().isEmpty() && !txtNom.getText().isEmpty() && !txtMdp.getText().isEmpty() && !txtPseudo.getText().isEmpty() && cbPerm.getValue() != null) {
             btnCreer.setDisable(false);
