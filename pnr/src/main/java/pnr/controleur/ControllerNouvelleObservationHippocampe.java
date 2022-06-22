@@ -199,7 +199,8 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         while (rs.next()) {
             idDerniereObs = rs.getInt("idObs");
         }
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,'"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
@@ -209,14 +210,12 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         }
         connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
         System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
-        System.out.println("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         int estGestant = 0;
         if(this.cbGestant.getValue().equals("oui")){
             estGestant = 1;
         }
-        connect.executeUpdate("INSERT INTO Obs_Hippocampe VALUES ("+(idDerniereObs + 1)+",'"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"',"+this.txtTemperature.getText()+",'"+this.cbTypePeche.getValue()+"','"+this.txtTaille.getText()+"','"+estGestant+");");  
-        System.out.println("INSERT INTO Obs_Hippocampe VALUES ("+(idDerniereObs + 1)+",'"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"',"+this.txtTemperature.getText()+",'"+this.cbTypePeche.getValue()+"','"+this.txtTaille.getText()+"','"+estGestant+");");
+        connect.executeUpdate("INSERT INTO Obs_Hippocampe VALUES ("+(idDerniereObs + 1)+",'"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"',"+this.txtTemperature.getText()+",'"+this.cbTypePeche.getValue()+"',"+this.txtTaille.getText()+","+estGestant+");");  
+        System.out.println("INSERT INTO Obs_Hippocampe VALUES ("+(idDerniereObs + 1)+",'"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"',"+this.txtTemperature.getText()+",'"+this.cbTypePeche.getValue()+"',"+this.txtTaille.getText()+","+estGestant+");");
 
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);

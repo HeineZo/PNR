@@ -195,7 +195,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.tlistTypes.add("Heure");
         } else if (choice.equals("Position")) {
             this.tlistTypes.add("Carte");
-            this.tlistTypes.add("Graphe");
         }
 
         this.comboBoxTypes.setItems(this.tlistTypes);
@@ -259,6 +258,9 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
             this.label.setVisible(false);
             this.pMap.setVisible(true);
+            this.pieChart.setVisible(false);
+            this.barChart.setVisible(false);
+            this.lineChart.setVisible(false);
         } else {
             this.label.setVisible(true);
             this.comboBoxTypes.setDisable(true);
@@ -1019,14 +1021,14 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.mapView = new MapView();
             this.mapView.setDisable(true);
             // MapPoint mpMorbihan = new MapPoint(47.227638, -2.213749);
-            MapPoint mpMorbihan = new MapPoint(50.227638, -30.213749);
-            this.mapView.setZoom(5);
-            // this.mapView.setCenter(mpMorbihan);
-            this.mapView.flyTo(0, mpMorbihan, 0.1);
 
             ArrayList<MapPoint> mpArray = new ArrayList<MapPoint>();
 
             if (this.eventSrc.equals("Batracien")) {
+                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                this.mapView.setZoom(9.5);
+                this.mapView.flyTo(0, mpMorbihan, 0.1);
+
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Batracien On obsB = idObs ");
@@ -1035,7 +1037,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                            // System.out.println(save[0] + " " + save[1]);
                             MapPoint mapPoint = new MapPoint(save[0], save[1]);
                             mpArray.add(mapPoint);
 
@@ -1053,6 +1054,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Chouette")) {
+                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                this.mapView.setZoom(9.5);
+                this.mapView.flyTo(0, mpMorbihan, 0.1);
+
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Chouette On numIndividu = idObs ");
@@ -1061,7 +1066,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                            // System.out.println(save[0] + " " + save[1]);
                             MapPoint mapPoint = new MapPoint(save[0], save[1]);
                             mpArray.add(mapPoint);
 
@@ -1073,6 +1077,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("GCI")) {
+                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                this.mapView.setZoom(9.5);
+                this.mapView.flyTo(0, mpMorbihan, 0.1);
+
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_GCI On obsG = idObs ");
@@ -1081,7 +1089,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                            // System.out.println(save[0] + " " + save[1]);
                             MapPoint mapPoint = new MapPoint(save[0], save[1]);
                             mpArray.add(mapPoint);
 
@@ -1093,6 +1100,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Hippocampe")) {
+                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                this.mapView.setZoom(9.5);
+                this.mapView.flyTo(0, mpMorbihan, 0.1);
+
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Hippocampe On obsH = idObs ");
@@ -1101,7 +1112,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                            // System.out.println(save[0] + " " + save[1]);
                             MapPoint mapPoint = new MapPoint(save[0], save[1]);
                             mpArray.add(mapPoint);
 
@@ -1113,6 +1123,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
                     e.getMessage();
                 }
             } else if (this.eventSrc.equals("Loutre")) {
+                MapPoint mpMorbihan = new MapPoint(48.03544164552829, -4.723680949062487);
+                this.mapView.setZoom(9.5);
+                this.mapView.flyTo(0, mpMorbihan, 0.1);
+
                 try {
                     ResultSet rs = connect.executeQuery(
                             "SELECT lieu_Lambert_X, lieu_Lambert_y FROM Observation JOIN Obs_Loutre On obsL = idObs ");
@@ -1121,7 +1135,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                         if (rs.getDouble(1) != 0. && rs.getDouble(2) != 0. && rs.getString(1) != null
                                 && rs.getString(2) != null) {
                             double[] save = lambert93toWGS84(rs.getDouble(1), rs.getDouble(2));
-                            // System.out.println(save[0] + " " + save[1]);
                             MapPoint mapPoint = new MapPoint(save[0], save[1]);
                             mpArray.add(mapPoint);
 
@@ -1132,18 +1145,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 } catch (Exception e) {
                     e.getMessage();
                 }
-            }
-        } else if (type.equals("Graphe")) {
-            if (this.eventSrc.equals("Batracien")) {
-                //
-            } else if (this.eventSrc.equals("Chouette")) {
-                //
-            } else if (this.eventSrc.equals("GCI")) {
-                //
-            } else if (this.eventSrc.equals("Hippocampe")) {
-                //
-            } else if (this.eventSrc.equals("Loutre")) {
-                //
             }
         }
     }
