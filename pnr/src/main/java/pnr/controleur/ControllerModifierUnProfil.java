@@ -67,12 +67,12 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
         this.credentials.setItems(this.permissionChoices);
     
 
-        this.eventSrc = getUserClicked().split(" ")[0];
+        this.eventSrc = getUserClicked();
         resetUserClicked();
         ResultSet rs = connect.executeQuery("SELECT * FROM Utilisateur"); 
         try {
             while (rs.next()) {
-                if (rs.getString("nom").equals(this.eventSrc)) {
+                if (rs.getString("pseudonyme").equals(this.eventSrc)) {
                     this.nom.setText(rs.getString("nom"));
                     this.prenom.setText(rs.getString("prenom"));
                     this.password.setText(rs.getString("mdpUtilisateur"));

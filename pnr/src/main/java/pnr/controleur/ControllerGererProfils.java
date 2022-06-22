@@ -9,6 +9,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import pnr.modele.util.ObservationFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class ControllerGererProfils extends Controller implements Initializable{
     private AnchorPane anchorPane;
 
     @FXML
-    private MFXListView<String> profileList = new MFXListView<String>();
+    private MFXListView<ObservationFactory> profileList = new MFXListView<ObservationFactory>();
 
     @FXML
     private Button btnNouveauProfil;
@@ -46,23 +47,23 @@ public class ControllerGererProfils extends Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<ObservationFactory> list = new ArrayList<ObservationFactory>();
         
-        ResultSet rs = connect.executeQuery("SELECT nom, prenom FROM Utilisateur");
+        ResultSet rs = connect.executeQuery("SELECT nom, prenom, pseudonyme FROM Utilisateur");
         try {
             while (rs.next()){
-                list.add(rs.getString("nom") + " " + rs.getString("prenom"));
+                list.add(new ObservationFactory(rs.getString("nom"), rs.getString("prenom"), rs.getString("pseudonyme")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ObservableList<String> listProfile = FXCollections.observableArrayList(list);
+        ObservableList<ObservationFactory> listProfile = FXCollections.observableArrayList(list);
         profileList.setItems(listProfile);
         profileList.features().enableBounceEffect();
 		profileList.features().enableSmoothScrolling(0.5);
-        profileList.setCellFactory(pl -> new MFXListCell<String>(profileList, pl) {
+        profileList.setCellFactory(pl -> new MFXListCell<ObservationFactory>(profileList, pl) {
             @Override
-            public void render(String observation) {                
+            public void render(ObservationFactory observation) {                
                 super.render(observation);
                 MFXFontIcon userIcon = new MFXFontIcon("mfx-user", 18);
                 userIcon.getStyleClass().add("user-icon");
@@ -72,8 +73,8 @@ public class ControllerGererProfils extends Controller implements Initializable{
         profileList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String user = new String(profileList.getSelectionModel().getSelectedValues().get(0));
-                loadUser("../vue/ModifierUnProfil.fxml", event, user);
+                ObservationFactory user = profileList.getSelectionModel().getSelectedValues().get(0);
+                loadUser("../vue/ModifierUnProfil.fxml", event, user.getPseudonyme());
             }
         });  
     }
