@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
@@ -44,7 +45,7 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
     private MFXScrollPane scrollPane;
 
     @FXML
-    private MFXDatePicker txtDate;
+    private MFXDatePicker txtDate = new MFXDatePicker();
 
     @FXML
     // private MFXFilterComboBox<TabObservateur> cbObservateur = new MFXFilterComboBox<>();
@@ -53,43 +54,46 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
     private ObservableList<String> observateur = FXCollections.observableArrayList();
     
     @FXML
-    private MFXTextField txtHeure;
+    private MFXTextField txtHeure = new MFXTextField();
 
     @FXML
-    private MFXTextField txtCoordY;
+    private MFXTextField txtCoordY = new MFXTextField();
 
     @FXML
-    private MFXTextField txtCoordX;
+    private MFXTextField txtCoordX = new MFXTextField();
 
     @FXML
-    private ComboBox<String> cbEspece;
+    private MFXComboBox<String> cbEspece = new MFXComboBox<>();
     private ObservableList<String> espece = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox<String> cbSexe;
+    private MFXComboBox<String> cbSexe = new MFXComboBox<>();
     private ObservableList<String> sexe = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox<String> cbTypePeche;
+    private MFXComboBox<String> cbTypePeche = new MFXComboBox<>();
     private ObservableList<String> typePeche = FXCollections.observableArrayList();
 
     @FXML
-    private MFXTextField txtTemperature;
+    private MFXTextField txtTemperature = new MFXTextField();
 
     @FXML
-    private ComboBox<String> cbGestant;
+    private MFXComboBox<String> cbGestant = new MFXComboBox<String>();
     private ObservableList<String> gestant = FXCollections.observableArrayList();
+    
 
     @FXML
-    private MFXTextField txtTaille;
+    private MFXTextField txtTaille = new MFXTextField();
+
+    private int idObs;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // if (getUserClicked() != null) {
-        //     idObs = getUserClicked();
-        //     modifierObs();
-        //     resetUserClicked();
-        // }
+        if (getUserClicked() != null) {
+            idObs = Integer.valueOf(getUserClicked());
+            modifierObs();
+            resetUserClicked();
+        }
         ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
@@ -102,7 +106,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
             }
             this.cbObservateur.setItems(this.observateur);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -127,9 +130,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         this.gestant.add("oui");
         this.cbGestant.setItems(this.gestant);
 
-        this.txtHeure.textProperty().addListener((observable, oldValue, newValue) -> {
-            checkDisable();
-        });
         this.txtCoordY.textProperty().addListener((observable, oldValue, newValue) -> {
             checkDisable();
         });
@@ -161,37 +161,15 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
-        // if (this.nameEspece.getText().equals("Modifier une observation")) {
-        //     if (event.getSource() == btnBack) loadStage("../vue/DernierObservation.fxml", event);
-        //     else if (event.getSource() == envoi) updateDonnees(event);
-        // } else {
-        if (event.getSource() == btnBack){
-            loadStage("../vue/ChoixAction.fxml", event);
-        }else if (event.getSource() == envoi){
-            ajouteDonnees(event);
+        if (this.nameEspece.getText().equals("Modifier une observation")) {
+            if (event.getSource() == btnBack) loadStage("../vue/DernierObservation.fxml", event);
+            else if (event.getSource() == envoi) updateDonnees(event);
+
+        } else {
+            if (event.getSource() == btnBack) loadStage("../vue/ChoixAction.fxml", event);
+            else if (event.getSource() == envoi) ajouteDonnees(event);
         }
     }
-
-    // private void modifierObs() {
-    //     this.nameEspece.setText("Modifier une observation");
-    //     this.txtCoordX.setDisable(true);
-    //     this.txtCoordY.setDisable(true);
-    //     ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = '" + this.idObs + "';");
-    //     try {
-    //         while (rs.next()) {
-    //             this.txtDate.setText(rs.getString("dateObs"));
-    //             // this.cbObservateur.setValue(rs.getString("lobservateur"));
-    //             this.txtHeure.setText(rs.getString("heureObs"));
-    //             this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
-    //             this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
-    //             this.txtCommune.setText(rs.getString("commune"));
-    //             this.txtLieuDit.setText(rs.getString("lieuDit"));
-    //             this.cbIndice.setValue(rs.getString("indice"));
-    //         }
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
 
     private void ajouteDonnees(ActionEvent event) throws SQLException{
         ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
@@ -201,7 +179,7 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         }
         connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
         connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
-        System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+        
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
@@ -209,21 +187,78 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
             
         }
         connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+
         int estGestant = 0;
         if(this.cbGestant.getValue().equals("oui")){
             estGestant = 1;
         }
         connect.executeUpdate("INSERT INTO Obs_Hippocampe VALUES ("+(idDerniereObs + 1)+",'"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"',"+this.txtTemperature.getText()+",'"+this.cbTypePeche.getValue()+"',"+this.txtTaille.getText()+","+estGestant+");");  
-        System.out.println("INSERT INTO Obs_Hippocampe VALUES ("+(idDerniereObs + 1)+",'"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"',"+this.txtTemperature.getText()+",'"+this.cbTypePeche.getValue()+"',"+this.txtTaille.getText()+","+estGestant+");");
-
+        
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
 
+    private void modifierObs() {
+        this.nameEspece.setText("Modifier une observation");
+        this.txtCoordX.setDisable(true);
+        this.txtCoordY.setDisable(true);
+        
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservateur = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH="+idObs+";");
+        
+        try {
+            while (rs.next()) {
+                if (rs.getString("nom") != null){
+                    this.cbObservateur.setText(rs.getString("nom"));
+                } else {
+                    this.cbObservateur.setText(rs.getString("prenom"));
+                }
+
+                if(rs.getInt("gestant") == 0){
+                    this.cbGestant.setText("non");
+                } else {
+                    this.cbGestant.setText("oui");
+                }
+                this.txtDate.setText(rs.getString("dateObs"));
+                this.txtHeure.setText(rs.getString("heureObs"));
+                this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
+                this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
+                this.cbEspece.setText(rs.getString("espece"));
+                this.cbSexe.setText(rs.getString("sexe"));
+                this.cbTypePeche.setText(rs.getString("typePeche"));
+                this.txtTemperature.setText(rs.getString("temperatureEau"));
+                this.txtTaille.setText(rs.getString("taille"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateDonnees(ActionEvent event) throws SQLException{
+
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+this.txtDate.getText()+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs="+idObs+";");
+        
+        ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+        int lObservateur = 0;
+        while (rs.next()) {
+            lObservateur = rs.getInt("idObservateur");
+        }
+        connect.executeUpdate("UPDATE AObserve SET lObservateur='"+lObservateur+"' WHERE lObservation="+idObs+";");
+
+        int estGestant = 0;
+        if(this.cbGestant.getValue().equals("oui")){
+            estGestant = 1;
+        }
+        connect.executeUpdate("UPDATE Obs_Hippocampe SET espece='"+this.cbEspece.getValue()+"', sexe='"+this.cbSexe.getValue()+"', temperatureEau="+this.txtTemperature.getText()+", typePeche='"+this.cbTypePeche.getValue()+"', taille="+this.txtTaille.getText()+", gestant="+estGestant+" WHERE obsH="+idObs+";");  
+        
+        initConfirmation("ModifierObservation");
+        loadStage("../vue/Confirmation.fxml", event);
+    }
+
+
+
     private void checkDisable() {
-        if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtTaille.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtTemperature.getText().isEmpty() 
-        && cbEspece.getValue()!= null && cbSexe.getValue() != null && cbTypePeche.getValue() != null && cbGestant.getValue() != null) {
+        if(!txtCoordY.getText().isEmpty() && !txtTaille.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtTemperature.getText().isEmpty() 
+        && !txtDate.getText().isEmpty() && cbEspece.getValue()!= null && cbSexe.getValue() != null && cbTypePeche.getValue() != null && cbGestant.getValue() != null ) {
             envoi.setDisable(false);
         } else {
             envoi.setDisable(true);

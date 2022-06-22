@@ -78,9 +78,9 @@ public class ControllerModifierUnProfil extends Controller implements Initializa
                     this.password.setText(rs.getString("mdpUtilisateur"));
                     this.username.setText(rs.getString("pseudonyme"));
                     if (rs.getString("permission").equals("0")){
-                        this.credentials.setValue("Utilisateur");
+                        this.credentials.setText("Utilisateur");
                     } else {
-                        this.credentials.setValue("Administrateur");
+                        this.credentials.setText("Administrateur");
                     }
                 }
             }

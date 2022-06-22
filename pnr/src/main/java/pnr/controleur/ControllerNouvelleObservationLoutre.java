@@ -3,10 +3,12 @@ package pnr.controleur;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -86,6 +88,30 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             resetUserClicked();
         }
 
+
+        // txtDate.setConverterSupplier(new StringConverter<LocalDate>() {
+        //     String pattern = "yyyy-MM-dd";
+        //     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+        //     {
+        //         txtDate.setValue(LocalDate.now());
+        //     }
+        //     @Override public String toString(LocalDate date) {
+        //         if (date != null) {
+        //             return dateFormatter.format(date);
+        //         } else {
+        //             return "";
+        //         }
+        //     }
+           
+        //     @Override public LocalDate fromString(String string) {
+        //         if (string != null && !string.isEmpty()) {
+        //             return LocalDate.parse(string, dateFormatter);
+        //         } else {
+        //             return null;
+        //         }
+        //     }});
+
+        
         ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
@@ -123,6 +149,7 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             checkDisable();
         });       
         this.txtDate.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(txtDate.getText());
             checkDisable();
         });
         this.cbIndice.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -217,5 +244,11 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         } else {
             envoi.setDisable(true);
         }
+    }
+
+    private static final LocalDate LOCALDATE (String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
     }
 }
