@@ -1,33 +1,30 @@
 package pnr.modele.donneeAddsOn;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class ObsChouette {
 
-    private SimpleIntegerProperty protocole, numObs;
-    private SimpleStringProperty typeObs, lenumIndividu;
+    private int protocole, numObs;
+    private String typeObs, lenumIndividu;
 
     public ObsChouette(int proto, String type, String leNum, int num) {
-        this.protocole = new SimpleIntegerProperty(proto);
-        this.typeObs = new SimpleStringProperty(type);
-        this.lenumIndividu = new SimpleStringProperty(leNum);
-        this.numObs = new SimpleIntegerProperty(num);
+        this.protocole = proto;
+        this.typeObs = type;
+        this.lenumIndividu =  leNum;
+        this.numObs = num;
     }
 
-    public SimpleIntegerProperty getProtocole() {
+    public int getProtocole() {
         return this.protocole;
     }
 
-    public SimpleStringProperty getTypeObs() {
+    public String getTypeObs() {
         return this.typeObs;
     }
 
-    public SimpleStringProperty getLenumIndividu() {
+    public String getLenumIndividu() {
         return this.lenumIndividu;
     }
 
-    public SimpleIntegerProperty getNumObs() {
+    public int getNumObs() {
         return this.numObs;
     }
 }

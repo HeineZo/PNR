@@ -1,26 +1,24 @@
 package pnr.modele.donneeAddsOn;
 
-import javafx.beans.property.SimpleStringProperty;
-
 public class Chouette {
 
-    private SimpleStringProperty numIndividu, espece, sexe;
+    private String numIndividu, espece, sexe;
 
     public Chouette(String num, String espece, String sexe) {
-        this.numIndividu = new SimpleStringProperty(num);
-        this.espece = new SimpleStringProperty(espece);
-        this.sexe = new SimpleStringProperty(sexe);
+        this.numIndividu = num;
+        this.espece = espece;
+        this.sexe = sexe;
     }
 
-    public SimpleStringProperty getNumIndividu() {
+    public String getNumIndividu() {
         return this.numIndividu;
     }
 
-    public SimpleStringProperty getEspece() {
+    public String getEspece() {
         return this.espece;
     }
 
-    public SimpleStringProperty getSexe() {
+    public String getSexe() {
         return this.sexe;
     }
 }

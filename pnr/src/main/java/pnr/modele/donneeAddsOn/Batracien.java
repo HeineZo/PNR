@@ -1,9 +1,5 @@
 package pnr.modele.donneeAddsOn;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Batracien {
 
     private int obsB, nombreAdultes, nombreAmplexus, nombrePonte, nombreTetard, concerne_zh,
