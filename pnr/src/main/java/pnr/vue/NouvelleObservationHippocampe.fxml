@@ -82,6 +82,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <MFXTextField fx:id="txtCoordX" floatMode="BORDER" floatingText="Coordonnées Lambert X" layoutX="150.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -164,6 +165,14 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </ComboBox>
+                              <MFXTextField fx:id="txtTaille" floatMode="BORDER" floatingText="Taille" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                                 <textFill>
+                                    <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+                                 </textFill>
+                                 <GridPane.margin>
+                                    <Insets right="50.0" />
+                                 </GridPane.margin>
+                              </MFXTextField>
                            </children>
                         </GridPane>
                      </children>

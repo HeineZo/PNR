@@ -70,6 +70,9 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
     private ComboBox<String> cbGestant;
     private ObservableList<String> gestant = FXCollections.observableArrayList();
 
+    @FXML
+    private MFXTextField txtTaille;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
