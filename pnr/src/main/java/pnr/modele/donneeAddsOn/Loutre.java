@@ -1,33 +1,30 @@
 package pnr.modele.donneeAddsOn;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Loutre {
 
-    private SimpleIntegerProperty ObsL;
-    private SimpleStringProperty commune, lieuDit, indice;
+    private int ObsL;
+    private String commune, lieuDit, indice;
 
     public Loutre(int obs, String commune, String lieuDit, String indice) {
-        this.ObsL = new SimpleIntegerProperty(obs);
-        this.commune = new SimpleStringProperty(commune);
-        this.lieuDit = new SimpleStringProperty(lieuDit);
-        this.indice = new SimpleStringProperty(indice);
+        this.ObsL = obs;
+        this.commune = commune;
+        this.lieuDit = lieuDit;
+        this.indice = indice;
     }
 
-    public SimpleIntegerProperty getObsL() {
+    public int getObsL() {
         return this.ObsL;
     }
 
-    public SimpleStringProperty getCommune() {
+    public String getCommune() {
         return this.commune;
     }
 
-    public SimpleStringProperty getLieuDit() {
+    public String getLieuDit() {
         return this.lieuDit;
     }
 
-    public SimpleStringProperty getIndice() {
+    public String getIndice() {
         return this.indice;
     }
 }

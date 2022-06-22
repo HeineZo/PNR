@@ -1,38 +1,35 @@
 package pnr.modele.donneeAddsOn;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class ObsGCI {
 
-    private SimpleIntegerProperty obsG, nombre, presentMainsNonObs, leNid;
-    private SimpleStringProperty nature;
+    private int obsG, nombre, presentMainsNonObs, leNid;
+    private String nature;
 
     public ObsGCI(int obs, String nature, int nb, int present, int nid) {
-        this.obsG = new SimpleIntegerProperty(obs);
-        this.nature = new SimpleStringProperty(nature);
-        this.nombre = new SimpleIntegerProperty(nb);
-        this.presentMainsNonObs = new SimpleIntegerProperty(present);
-        this.leNid = new SimpleIntegerProperty(nid);
+        this.obsG = obs;
+        this.nature = nature;
+        this.nombre = nb;
+        this.presentMainsNonObs = present;
+        this.leNid = nid;
     }
 
-    public SimpleIntegerProperty getObsG() {
+    public int getObsG() {
         return this.obsG;
     }
 
-    public SimpleStringProperty getNature() {
+    public String getNature() {
         return this.nature;
     }
 
-    public SimpleIntegerProperty getNombre() {
+    public int getNombre() {
         return this.nombre;
     }
 
-    public SimpleIntegerProperty getPresentmainsNonObs() {
+    public int getPresentmainsNonObs() {
         return this.presentMainsNonObs;
     }
 
-    public SimpleIntegerProperty getLeNid() {
+    public int getLeNid() {
         return this.leNid;
     }
 }
