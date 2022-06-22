@@ -30,24 +30,22 @@ public class RequetesSQLTest {
         
         rs = connect.executeQuery("SELECT * FROM Utilisateur");
         assertTrue(rs.next());
-        assertEquals("Guegan", rs.getString("nom"));
-        assertEquals("Anna", rs.getString("prenom"));
-        assertEquals("annouch la mouche", rs.getString("pseudonyme"));
-        assertEquals("mouche", rs.getString("mdpUtilisateur"));
+        assertEquals("nom_admin", rs.getString("nom"));
+        assertEquals("prenom_admin", rs.getString("prenom"));
+        assertEquals("admin", rs.getString("pseudonyme"));
         
-        rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur WHERE nom = 'arwen'");
+        rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur WHERE nom = 'nom_user'");
         assertTrue(rs.next());
-        assertEquals("everyone", rs.getString("pseudonyme"));
+        assertEquals("user", rs.getString("pseudonyme"));
         assertFalse(rs.next());
 
         rs = connect.executeQuery("SELECT nom, prenom FROM Utilisateur");
         assertTrue(rs.next());
-        assertEquals("Guegan", rs.getString("nom"));
-        assertEquals("Anna", rs.getString("prenom"));
+        assertEquals("nom_admin", rs.getString("nom"));
+        assertEquals("prenom_admin", rs.getString("prenom"));
         
-        rs = connect.executeQuery("SELECT pseudonyme, mdpUtilisateur, permission FROM Utilisateur WHERE pseudonyme = 'yo'");
+        rs = connect.executeQuery("SELECT pseudonyme, mdpUtilisateur, permission FROM Utilisateur WHERE pseudonyme = 'admin'");
         assertTrue(rs.next());
-        assertEquals("zozo", rs.getString("mdpUtilisateur"));
         assertEquals(1, rs.getInt("permission"));
         assertFalse(rs.next());
 
@@ -85,9 +83,8 @@ public class RequetesSQLTest {
         assertEquals("test2", rs.getString("pseudonyme"));
         assertFalse(rs.next());
 
-        connect.executeUpdate("DELETE FROM Utilisateur WHERE pseudonyme = 'test'");
-        rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur WHERE pseudonyme = 'test'");
+        connect.executeUpdate("DELETE FROM Utilisateur WHERE pseudonyme = 'test2'");
+        rs = connect.executeQuery("SELECT pseudonyme FROM Utilisateur WHERE pseudonyme = 'test2'");
         assertFalse(rs.next());
-
     }
 }
