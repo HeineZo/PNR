@@ -69,6 +69,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private XYChart.Series<String, Number> seriesBar = new XYChart.Series<String, Number>();
     private XYChart.Series<String, Number> seriesBar2 = new XYChart.Series<String, Number>();
     private XYChart.Series<String, Number> seriesBar3 = new XYChart.Series<String, Number>();
+    private XYChart.Series<String, Number> seriesBar4 = new XYChart.Series<String, Number>();
     private XYChart.Series<String, Number> seriesLine = new XYChart.Series<String, Number>();
     private XYChart.Series<String, Number> seriesLine2 = new XYChart.Series<String, Number>();
 
@@ -100,6 +101,10 @@ public class ControllerVisualiser extends Controller implements Initializable {
         this.comboBoxChoices.setItems(this.tlistChoices);
 
         this.comboBoxTypes.setDisable(true);
+
+        this.pieChart.setAnimated(false);
+        this.barChart.setAnimated(false);
+        this.lineChart.setAnimated(false);
     }
 
     private void imgIcn() {
@@ -163,10 +168,13 @@ public class ControllerVisualiser extends Controller implements Initializable {
                 //
             } else if (this.eventSrc.equals("Chouette")) {
                 this.tlistTypes.add("Sexe/Espece");
+                this.tlistTypes.add("TypeObs/Espece");
             } else if (this.eventSrc.equals("GCI")) {
-                //
+                this.tlistTypes.add("NbOeufs/Nid");
+                this.tlistTypes.add("NbEnvols/Plage");
             } else if (this.eventSrc.equals("Hippocampe")) {
                 this.tlistTypes.add("Sexe/Espece");
+                this.tlistTypes.add("TypePeche/Espece");
             } else if (this.eventSrc.equals("Loutre")) {
                 //
             }
@@ -201,7 +209,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
     private void graph(String chart, String type) {
         if (chart.equals("Camembert")) {
-            this.pieChart.setAnimated(false);
             this.pieChart.getData().clear();
 
             pie(type);
@@ -214,8 +221,11 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.barChart.setVisible(false);
             this.lineChart.setVisible(false);
         } else if (chart.equals("Barres")) {
-            this.barChart.setAnimated(false);
             this.barChart.getData().clear();
+            this.seriesBar.getData().clear();
+            this.seriesBar2.getData().clear();
+            this.seriesBar3.getData().clear();
+            this.seriesBar4.getData().clear();
 
             bar(type);
 
@@ -227,7 +237,6 @@ public class ControllerVisualiser extends Controller implements Initializable {
             this.barChart.setVisible(true);
             this.lineChart.setVisible(false);
         } else if (chart.equals("Lignes")) {
-            this.lineChart.setAnimated(false);
             this.lineChart.getData().clear();
             this.seriesLine.getData().clear();
             this.seriesLine2.getData().clear();
@@ -555,6 +564,170 @@ public class ControllerVisualiser extends Controller implements Initializable {
 
                     this.xAxis.setLabel("espece");
                     this.yAxis.setLabel("count");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("TypeObs/Espece")) {
+            if (this.eventSrc.equals("Chouette")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), typeObs, espece FROM Obs_Chouette JOIN Chouette ON numIndividu = leNumIndividu WHERE typeObs = 'Sonore' GROUP BY typeObs, espece ");
+
+                    while (rs.next()) {
+                        if (rs.getString(3) != null) {
+                            this.seriesBar.getData()
+                                    .add(new XYChart.Data<String, Number>(rs.getString(3), rs.getDouble(1)));
+                        } else {
+                            this.seriesBar.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs2 = connect.executeQuery(
+                            "SELECT COUNT(*), typeObs, espece FROM Obs_Chouette JOIN Chouette ON numIndividu = leNumIndividu WHERE typeObs = 'Visuel' GROUP BY typeObs, espece ");
+
+                    while (rs2.next()) {
+                        if (rs2.getString(3) != null) {
+                            this.seriesBar2.getData()
+                                    .add(new XYChart.Data<String, Number>(rs2.getString(3), rs2.getDouble(1)));
+                        } else {
+                            this.seriesBar2.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs2.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs3 = connect.executeQuery(
+                            "SELECT COUNT(*), typeObs, espece FROM Obs_Chouette JOIN Chouette ON numIndividu = leNumIndividu WHERE typeObs = 'Sonore et Visuel' GROUP BY typeObs, espece ");
+
+                    while (rs3.next()) {
+                        if (rs3.getString(3) != null) {
+                            this.seriesBar3.getData()
+                                    .add(new XYChart.Data<String, Number>(rs3.getString(3), rs3.getDouble(1)));
+                        } else {
+                            this.seriesBar3.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs3.getDouble(1)));
+                        }
+                    }
+
+                    this.dataBar.addAll(this.seriesBar, this.seriesBar2, this.seriesBar3);
+
+                    this.seriesBar.setName("Sonore");
+                    this.seriesBar2.setName("Visuel");
+                    this.seriesBar3.setName("Sonore et Visuel");
+
+                    this.xAxis.setLabel("espece");
+                    this.yAxis.setLabel("count");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("NbOeufs/Nid")) {
+            if (this.eventSrc.equals("GCI")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT SUM(nombre), leNid FROM Obs_GCI GROUP BY leNid ");
+
+                    while (rs.next()) {
+                        this.seriesBar.getData()
+                                .add(new XYChart.Data<String, Number>(rs.getString(2), rs.getDouble(1)));
+                    }
+
+                    this.dataBar.add(this.seriesBar);
+
+                    this.seriesBar.setName("idNid");
+
+                    this.xAxis.setLabel("idNid");
+                    this.yAxis.setLabel("nbOeufs");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("NbEnvols/Plage")) {
+            if (this.eventSrc.equals("GCI")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT SUM(nbEnvol), nomPlage FROM Nid_GCI GROUP BY nomPlage ORDER BY nomPlage ");
+
+                    while (rs.next()) {
+                        this.seriesBar.getData()
+                                .add(new XYChart.Data<String, Number>(rs.getString(2), rs.getDouble(1)));
+                    }
+
+                    this.dataBar.add(this.seriesBar);
+
+                    this.seriesBar.setName("nom plage");
+
+                    this.xAxis.setLabel("idNid");
+                    this.yAxis.setLabel("nbEnvols");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        } else if (type.equals("TypePeche/Espece")) {
+            if (this.eventSrc.equals("Hippocampe")) {
+                try {
+                    ResultSet rs = connect.executeQuery(
+                            "SELECT COUNT(*), typePeche, espece FROM Obs_Hippocampe WHERE typePeche = 'casierCrevettes' GROUP BY typePeche, espece ");
+
+                    while (rs.next()) {
+                        if (rs.getString(3) != null) {
+                            this.seriesBar.getData()
+                                    .add(new XYChart.Data<String, Number>(rs.getString(3), rs.getDouble(1)));
+                        } else {
+                            this.seriesBar.getData().add(
+                                    new XYChart.Data<String, Number>("typePeche inconnu", rs.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs2 = connect.executeQuery(
+                            "SELECT COUNT(*), typePeche, espece FROM Obs_Hippocampe WHERE typePeche = 'casierMorgates' GROUP BY typePeche, espece ");
+
+                    while (rs2.next()) {
+                        if (rs2.getString(3) != null) {
+                            this.seriesBar2.getData()
+                                    .add(new XYChart.Data<String, Number>(rs2.getString(3), rs2.getDouble(1)));
+                        } else {
+                            this.seriesBar2.getData().add(
+                                    new XYChart.Data<String, Number>("typePeche inconnu", rs2.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs3 = connect.executeQuery(
+                            "SELECT COUNT(*), typePeche, espece FROM Obs_Hippocampe WHERE typePeche = 'verveuxAnguilles' GROUP BY typePeche, espece ");
+
+                    while (rs3.next()) {
+                        if (rs3.getString(3) != null) {
+                            this.seriesBar3.getData()
+                                    .add(new XYChart.Data<String, Number>(rs3.getString(3), rs3.getDouble(1)));
+                        } else {
+                            this.seriesBar3.getData().add(
+                                    new XYChart.Data<String, Number>("typePeche inconnu", rs3.getDouble(1)));
+                        }
+                    }
+
+                    ResultSet rs4 = connect.executeQuery(
+                            "SELECT COUNT(*), typePeche, espece FROM Obs_Hippocampe WHERE typePeche = 'petitFilet' GROUP BY typePeche, espece ");
+
+                    while (rs4.next()) {
+                        if (rs4.getString(3) != null) {
+                            this.seriesBar4.getData()
+                                    .add(new XYChart.Data<String, Number>(rs4.getString(3), rs4.getDouble(1)));
+                        } else {
+                            this.seriesBar4.getData().add(
+                                    new XYChart.Data<String, Number>("espece inconnue", rs4.getDouble(1)));
+                        }
+                    }
+
+                    this.dataBar.addAll(this.seriesBar, this.seriesBar2, this.seriesBar3, this.seriesBar4);
+
+                    this.seriesBar.setName("casier crevettes");
+                    this.seriesBar2.setName("casier morgates");
+                    this.seriesBar3.setName("verveux anguilles");
+                    this.seriesBar4.setName("petit filet");
+
+                    this.xAxis.setLabel("espece");
+                    this.yAxis.setLabel("type peche");
                 } catch (Exception e) {
                     e.getMessage();
                 }
