@@ -76,7 +76,7 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     @FXML
     private MFXTextField txtLieuDit = new MFXTextField();
 
-    private int idObs;
+    private String idObs;
 
     @FXML
     private MFXComboBox<String> cbIndice;
@@ -87,7 +87,7 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
-            idObs = Integer.valueOf(getUserClicked());
+            idObs = getUserClicked();
             modifierObs();
             resetUserClicked();
         }
@@ -153,7 +153,7 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
         // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = " + idObs + ";");
-        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre LEFT JOIN Observation ON ObsL=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsL="+idObs+";");
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre LEFT JOIN Observation ON ObsL=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsL='"+idObs+"';");
         try {
             String datePasFormate = "";
             while (rs.next()) {
@@ -206,25 +206,36 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
 
 
     private void updateDonnees(ActionEvent event) throws SQLException{
+
         String laDate = date.dateToFormat(this.txtDate.getText()); 
-        connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs="+idObs+";");
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
+        
         ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
             lObservateur = rs.getInt("idObservateur");
         }
-        connect.executeUpdate("UPDATE AObserve SET lObservateur="+lObservateur+" WHERE lObservation="+idObs+";");
-        connect.executeUpdate("UPDATE Obs_Loutre SET commune='"+this.txtCommune.getText()+"', lieuDit='"+this.txtLieuDit.getText()+"', indice='"+this.cbIndice.getValue()+"' WHERE ObsL="+idObs+";");  
+        connect.executeUpdate("UPDATE AObserve SET lObservateur="+lObservateur+" WHERE lObservation='"+idObs+"';");
+        connect.executeUpdate("UPDATE Obs_Loutre SET commune='"+this.txtCommune.getText()+"', lieuDit='"+this.txtLieuDit.getText()+"', indice='"+this.cbIndice.getValue()+"' WHERE ObsL='"+idObs+"';");  
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
     
     private void checkDisable() {
-        if(!txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtCommune.getText().isEmpty() && !txtLieuDit.getText().isEmpty() 
-        && !txtDate.getText().isEmpty() && cbIndice.getValue() != null ) {
-            envoi.setDisable(false);
+        if (idObs!=null) {
+            if(!txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtCommune.getText().isEmpty() && !txtLieuDit.getText().isEmpty() 
+            && !txtDate.getText().isEmpty()) {
+                envoi.setDisable(true);
+            } else {
+                envoi.setDisable(false);
+            }
         } else {
-            envoi.setDisable(true);
+            if(!txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtCommune.getText().isEmpty() && !txtLieuDit.getText().isEmpty() 
+            && !txtDate.getText().isEmpty() && cbIndice.getValue() != null ){
+                envoi.setDisable(true);
+            } else {
+                envoi.setDisable(false);
+            }
         }
     }
 }

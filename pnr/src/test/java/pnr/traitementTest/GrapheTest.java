@@ -1,4 +1,4 @@
-package pnr;
+package pnr.traitementTest;
 
 import static org.junit.Assert.*;
 
