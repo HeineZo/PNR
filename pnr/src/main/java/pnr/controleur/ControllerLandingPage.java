@@ -10,6 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import pnr.modele.EncryptString;
 
+/**
+ * Manages the LandingPage
+ */
 public class ControllerLandingPage extends Controller {
 
     @FXML
@@ -25,13 +28,15 @@ public class ControllerLandingPage extends Controller {
     private MFXTextField username = new MFXTextField();
 
 
+    /**
+     * It checks if the username and password are correct, if they are, it loads the next stage
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     void submitForm(ActionEvent event) throws SQLException {
-        
         boolean found = false;
-        
         ResultSet rs = connect.executeQuery("SELECT pseudonyme, mdpUtilisateur, permission FROM Utilisateur");
-        
         while (rs.next() && !found) {
             EncryptString cryptMdp = new EncryptString(password.getText());
             if(rs.getString("pseudonyme").equals(username.getText()) && rs.getString("mdpUtilisateur").equals(cryptMdp.getEncryptedPassword())) {
@@ -48,7 +53,6 @@ public class ControllerLandingPage extends Controller {
             } 
             
         }
-
         if (!found){
             super.error("Utilisateur et/ou mot de passe incorrect", anchorPane);
         } 

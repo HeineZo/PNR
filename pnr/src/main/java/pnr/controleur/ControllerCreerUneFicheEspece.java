@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 
 /**
- * Manages the public CreerUneFicheEspece page
+ * Manages the CreerUneFicheEspece page
  */
 public class ControllerCreerUneFicheEspece extends Controller{
     
