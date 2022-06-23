@@ -185,26 +185,36 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
+        this.txtNumInd.setDisable(true);
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Chouette LEFT JOIN Chouette ON leNumIndividu=numIndividu LEFT JOIN Observation ON numObs=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE numObs='"+idObs+"';");
         try {
             String datePasFormate = "";
+            String laDate = "";
             while (rs.next()) {
                 datePasFormate = rs.getString("dateObs");
                 if (rs.getString("nom") != null){
                     this.cbObservateur.setText(rs.getString("nom"));
+                    this.cbObservateur.setValue(rs.getString("nom"));
                 } else if (rs.getString("prenom") != null){
                     this.cbObservateur.setText(rs.getString("prenom"));
+                    this.cbObservateur.setValue(rs.getString("prenom"));
                 }
                 this.txtHeure.setText(rs.getString("heureObs"));
                 this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
                 this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
                 this.cbEspece.setText(rs.getString("espece"));
+                this.cbEspece.setValue(rs.getString("espece"));
                 this.cbSexe.setText(rs.getString("sexe"));
+                this.cbSexe.setValue(rs.getString("sexe"));
                 this.cbProto.setText(rs.getString("protocole"));
+                this.cbProto.setValue(rs.getString("protocole"));
                 this.cbTypeObs.setText(rs.getString("typeObs"));
+                this.cbTypeObs.setValue(rs.getString("typeObs"));
                 this.txtNumInd.setText(rs.getString("numIndividu"));
             }
-            String laDate = date.formatToDate(datePasFormate); 
+            if (datePasFormate != null) {
+                laDate = date.formatToDate(datePasFormate); 
+            }
             this.txtDate.setText(laDate);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -219,7 +229,7 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         }
         connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         String laDate = date.dateToFormat(this.txtDate.getText());  
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"','"+this.txtHeure.getText()+"',"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
@@ -235,39 +245,37 @@ public class ControllerNouvelleObservationChouette extends Controller implements
 
     private void updateDonnees(ActionEvent event) throws SQLException{
         String laDate = date.dateToFormat(this.txtDate.getText()); 
-        if (laDate != null){
-            connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"' WHERE idObs='"+idObs+"';");
-        } if (this.txtHeure.getText() != null){
-            connect.executeUpdate("UPDATE Observation SET heureObs='"+this.txtHeure.getText()+"' WHERE idObs='"+idObs+"';");
-        } if (this.txtCoordX.getText() != null){
-            connect.executeUpdate("UPDATE Observation SET lieu_Lambert_X="+this.txtCoordX.getText()+" WHERE idObs='"+idObs+"';");
-        } if (this.txtCoordY.getText() != null){
-            connect.executeUpdate("UPDATE Observation SET lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
-        } 
+        ResultSet rs;
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"' WHERE idObs='"+idObs+"';");
+        connect.executeUpdate("UPDATE Observation SET heureObs='"+this.txtHeure.getText()+"' WHERE idObs='"+idObs+"';");
+        connect.executeUpdate("UPDATE Observation SET lieu_Lambert_X="+this.txtCoordX.getText()+" WHERE idObs='"+idObs+"';");
+        connect.executeUpdate("UPDATE Observation SET lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
 
         int lObservateur = 0;
-        if (this.cbObservateur.getValue() != null){
-            ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
-            while (rs.next()) {
-                lObservateur = rs.getInt("idObservateur");
-            }
-        } if (lObservateur != 0){
-            connect.executeUpdate("UPDATE AObserve SET lobservateur="+lObservateur+" WHERE lobservation="+idObs+";");
+        rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+        while (rs.next()) {
+            lObservateur = rs.getInt("idObservateur");
         }
 
+        connect.executeUpdate("UPDATE AObserve SET lobservateur="+lObservateur+" WHERE lobservation="+idObs+";");
+        
+        String numInd ="";
+        rs = connect.executeQuery("SELECT numIndividu FROM Chouette JOIN Obs_Chouette ON numIndividu= leNumIndividu WHERE numObs='"+idObs+"';");
+        while (rs.next()) {
+            numInd = rs.getString("numIndividu");
+        }
         if (this.cbProto.getValue() != null) {
             connect.executeUpdate("UPDATE Obs_Chouette SET protocole='"+this.cbProto.getValue()+"' WHERE numObs='"+idObs+"';"); 
         } if (this.cbTypeObs.getValue() != null) {
             connect.executeUpdate("UPDATE Obs_Chouette SET typeObs='"+this.cbTypeObs.getValue()+"' WHERE numObs='"+idObs+"';");
         } if (this.txtNumInd.getText() != null) {
             connect.executeUpdate("UPDATE Obs_Chouette SET leNumIndividu='"+this.txtNumInd.getText()+"' WHERE numObs='"+idObs+"';");
-        } if (this.txtNumInd.getText() != null) {
-            connect.executeUpdate("UPDATE Chouette SET numIndividu='"+this.txtNumInd.getText()+"' WHERE numIndividu='"+txtNumInd+"';");
         } if (this.cbEspece.getValue() != null) {
-            connect.executeUpdate("UPDATE Chouette SET espece='"+this.cbEspece.getValue()+"' WHERE numIndividu='"+txtNumInd+"';");
+            connect.executeUpdate("UPDATE Chouette SET espece='"+this.cbEspece.getValue()+"' WHERE numIndividu='"+numInd+"';");
         } if (this.cbSexe.getValue() != null) {
-            connect.executeUpdate("UPDATE Chouette SET sexe='"+this.cbSexe.getValue()+"' WHERE numIndividu='"+txtNumInd+"';");
+            connect.executeUpdate("UPDATE Chouette SET sexe='"+this.cbSexe.getValue()+"' WHERE numIndividu='"+numInd+"';");
         }
+
 
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
@@ -275,19 +283,14 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     }
 
     private void checkDisable() {
-        // if (idObs!=null) {
-        //     if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtNumInd.getText().isEmpty() && !txtCoordX.getText().isEmpty()) {
-        //         envoi.setDisable(true);
-        //     } else {
-        //         envoi.setDisable(false);
-        //     }
-        // } else {
-        //     if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtNumInd.getText().isEmpty() && !txtCoordX.getText().isEmpty()
-        //     && cbTypeObs.getValue()!= null && cbSexe.getValue() != null && cbEspece.getValue() != null && cbProto.getValue() != null){
-        //         envoi.setDisable(true);
-        //     } else {
-        //         envoi.setDisable(false);
-        //     }
-        // }
+        if(txtHeure.getText()==null || txtCoordY.getText()==null || txtNumInd.getText()==null || txtCoordX.getText()==null
+        || cbTypeObs.getValue()==null || cbSexe.getValue()==null || cbEspece.getValue()==null || cbProto.getValue()==null ||
+
+            txtHeure.getText().trim().isEmpty() || txtCoordY.getText().trim().isEmpty() || txtNumInd.getText().trim().isEmpty() || txtCoordX.getText().trim().isEmpty()
+        || cbTypeObs.getValue().trim().isEmpty() || cbSexe.getValue().trim().isEmpty() || cbEspece.getValue().trim().isEmpty() || cbProto.getValue().trim().isEmpty()){
+            envoi.setDisable(true);
+        } else {
+            envoi.setDisable(false);
+        }
     }
 }

@@ -344,6 +344,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         "LEFT JOIN Observateur ON lobservateur = idObservateur LEFT JOIN ZoneHumide ON concerne_ZH = zh_id LEFT JOIN Vegetation ON concernes_vege = idVege WHERE obsB='"+idObs+"';");
         try {
             String datePasFormate = "";
+            String laDate = "";
             while (rs.next()) {
                 datePasFormate = rs.getString("dateObs");
                 if (rs.getString("nom") != null){
@@ -386,7 +387,9 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
                 this.cbNatureVege.setValue(rs.getString("natureVege"));
                 this.txtVegetation.setText(rs.getString("vegetation"));
             }
-            String laDate = date.formatToDate(datePasFormate); 
+            if (datePasFormate != null) {
+                laDate = date.formatToDate(datePasFormate); 
+            }
             this.txtDate.setText(laDate);
         } catch (SQLException e) {
             e.printStackTrace();
