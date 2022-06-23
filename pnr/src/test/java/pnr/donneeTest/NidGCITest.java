@@ -1,4 +1,4 @@
-package pnr;
+package pnr.donneeTest;
 
 import static org.junit.Assert.*;
 
