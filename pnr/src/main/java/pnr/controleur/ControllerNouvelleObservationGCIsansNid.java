@@ -35,6 +35,9 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
     private MFXButton envoi;
 
     @FXML
+    private MFXButton supprimer;
+
+    @FXML
     private MFXScrollPane scrollPane;
 
     @FXML
@@ -115,6 +118,37 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
             e.printStackTrace();
         }
         this.cbNid.setItems(this.leNid);
+
+        this.txtDate.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtHeure.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordY.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordX.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });        
+        this.txtNombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });       
+        this.txtDate.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbObservateur.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });        
+        this.cbNature.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbPresent.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbNid.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
     }
 
     @FXML
@@ -122,6 +156,11 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         if (this.nameEspece.getText().equals("Modifier une observation")) {
             if (event.getSource() == btnBack) loadStage("../vue/DernierObservation.fxml", event);
             else if (event.getSource() == envoi) updateDonnees(event);
+            else if (event.getSource() == supprimer){
+                connect.executeUpdate("DELETE FROM Obs_GCI WHERE obsG ='"+idObs+"';");
+                initConfirmation("SuppressionObservation");
+                loadStage("../vue/Confirmation.fxml", event);
+            } 
 
         } else {
             if (event.getSource() == btnBack) loadStage("../vue/ChoixAction.fxml", event);
@@ -159,6 +198,7 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
+        this.supprimer.setVisible(true);
         // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = " + idObs + ";");
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_GCI LEFT JOIN Observation ON ObsG=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsG='"+idObs+"';");
         try {
@@ -223,5 +263,16 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
 
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
+    }
+
+    private void checkDisable() {
+        if(txtCoordY.getText() == null || txtCoordX.getText() == null || txtHeure.getText() == null || txtNombre.getText() == null 
+        || txtDate.getText() == null || cbObservateur.getValue() == null || cbNature.getValue() == null || cbPresent.getValue() == null || cbNid.getValue() == null || 
+            txtCoordY.getText().trim().isEmpty() || txtCoordX.getText().trim().isEmpty() || txtHeure.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() 
+        || txtDate.getText().trim().isEmpty() || cbObservateur.getValue().trim().isEmpty() || cbNature.getValue().trim().isEmpty() || cbPresent.getValue().trim().isEmpty() || cbNid.getValue().trim().isEmpty()){
+            envoi.setDisable(true);
+        } else {
+            envoi.setDisable(false);
+        }
     }
 }

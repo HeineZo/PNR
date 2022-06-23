@@ -61,7 +61,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MFXButton fx:id="envoi" defaultButton="true" maxWidth="100.0" onAction="#handleBtnClick" prefHeight="40.0" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Envoyer" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <MFXButton fx:id="envoi" defaultButton="true" disable="true" maxWidth="100.0" onAction="#handleBtnClick" prefHeight="40.0" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Envoyer" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></MFXButton>

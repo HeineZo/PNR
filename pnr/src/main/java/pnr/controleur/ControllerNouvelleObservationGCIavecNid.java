@@ -110,7 +110,6 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
             }
             this.cbObservateur.setItems(this.observateur);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -133,6 +132,53 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
         this.protection.add("0");
         this.protection.add("1");
         this.cbProtection.setItems(this.protection);
+    
+        this.txtDate.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtNomPlage.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtNbEnvol.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtBagueMale.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtBagueFemelle.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtHeure.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordY.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordX.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });        
+        this.txtNombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });       
+        this.txtDate.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbObservateur.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });        
+        this.cbNature.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbPresent.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbRaisonArret.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbProtection.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+    
     }
 
     @FXML
@@ -267,6 +313,19 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
 
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
-        
+    }
+
+    private void checkDisable() {
+        if(txtCoordY.getText() == null || txtCoordX.getText() == null || txtHeure.getText() == null || txtNombre.getText() == null || txtNomPlage.getText() == null 
+        || txtDate.getText() == null || cbObservateur.getValue() == null || cbNature.getValue() == null || cbPresent.getValue() == null || cbRaisonArret.getValue() == null 
+        || txtNbEnvol.getText() == null || cbProtection.getValue() == null ||txtBagueMale.getText() == null ||txtBagueFemelle.getText() == null ||
+
+            txtCoordY.getText().trim().isEmpty() || txtCoordX.getText().trim().isEmpty() || txtHeure.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() || txtNomPlage.getText().trim().isEmpty() 
+        || txtDate.getText().trim().isEmpty() || cbObservateur.getValue().trim().isEmpty() || cbNature.getValue().trim().isEmpty() || cbPresent.getValue().trim().isEmpty() || cbRaisonArret.getValue().trim().isEmpty() 
+        || txtNbEnvol.getText().trim().isEmpty() || cbProtection.getValue().trim().isEmpty() ||txtBagueMale.getText().trim().isEmpty() ||txtBagueFemelle.getText().trim().isEmpty()){
+            envoi.setDisable(true);
+        } else {
+            envoi.setDisable(false);
+        }
     }
 }
