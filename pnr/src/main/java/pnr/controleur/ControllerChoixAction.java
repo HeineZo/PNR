@@ -19,6 +19,9 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 // import animatefx.animation.*;
 import javafx.event.ActionEvent;
 
+/**
+ * Manages the choice of actions
+ */
 public class ControllerChoixAction extends Controller implements Initializable {
 
     @FXML
@@ -45,6 +48,11 @@ public class ControllerChoixAction extends Controller implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws IOException {
         if (event.getSource() == btnNewObs) {
@@ -69,10 +77,16 @@ public class ControllerChoixAction extends Controller implements Initializable {
         }
     }
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initPage(imgEspece, nameEspece);
     }
-
-
 }

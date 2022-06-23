@@ -12,6 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
+/**
+ * Manages actions from the Choose Cash page
+ */
 public class ControllerChoixEspeces extends Controller implements Initializable{
 
     @FXML
@@ -35,6 +38,11 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
     @FXML
     private Text nameUser;
 
+    /**
+    * Handle window changes on button click
+    * 
+    * @param event the event that triggered the method
+    */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBatracien) {
@@ -61,6 +69,14 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
         }
     }
 
+    /**
+     * I'm trying to get the name of the user who is connected to the application and display it in a
+     * label
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ResultSet rs = connect.executeQuery("SELECT prenom, nom FROM Utilisateur WHERE pseudonyme='" + this.getEventSrcNomUser()+"';");
@@ -73,7 +89,6 @@ public class ControllerChoixEspeces extends Controller implements Initializable{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         if (this.getEventSrcPermission().equals("1")){
             this.btnDeco.setText("Retour");
         }
