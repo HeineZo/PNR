@@ -199,8 +199,8 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
                 this.cbRaisonArret.setText(rs.getString("raisonArretObservation"));
                 this.cbRaisonArret.setValue(rs.getString("raisonArretObservation"));
                 this.txtNbEnvol.setText(rs.getString("nbEnvol"));
-                this.cbProtection.setText(rs.getString("protection "));
-                this.cbProtection.setValue(rs.getString("protection "));
+                this.cbProtection.setText(rs.getString("protection"));
+                this.cbProtection.setValue(rs.getString("protection"));
                 this.txtBagueMale.setText(rs.getString("bagueMale"));
                 this.txtBagueFemelle.setText(rs.getString("bagueFemelle"));
                 this.cbNature.setText(rs.getString("nature"));
@@ -219,8 +219,7 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
     }
 
     private void updateDonnees(ActionEvent event) throws SQLException{
-        String laDate = date.dateToFormat(this.txtDate.getText());
-
+        String laDate = date.dateToFormat(this.txtDate.getText()); 
         ResultSet rs;
         connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"' WHERE idObs='"+idObs+"';");
         connect.executeUpdate("UPDATE Observation SET heureObs='"+this.txtHeure.getText()+"' WHERE idObs='"+idObs+"';");
@@ -232,9 +231,32 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
         while (rs.next()) {
             lObservateur = rs.getInt("idObservateur");
         }
-        connect.executeUpdate("UPDATE AObserve SET lobservateur="+lObservateur+" WHERE lobservation="+idObs+";");
 
+        connect.executeUpdate("UPDATE AObserve SET lobservateur="+lObservateur+" WHERE lobservation="+idObs+";");
         
 
+        if (this.cbNature.getValue() != null) {
+            connect.executeUpdate("UPDATE Obs_GCI SET nature='"+this.cbNature.getValue()+"' WHERE obsG='"+idObs+"';");
+        } if (this.txtNombre.getText() != null) {
+            connect.executeUpdate("UPDATE Obs_GCI SET nombre='"+this.txtNombre.getText()+"' WHERE obsG='"+idObs+"';");
+        } if (this.cbPresent.getValue() != null) {
+            connect.executeUpdate("UPDATE Obs_GCI SET presentMaisNonObs='"+this.cbPresent.getValue()+"' WHERE obsG='"+idObs+"';");
+        }  if (this.txtNomPlage.getText() != null) {
+            connect.executeUpdate("UPDATE Nid_GCI SET nomPlage='"+this.txtNomPlage.getText()+"' WHERE leNid='"+idObs+"';");
+        } if (this.cbRaisonArret.getValue() != null) {
+            connect.executeUpdate("UPDATE Nid_GCI SET raisonArretObservation='"+this.cbRaisonArret.getValue()+"' WHERE leNid='"+idObs+"';");
+        } if (this.txtNbEnvol.getText() != null) {
+            connect.executeUpdate("UPDATE Nid_GCI SET nbEnvol='"+this.txtNbEnvol.getText()+"' WHERE leNid='"+idObs+"';");
+        } if (this.cbProtection.getValue() != null) {
+            connect.executeUpdate("UPDATE Nid_GCI SET protocole='"+this.cbProtection.getValue()+"' WHERE leNid='"+idObs+"';");
+        } if (this.txtBagueMale.getText() != null) {
+            connect.executeUpdate("UPDATE Nid_GCI SET bagueMale='"+this.txtBagueMale.getText()+"' WHERE leNid='"+idObs+"';");
+        } if (this.txtBagueFemelle.getText() != null) {
+            connect.executeUpdate("UPDATE Nid_GCI SET bagueFemelle='"+this.txtBagueFemelle.getText()+"' WHERE leNid='"+idObs+"';");
+        }
+
+        initConfirmation("ModifierObservation");
+        loadStage("../vue/Confirmation.fxml", event);
+        
     }
 }
