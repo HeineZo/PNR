@@ -11,6 +11,7 @@ import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
 import com.gluonhq.maps.MapView;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -70,7 +71,7 @@ public class ControllerVisualiser extends Controller implements Initializable {
     private Label label;
 
     @FXML
-    private Button bddView;
+    private MFXButton bddView;
 
     @FXML
     private Button btnBack;

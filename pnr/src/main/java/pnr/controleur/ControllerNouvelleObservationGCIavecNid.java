@@ -35,6 +35,9 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
     private MFXButton envoi;
 
     @FXML
+    private MFXButton supprimer;
+
+    @FXML
     private MFXScrollPane scrollPane;
 
     @FXML
@@ -141,6 +144,11 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
         } else {
             if (event.getSource() == btnBack) loadStage("../vue/ChoixAction.fxml", event);
             else if (event.getSource() == envoi) ajouteDonnees(event);
+            else if (event.getSource() == supprimer){
+                connect.executeUpdate("DELETE FROM Obs_GCI WHERE obsG ='"+idObs+"';");
+                initConfirmation("SuppressionObservation");
+                loadStage("../vue/Confirmation.fxml", event);
+            }   
         }
     }
 
@@ -177,6 +185,7 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
+        this.supprimer.setVisible(true);
 
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_GCI LEFT JOIN Observation ON ObsG=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsG='"+idObs+"'LEFT JOIN Nid_GCI ON leNid = idNid ;");
         try {

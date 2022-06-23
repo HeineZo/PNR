@@ -1,6 +1,5 @@
 .floating-text {
     -fx-text-fill: #2d936d;
-    /* -fx-background-color: rgba(0,0,0,0); */
 }
 
 .unavailable .floating-text {
