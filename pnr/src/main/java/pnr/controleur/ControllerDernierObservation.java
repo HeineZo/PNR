@@ -118,12 +118,11 @@ public class ControllerDernierObservation extends Controller implements Initiali
                 if (!eventSrc.equals("GCI")) {
                     loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked.getId());
                 } else if (eventSrc.equals("GCI")) {
-                    String quelNid = getEventSrcNidGCI();
-                    loadUser("../vue/NouvelleObservationGCI"+quelNid+".fxml", event, idClicked.getId());
+                    loadUser("../vue/NouvelleObservationGCIavecNid.fxml", event, idClicked.getId());
                 } 
                 
             }
-        });  
+        });
     }
 
     /**
