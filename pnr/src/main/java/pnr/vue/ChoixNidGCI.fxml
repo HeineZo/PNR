@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane styleClass="root" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pnr.controleur.ControllerNouvelleObservationGCI">
+   <children>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="283.27101135253906" minHeight="0.0" prefHeight="187.20000610351562" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="680.4541702270508" minHeight="10.0" prefHeight="612.7999938964844" vgrow="SOMETIMES" />
+            <RowConstraints percentHeight="10.0" />
+        </rowConstraints>
+         <children>
+            <ImageView id="chouettepic" fx:id="imgEspece" fitHeight="109.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+               <image>
+                  <Image url="@images/especes/gci.png" />
+               </image>
+            </ImageView>
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="582.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="37.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="150.0" />
+               </GridPane.margin>
+            </Text>
+            <Group />
+            <Button id="subtitle" fx:id="btnBack" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="44.0" prefWidth="106.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" text="Retour" textAlignment="JUSTIFY" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <MFXScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="493.0" prefWidth="571.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="50.0" />
+               </GridPane.margin>
+               <content>
+                  <AnchorPane prefWidth="805.0">
+                     <children>
+                        <GridPane layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="998.0" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="149.0">
+                           <columnConstraints>
+                              <ColumnConstraints />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <MFXButton fx:id="btnOui" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 25;" text="Oui" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <GridPane.margin>
+                                    <Insets right="20.0" />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/ChoixNid/yes.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </graphic>
+                              </MFXButton>
+                              <MFXButton fx:id="btnNon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 20;" text="Non" textFill="WHITE" GridPane.columnIndex="2">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/ChoixNid/non.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </graphic>
+                              </MFXButton>
+                           </children>
+                        </GridPane>
+                        <Text id="subtitle" fx:id="textChoixNid" layoutX="373.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un nid ?" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="33.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </content></MFXScrollPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
