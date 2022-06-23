@@ -7,11 +7,18 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+/**
+ * Handles pie charts
+ */
 public class CustomCircleMarkerLayer extends MapLayer {
 
     private final MapPoint mapPoint;
     private final Circle circle;
 
+    /**
+     * CustomCircleMarkerLayer constructor
+     * @param mapPoint mappoint
+     */
     public CustomCircleMarkerLayer(MapPoint mapPoint) {
         this.mapPoint = mapPoint;
 

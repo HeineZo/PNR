@@ -4,8 +4,15 @@ import java.sql.Date;
 import java.sql.Time;
 import pnr.modele.donnee.*;
 
+/**
+ * Test donne
+ */
 public class ScenarioDonnee {
 
+    /**
+     * Start of the programm
+     * @param args args
+     */
     public static void main(String[] args) {
 
         // Instance de chaque classe
@@ -134,6 +141,11 @@ public class ScenarioDonnee {
 
     // Lieu
 
+    /**
+     * It tests the getXCoord() method of the Lieu class
+     * 
+     * @param result the expected result
+     */
     static void testGetXCoord(double result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         double resExec = lieu.getXCoord();
@@ -145,6 +157,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the setXCoord function of the Lieu class
+     * 
+     * @param XCoord the X coordinate of the location
+     */
     static void testSetXCoord(double XCoord) {
         Lieu lieu = new Lieu(0.1, 1.0);
         lieu.setXCoord(10.10);
@@ -156,6 +173,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the getYCoord() method of the Lieu class
+     * 
+     * @param result the expected result
+     */
     static void testGetYCoord(double result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         double resExec = lieu.getYCoord();
@@ -167,6 +189,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the setYCoord() method of the Lieu class
+     * 
+     * @param YCoord the Y coordinate of the location
+     */
     static void testSetYCoord(double YCoord) {
         Lieu lieu = new Lieu(0.1, 1.0);
         lieu.setYCoord(101.10);
@@ -179,6 +206,9 @@ public class ScenarioDonnee {
     }
 
     // tests getters et setters Chouette
+    /**
+     * This function tests the getIdChouette() method of the Chouette class
+     */
     private static void testGetId() {
         Chouette chouette = new Chouette("1", Sexe.FEMELLE, EspeceChouette.CHEVECHE);
         if (chouette.getIdChouette() == "1") {
@@ -188,6 +218,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the setIdChouette() method of the Chouette class
+     */
     private static void testSetId() {
         Chouette chouette = new Chouette("1", Sexe.FEMELLE, EspeceChouette.CHEVECHE);
         chouette.setIdChouette("10");
@@ -199,6 +232,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the getEspece() method of the Chouette class
+     */
     private static void testGetEspeceChouette() {
         Chouette chouette = new Chouette("1", Sexe.FEMELLE, EspeceChouette.CHEVECHE);
         if (chouette.getEspece() == EspeceChouette.CHEVECHE) {
@@ -208,6 +244,10 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * The function testSetEspeceChouette() creates a new instance of the class Chouette, sets its
+     * species to CHEVECHE, then sets its species to EFFRAIE
+     */
     private static void testSetEspeceChouette() {
         Chouette chouette = new Chouette("1", Sexe.FEMELLE, EspeceChouette.CHEVECHE);
         chouette.setEspece(EspeceChouette.EFFRAIE);
@@ -219,6 +259,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the getSexe() method of the Chouette class
+     */
     private static void testGetSexeChouette() {
         Chouette chouette = new Chouette("1", Sexe.FEMELLE, EspeceChouette.CHEVECHE);
         if (chouette.getSexe() == Sexe.FEMELLE) {
@@ -228,6 +271,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the setSexe method of the Chouette class
+     */
     private static void testSetSexeChouette() {
         Chouette chouette = new Chouette("1", Sexe.FEMELLE, EspeceChouette.CHEVECHE);
         chouette.setSexe(Sexe.MALE);
@@ -239,6 +285,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * Test getter the creation of Chouette Observations object
+     */
     private static void testGetLesObservationsChouette() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -256,6 +305,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * Test setter the creation of Chouette Observations object
+     */
     private static void testSetLesObservationsChouette() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -279,6 +331,11 @@ public class ScenarioDonnee {
 
     // ObsBatracien
 
+    /**
+     * This function tests the getEspeceBatracien() function of the ObsBatracien class.
+     * 
+     * @param result the expected result
+     */
     static void testGetEspeceBatracien(EspeceBatracien result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -298,6 +355,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * I'm trying to test the setEspeceBatracien function of the ObsBatracien class
+     * 
+     * @param especeBatracien the species of the amphibian
+     */
     static void testSetEspeceBatracien(EspeceBatracien especeBatracien) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -317,6 +379,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the getNombreAdultes() function of the ObsBatracien class.
+     * 
+     * @param result the expected result
+     */
     static void testGetNombreAdultes(int result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -336,6 +403,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the getNombreAmplexus() method of the ObsBatracien class
+     * 
+     * @param result the expected result
+     */
     static void testGetNombreAmplexus(int result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -355,6 +427,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the getNombreTetard() method of the ObsBatracien class
+     * 
+     * @param result the expected result
+     */
     static void testGetNombreTetard(int result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -374,6 +451,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the getNombrePonte() method of the ObsBatracien class
+     * 
+     * @param result the expected result
+     */
     static void testGetNombrePonte(int result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -394,6 +476,9 @@ public class ScenarioDonnee {
     }
 
     // tests getters et setters NidGCI
+    /**
+     * This function tests the setNbEnvol() method of the NidGCI class
+     */
     private static void testSetNbEnvol() {
         NidGCI nidGCI = new NidGCI(1, "Conleau");
         nidGCI.setNbEnvol(3);
@@ -405,6 +490,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the getIdNid() function of the NidGCI class
+     */
     private static void testGetIdNid() {
         NidGCI nidGCI = new NidGCI(1, "Conleau");
         if (nidGCI.getIdNid() == 1) {
@@ -414,6 +502,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * The function testSetIdNid() tests the setIdNid() method of the NidGCI class
+     */
     private static void testSetIdNid() {
         NidGCI nidGCI = new NidGCI(1, "Conleau");
         nidGCI.setIdNid(14);
@@ -425,6 +516,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the getNomPlage() method of the NidGCI class
+     */
     private static void testGetNomPlage() {
         NidGCI nidGCI = new NidGCI(1, "Conleau");
         if (nidGCI.getNomPlage() == "Conleau") {
@@ -434,6 +528,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the setNomPlage() method of the NidGCI class
+     */
     private static void testSetNomPlage() {
         NidGCI nidGCI = new NidGCI(1, "Conleau");
         nidGCI.setNomPlage("Rudevent");
@@ -445,6 +542,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * Test getter the creation of GCI Observations object
+     */
     private static void testGetLesObservationsNidGCI() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -461,6 +561,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * Test setter the creation of GCI Observations object
+     */
     private static void testSetLesObservationsNidGCI() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -480,6 +583,10 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * I create an ObsHippocampe object and I test if the getTypePeche() function returns the same
+     * value as the one I gave to the constructor
+     */
     private static void testGetTypePeche() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -493,6 +600,10 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * I create an ObsHippocampe object, then I set its type of fishing to PETIT_FILET, and I check if
+     * the type of fishing is indeed PETIT_FILET
+     */
     private static void testSetTypePeche() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -507,6 +618,10 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * I'm creating an object of type ObsHippocampe, and I'm testing if the getEspece() method returns
+     * the same value as the one I gave to the constructor
+     */
     private static void testGetEspeceHippocampe() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -520,6 +635,10 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * I create an ObsHippocampe object, then I change the value of the attribute espece with the
+     * setEspece() method, and finally I check if the value of the attribute espece has changed
+     */
     private static void testSetEspeceHippocampe() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -534,6 +653,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the getSexe() method of the ObsHippocampe class
+     */
     private static void testGetSexeHippocampe() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -547,6 +669,10 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * I create an object of type ObsHippocampe, I set the sexe to Sexe.INCONNU, then I set the sexe to
+     * Sexe.FEMELLE and I check if the sexe is Sexe.FEMELLE
+     */
     private static void testSetSexeHippocampe() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -561,6 +687,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * The function testGetTaille() tests the getTaille() function of the ObsHippocampe class
+     */
     private static void testGetTaille() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -574,6 +703,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the setTaille() function of the ObsHippocampe class
+     */
     private static void testSetTaille() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -588,6 +720,10 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * I create an object of type ObsHippocampe, then I call the setEstGestant() method on it, and
+     * finally I check if the value of the attribute estGestant is false
+     */
     private static void testSetEstGestant() {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -604,6 +740,11 @@ public class ScenarioDonnee {
 
     // tests obsChouette
 
+    /**
+     * This function tests the getTypeObs() function of the ObsChouette class.
+     * 
+     * @param result the expected result
+     */
     static void testGetTypeObs(TypeObservation result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -618,6 +759,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the setTypeObs function of the ObsChouette class.
+     * 
+     * @param typeObs TypeObservation
+     */
     static void testSetTypeObs(TypeObservation typeObs) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -632,6 +778,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the getEspeceObs() method of the ObsChouette class
+     * 
+     * @param result the expected result
+     */
     static void testGetEspeceObs(EspeceObservee result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -648,6 +799,11 @@ public class ScenarioDonnee {
 
     // tests ObsGCI
 
+    /**
+     * This function is used to test the getNatureObs() function of the ObsGCI class
+     * 
+     * @param result the expected result
+     */
     static void testGetNatureObs(ContenuNid result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -661,6 +817,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the setNatureObs function of the ObsGCI class.
+     * 
+     * @param contenuNid the parameter that is passed to the method
+     */
     static void testSetNatureObs(ContenuNid contenuNid) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -674,6 +835,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * "testGetNombre" is a static method that takes an integer as a parameter and returns nothing
+     * 
+     * @param result the expected result
+     */
     static void testGetNombre(int result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -687,6 +853,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the setNombre method of the ObsGCI class
+     * 
+     * @param nombre the number of the observation
+     */
     static void testSetNombre(int nombre) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -701,6 +872,9 @@ public class ScenarioDonnee {
     }
 
     // test getters et setters Obervateurs
+    /**
+     * This function tests the getIdObservateur() function of the Observateur class
+     */
     private static void testGetIdObservateur() {
         Observateur observateur = new Observateur(1, "Maxime", "Charge");
 
@@ -711,6 +885,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests the setIdObservateur() method of the Observateur class
+     */
     private static void testSetIdObservateur() {
         Observateur observateur = new Observateur(1, "Charge", "Maxime");
         observateur.setIdObservateur(4);
@@ -722,6 +899,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the getNom() method of the Observateur class
+     */
     private static void testGetNom() {
         Observateur observateur = new Observateur(1, "Charge", "Maxime");
 
@@ -732,6 +912,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the setNom() function of the Observateur class
+     */
     private static void testSetNom() {
         Observateur observateur = new Observateur(1, "Guegan", "Maxime");
         observateur.setNom("Charge");
@@ -743,6 +926,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * This function tests the getPrenom() function of the Observateur class
+     */
     private static void testGetPrenom() {
         Observateur observateur = new Observateur(1, "Charge", "Maxime");
 
@@ -753,6 +939,9 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * The function testSetPrenom() tests the setPrenom() function of the Observateur class
+     */
     private static void testSetPrenom() {
         Observateur observateur = new Observateur(1, "Charge", "Maxime");
         observateur.setPrenom("Safe");
@@ -766,6 +955,11 @@ public class ScenarioDonnee {
 
     // tests ObsLoutre
 
+    /**
+     * This function tests the getIndice() method of the ObsLoutre class
+     * 
+     * @param result the expected result
+     */
     static void testGetIndice(IndiceLoutre result) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();
@@ -780,6 +974,11 @@ public class ScenarioDonnee {
         }
     }
 
+    /**
+     * It tests if the setter of the attribute "indice" of the class ObsLoutre works
+     * 
+     * @param indiceLoutre IndiceLoutre.POSITIF or IndiceLoutre.NEGATIF
+     */
     static void testSetIndice(IndiceLoutre indiceLoutre) {
         Lieu lieu = new Lieu(0.1, 1.0);
         ArrayList<Observateur> o = new ArrayList<Observateur>();

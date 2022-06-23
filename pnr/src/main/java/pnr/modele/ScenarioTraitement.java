@@ -7,8 +7,15 @@ import java.util.HashMap;
 import pnr.modele.donnee.*;
 import pnr.modele.traitement.*;
 
+/**
+ * Perform tests on the data
+ */
 public class ScenarioTraitement {
 
+    /**
+     * Start of the programm
+     * @param args args
+     */
     public static void main(String[] args) {
         System.out.println("\n**Classe Sommet");
 
@@ -222,7 +229,5 @@ public class ScenarioTraitement {
         } else {
             System.out.print("ERREUR\n");
         }
-
-        
     }  
 }

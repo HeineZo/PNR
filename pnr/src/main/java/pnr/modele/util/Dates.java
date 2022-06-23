@@ -1,8 +1,15 @@
 package pnr.modele.util;
 
+/**
+ * Manege Date
+ */
 public class Dates {
-    
-
+    /**
+     * It takes a date in the format "dd mmm. yyyy" and returns it in the format "yyyy-mm-dd"
+     * 
+     * @param chaine the string to be formatted
+     * @return The date in the format YYYY-MM-DD
+     */
     public String dateToFormat(String chaine){
         String ret ="";
         String[] split = chaine.split(" ");
@@ -36,6 +43,12 @@ public class Dates {
         return ret;
     }
 
+    /**
+     * It takes a date in the format YYYY-MM-DD and returns a string in the format DD MMM YYYY
+     * 
+     * @param chaine the date in the format "yyyy-mm-dd"
+     * @return A string
+     */
     public String formatToDate(String chaine){
         String ret ="";
         String[] split = chaine.split("-");
