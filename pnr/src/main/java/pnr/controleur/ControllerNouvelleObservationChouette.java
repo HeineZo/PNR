@@ -23,6 +23,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
+/**
+ * Manages the NouvelleObservationChouette page
+ */
 public class ControllerNouvelleObservationChouette extends Controller implements Initializable {
     
     @FXML
@@ -82,6 +85,14 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     @FXML
     private MFXTextField txtNumInd = new MFXTextField();
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
@@ -158,6 +169,11 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         });
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (this.nameEspece.getText().equals("Modifier une observation")) {
@@ -175,6 +191,9 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         }
     }
 
+    /**
+     * It gets the data from the database and puts it in the textfields
+     */
     private void modifierObs() {
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
@@ -217,6 +236,11 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         }
     }
 
+    /**
+     * It adds data to the database
+     * 
+     * @param event the event that triggered the method
+     */
     private void ajouteDonnees(ActionEvent event) throws SQLException{
         ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
         int idDerniereObs = 0;
@@ -239,6 +263,11 @@ public class ControllerNouvelleObservationChouette extends Controller implements
         loadStage("../vue/Confirmation.fxml", event);
     }
 
+    /**
+     * It updates the database with the new values of the fields
+     * 
+     * @param event the event that triggered the method
+     */
     private void updateDonnees(ActionEvent event) throws SQLException{
         String laDate = date.dateToFormat(this.txtDate.getText()); 
         ResultSet rs;
@@ -276,6 +305,10 @@ public class ControllerNouvelleObservationChouette extends Controller implements
 
     }
 
+    /**
+     * If the textfields are empty, the button is disabled. If the textfields are not empty, the button
+     * is enabled.
+     */
     private void checkDisable() {
         if(txtHeure.getText()==null || txtCoordY.getText()==null || txtNumInd.getText()==null || txtCoordX.getText()==null
         || cbTypeObs.getValue()==null || cbSexe.getValue()==null || cbEspece.getValue()==null || cbProto.getValue()==null ||

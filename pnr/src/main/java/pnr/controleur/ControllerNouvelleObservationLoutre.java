@@ -16,6 +16,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import pnr.modele.util.Dates;
 
+/**
+ * Manages the NouvelleObservationLoutre page
+ */
 public class ControllerNouvelleObservationLoutre extends Controller implements Initializable{
 
     @FXML
@@ -69,6 +72,14 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
 
     private Dates date = new Dates();
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
@@ -121,6 +132,11 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         });
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (this.nameEspece.getText().equals("Modifier une observation")) {
@@ -138,6 +154,9 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         }
     }
 
+    /**
+     * It gets the data from the database and puts it in the textfields
+     */
     private void modifierObs() {
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
@@ -174,6 +193,11 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         }
     }
     
+    /**
+     * It adds data to the database
+     * 
+     * @param event the event that triggered the method
+     */
     private void ajouteDonnees(ActionEvent event) throws SQLException{
         ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
         int idDerniereObs = 0;
@@ -192,15 +216,17 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         }
         connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
         connect.executeUpdate("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");  
-        
-
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
 
 
+    /**
+     * It updates the database with the new values of the fields
+     * 
+     * @param event the event that triggered the method
+     */
     private void updateDonnees(ActionEvent event) throws SQLException{
-
         String laDate = date.dateToFormat(this.txtDate.getText()); 
         connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"', heureObs='"+this.txtHeure.getText()+"', lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
         
@@ -215,6 +241,10 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         loadStage("../vue/Confirmation.fxml", event);
     }
     
+    /**
+     * If the textfields are empty, the button is disabled. If the textfields are not empty, the button
+     * is enabled.
+     */
     private void checkDisable() {
         if(txtCoordY.getText() == null || txtCoordX.getText() == null || txtCommune.getText() == null || txtLieuDit.getText() == null 
         || txtDate.getText() == null || cbIndice.getValue() == null ||
