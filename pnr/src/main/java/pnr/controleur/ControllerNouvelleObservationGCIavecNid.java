@@ -87,7 +87,7 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
     @FXML
     private MFXTextField txtBagueFemelle;
 
-    private Dates date = new Dates();
+    Dates date = new Dates();
 
     private String idObs;
 
@@ -219,7 +219,7 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
                 this.cbPresent.setText(rs.getString("presentMaisNonObs"));
                 this.cbPresent.setValue(rs.getString("presentMaisNonObs"));
             }
-            if (datePasFormate.equals("")) {
+            if (datePasFormate != null) {
                 laDate = date.formatToDate(datePasFormate); 
             }
             this.txtDate.setText(laDate);
