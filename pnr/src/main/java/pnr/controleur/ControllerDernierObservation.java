@@ -104,7 +104,13 @@ public class ControllerDernierObservation extends Controller implements Initiali
             @Override
             public void handle(MouseEvent event) {
                 ObservationFactory idClicked = listView.getSelectionModel().getSelectedValues().get(0);
-                loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked.getId());
+                if (!eventSrc.equals("GCI")) {
+                    loadUser("../vue/NouvelleObservation"+eventSrc+".fxml", event, idClicked.getId());
+                } else if (eventSrc.equals("GCI")) {
+                    
+                    loadUser("../vue/NouvelleObservationGCIsansNid.fxml", event, idClicked.getId());
+                } 
+                
             }
         });  
     }
