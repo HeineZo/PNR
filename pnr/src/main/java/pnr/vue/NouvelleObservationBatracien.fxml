@@ -41,7 +41,7 @@
                   <Image url="@images/especes/grenouille.png" />
                </image>
             </ImageView>
-            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="383.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="540.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <font>
                   <Font name="Arial Rounded MT Bold" size="37.0" />
                </font>
@@ -196,30 +196,30 @@
                                  </GridPane.margin>
                               </Line>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Zone Humide" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Zone Humide" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="400.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Observation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Observation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="400.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" />
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Batracien" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Batracien" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="400.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
@@ -262,12 +262,12 @@
                               </MFXComboBox>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="17" />
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="17" />
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Végétation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="17">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Végétation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="17">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="400.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
                               <MFXComboBox fx:id="cbNatureVege" floatMode="BORDER" floatingText="Nature de la végétation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="18">
