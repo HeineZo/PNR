@@ -177,8 +177,10 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
                 this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
                 this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
                 this.cbNature.setText(rs.getString("nature"));
+                this.cbNature.setValue(rs.getString("nature"));
                 this.txtNombre.setText(rs.getString("nombre"));
                 this.cbPresent.setText(rs.getString("presentMaisNonObs"));
+                this.cbPresent.setValue(rs.getString("presentMaisNonObs"));
             }
             if (!datePasFormate.equals("")) {
                 laDate = date.formatToDate(datePasFormate); 
