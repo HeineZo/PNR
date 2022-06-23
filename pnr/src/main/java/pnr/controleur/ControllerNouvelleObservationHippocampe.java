@@ -307,19 +307,11 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
 
     private void checkDisable() {
-        if (idObs!=null) {
-            if(txtCoordY.getText().isEmpty() || txtTaille.getText().isEmpty() || txtCoordX.getText().isEmpty() || txtTemperature.getText().isEmpty() || txtDate.getText().isEmpty()) {
-                envoi.setDisable(true);
-            } else {
-                envoi.setDisable(false);
-            }
+        if(txtCoordY.getText().isEmpty() || txtTaille.getText().isEmpty() || txtCoordX.getText().isEmpty() || txtTemperature.getText().isEmpty() || txtDate.getText().isEmpty()
+        || cbEspece.getValue().isEmpty()|| cbSexe.getValue().isEmpty() || cbTypePeche.getValue().isEmpty() || cbObservateur.getValue().isEmpty() || cbGestant.getValue().isEmpty()){
+            envoi.setDisable(true);
         } else {
-            if(txtCoordY.getText().isEmpty() || txtTaille.getText().isEmpty() || txtCoordX.getText().isEmpty() || txtTemperature.getText().isEmpty() || txtDate.getText().isEmpty()
-            || cbEspece.getValue() == null|| cbSexe.getValue()==null || cbTypePeche.getValue()==null || cbObservateur.getValue()==null || cbGestant.getValue()==null){
-                envoi.setDisable(true);
-            } else {
-                envoi.setDisable(false);
-            }
+            envoi.setDisable(false);
         }
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -55,79 +54,73 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MFXScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="493.0" prefWidth="571.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets bottom="50.0" />
-               </GridPane.margin>
-               <content>
-                  <AnchorPane prefWidth="805.0">
+            <AnchorPane prefWidth="805.0" GridPane.rowIndex="1">
+               <children>
+                  <GridPane layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="1000.0" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="149.0">
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
-                        <GridPane layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="998.0" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="149.0">
-                           <columnConstraints>
-                              <ColumnConstraints />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <MFXButton fx:id="btnOui" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 25;" text="Oui" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                        <MFXButton fx:id="btnOui" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 25;" text="Oui" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/ChoixNid/yes.png" />
+                                 </image>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                                 <GridPane.margin>
-                                    <Insets right="20.0" />
-                                 </GridPane.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/ChoixNid/yes.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                 </graphic>
-                              </MFXButton>
-                              <MFXButton fx:id="btnNon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 20;" text="Non" textFill="WHITE" GridPane.columnIndex="2">
+                              </ImageView>
+                           </graphic>
+                        </MFXButton>
+                        <MFXButton fx:id="btnNon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="65.0" prefWidth="155.0" rippleColor="WHITE" style="-fx-background-color: #2D936D; -fx-background-radius: 30; -fx-font-size: 20;" text="Non" textFill="WHITE" GridPane.columnIndex="2">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@images/ChoixNid/non.png" />
+                                 </image>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                                 <GridPane.margin>
-                                    <Insets left="20.0" />
-                                 </GridPane.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/ChoixNid/non.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
-                                 </graphic>
-                              </MFXButton>
-                           </children>
-                        </GridPane>
-                        <GridPane layoutY="95.0" prefHeight="54.0" prefWidth="1000.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Text id="subtitle" fx:id="textChoixNid" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un nid ?" textAlignment="CENTER" GridPane.halignment="CENTER">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="33.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </GridPane>
+                              </ImageView>
+                           </graphic>
+                        </MFXButton>
                      </children>
-                  </AnchorPane>
-               </content></MFXScrollPane>
+                  </GridPane>
+                  <GridPane layoutY="95.0" prefHeight="54.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text id="subtitle" fx:id="textChoixNid" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 40;" text="Ajouter un nid ?" textAlignment="CENTER" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="33.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
          </children>
       </GridPane>
    </children>
