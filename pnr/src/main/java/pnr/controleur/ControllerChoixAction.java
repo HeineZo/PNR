@@ -20,7 +20,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 
 /**
- * Manages the choice of actions
+ * Manages the ChoixAction
  */
 public class ControllerChoixAction extends Controller implements Initializable {
 

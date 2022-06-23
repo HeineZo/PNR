@@ -19,6 +19,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import pnr.modele.EncryptString;
 
+/**
+ * Manages the NouveauProfil
+ */
 public class ControllerNouveauProfil extends Controller implements Initializable{
 
     @FXML
@@ -50,6 +53,14 @@ public class ControllerNouveauProfil extends Controller implements Initializable
 
     private ObservableList<String> permissionChoices = FXCollections.observableArrayList();
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.permissionChoices.add("Utilisateur");
@@ -75,6 +86,11 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (event.getSource() == btnBack) {
@@ -100,6 +116,12 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         }
     }
 
+    /**
+     * It returns an integer based on the value of a combobox
+     * 
+     * @param perm the MFXComboBox
+     * @return The value of the selected item in the combobox.
+     */
     public int getPerm(MFXComboBox<String> perm) {
         int ret = -1;
         if(perm != null) {
@@ -114,6 +136,9 @@ public class ControllerNouveauProfil extends Controller implements Initializable
         return ret;
     }
 
+    /**
+     * If the text fields are not empty and the combo box has a value, enable the button
+     */
     private void checkDisable() {
         if(!txtPrenom.getText().isEmpty() && !txtNom.getText().isEmpty() && !txtMdp.getText().isEmpty() && !txtPseudo.getText().isEmpty() && cbPerm.getValue() != null) {
             btnCreer.setDisable(false);
