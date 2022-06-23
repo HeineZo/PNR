@@ -177,6 +177,7 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
         connect.executeUpdate("INSERT INTO Nid_GCI VALUES ("+(idDernierNid+1)+",'"+this.txtNomPlage.getText()+"','"+this.cbRaisonArret.getValue()+"',"+this.txtNbEnvol.getText()+","+this.cbProtection.getValue()+",'"+this.txtBagueMale.getText()+"','"+this.txtBagueFemelle.getText()+"');");
         connect.executeUpdate("INSERT INTO Obs_GCI VALUES ("+(idDerniereObs + 1)+",'"+this.cbNature.getValue()+"',"+this.txtNombre.getText()+","+this.cbPresent.getValue()+","+(idDernierNid+1)+");");  
         
+        initNidGCI("avecNid");
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
@@ -187,7 +188,7 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
         this.txtCoordY.setDisable(true);
         this.supprimer.setVisible(true);
 
-        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_GCI LEFT JOIN Observation ON ObsG=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsG='"+idObs+"'LEFT JOIN Nid_GCI ON leNid = idNid ;");
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_GCI, Nid_GCI,Observation,AObserve,Observateur WHERE idNid = leNid AND lobservation = idObs AND lobservateur = idObservateur AND obsG = idObs AND idObs ="+idObs+";");
         try {
             String datePasFormate = "";
             String laDate = "";

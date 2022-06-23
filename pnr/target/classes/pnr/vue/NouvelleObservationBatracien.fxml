@@ -301,6 +301,21 @@
                      </children>
                   </AnchorPane>
                </content></MFXScrollPane>
+            <MFXButton fx:id="supprimer" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="44.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" styleClass="delete" stylesheets="@css/style.css" text="Supprimer" textFill="WHITE" visible="false" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logo/trash.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </MFXButton>
          </children>
       </GridPane>
    </children>
