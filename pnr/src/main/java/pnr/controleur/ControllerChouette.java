@@ -6,6 +6,9 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 
+/**
+ * ControllerChouette class controller
+ */
 public class ControllerChouette {
 
     @FXML
@@ -35,6 +38,9 @@ public class ControllerChouette {
     @FXML
     private MFXTextField txtHeure;
 
+    /**
+     * This function is called when the user clicks the "Modify" button
+     */
     public void initModify() {
         System.out.println("hello world");
     }

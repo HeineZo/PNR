@@ -28,6 +28,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * Manages the GererProfils page
+ */
 public class ControllerGererProfils extends Controller implements Initializable{
 
     @FXML
@@ -45,6 +48,14 @@ public class ControllerGererProfils extends Controller implements Initializable{
     @FXML
     private GridPane gridPane;
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<ObservationFactory> list = new ArrayList<ObservationFactory>();
@@ -79,6 +90,11 @@ public class ControllerGererProfils extends Controller implements Initializable{
         });  
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {

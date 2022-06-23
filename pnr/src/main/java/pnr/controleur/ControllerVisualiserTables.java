@@ -33,6 +33,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * Controller View Tables
+ */
 public class ControllerVisualiserTables extends Controller implements Initializable {
 
     private String eventSrc;

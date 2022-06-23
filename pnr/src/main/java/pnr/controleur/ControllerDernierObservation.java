@@ -26,6 +26,9 @@ import javafx.collections.ObservableList;
 import javafx.event.*;
 import pnr.modele.util.*;
 
+/**
+ * Manages the DernierObservation page
+ */
 public class ControllerDernierObservation extends Controller implements Initializable{
 
     @FXML
@@ -42,6 +45,14 @@ public class ControllerDernierObservation extends Controller implements Initiali
 
     private String table, id, eventSrc;
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<ObservationFactory> list = new ArrayList<>();
@@ -115,6 +126,11 @@ public class ControllerDernierObservation extends Controller implements Initiali
         });  
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
