@@ -41,7 +41,7 @@
                   <Image url="@images/especes/chouette.png" />
                </image>
             </ImageView>
-            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="383.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="563.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <font>
                   <Font name="Arial Rounded MT Bold" size="37.0" />
                </font>
@@ -61,7 +61,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MFXButton fx:id="envoi" defaultButton="true" maxWidth="100.0" onAction="#handleBtnClick" prefHeight="40.0" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Envoyer" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <MFXButton fx:id="envoi" defaultButton="true" disable="true" maxWidth="100.0" onAction="#handleBtnClick" prefHeight="40.0" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Envoyer" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></MFXButton>
@@ -181,6 +181,21 @@
                   </AnchorPane>
                </content>
             </MFXScrollPane>
+            <MFXButton fx:id="supprimer" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBtnClick" prefHeight="44.0" style="-fx-background-color: #9B0926; -fx-background-radius: 30; -fx-font-size: 18;" styleClass="delete" stylesheets="@css/style.css" text="Supprimer" textFill="WHITE" visible="false" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logo/trash.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <GridPane.margin>
+                  <Insets right="200.0" />
+               </GridPane.margin>
+            </MFXButton>
          </children>
       </GridPane>
    </children>

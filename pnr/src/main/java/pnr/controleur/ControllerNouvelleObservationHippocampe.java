@@ -5,10 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
-import org.apache.commons.lang3.StringUtils;
 import pnr.modele.util.Dates;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -17,18 +13,16 @@ import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.util.StringConverter;
-import pnr.modele.donneeAddsOn.TabObservateur;
+
 
 public class ControllerNouvelleObservationHippocampe extends Controller implements Initializable{
     @FXML
@@ -42,6 +36,9 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
     @FXML
     private MFXButton envoi;
+    
+    @FXML
+    private MFXButton supprimer;
 
     @FXML
     private MFXScrollPane scrollPane;
@@ -136,6 +133,9 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         this.txtCoordY.textProperty().addListener((observable, oldValue, newValue) -> {
             checkDisable();
         });
+        this.txtHeure.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
         this.txtCoordX.textProperty().addListener((observable, oldValue, newValue) -> {
             checkDisable();
         });
@@ -170,10 +170,15 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         if (this.nameEspece.getText().equals("Modifier une observation")) {
             if (event.getSource() == btnBack) loadStage("../vue/DernierObservation.fxml", event);
             else if (event.getSource() == envoi) updateDonnees(event);
-
+            else if (event.getSource() == supprimer){
+                connect.executeUpdate("DELETE FROM Obs_Hippocampe WHERE obsH ='"+idObs+"';");
+                initConfirmation("SuppressionObservation");
+                loadStage("../vue/Confirmation.fxml", event);
+            }   
         } else {
             if (event.getSource() == btnBack) loadStage("../vue/ChoixAction.fxml", event);
             else if (event.getSource() == envoi) ajouteDonnees(event);
+                 
         }
     }
 
@@ -208,6 +213,7 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
+        this.supprimer.setVisible(true);
         
         
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH='"+idObs+"';");
@@ -226,21 +232,25 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
                 if(rs.getString("gestant").equals("0")){
                     this.cbGestant.setText("non");
+                    this.cbGestant.setValue("non");
                 } else {
                     this.cbGestant.setText("oui");
+                    this.cbGestant.setValue("oui");
                 }
                 
                 this.txtHeure.setText(rs.getString("heureObs"));
-                this.txtCoordY.setText("lieu_Lambert_Y");
-                this.txtCoordX.setText("lieu_Lambert_X");
+                this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
+                this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
                 this.cbEspece.setText(rs.getString("espece"));
+                this.cbEspece.setValue(rs.getString("espece"));
                 this.cbSexe.setText(rs.getString("sexe"));
+                this.cbSexe.setValue(rs.getString("sexe"));
                 this.cbTypePeche.setText(rs.getString("typePeche"));
+                this.cbTypePeche.setValue(rs.getString("typePeche"));
                 this.txtTemperature.setText(rs.getString("temperatureEau"));
                 this.txtTaille.setText(rs.getString("gestant"));
-
             }
-            if (datePasFormate.equals("")) {
+            if (!datePasFormate.equals("")) {
                 laDate = date.formatToDate(datePasFormate); 
             }
             this.txtDate.setText(laDate);
@@ -300,8 +310,8 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
     private void checkDisable() {
         if(txtCoordY.getText() == null|| txtTaille.getText() == null || txtCoordX.getText() == null || txtTemperature.getText() == null || txtDate.getText() == null
-        || cbEspece.getValue() == null || cbSexe.getValue() == null || cbTypePeche.getValue() == null || cbObservateur.getValue() == null || cbGestant.getValue() == null ||
-            txtCoordY.getText().trim().isEmpty()|| txtTaille.getText().trim().isEmpty() || txtCoordX.getText().trim().isEmpty() || txtTemperature.getText().trim().isEmpty() || txtDate.getText().trim().isEmpty()
+        || cbEspece.getValue() == null || cbSexe.getValue() == null || cbTypePeche.getValue() == null || cbObservateur.getValue() == null || cbGestant.getValue() == null || txtHeure.getText() == null ||
+            txtCoordY.getText().trim().isEmpty()|| txtTaille.getText().trim().isEmpty() || txtCoordX.getText().trim().isEmpty() || txtTemperature.getText().trim().isEmpty() || txtDate.getText().trim().isEmpty() ||txtHeure.getText().trim().isEmpty()
         || cbEspece.getValue().trim().isEmpty() || cbSexe.getValue().trim().isEmpty() || cbTypePeche.getValue().trim().isEmpty() || cbObservateur.getValue().trim().isEmpty() || cbGestant.getValue().trim().isEmpty()){
             envoi.setDisable(true);
         } else {
