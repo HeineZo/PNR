@@ -3,6 +3,7 @@ package pnr.controleur;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -84,14 +85,15 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
     @FXML
     private MFXTextField txtTaille = new MFXTextField();
 
-    private int idObs;
+    private String idObs;
+    ArrayList<String> hippo;
 
     private Dates date = new Dates();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
-            idObs = Integer.valueOf(getUserClicked());
+            idObs = getUserClicked();
             modifierObs();
             resetUserClicked();
         }
@@ -207,56 +209,96 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
         
-        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservateur = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH="+idObs+";");
-        
+        // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservateur = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH="+idObs+";");
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH='"+idObs+"';");
         try {
-            String datePasFormate = "";
+            hippo = new ArrayList<String>();
             while (rs.next()) {
-                datePasFormate = rs.getString("dateObs");
-                if (rs.getString("nom") != null){
-                    this.cbObservateur.setText(rs.getString("nom"));
-                } else if (rs.getString("prenom") != null){
-                    this.cbObservateur.setText(rs.getString("prenom"));
-                }
+                hippo.add(rs.getString("dateObs")); //0
+                hippo.add(rs.getString("nom")); //1
+                hippo.add(rs.getString("prenom")); //2
+                hippo.add(rs.getString("dateObs")); //3
+                hippo.add(rs.getString("heureObs"));  //4
+                hippo.add(rs.getString("lieu_Lambert_Y")); //5
+                hippo.add(rs.getString("lieu_Lambert_X")); //6
+                hippo.add(rs.getString("espece")); //7
+                hippo.add(rs.getString("sexe")); //8
+                hippo.add(rs.getString("typePeche")); //9
+                hippo.add(rs.getString("temperatureEau")); //10
+                hippo.add(rs.getString("taille")); //11
+                hippo.add(rs.getString("gestant")); //12
 
-                if(rs.getInt("gestant") == 0){
-                    this.cbGestant.setText("non");
-                } else {
-                    this.cbGestant.setText("oui");
-                }
-                this.txtDate.setText(rs.getString("dateObs"));
-                this.txtHeure.setText(rs.getString("heureObs"));
-                this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
-                this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
-                this.cbEspece.setText(rs.getString("espece"));
-                this.cbSexe.setText(rs.getString("sexe"));
-                this.cbTypePeche.setText(rs.getString("typePeche"));
-                this.txtTemperature.setText(rs.getString("temperatureEau"));
-                this.txtTaille.setText(rs.getString("taille"));
             }
-            String laDate = date.formatToDate(datePasFormate); 
+            String laDate = date.formatToDate(hippo.get(0)); 
             this.txtDate.setText(laDate);
+            this.txtHeure.setText(hippo.get(4));
+            this.txtCoordY.setText(hippo.get(5));
+            this.txtCoordX.setText(hippo.get(6));
+            this.cbEspece.setText(hippo.get(7));
+            this.cbSexe.setText(hippo.get(8));
+            this.cbTypePeche.setText(hippo.get(9));
+            this.txtTemperature.setText(hippo.get(10));
+            this.txtTaille.setText(hippo.get(11));
+
+            if (hippo.get(1) != null){
+                this.cbObservateur.setText(hippo.get(1));
+            } else if (hippo.get(2) != null){
+                this.cbObservateur.setText(hippo.get(2));
+            }
+
+            if(hippo.get(12).equals("0")){
+                this.cbGestant.setText("non");
+            } else {
+                this.cbGestant.setText("oui");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     private void updateDonnees(ActionEvent event) throws SQLException{
-
-        connect.executeUpdate("UPDATE Observation SET dateObs='"+this.txtDate.getText()+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs="+idObs+";");
         
-        ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+        String laDate = date.dateToFormat(this.txtDate.getText()); 
+        if (laDate != null){
+            connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"' WHERE idObs='"+idObs+"';");
+        } if (this.txtHeure.getText() != null){
+            connect.executeUpdate("UPDATE Observation SET heureObs='"+this.txtHeure.getText()+"' WHERE idObs='"+idObs+"';");
+        } if (this.txtCoordX.getText() != null){
+            connect.executeUpdate("UPDATE Observation SET lieu_Lambert_X="+this.txtCoordX.getText()+" WHERE idObs='"+idObs+"';");
+        } if (this.txtCoordY.getText() != null){
+            connect.executeUpdate("UPDATE Observation SET lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
+        } 
+
         int lObservateur = 0;
-        while (rs.next()) {
-            lObservateur = rs.getInt("idObservateur");
+        if (this.cbObservateur.getValue() != null){
+            ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+            while (rs.next()) {
+                lObservateur = rs.getInt("idObservateur");
+            }
+        } if (lObservateur != 0){
+            connect.executeUpdate("UPDATE AObserve SET lobservateur="+lObservateur+" WHERE lobservation="+idObs+";");
         }
-        connect.executeUpdate("UPDATE AObserve SET lObservateur='"+lObservateur+"' WHERE lObservation="+idObs+";");
 
         int estGestant = 0;
-        if(this.cbGestant.getValue().equals("oui")){
+        if(this.cbGestant.getValue() != null && this.cbGestant.getValue().equals("oui")){
             estGestant = 1;
         }
-        connect.executeUpdate("UPDATE Obs_Hippocampe SET espece='"+this.cbEspece.getValue()+"', sexe='"+this.cbSexe.getValue()+"', temperatureEau="+this.txtTemperature.getText()+", typePeche='"+this.cbTypePeche.getValue()+"', taille="+this.txtTaille.getText()+", gestant="+estGestant+" WHERE obsH="+idObs+";");  
+
+        if (this.cbEspece.getValue() != null) {
+            connect.executeUpdate("UPDATE Obs_Hippocampe SET espece='"+this.cbEspece.getValue()+"' WHERE obsH='"+idObs+"';");
+        } if (this.cbSexe.getValue() != null) {
+            connect.executeUpdate("UPDATE Obs_Hippocampe SET sexe='"+this.cbSexe.getValue()+"' WHERE obsH='"+idObs+"';");
+        } if (this.txtTemperature.getText() != null) {
+            connect.executeUpdate("UPDATE Obs_Hippocampe SET temperatureEau="+this.txtTemperature.getText()+" WHERE obsH='"+idObs+"';");
+        } if (this.txtTaille.getText() != null) {
+            connect.executeUpdate("UPDATE Obs_Hippocampe SET taille="+this.txtTaille.getText()+" WHERE obsH='"+idObs+"';");
+        } if (this.cbTypePeche.getValue() != null) {
+            connect.executeUpdate("UPDATE Obs_Hippocampe SET typePeche='"+this.cbTypePeche.getValue()+"' WHERE obsH='"+idObs+"';");
+        } if (cbGestant.getValue() != null) {
+            connect.executeUpdate("UPDATE Obs_Hippocampe SET gestant="+estGestant+" WHERE obsH='"+idObs+"';");
+        }
+
         
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
@@ -265,11 +307,20 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
 
     private void checkDisable() {
-        if(!txtCoordY.getText().isEmpty() && !txtTaille.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtTemperature.getText().isEmpty() && !txtDate.getText().isEmpty() 
-        && cbEspece.getValue()!= null && cbSexe.getValue() != null && cbTypePeche.getValue() != null && cbGestant.getValue() != null && cbObservateur.getValue() != null) {
-            envoi.setDisable(false);
+        if (idObs!=null) {
+            if(txtCoordY.getText().isEmpty() || txtTaille.getText().isEmpty() || txtCoordX.getText().isEmpty() || txtTemperature.getText().isEmpty() || txtDate.getText().isEmpty()) {
+                envoi.setDisable(true);
+            } else {
+                envoi.setDisable(false);
+            }
         } else {
-            envoi.setDisable(true);
+            if(txtCoordY.getText().isEmpty() || txtTaille.getText().isEmpty() || txtCoordX.getText().isEmpty() || txtTemperature.getText().isEmpty() || txtDate.getText().isEmpty()
+            || cbEspece.getValue() == null|| cbSexe.getValue()==null || cbTypePeche.getValue()==null || cbObservateur.getValue()==null || cbGestant.getValue()==null){
+                envoi.setDisable(true);
+            } else {
+                envoi.setDisable(false);
+            }
         }
+        
     }
 }
