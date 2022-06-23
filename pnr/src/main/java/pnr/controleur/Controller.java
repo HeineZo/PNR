@@ -147,6 +147,27 @@ public class Controller {
     }
 
     /**
+     * It deletes the file if it exists, then creates a new file with the name "nidGCI.txt" and writes
+     * the event to it
+     * 
+     * @param event the event that is being logged
+     */
+    public void initNidGCI(String event) {
+        String fileName = "src/main/java/pnr/logs/nidGCI.txt";
+        File f = new File(fileName);
+        f.delete();
+        try {
+            FileWriter writer = new FileWriter(fileName);
+
+            writer.write(event);
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+    }
+
+    /**
      * It deletes the file visualiserSrc.txt, then writes the event string to it
      * 
      * @param event the event to be visualised
@@ -257,6 +278,27 @@ public class Controller {
      */
     public String getEventSrcConfirmation() {
         String fileName = "src/main/java/pnr/logs/confirmationSrc.txt";
+        String src = null;
+        try {
+            FileReader reader = new FileReader(fileName);
+            Scanner scanner = new Scanner(reader);
+
+            src = scanner.nextLine();
+
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("File not found : " + fileName);
+        }
+        return src;
+    }
+
+    /**
+     * It reads the first line of a text file and returns it as a string
+     * 
+     * @return The file name of the file that contains the source of the event.
+     */
+    public String getEventSrcNidGCI() {
+        String fileName = "src/main/java/pnr/logs/nidGCI.txt";
         String src = null;
         try {
             FileReader reader = new FileReader(fileName);
