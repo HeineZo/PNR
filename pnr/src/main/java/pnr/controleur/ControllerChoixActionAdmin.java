@@ -12,6 +12,9 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 
+/**
+ * Manages the choice of actions of an admin user
+ */
 public class ControllerChoixActionAdmin extends Controller implements Initializable {
 
     @FXML
@@ -35,6 +38,11 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
     @FXML
     private Text nameUser;
 
+   /**
+    * Handle window changes on button click
+    * 
+    * @param event the event that triggered the method
+    */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnNouvelleFiche) {
@@ -52,6 +60,14 @@ public class ControllerChoixActionAdmin extends Controller implements Initializa
         }
     }
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ResultSet rs = connect.executeQuery("SELECT prenom, nom FROM Utilisateur WHERE pseudonyme='" + this.getEventSrcNomUser()+"';");

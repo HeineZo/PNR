@@ -9,6 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
+/**
+ * Manages the Confirmation page
+ */
 public class ControllerConfirmation extends Controller implements Initializable{
 
     @FXML
@@ -23,6 +26,11 @@ public class ControllerConfirmation extends Controller implements Initializable{
     private String eventSrcConfirmation;
     private String eventSrcPermission;
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) {
         this.eventSrcConfirmation = this.getEventSrcConfirmation();
@@ -74,6 +82,14 @@ public class ControllerConfirmation extends Controller implements Initializable{
         }            
     }
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.eventSrcConfirmation = this.getEventSrcConfirmation();
@@ -97,5 +113,4 @@ public class ControllerConfirmation extends Controller implements Initializable{
             btn1.setText("Nouvelle modification");
         }
     }
-
 }

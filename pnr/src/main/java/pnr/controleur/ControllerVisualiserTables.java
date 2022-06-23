@@ -64,6 +64,13 @@ public class ControllerVisualiserTables extends Controller implements Initializa
     @FXML
     private Button btnBack;
 
+    /**
+     * Reset components on window launch
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.eventSrc = this.getEventSrcVisualiser();
@@ -86,6 +93,9 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         } 
     }
 
+    /**
+     * Changes the image depending on the species
+     */
     private void imgIcn() {
         String urlImage = "";
         if (this.eventSrc.equals("Batracien")) {
@@ -104,11 +114,20 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         changeImage(urlImage);
     }
 
+    /**
+     * It takes a string as a parameter and changes the image of an ImageView
+     * 
+     * @param url the path of the image
+     */
     public void changeImage(String url) {
         Image imProfile = new Image(getClass().getResourceAsStream(url));
         this.imgEspece.setImage(imProfile);
     }
 
+    /**
+     * It creates a table with the columns of the table Obs_Batracien in the database, and fills it
+     * with the data from the table for Batracien
+     */
     private void setupTableBatracien() {
 		MFXTableColumn<Batracien> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(Batracien::getObsB));
 		MFXTableColumn<Batracien> espece = new MFXTableColumn<>("Espèce", true, Comparator.comparing(Batracien::getEspece));
@@ -184,6 +203,10 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 		batracien.setItems(listProfile);
 	}
 
+    /**
+     * It creates a table with 6 columns, each column has a filter, and the table is filled with data
+     * from a database for Chouette
+     */
     private void setupTableChouette() {
 		MFXTableColumn<JointureChouette> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(JointureChouette::getLeNumIndividu));
 		MFXTableColumn<JointureChouette> espece = new MFXTableColumn<>("Espèce", true, Comparator.comparing(JointureChouette::getEspece));
@@ -230,6 +253,9 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 		chouette.setItems(listProfile);
     }
 
+    /**
+     * It creates a table with 4 columns, and fills it with data from a database for Loutre
+     */
     private void setupTableLoutre() {
 		MFXTableColumn<Loutre> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(Loutre::getObsL));
 		MFXTableColumn<Loutre> commune = new MFXTableColumn<>("Commune", true, Comparator.comparing(Loutre::getCommune));
@@ -268,6 +294,10 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 		loutre.setItems(listProfile);
 	}
 
+    /**
+     * It creates a table with 11 columns, each column has a filter and a row cell factory, then it
+     * fills the table with data from a database fot GCI
+     */
     private void setupTableGCI() {
 		MFXTableColumn<JointureGCI> id = new MFXTableColumn<>("Identifiant nid", true, Comparator.comparing(JointureGCI::getIdNid));
         MFXTableColumn<JointureGCI> nom = new MFXTableColumn<>("Plage", true, Comparator.comparing(JointureGCI::getNomPlage));
@@ -334,6 +364,10 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 		gci.setItems(listProfile);
 	}
 
+    /**
+     * It creates a table with 7 columns, each column has a filter and a comparator, and the table is
+     * filled with data from a database for Hippocampe
+     */
     private void setupTableHippocampe() {
 		MFXTableColumn<Hippocampe> id = new MFXTableColumn<>("Identifiant", true, Comparator.comparing(Hippocampe::getObsH));
         MFXTableColumn<Hippocampe> espece = new MFXTableColumn<>("Espèce", true, Comparator.comparing(Hippocampe::getEspece));
@@ -385,6 +419,12 @@ public class ControllerVisualiserTables extends Controller implements Initializa
 	}
 
 
+    /**
+     * It's a function that handles the button clicks
+     * 
+     * @param event the event that triggered the method
+     * @throws Exception Handle exceptions
+     */
     @FXML
     void handleBtnClick(ActionEvent event) throws Exception {
         if (event.getSource() == btnBack) {
@@ -404,6 +444,11 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         }
     }
 
+    /**
+     * Generates a CSV for the Batracien species
+     * @throws IOException Handle input/output exceptions
+     * @throws SQLException Handle SQL exceptions
+     */
     public void batracienfileCSV() throws IOException, SQLException {
         Batracien tb = new Batracien(0, null, 0, 0, 0, 0, 0, null, null, null, null, 0, 0);
         ArrayList<Batracien> addArr = new ArrayList<Batracien>();
@@ -451,6 +496,11 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         }
     }
 
+    /**
+     * Generates a CSV for the Loutre species
+     * @throws IOException Handle input/output exceptions
+     * @throws SQLException Handle SQL exceptions
+     */
     public void loutrefileCSV() throws IOException, SQLException {
         Loutre tb = new Loutre(0, null, null, null);
         ArrayList<Loutre> addArr = new ArrayList<Loutre>();
@@ -487,6 +537,11 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         }
     }
 
+    /**
+     * Generates a CSV for the hippocampe species
+     * @throws IOException Handle input/output exceptions
+     * @throws SQLException Handle SQL exceptions
+     */
     public void hippocampefileCSV() throws IOException, SQLException {
         Hippocampe tb = new Hippocampe(0, null, null, 0, null, 0, 0);
         ArrayList<Hippocampe> addArr = new ArrayList<Hippocampe>();
@@ -527,6 +582,11 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         }
     }
 
+    /**
+     * Generates a CSV for the Chouette species
+     * @throws IOException Handle input/output exceptions
+     * @throws SQLException Handle SQL exceptions
+     */
     public void chouettefileCSV() throws IOException, SQLException {
         JointureChouette tb = new JointureChouette(null, null, null, 0, null, 0);
         ArrayList<JointureChouette> addArr = new ArrayList<JointureChouette>();
@@ -566,6 +626,11 @@ public class ControllerVisualiserTables extends Controller implements Initializa
         }
     }
 
+    /**
+     * Generates a CSV for the GCI species
+     * @throws IOException Handle input/output exceptions
+     * @throws SQLException Handle SQL exceptions
+     */
     public void GCIfileCSV() throws IOException, SQLException {
         JointureGCI tb = new JointureGCI(0, null, null, 0, 0, null, null, 0, null, 0, 0);
         ArrayList<JointureGCI> addArr = new ArrayList<JointureGCI>();

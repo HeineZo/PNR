@@ -8,8 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * Manages the ChoixNidGCI page
+ */
 public class ControllerChoixNidGCI extends Controller {
-
     @FXML
     private Button btnBack;
 
@@ -31,6 +33,13 @@ public class ControllerChoixNidGCI extends Controller {
     @FXML
     private Text textChoixNid;
 
+    /**
+     * If the user clicks the "Back" button, load the "ChoixAction" scene. If the user clicks the "No"
+     * button, load the "NouvelleObservationGCIsansNid" scene. If the user clicks the "Yes" button,
+     * load the "NouvelleObservationGCIavecNid" scene
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     void handleBtnClick(ActionEvent event) {
         if (event.getSource() == btnBack) {
