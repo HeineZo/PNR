@@ -143,22 +143,22 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXFilterComboBox>
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Observation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Observation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="400.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" />
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="GCI" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="GCI" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="400.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
@@ -168,12 +168,12 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nid" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nid" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="400.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="7" />
