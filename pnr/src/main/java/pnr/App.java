@@ -19,7 +19,7 @@ public class App extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("vue/LandingPage.fxml"));
         Scene scene = new Scene(root);
 
-        // primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.setWidth(1920);
         primaryStage.setHeight(1080);
         primaryStage.setResizable(false);
