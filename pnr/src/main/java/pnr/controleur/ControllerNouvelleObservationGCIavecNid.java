@@ -175,8 +175,67 @@ public class ControllerNouvelleObservationGCIavecNid extends Controller implemen
     }
 
     private void modifierObs() {
+        this.nameEspece.setText("Modifier une observation");
+        this.txtCoordX.setDisable(true);
+        this.txtCoordY.setDisable(true);
+
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_GCI LEFT JOIN Observation ON ObsG=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsG='"+idObs+"'LEFT JOIN Nid_GCI ON leNid = idNid ;");
+        try {
+            String datePasFormate = "";
+            String laDate = "";
+            while (rs.next()) {
+                datePasFormate = rs.getString("dateObs");
+                if (rs.getString("nom") != null){
+                    this.cbObservateur.setText(rs.getString("nom"));
+                    this.cbObservateur.setValue(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.cbObservateur.setText(rs.getString("prenom"));
+                    this.cbObservateur.setValue(rs.getString("prenom"));
+                }
+
+                this.txtHeure.setText(rs.getString("heureObs"));
+                this.txtCoordY.setText("lieu_Lambert_Y");
+                this.txtCoordX.setText("lieu_Lambert_X");
+                this.txtNomPlage.setText(rs.getString("nomPlage"));
+                this.cbRaisonArret.setText(rs.getString("raisonArretObservation"));
+                this.cbRaisonArret.setValue(rs.getString("raisonArretObservation"));
+                this.txtNbEnvol.setText(rs.getString("nbEnvol"));
+                this.cbProtection.setText(rs.getString("protection "));
+                this.cbProtection.setValue(rs.getString("protection "));
+                this.txtBagueMale.setText(rs.getString("bagueMale"));
+                this.txtBagueFemelle.setText(rs.getString("bagueFemelle"));
+                this.cbNature.setText(rs.getString("nature"));
+                this.cbNature.setValue(rs.getString("nature"));
+                this.txtNombre.setText(rs.getString("nombre"));
+                this.cbPresent.setText(rs.getString("presentMaisNonObs"));
+                this.cbPresent.setValue(rs.getString("presentMaisNonObs"));
+            }
+            if (datePasFormate.equals("")) {
+                laDate = date.formatToDate(datePasFormate); 
+            }
+            this.txtDate.setText(laDate);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateDonnees(ActionEvent event) throws SQLException{
+        String laDate = date.dateToFormat(this.txtDate.getText());
+
+        ResultSet rs;
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"' WHERE idObs='"+idObs+"';");
+        connect.executeUpdate("UPDATE Observation SET heureObs='"+this.txtHeure.getText()+"' WHERE idObs='"+idObs+"';");
+        connect.executeUpdate("UPDATE Observation SET lieu_Lambert_X="+this.txtCoordX.getText()+" WHERE idObs='"+idObs+"';");
+        connect.executeUpdate("UPDATE Observation SET lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
+
+        int lObservateur = 0;
+        rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+        while (rs.next()) {
+            lObservateur = rs.getInt("idObservateur");
+        }
+        connect.executeUpdate("UPDATE AObserve SET lobservateur="+lObservateur+" WHERE lobservation="+idObs+";");
+
+        
+
     }
 }
