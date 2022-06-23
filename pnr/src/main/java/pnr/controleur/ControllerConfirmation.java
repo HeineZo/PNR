@@ -29,7 +29,7 @@ public class ControllerConfirmation extends Controller implements Initializable{
         this.eventSrcPermission = this.getEventSrcPermission();
         if (event.getSource() == btnAccueil) {
             if(this.eventSrcPermission.equals("0")){
-                loadStage("../vue/ChoixEspeces.fxml", event);
+                loadStage("../vue/ChoixAction.fxml", event);
             } else if (this.eventSrcPermission.equals("1")){
                 loadStage("../vue/ChoixActionAdmin.fxml", event);
             }
@@ -37,6 +37,18 @@ public class ControllerConfirmation extends Controller implements Initializable{
             if(this.eventSrcConfirmation.equals("ModifierObservation")){
                 loadStage("../vue/ModifierUneObservation.fxml", event);
             } else if (this.eventSrcConfirmation.equals("AjouterObservation")){
+                if (this.getEventSrcVisualiser().equals("Batracien")) {
+                    loadStage("../vue/NouvelleObservationBatracien.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("Chouette")) {
+                    loadStage("../vue/NouvelleObservationChouette.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("GCI")) {
+                    loadStage("../vue/NouvelleObservationGCI.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("Hippocampe")) {
+                    loadStage("../vue/NouvelleObservationHippocampe.fxml", event);
+                } else if (this.getEventSrcVisualiser().equals("Loutre")) {
+                    loadStage("../vue/NouvelleObservationLoutre.fxml", event);
+                }
+            } else if (this.eventSrcConfirmation.equals("SuppressionObservation")){
                 if (this.getEventSrcVisualiser().equals("Batracien")) {
                     loadStage("../vue/NouvelleObservationBatracien.fxml", event);
                 } else if (this.getEventSrcVisualiser().equals("Chouette")) {
@@ -65,13 +77,7 @@ public class ControllerConfirmation extends Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.eventSrcConfirmation = this.getEventSrcConfirmation();
-        if (this.eventSrcConfirmation.equals("CreerFicheEspece")) {
-            this.textConfirmation.setText("Votre fiche espèce a bien été créée");
-            btn1.setText("Nouvelle Création");
-        } else if (this.eventSrcConfirmation.equals("ModifierFicheEspece")) {
-            this.textConfirmation.setText("Votre fiche espèce a bien été modifiée");
-            btn1.setText("Nouvelle modification");
-        } else if (this.eventSrcConfirmation.equals("NouveauProfil")) {
+        if (this.eventSrcConfirmation.equals("NouveauProfil")) {
             this.textConfirmation.setText("Le profil a bien été créé");
             btn1.setText("Nouveau profil");
         } else if (this.eventSrcConfirmation.equals("ModifierProfil")) {
@@ -80,6 +86,9 @@ public class ControllerConfirmation extends Controller implements Initializable{
         } else if (this.eventSrcConfirmation.equals("SuppressionProfil")) {
             this.textConfirmation.setText("Le profil a bien été supprimé");
             btn1.setText("Nouveau profil");
+        } else if (this.eventSrcConfirmation.equals("SuppressionObservation")) {
+                this.textConfirmation.setText("L'observation a bien été supprimé");
+                btn1.setText("Nouvelle observation");
         } else if (this.eventSrcConfirmation.equals("AjouterObservation")) {
             this.textConfirmation.setText("Votre nouvelle observation a bien été enregistrée");
             btn1.setText("Nouvelle Observation");
