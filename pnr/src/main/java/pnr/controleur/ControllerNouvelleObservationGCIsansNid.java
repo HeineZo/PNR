@@ -150,6 +150,7 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         int idDuNid = Integer.parseInt(split[1]);
         connect.executeUpdate("INSERT INTO Obs_GCI VALUES ("+(idDerniereObs + 1)+",'"+this.cbNature.getValue()+"',"+this.txtNombre.getText()+","+this.cbPresent.getValue()+","+idDuNid+");");  
         
+        initNidGCI("sansNid");
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
