@@ -20,6 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import pnr.modele.util.Dates;
+
 public class ControllerNouvelleObservationBatracien extends Controller implements Initializable{
     @FXML
     private Button btnBack;
@@ -37,10 +39,10 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     private MFXScrollPane scrollPane;
 
     @FXML
-    private MFXDatePicker datePicker;
+    private MFXDatePicker txtDate;
 
     @FXML
-    private MFXFilterComboBox<String> cbObservateur;
+    private MFXFilterComboBox<String> cbObservateur = new MFXFilterComboBox<>();
     private ObservableList<String> observateur = FXCollections.observableArrayList();
 
     @FXML
@@ -58,6 +60,9 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
 
     @FXML
     private MFXTextField txtAdulte;
+
+    @FXML
+    private MFXTextField txtAmplexus;
 
     @FXML
     private MFXTextField txtPonte;
@@ -111,15 +116,18 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     private ObservableList<String> natureVege = FXCollections.observableArrayList();
 
     @FXML
-    private MFXTextField txtVegetation;    
+    private MFXTextField txtVegetation;  
+    
+    @FXML
+    private Dates date = new Dates();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (getUserClicked() != null) {
-            idObs = getUserClicked();
-            modifierObs();
-            resetUserClicked();
-        }
+        // if (getUserClicked() != null) {
+        //     idObs = getUserClicked();
+        //     modifierObs();
+        //     resetUserClicked();
+        // }
 
         ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
@@ -171,17 +179,176 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         this.typeMare.add("Etang");
         this.typeMare.add("Marais");
         this.typeMare.add("Mare");
-        this.cbTypeMare.setItems(this.typeMar);
+        this.cbTypeMare.setItems(this.typeMare);
+
+        this.pente.add("Raide");
+        this.pente.add("Abrupte");
+        this.pente.add("Douce");
+        this.cbPente.setItems(this.pente);
+
+        this.ouverture.add("Abritee");
+        this.ouverture.add("Semi-Abritee");
+        this.ouverture.add("Ouverte");
+        this.cbOuverture.setItems(this.ouverture);
+
+        this.natureVege.add("environnement");
+        this.natureVege.add("bordure");
+        this.natureVege.add("ripistyle");
+        this.cbNatureVege.setItems(this.natureVege);
+
+        this.txtHeure.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordY.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtCoordX.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.cbEspece.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });        
+        this.txtAdulte.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });       
+        this.txtAmplexus.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+        this.txtPonte.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.txtTetard.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.txtTemperature.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbTemperature.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbCiel.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbPluie.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbVent.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbZHTemp.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.txtProfondeur.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.txtSurface.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbTypeMare.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbPente.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbOuverture.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.cbNatureVege.valueProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
+
+        this.txtVegetation.textProperty().addListener((observable, oldValue, newValue) -> {
+            checkDisable();
+        });
     }
 
     @FXML
-    private void handleBtnClick(ActionEvent event) {
-        if (event.getSource() == btnBack) {
-            loadStage("../vue/ChoixAction.fxml", event);
-        } else if (event.getSource() == envoi) {
-            
-            initConfirmation("AjouterObservation");
-            loadStage("../vue/Confirmation.fxml", event);
+    private void handleBtnClick(ActionEvent event) throws SQLException {
+        if (this.nameEspece.getText().equals("Modifier une observation")) {
+            if (event.getSource() == btnBack) loadStage("../vue/DernierObservation.fxml", event);
+            else if (event.getSource() == envoi) updateDonnees(event);
+
+        } else {
+            if (event.getSource() == btnBack) loadStage("../vue/ChoixAction.fxml", event);
+            else if (event.getSource() == envoi) ajouteDonnees(event);
         }
     }
+
+    private void ajouteDonnees(ActionEvent event) throws SQLException{
+        ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
+        int idDerniereObs = 0;
+        while (rs.next()) {
+            idDerniereObs = rs.getInt("idObs");
+        }
+        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
+        String laDate = date.dateToFormat(this.txtDate.getText()); 
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        // System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+        rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+        int lObservateur = 0;
+        while (rs.next()) {
+            lObservateur = rs.getInt("idObservateur");
+            
+        }
+        connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+        // System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+        
+        // System.out.println("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        rs = connect.executeQuery("SELECT idVegeLieu FROM Lieu_Vegetation ORDER BY idVegeLieu DESC LIMIT 1;");
+        int idDerniereVegeLieu = 0;
+        while (rs.next()) {
+            idDerniereVegeLieu = rs.getInt("idVegeLieu");
+        }
+        connect.executeUpdate("INSERT INTO Lieu_Vegetation VALUES("+(idDerniereVegeLieu+1)+");");
+        // System.out.println("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");
+        rs = connect.executeQuery("SELECT idVege FROM Vegetation ORDER BY idVege DESC LIMIT 1;");
+        int idDerniereVege = 0;
+        while (rs.next()) {
+            idDerniereVege = rs.getInt("idVege");
+        }
+        connect.executeUpdate("INSERT INTO Vegetation VALUES("+(idDerniereVege+1)+",'"+this.cbNatureVege.getValue()+"','"+this.txtVegetation.getText()+"',"+(idDerniereVegeLieu+1)+");");
+
+        rs = connect.executeQuery("SELECT zh_id FROM ZoneHumide ORDER BY zh_id DESC LIMIT 1;");
+        int idDerniereZH = 0;
+        while (rs.next()) {
+            idDerniereZH = rs.getInt("zh_id");
+        }
+        connect.executeUpdate("INSERT INTO ZoneHumide VALUES("+(idDerniereZH+1)+","+this.cbZHTemp.getValue()+","+this.txtProfondeur.getText()+","+this.txtSurface.getText()+",'"+this.cbTypeMare.getValue()+"','"+this.cbPente.getValue()+"','"+this.cbOuverture.getValue()+"');");
+        connect.executeUpdate("INSERT INTO Obs_Batracien VALUES("+(idDerniereObs+1)+",'"+this.cbEspece.getValue()+"',"+this.txtAdulte.getText()+","+this.txtAmplexus.getText()+","+this.txtPonte.getText()+","+this.txtTetard.getText()+","
+        +this.txtTemperature.getText()+",'"+this.cbCiel.getValue()+"','"+this.cbTemperature.getValue()+"','"+this.cbVent.getValue()+"','"+this.cbPluie.getValue()+"',"+(idDerniereZH+1)+","+(idDerniereVege+1)+");");
+
+        initConfirmation("AjouterObservation");
+        loadStage("../vue/Confirmation.fxml", event);
+    }
+
+    private void modifierObs() {
+    
+    }
+
+    private void updateDonnees(ActionEvent event) throws SQLException{
+    }
+
+    private void checkDisable() {
+        if(!txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtHeure.getText().isEmpty() && cbEspece.getValue() != null && !txtAdulte.getText().isEmpty() && !txtAmplexus.getText().isEmpty() && !txtPonte.getText().isEmpty() &&
+        !txtTetard.getText().isEmpty() && !txtTemperature.getText().isEmpty() && cbTemperature.getValue() != null && cbCiel.getValue() != null && cbPluie.getValue() != null && cbVent.getValue() != null && cbZHTemp.getValue() != null &&
+        !txtProfondeur.getText().isEmpty() && !txtSurface.getText().isEmpty() && cbTypeMare.getValue() != null && cbPente.getValue() != null && cbOuverture.getValue() != null && cbNatureVege.getValue() != null && !txtVegetation.getText().isEmpty()){
+            envoi.setDisable(false);
+        } else {
+            envoi.setDisable(true);
+        }
+    }
+
 }
