@@ -74,7 +74,7 @@
                      </cursor>
                   </Button>
                   <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <image>
+                     <image> 
                         <Image url="@images/Sauvegarde/import.png" />
                      </image>
                      <GridPane.margin>
@@ -86,7 +86,7 @@
                   <Insets />
                </GridPane.margin>
             </GridPane>
-            <MFXTableView fx:id="batracien" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="1" />
+            <MFXTableView fx:id="loutre" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
