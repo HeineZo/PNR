@@ -21,6 +21,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import pnr.modele.util.Dates;
 
+/**
+ * Manages the NouvelleObservationGCIsansNid page
+ */
 public class ControllerNouvelleObservationGCIsansNid extends Controller implements Initializable{
     @FXML
     private Button btnBack;
@@ -75,6 +78,14 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
 
     private String idObs;
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
@@ -151,6 +162,11 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         });
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (this.nameEspece.getText().equals("Modifier une observation")) {
@@ -168,6 +184,11 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         }
     }
 
+    /**
+     * It adds data to the database
+     * 
+     * @param event the event that triggered the method
+     */
     private void ajouteDonnees(ActionEvent event) throws SQLException{
         ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
         int idDerniereObs = 0;
@@ -194,6 +215,9 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         loadStage("../vue/Confirmation.fxml", event);
     }
 
+    /**
+     * It gets the data from the database and puts it in the textfields
+     */
     private void modifierObs() {
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
@@ -231,6 +255,11 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         }
     }
 
+    /**
+     * It updates the database with the new values of the fields
+     * 
+     * @param event the event that triggered the method
+     */
     private void updateDonnees(ActionEvent event) throws SQLException{
         String laDate = date.dateToFormat(this.txtDate.getText()); 
         if (laDate != null){
@@ -264,7 +293,7 @@ public class ControllerNouvelleObservationGCIsansNid extends Controller implemen
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
-
+    
     private void checkDisable() {
         if(txtCoordY.getText() == null || txtCoordX.getText() == null || txtHeure.getText() == null || txtNombre.getText() == null 
         || txtDate.getText() == null || cbObservateur.getValue() == null || cbNature.getValue() == null || cbPresent.getValue() == null || cbNid.getValue() == null || 

@@ -62,7 +62,7 @@ public class ControllerConfirmation extends Controller implements Initializable{
                 } else if (this.getEventSrcVisualiser().equals("Chouette")) {
                     loadStage("../vue/NouvelleObservationChouette.fxml", event);
                 } else if (this.getEventSrcVisualiser().equals("GCI")) {
-                    loadStage("../vue/NouvelleObservationGCI.fxml", event);
+                    loadStage("../vue/ChoixNidGCI.fxml", event);
                 } else if (this.getEventSrcVisualiser().equals("Hippocampe")) {
                     loadStage("../vue/NouvelleObservationHippocampe.fxml", event);
                 } else if (this.getEventSrcVisualiser().equals("Loutre")) {
