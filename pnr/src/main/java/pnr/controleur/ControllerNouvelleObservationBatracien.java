@@ -22,6 +22,9 @@ import javafx.scene.text.Text;
 
 import pnr.modele.util.Dates;
 
+/**
+ * Manages the NouvelleObservationBatracien page
+ */
 public class ControllerNouvelleObservationBatracien extends Controller implements Initializable{
     @FXML
     private Button btnBack;
@@ -126,6 +129,14 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
 
     private String idObs;
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
@@ -279,6 +290,11 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         });
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (this.nameEspece.getText().equals("Modifier une observation")) {
@@ -296,6 +312,11 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         }
     }
 
+    /**
+     * It adds data to the database
+     * 
+     * @param event the event that triggered the method
+     */
     private void ajouteDonnees(ActionEvent event) throws SQLException{
         ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
         int idDerniereObs = 0;
@@ -341,6 +362,9 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         loadStage("../vue/Confirmation.fxml", event);
     }
 
+    /**
+     * It gets the data from the database and puts it in the textfields
+     */
     private void modifierObs() {
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
@@ -403,6 +427,11 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         }
     }
 
+    /**
+     * It updates the database with the new values of the fields
+     * 
+     * @param event the event that triggered the method
+     */
     private void updateDonnees(ActionEvent event) throws SQLException{
 
         String laDate = date.dateToFormat(this.txtDate.getText()); 
@@ -464,6 +493,10 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         loadStage("../vue/Confirmation.fxml", event);
     }
 
+    /**
+     * If the textfields are empty, the button is disabled. If the textfields are not empty, the button
+     * is enabled.
+     */
     private void checkDisable() {
         if(txtCoordY.getText() ==null ||txtCoordX.getText()==null || txtHeure.getText()==null || cbEspece.getValue()==null || txtAdulte.getText()==null || txtAmplexus.getText()==null || txtPonte.getText()==null ||
         txtTetard.getText()==null || txtTemperature.getText()==null || cbTemperature.getValue()==null || cbCiel.getValue()==null || cbPluie.getValue()==null || cbVent.getValue()==null || cbZHTemp.getValue()==null ||

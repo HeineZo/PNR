@@ -23,7 +23,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-
+/**
+ * Manages the NouvelleObservationHippocampe page
+ */
 public class ControllerNouvelleObservationHippocampe extends Controller implements Initializable{
     @FXML
     private Button btnBack;
@@ -87,6 +89,14 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
     private Dates date = new Dates();
 
+    /**
+     * This function is called when the FXML file is loaded, and it initializes the page with the image
+     * and name of the species.
+     * 
+     * @param location the location of the FXML file
+     * @param resources the resources used to localize the root object, or null if the root object was
+     * not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (getUserClicked() != null) {
@@ -165,6 +175,11 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         });
     }
 
+    /**
+     * It's a function that loads a new stage depending on the button that was clicked.
+     * 
+     * @param event the event that triggered the method
+     */
     @FXML
     private void handleBtnClick(ActionEvent event) throws SQLException {
         if (this.nameEspece.getText().equals("Modifier une observation")) {
@@ -182,6 +197,11 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         }
     }
 
+    /**
+     * It adds data to the database
+     * 
+     * @param event the event that triggered the method
+     */
     private void ajouteDonnees(ActionEvent event) throws SQLException{
         ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
         int idDerniereObs = 0;
@@ -198,24 +218,23 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
             
         }
         connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-
         int estGestant = 0;
         if(this.cbGestant.getValue().equals("oui")){
             estGestant = 1;
         }
         connect.executeUpdate("INSERT INTO Obs_Hippocampe VALUES ("+(idDerniereObs + 1)+",'"+this.cbEspece.getValue()+"','"+this.cbSexe.getValue()+"',"+this.txtTemperature.getText()+",'"+this.cbTypePeche.getValue()+"',"+this.txtTaille.getText()+","+estGestant+");");  
-        
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
 
+    /**
+     * It gets the data from the database and puts it in the textfields
+     */
     private void modifierObs() {
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
         this.supprimer.setVisible(true);
-        
-        
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH='"+idObs+"';");
         try {
             String datePasFormate = "";
@@ -229,7 +248,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
                     this.cbObservateur.setText(rs.getString("prenom"));
                     this.cbObservateur.setValue(rs.getString("prenom"));
                 }
-
                 if(rs.getString("gestant").equals("0")){
                     this.cbGestant.setText("non");
                     this.cbGestant.setValue("non");
@@ -237,7 +255,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
                     this.cbGestant.setText("oui");
                     this.cbGestant.setValue("oui");
                 }
-                
                 this.txtHeure.setText(rs.getString("heureObs"));
                 this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
                 this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
@@ -259,8 +276,12 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         }
     }
 
+    /**
+     * It updates the database with the new values of the fields
+     * 
+     * @param event the event that triggered the method
+     */
     private void updateDonnees(ActionEvent event) throws SQLException{
-        
         String laDate = date.dateToFormat(this.txtDate.getText()); 
         if (laDate != null){
             connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"' WHERE idObs='"+idObs+"';");
@@ -271,7 +292,6 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         } if (this.txtCoordY.getText() != null){
             connect.executeUpdate("UPDATE Observation SET lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
         } 
-
         int lObservateur = 0;
         if (this.cbObservateur.getValue() != null){
             ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
@@ -281,12 +301,10 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         } if (lObservateur != 0){
             connect.executeUpdate("UPDATE AObserve SET lobservateur="+lObservateur+" WHERE lobservation="+idObs+";");
         }
-
         int estGestant = 0;
         if(this.cbGestant.getValue() != null && this.cbGestant.getValue().equals("oui")){
             estGestant = 1;
         }
-
         if (this.cbEspece.getValue() != null) {
             connect.executeUpdate("UPDATE Obs_Hippocampe SET espece='"+this.cbEspece.getValue()+"' WHERE obsH='"+idObs+"';");
         } if (this.cbSexe.getValue() != null) {
@@ -299,15 +317,15 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
             connect.executeUpdate("UPDATE Obs_Hippocampe SET typePeche='"+this.cbTypePeche.getValue()+"' WHERE obsH='"+idObs+"';");
         } if (cbGestant.getValue() != null) {
             connect.executeUpdate("UPDATE Obs_Hippocampe SET gestant="+estGestant+" WHERE obsH='"+idObs+"';");
-        }
-
-        
+        }        
         initConfirmation("ModifierObservation");
         loadStage("../vue/Confirmation.fxml", event);
     }
 
-
-
+    /**
+     * If the textfields are empty, the button is disabled. If the textfields are not empty, the button
+     * is enabled.
+     */
     private void checkDisable() {
         if(txtCoordY.getText() == null|| txtTaille.getText() == null || txtCoordX.getText() == null || txtTemperature.getText() == null || txtDate.getText() == null
         || cbEspece.getValue() == null || cbSexe.getValue() == null || cbTypePeche.getValue() == null || cbObservateur.getValue() == null || cbGestant.getValue() == null || txtHeure.getText() == null ||
