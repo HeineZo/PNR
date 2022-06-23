@@ -64,16 +64,16 @@ public class Controller {
     }
 
     public void resetUserClicked() {
-        userClicked = null; 
+        userClicked = null;
     }
 
-    public void loadUI(String ui, MFXScrollPane scrollPane) throws IOException{
+    public void loadUI(String ui, MFXScrollPane scrollPane) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource(ui));
         scrollPane.setContent(pane);
     }
 
     public void initPermission(String event) {
-        String fileName = "logs/permissionSrc.txt";
+        String fileName = "src/main/java/pnr/logs/permissionSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -90,7 +90,7 @@ public class Controller {
     }
 
     public void initNomUser(String event) {
-        String fileName = "logs/nomUserSrc.txt";
+        String fileName = "src/main/java/pnr/logs/nomUserSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -107,7 +107,7 @@ public class Controller {
     }
 
     public void initVisualiser(String event) {
-        String fileName = "logs/visualiserSrc.txt";
+        String fileName = "src/main/java/pnr/logs/visualiserSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -124,7 +124,7 @@ public class Controller {
     }
 
     public void initConfirmation(String event) {
-        String fileName = "logs/confirmationSrc.txt";
+        String fileName = "src/main/java/pnr/logs/confirmationSrc.txt";
         File f = new File(fileName);
 
         f.delete();
@@ -141,7 +141,7 @@ public class Controller {
     }
 
     public String getEventSrcVisualiser() {
-        String fileName = "logs/visualiserSrc.txt";
+        String fileName = "src/main/java/pnr/logs/visualiserSrc.txt";
         String src = null;
 
         try {
@@ -159,7 +159,7 @@ public class Controller {
     }
 
     public String getEventSrcPermission() {
-        String fileName = "logs/permissionSrc.txt";
+        String fileName = "src/main/java/pnr/logs/permissionSrc.txt";
         String src = null;
 
         try {
@@ -177,7 +177,7 @@ public class Controller {
     }
 
     public String getEventSrcNomUser() {
-        String fileName = "logs/nomUserSrc.txt";
+        String fileName = "src/main/java/pnr/logs/nomUserSrc.txt";
         String src = null;
 
         try {
@@ -195,7 +195,7 @@ public class Controller {
     }
 
     public String getEventSrcConfirmation() {
-        String fileName = "logs/confirmationSrc.txt";
+        String fileName = "src/main/java/pnr/logs/confirmationSrc.txt";
         String src = null;
 
         try {
@@ -253,16 +253,16 @@ public class Controller {
     protected void error(String messageContent, AnchorPane anchorPane) {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         MFXNotificationSystem.instance().initOwner(stage);
-		MFXNotificationCenterSystem.instance().initOwner(stage);
-		MFXNotificationSystem.instance()
-				.setPosition(NotificationPos.BOTTOM_LEFT)
-				.publish(createNotification(messageContent));
-	}
+        MFXNotificationCenterSystem.instance().initOwner(stage);
+        MFXNotificationSystem.instance()
+                .setPosition(NotificationPos.BOTTOM_LEFT)
+                .publish(createNotification(messageContent));
+    }
 
     private INotification createNotification(String content) {
-		ExampleNotification notification = new ExampleNotification();
-		notification.setContentText(content);
-		return notification;
-	}
-    
+        ExampleNotification notification = new ExampleNotification();
+        notification.setContentText(content);
+        return notification;
+    }
+
 }
