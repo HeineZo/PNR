@@ -16,7 +16,7 @@ public class App extends Application {
     }
 
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("vue/ChoixAction.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("vue/LandingPage.fxml"));
         Scene scene = new Scene(root);
 
         primaryStage.setMaximized(true);
@@ -24,7 +24,7 @@ public class App extends Application {
         // primaryStage.setHeight(1080);
         primaryStage.setResizable(false);
         primaryStage.setTitle("PNR");
-        primaryStage.getIcons().add(new Image("file:vue/images/logo/logo.png"));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("vue/images/logo/logo.png")));
         scene.getStylesheets().add(getClass().getResource("vue/font/font.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
