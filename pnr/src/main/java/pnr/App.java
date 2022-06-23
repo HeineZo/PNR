@@ -20,8 +20,8 @@ public class App extends Application {
         Scene scene = new Scene(root);
 
         primaryStage.setMaximized(true);
-        primaryStage.setWidth(1920);
-        primaryStage.setHeight(1080);
+        // primaryStage.setWidth(1920);
+        // primaryStage.setHeight(1080);
         primaryStage.setResizable(false);
         primaryStage.setTitle("PNR");
         primaryStage.getIcons().add(new Image("file:vue/images/logo/logo.png"));

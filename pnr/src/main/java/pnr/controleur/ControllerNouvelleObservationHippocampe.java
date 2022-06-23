@@ -321,6 +321,5 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
                 envoi.setDisable(false);
             }
         }
-        
     }
 }

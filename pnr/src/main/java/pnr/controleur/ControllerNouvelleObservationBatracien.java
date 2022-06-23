@@ -121,13 +121,15 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     @FXML
     private Dates date = new Dates();
 
+    private String idObs;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // if (getUserClicked() != null) {
-        //     idObs = getUserClicked();
-        //     modifierObs();
-        //     resetUserClicked();
-        // }
+        if (getUserClicked() != null) {
+            idObs = getUserClicked();
+            modifierObs();
+            resetUserClicked();
+        }
 
         ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
@@ -141,7 +143,6 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
             }
             this.cbObservateur.setItems(this.observateur);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -335,10 +336,93 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     }
 
     private void modifierObs() {
-    
+        this.nameEspece.setText("Modifier une observation");
+        this.txtCoordX.setDisable(true);
+        this.txtCoordY.setDisable(true);
+        // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON B=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = " + idObs + ";");
+        ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Batracien LEFT JOIN Observation ON ObsB=idObs LEFT JOIN AObserve ON lobservation = idObs "+
+        "LEFT JOIN Observateur ON lobservateur = idObservateur LEFT JOIN ZoneHumide ON concerne_ZH = zh_id LEFT JOIN Vegetation ON concernes_vege = idVege WHERE obsB='"+idObs+"';");
+        try {
+            String datePasFormate = "";
+            while (rs.next()) {
+                datePasFormate = rs.getString("dateObs");
+                if (rs.getString("nom") != null){
+                    this.cbObservateur.setText(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.cbObservateur.setText(rs.getString("prenom"));
+                }
+
+                this.txtHeure.setText(rs.getString("heureObs"));
+                this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
+                this.txtCoordX.setText(rs.getString("lieu_Lambert_X"));
+                this.cbEspece.setText(rs.getString("espece"));
+                this.txtAdulte.setText(rs.getString("nombreAdultes"));
+                this.txtAmplexus.setText(rs.getString("nombreAmplexus"));
+                this.txtPonte.setText(rs.getString("nombrePonte"));
+                this.txtTetard.setText(rs.getString("nombreTetard"));
+                this.txtTemperature.setText(rs.getString("temperature"));
+                this.cbTemperature.setText(rs.getString("meteo_temp"));
+                this.cbCiel.setText(rs.getString("meteo_ciel"));
+                this.cbVent.setText(rs.getString("meteo_vent"));
+                this.cbPluie.setText(rs.getString("meteo_pluie"));
+                this.cbZHTemp.setText(rs.getString("concerne_ZH"));
+                this.txtProfondeur.setText(rs.getString("zh_profondeur"));
+                this.txtSurface.setText(rs.getString("zh_surface"));
+                this.cbTypeMare.setText(rs.getString("zh_typeMare"));
+                this.cbPente.setText(rs.getString("zh_pente"));
+                this.cbOuverture.setText(rs.getString("zh_ouverture"));
+                this.cbNatureVege.setText(rs.getString("natureVege"));
+                this.txtVegetation.setText(rs.getString("vegetation"));
+            }
+            String laDate = date.formatToDate(datePasFormate); 
+            this.txtDate.setText(laDate);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateDonnees(ActionEvent event) throws SQLException{
+        ResultSet rs = connect.executeQuery("SELECT idObs FROM Observation ORDER BY idObs DESC LIMIT 1;");
+        int idDerniereObs = 0;
+        while (rs.next()) {
+            idDerniereObs = rs.getInt("idObs");
+        }
+        connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
+        String laDate = date.dateToFormat(this.txtDate.getText()); 
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        // System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+        rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
+        int lObservateur = 0;
+        while (rs.next()) {
+            lObservateur = rs.getInt("idObservateur");
+            
+        }
+        connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
+        
+        rs = connect.executeQuery("SELECT idVegeLieu FROM Lieu_Vegetation ORDER BY idVegeLieu DESC LIMIT 1;");
+        int idDerniereVegeLieu = 0;
+        while (rs.next()) {
+            idDerniereVegeLieu = rs.getInt("idVegeLieu");
+        }
+        connect.executeUpdate("INSERT INTO Lieu_Vegetation VALUES("+(idDerniereVegeLieu+1)+");");
+        rs = connect.executeQuery("SELECT idVege FROM Vegetation ORDER BY idVege DESC LIMIT 1;");
+        int idDerniereVege = 0;
+        while (rs.next()) {
+            idDerniereVege = rs.getInt("idVege");
+        }
+        connect.executeUpdate("INSERT INTO Vegetation VALUES("+(idDerniereVege+1)+",'"+this.cbNatureVege.getValue()+"','"+this.txtVegetation.getText()+"',"+(idDerniereVegeLieu+1)+");");
+
+        rs = connect.executeQuery("SELECT zh_id FROM ZoneHumide ORDER BY zh_id DESC LIMIT 1;");
+        int idDerniereZH = 0;
+        while (rs.next()) {
+            idDerniereZH = rs.getInt("zh_id");
+        }
+        connect.executeUpdate("INSERT INTO ZoneHumide VALUES("+(idDerniereZH+1)+","+this.cbZHTemp.getValue()+","+this.txtProfondeur.getText()+","+this.txtSurface.getText()+",'"+this.cbTypeMare.getValue()+"','"+this.cbPente.getValue()+"','"+this.cbOuverture.getValue()+"');");
+        connect.executeUpdate("INSERT INTO Obs_Batracien VALUES("+(idDerniereObs+1)+",'"+this.cbEspece.getValue()+"',"+this.txtAdulte.getText()+","+this.txtAmplexus.getText()+","+this.txtPonte.getText()+","+this.txtTetard.getText()+","
+        +this.txtTemperature.getText()+",'"+this.cbCiel.getValue()+"','"+this.cbTemperature.getValue()+"','"+this.cbVent.getValue()+"','"+this.cbPluie.getValue()+"',"+(idDerniereZH+1)+","+(idDerniereVege+1)+");");
+
+        initConfirmation("ModifierObservation");
+        loadStage("../vue/Confirmation.fxml", event);
     }
 
     private void checkDisable() {

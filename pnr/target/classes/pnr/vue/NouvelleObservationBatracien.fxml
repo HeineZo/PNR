@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -40,7 +41,7 @@
                   <Image url="@images/especes/grenouille.png" />
                </image>
             </ImageView>
-            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="383.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <Text id="title" fx:id="nameEspece" fill="#73ac9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouvelle observation" textAlignment="JUSTIFY" wrappingWidth="540.1565246582031" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <font>
                   <Font name="Arial Rounded MT Bold" size="37.0" />
                </font>
@@ -70,7 +71,7 @@
                   <Insets bottom="50.0" />
                </GridPane.margin>
                <content>
-                  <AnchorPane prefWidth="805.0">
+                  <AnchorPane prefHeight="1400.0" prefWidth="805.0">
                      <children>
                         <GridPane layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columnConstraints>
@@ -79,6 +80,9 @@
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
                            <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -129,7 +133,7 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXDatePicker>
-                              <MFXTextField fx:id="txtAdulte" floatMode="BORDER" floatingText="Nombre d'adultes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                              <MFXTextField fx:id="txtAdulte" floatMode="BORDER" floatingText="Nombre d'adultes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
@@ -137,7 +141,7 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXTextField fx:id="txtPonte" floatMode="BORDER" floatingText="Nombre de pontes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                              <MFXTextField fx:id="txtPonte" floatMode="BORDER" floatingText="Nombre de pontes" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
@@ -145,7 +149,7 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXTextField fx:id="txtTetard" floatMode="BORDER" floatingText="Nombre de têtard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                              <MFXTextField fx:id="txtTetard" floatMode="BORDER" floatingText="Nombre de têtard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
@@ -153,7 +157,7 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXTextField fx:id="txtTemperature" floatMode="BORDER" floatingText="Température" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                              <MFXTextField fx:id="txtTemperature" floatMode="BORDER" floatingText="Température" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
@@ -161,81 +165,76 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXComboBox fx:id="cbEspece" floatMode="BORDER" floatingText="Espèce" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                              <MFXComboBox fx:id="cbEspece" floatMode="BORDER" floatingText="Espèce" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                                  <GridPane.margin>
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXComboBox fx:id="cbObservateur" floatMode="BORDER" floatingText="Observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="50.0" />
-                                 </GridPane.margin>
-                              </MFXComboBox>
-                              <MFXComboBox fx:id="cbTemperature" floatMode="BORDER" floatingText="Météo Température" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                              <MFXComboBox fx:id="cbTemperature" floatMode="BORDER" floatingText="Météo Température" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                                  <GridPane.margin>
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXComboBox fx:id="cbCiel" floatMode="BORDER" floatingText="Météo Ciel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                              <MFXComboBox fx:id="cbCiel" floatMode="BORDER" floatingText="Météo Ciel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="9">
                                  <GridPane.margin>
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXComboBox fx:id="cbPluie" floatMode="BORDER" floatingText="Météo Pluie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
+                              <MFXComboBox fx:id="cbPluie" floatMode="BORDER" floatingText="Météo Pluie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                                  <GridPane.margin>
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXComboBox fx:id="cbVent" floatMode="BORDER" floatingText="Météo Vent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                              <MFXComboBox fx:id="cbVent" floatMode="BORDER" floatingText="Météo Vent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="10">
                                  <GridPane.margin>
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
                               </Line>
-                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Zone Humide" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Zone Humide" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="408.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Observation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Observation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="408.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
                               <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" />
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Batracien" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Batracien" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="408.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                              <MFXComboBox fx:id="cbZHTemp" floatMode="BORDER" floatingText="Zone Humide Temporaire" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <MFXComboBox fx:id="cbZHTemp" floatMode="BORDER" floatingText="Zone Humide Temporaire" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
                                  <GridPane.margin>
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXComboBox fx:id="cbTypeMare" floatMode="BORDER" floatingText="Type de mare" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="12">
+                              <MFXComboBox fx:id="cbTypeMare" floatMode="BORDER" floatingText="Type de mare" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="14">
                                  <GridPane.margin>
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXTextField fx:id="txtProfondeur" floatMode="BORDER" floatingText="Profondeur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="11">
+                              <MFXTextField fx:id="txtProfondeur" floatMode="BORDER" floatingText="Profondeur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="13">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
@@ -243,7 +242,7 @@
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXTextField fx:id="txtSurface" floatMode="BORDER" floatingText="Surface" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="12">
+                              <MFXTextField fx:id="txtSurface" floatMode="BORDER" floatingText="Surface" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
@@ -251,32 +250,45 @@
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXTextField>
-                              <MFXComboBox fx:id="cbPente" floatMode="BORDER" floatingText="Pente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="13">
+                              <MFXComboBox fx:id="cbPente" floatMode="BORDER" floatingText="Pente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                                  <GridPane.margin>
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXComboBox fx:id="cbOuverture" floatMode="BORDER" floatingText="Ouverture" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="13">
+                              <MFXComboBox fx:id="cbOuverture" floatMode="BORDER" floatingText="Ouverture" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="15">
                                  <GridPane.margin>
                                     <Insets left="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="14" />
-                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="14" />
-                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Végétation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.rowIndex="14">
+                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="17" />
+                              <Line endX="100.0" startX="-100.0" stroke="#8b8a8a" GridPane.columnIndex="2" GridPane.rowIndex="17" />
+                              <Text id="subtitle" fill="#8b8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Végétation" textAlignment="CENTER" wrappingWidth="171.45638275146484" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="17">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="408.0" top="-30.0" />
+                                    <Insets right="75.0" top="-30.0" />
                                  </GridPane.margin>
                               </Text>
-                              <MFXComboBox fx:id="cbNatureVege" floatMode="BORDER" floatingText="Nature de la végétation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
+                              <MFXComboBox fx:id="cbNatureVege" floatMode="BORDER" floatingText="Nature de la végétation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" stylesheets="@css/style.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="18">
                                  <GridPane.margin>
                                     <Insets right="50.0" />
                                  </GridPane.margin>
                               </MFXComboBox>
-                              <MFXTextField fx:id="txtVegetation" floatMode="BORDER" floatingText="Végétation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="15">
+                              <MFXTextField fx:id="txtVegetation" floatMode="BORDER" floatingText="Végétation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="18">
+                                 <textFill>
+                                    <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
+                                 </textFill>
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </MFXTextField>
+                              <MFXFilterComboBox fx:id="cbObservateur" floatMode="BORDER" floatingText="Observateur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" searchText="" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="50.0" />
+                                 </GridPane.margin>
+                              </MFXFilterComboBox>
+                              <MFXTextField fx:id="txtAmplexus" floatMode="BORDER" floatingText="Nombre d'amplexus" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="190.0" style="-fx-border-color: #2d936d;" styleClass="floating-text" stylesheets="@css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="7">
                                  <textFill>
                                     <Color red="0.18431372940540314" green="0.18039216101169586" blue="0.18039216101169586" opacity="0.8700000047683716" />
                                  </textFill>
