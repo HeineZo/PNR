@@ -36,10 +36,9 @@ public class ControllerChoixNidGCI extends Controller {
         if (event.getSource() == btnBack) {
             loadStage("../vue/ChoixAction.fxml", event);
         } else if (event.getSource() == btnNon) {
-            loadStage("../vue/NouvelleObservationGCI.fxml", event);
+            loadStage("../vue/NouvelleObservationGCIsansNid.fxml", event);
         } else if (event.getSource() == btnOui) {
-            // a changer quand la page sera faite
-            //loadStage("../vue/NouveauProfil.fxml", event);
+            loadStage("../vue/NouvelleObservationGCIavecNid.fxml", event);
         }
     }
 }
