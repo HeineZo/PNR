@@ -101,6 +101,7 @@ public class ControllerNouvelleObservationChouette extends Controller implements
             modifierObs();
             resetUserClicked();
         }
+
         ResultSet rs = connect.executeQuery("SELECT nom,prenom FROM Observateur ORDER BY nom,prenom;");
 
         try {
@@ -224,14 +225,23 @@ public class ControllerNouvelleObservationChouette extends Controller implements
     }
 
     private void updateDonnees(ActionEvent event) throws SQLException{
+
     }
 
     private void checkDisable() {
-        if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtNumInd.getText().isEmpty() && !txtCoordX.getText().isEmpty()
-        && cbTypeObs.getValue()!= null && cbSexe.getValue() != null && cbEspece.getValue() != null && cbProto.getValue() != null) {
-            envoi.setDisable(false);
+        if (idObs!=null) {
+            if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtNumInd.getText().isEmpty() && !txtCoordX.getText().isEmpty()) {
+                envoi.setDisable(true);
+            } else {
+                envoi.setDisable(false);
+            }
         } else {
-            envoi.setDisable(true);
+            if(!txtHeure.getText().isEmpty() && !txtCoordY.getText().isEmpty() && !txtNumInd.getText().isEmpty() && !txtCoordX.getText().isEmpty()
+            && cbTypeObs.getValue()!= null && cbSexe.getValue() != null && cbEspece.getValue() != null && cbProto.getValue() != null){
+                envoi.setDisable(true);
+            } else {
+                envoi.setDisable(false);
+            }
         }
     }
 }
