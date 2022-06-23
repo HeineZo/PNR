@@ -3,35 +3,17 @@ package pnr.controleur;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-
-import org.apache.commons.lang3.StringUtils;
-
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXDatePicker;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
-import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
+import io.github.palexdev.materialfx.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.util.StringConverter;
-import pnr.modele.donnee.Observateur;
-import pnr.modele.donneeAddsOn.TabObservateur;
 import pnr.modele.util.Dates;
 
 public class ControllerNouvelleObservationLoutre extends Controller implements Initializable{
@@ -41,6 +23,9 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     
     @FXML
     private Button btnBack;
+
+    @FXML
+    private MFXButton supprimer;
 
     @FXML
     private ImageView imgEspece = new ImageView();
@@ -141,6 +126,11 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         if (this.nameEspece.getText().equals("Modifier une observation")) {
             if (event.getSource() == btnBack) loadStage("../vue/DernierObservation.fxml", event);
             else if (event.getSource() == envoi) updateDonnees(event);
+            else if (event.getSource() == supprimer){
+                connect.executeUpdate("DELETE FROM Obs_Loutre WHERE obsL ='"+idObs+"';");
+                initConfirmation("SuppressionObservation");
+                loadStage("../vue/Confirmation.fxml", event);
+            } 
 
         } else {
             if (event.getSource() == btnBack) loadStage("../vue/ChoixAction.fxml", event);
@@ -152,7 +142,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
-        // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre JOIN Observation ON ObsL=idObs JOIN AObserve ON ObsL=lObservation WHERE ObsL = " + idObs + ";");
+        this.supprimer.setVisible(true);
+        
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre LEFT JOIN Observation ON ObsL=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsL='"+idObs+"';");
         try {
             String datePasFormate = "";

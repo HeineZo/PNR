@@ -36,6 +36,9 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     private MFXButton envoi;
 
     @FXML
+    private MFXButton supprimer;
+
+    @FXML
     private MFXScrollPane scrollPane;
 
     @FXML
@@ -194,7 +197,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
 
         this.natureVege.add("environnement");
         this.natureVege.add("bordure");
-        this.natureVege.add("ripistyle");
+        this.natureVege.add("ripisyle");
         this.cbNatureVege.setItems(this.natureVege);
 
         this.txtHeure.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -281,6 +284,11 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         if (this.nameEspece.getText().equals("Modifier une observation")) {
             if (event.getSource() == btnBack) loadStage("../vue/DernierObservation.fxml", event);
             else if (event.getSource() == envoi) updateDonnees(event);
+            else if (event.getSource() == supprimer){
+                connect.executeUpdate("DELETE FROM Obs_Batracien WHERE obsB ='"+idObs+"';");
+                initConfirmation("SuppressionObservation");
+                loadStage("../vue/Confirmation.fxml", event);
+            } 
 
         } else {
             if (event.getSource() == btnBack) loadStage("../vue/ChoixAction.fxml", event);
@@ -297,7 +305,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
         String laDate = date.dateToFormat(this.txtDate.getText()); 
         connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
-        // System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+        
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
@@ -305,16 +313,14 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
             
         }
         connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        // System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        
-        // System.out.println("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+
         rs = connect.executeQuery("SELECT idVegeLieu FROM Lieu_Vegetation ORDER BY idVegeLieu DESC LIMIT 1;");
         int idDerniereVegeLieu = 0;
         while (rs.next()) {
             idDerniereVegeLieu = rs.getInt("idVegeLieu");
         }
         connect.executeUpdate("INSERT INTO Lieu_Vegetation VALUES("+(idDerniereVegeLieu+1)+");");
-        // System.out.println("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");
+        
         rs = connect.executeQuery("SELECT idVege FROM Vegetation ORDER BY idVege DESC LIMIT 1;");
         int idDerniereVege = 0;
         while (rs.next()) {
@@ -339,6 +345,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
         this.nameEspece.setText("Modifier une observation");
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
+        this.supprimer.setVisible(true);
 
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Batracien LEFT JOIN Observation ON ObsB=idObs LEFT JOIN AObserve ON lobservation = idObs "+
         "LEFT JOIN Observateur ON lobservateur = idObservateur LEFT JOIN ZoneHumide ON concerne_ZH = zh_id LEFT JOIN Vegetation ON concernes_vege = idVege WHERE obsB='"+idObs+"';");
@@ -458,7 +465,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
     }
 
     private void checkDisable() {
-        if(txtCoordY.getText() == null ||txtCoordX.getText()==null || txtHeure.getText()==null || cbEspece.getValue()==null || txtAdulte.getText()==null || txtAmplexus.getText()==null || txtPonte.getText()==null ||
+        if(txtCoordY.getText() ==null ||txtCoordX.getText()==null || txtHeure.getText()==null || cbEspece.getValue()==null || txtAdulte.getText()==null || txtAmplexus.getText()==null || txtPonte.getText()==null ||
         txtTetard.getText()==null || txtTemperature.getText()==null || cbTemperature.getValue()==null || cbCiel.getValue()==null || cbPluie.getValue()==null || cbVent.getValue()==null || cbZHTemp.getValue()==null ||
         txtProfondeur.getText()==null || txtSurface.getText()==null || cbTypeMare.getValue()==null || cbPente.getValue()==null || cbOuverture.getValue()==null || cbNatureVege.getValue()==null || txtVegetation.getText()==null ||
             
