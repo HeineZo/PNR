@@ -110,11 +110,21 @@
                               </MFXButton>
                            </children>
                         </GridPane>
-                        <Text id="subtitle" fx:id="textChoixNid" layoutX="373.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un nid ?" textAlignment="CENTER">
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="33.0" />
-                           </font>
-                        </Text>
+                        <GridPane layoutY="95.0" prefHeight="54.0" prefWidth="1000.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text id="subtitle" fx:id="textChoixNid" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un nid ?" textAlignment="CENTER" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Rounded MT Bold" size="33.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </GridPane>
                      </children>
                   </AnchorPane>
                </content></MFXScrollPane>
