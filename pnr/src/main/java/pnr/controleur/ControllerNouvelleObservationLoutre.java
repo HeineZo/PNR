@@ -156,12 +156,15 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Loutre LEFT JOIN Observation ON ObsL=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsL='"+idObs+"';");
         try {
             String datePasFormate = "";
+            String laDate = "";
             while (rs.next()) {
                 datePasFormate = rs.getString("dateObs");
                 if (rs.getString("nom") != null){
                     this.cbObservateur.setText(rs.getString("nom"));
+                    this.cbObservateur.setValue(rs.getString("nom"));
                 } else if (rs.getString("prenom") != null){
                     this.cbObservateur.setText(rs.getString("prenom"));
+                    this.cbObservateur.setValue(rs.getString("prenom"));
                 }
                 this.txtHeure.setText(rs.getString("heureObs"));
                 this.txtCoordY.setText(rs.getString("lieu_Lambert_Y"));
@@ -169,8 +172,11 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
                 this.txtCommune.setText(rs.getString("commune"));
                 this.txtLieuDit.setText(rs.getString("lieuDit"));
                 this.cbIndice.setText(rs.getString("indice"));
+                this.cbIndice.setValue(rs.getString("indice"));
             }
-            String laDate = date.formatToDate(datePasFormate); 
+            if (!datePasFormate.equals("")) {
+                laDate = date.formatToDate(datePasFormate); 
+            }
             this.txtDate.setText(laDate);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -185,8 +191,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
         }
         connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");  
         String laDate = date.dateToFormat(this.txtDate.getText()); 
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
-        // System.out.println("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+this.txtDate.getText()+"','"+this.txtHeure.getText()+"','"+this.txtCoordX.getText()+"','"+this.txtCoordY.getText()+"');");
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"','"+this.txtHeure.getText()+"',"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
@@ -194,11 +200,8 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
             
         }
         connect.executeUpdate("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        // System.out.println("INSERT INTO AObserve VALUES ("+lObservateur+","+(idDerniereObs + 1)+");");
-        
-        // System.out.println("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         connect.executeUpdate("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");  
-        // System.out.println("INSERT INTO Obs_Loutre VALUES ("+(idDerniereObs + 1)+",'"+this.txtCommune.getText()+"','"+this.txtLieuDit.getText()+"','"+this.cbIndice.getValue()+"');");
+        
 
         initConfirmation("AjouterObservation");
         loadStage("../vue/Confirmation.fxml", event);
@@ -208,7 +211,7 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     private void updateDonnees(ActionEvent event) throws SQLException{
 
         String laDate = date.dateToFormat(this.txtDate.getText()); 
-        connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"', heureObs=null, lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
+        connect.executeUpdate("UPDATE Observation SET dateObs='"+laDate+"', heureObs='"+this.txtHeure.getText()+"', lieu_Lambert_X="+this.txtCoordX.getText()+", lieu_Lambert_Y="+this.txtCoordY.getText()+" WHERE idObs='"+idObs+"';");
         
         ResultSet rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
@@ -222,20 +225,13 @@ public class ControllerNouvelleObservationLoutre extends Controller implements I
     }
     
     private void checkDisable() {
-        if (idObs!=null) {
-            if(!txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtCommune.getText().isEmpty() && !txtLieuDit.getText().isEmpty() 
-            && !txtDate.getText().isEmpty()) {
-                envoi.setDisable(true);
-            } else {
-                envoi.setDisable(false);
-            }
+        if(txtCoordY.getText() == null || txtCoordX.getText() == null || txtCommune.getText() == null || txtLieuDit.getText() == null 
+        || txtDate.getText() == null || cbIndice.getValue() == null ||
+            txtCoordY.getText().trim().isEmpty() || txtCoordX.getText().trim().isEmpty() || txtCommune.getText().trim().isEmpty() || txtLieuDit.getText().trim().isEmpty() 
+        || txtDate.getText().trim().isEmpty() || cbIndice.getValue().trim().isEmpty()){
+            envoi.setDisable(true);
         } else {
-            if(!txtCoordY.getText().isEmpty() && !txtCoordX.getText().isEmpty() && !txtCommune.getText().isEmpty() && !txtLieuDit.getText().isEmpty() 
-            && !txtDate.getText().isEmpty() && cbIndice.getValue() != null ){
-                envoi.setDisable(true);
-            } else {
-                envoi.setDisable(false);
-            }
+            envoi.setDisable(false);
         }
     }
 }

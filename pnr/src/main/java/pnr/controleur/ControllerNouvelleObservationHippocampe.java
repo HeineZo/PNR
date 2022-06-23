@@ -185,7 +185,7 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         }
         connect.executeUpdate("INSERT INTO Lieu VALUES ("+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");"); 
         String laDate = date.dateToFormat(this.txtDate.getText());   
-        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"',null,"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
+        connect.executeUpdate("INSERT INTO Observation VALUES ("+(idDerniereObs + 1)+",'"+laDate+"','"+this.txtHeure.getText()+"',"+this.txtCoordX.getText()+","+this.txtCoordY.getText()+");");
         rs = connect.executeQuery("SELECT idObservateur FROM Observateur WHERE nom='"+this.cbObservateur.getValue()+"' OR prenom ='"+this.cbObservateur.getValue()+"';");
         int lObservateur = 0;
         while (rs.next()) {
@@ -209,49 +209,41 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
         this.txtCoordX.setDisable(true);
         this.txtCoordY.setDisable(true);
         
-        // ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservateur = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH="+idObs+";");
+        
         ResultSet rs = connect.executeQuery("SELECT * FROM Obs_Hippocampe LEFT JOIN Observation ON ObsH=idObs LEFT JOIN AObserve ON lobservation = idObs LEFT JOIN Observateur ON lobservateur = idObservateur WHERE obsH='"+idObs+"';");
         try {
-            hippo = new ArrayList<String>();
+            String datePasFormate = "";
+            String laDate = "";
             while (rs.next()) {
-                hippo.add(rs.getString("dateObs")); //0
-                hippo.add(rs.getString("nom")); //1
-                hippo.add(rs.getString("prenom")); //2
-                hippo.add(rs.getString("dateObs")); //3
-                hippo.add(rs.getString("heureObs"));  //4
-                hippo.add(rs.getString("lieu_Lambert_Y")); //5
-                hippo.add(rs.getString("lieu_Lambert_X")); //6
-                hippo.add(rs.getString("espece")); //7
-                hippo.add(rs.getString("sexe")); //8
-                hippo.add(rs.getString("typePeche")); //9
-                hippo.add(rs.getString("temperatureEau")); //10
-                hippo.add(rs.getString("taille")); //11
-                hippo.add(rs.getString("gestant")); //12
+                datePasFormate = rs.getString("dateObs");
+                if (rs.getString("nom") != null){
+                    this.cbObservateur.setText(rs.getString("nom"));
+                    this.cbObservateur.setValue(rs.getString("nom"));
+                } else if (rs.getString("prenom") != null){
+                    this.cbObservateur.setText(rs.getString("prenom"));
+                    this.cbObservateur.setValue(rs.getString("prenom"));
+                }
+
+                if(rs.getString("gestant").equals("0")){
+                    this.cbGestant.setText("non");
+                } else {
+                    this.cbGestant.setText("oui");
+                }
+                
+                this.txtHeure.setText(rs.getString("heureObs"));
+                this.txtCoordY.setText("lieu_Lambert_Y");
+                this.txtCoordX.setText("lieu_Lambert_X");
+                this.cbEspece.setText(rs.getString("espece"));
+                this.cbSexe.setText(rs.getString("sexe"));
+                this.cbTypePeche.setText(rs.getString("typePeche"));
+                this.txtTemperature.setText(rs.getString("temperatureEau"));
+                this.txtTaille.setText(rs.getString("gestant"));
 
             }
-            String laDate = date.formatToDate(hippo.get(0)); 
+            if (datePasFormate.equals("")) {
+                laDate = date.formatToDate(datePasFormate); 
+            }
             this.txtDate.setText(laDate);
-            this.txtHeure.setText(hippo.get(4));
-            this.txtCoordY.setText(hippo.get(5));
-            this.txtCoordX.setText(hippo.get(6));
-            this.cbEspece.setText(hippo.get(7));
-            this.cbSexe.setText(hippo.get(8));
-            this.cbTypePeche.setText(hippo.get(9));
-            this.txtTemperature.setText(hippo.get(10));
-            this.txtTaille.setText(hippo.get(11));
-
-            if (hippo.get(1) != null){
-                this.cbObservateur.setText(hippo.get(1));
-            } else if (hippo.get(2) != null){
-                this.cbObservateur.setText(hippo.get(2));
-            }
-
-            if(hippo.get(12).equals("0")){
-                this.cbGestant.setText("non");
-            } else {
-                this.cbGestant.setText("oui");
-            }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -307,8 +299,10 @@ public class ControllerNouvelleObservationHippocampe extends Controller implemen
 
 
     private void checkDisable() {
-        if(txtCoordY.getText().isEmpty() || txtTaille.getText().isEmpty() || txtCoordX.getText().isEmpty() || txtTemperature.getText().isEmpty() || txtDate.getText().isEmpty()
-        || cbEspece.getValue().isEmpty()|| cbSexe.getValue().isEmpty() || cbTypePeche.getValue().isEmpty() || cbObservateur.getValue().isEmpty() || cbGestant.getValue().isEmpty()){
+        if(txtCoordY.getText() == null|| txtTaille.getText() == null || txtCoordX.getText() == null || txtTemperature.getText() == null || txtDate.getText() == null
+        || cbEspece.getValue() == null || cbSexe.getValue() == null || cbTypePeche.getValue() == null || cbObservateur.getValue() == null || cbGestant.getValue() == null ||
+            txtCoordY.getText().trim().isEmpty()|| txtTaille.getText().trim().isEmpty() || txtCoordX.getText().trim().isEmpty() || txtTemperature.getText().trim().isEmpty() || txtDate.getText().trim().isEmpty()
+        || cbEspece.getValue().trim().isEmpty() || cbSexe.getValue().trim().isEmpty() || cbTypePeche.getValue().trim().isEmpty() || cbObservateur.getValue().trim().isEmpty() || cbGestant.getValue().trim().isEmpty()){
             envoi.setDisable(true);
         } else {
             envoi.setDisable(false);

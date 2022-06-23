@@ -387,7 +387,7 @@ public class ControllerNouvelleObservationBatracien extends Controller implement
                 this.cbNatureVege.setValue(rs.getString("natureVege"));
                 this.txtVegetation.setText(rs.getString("vegetation"));
             }
-            if (datePasFormate != null) {
+            if (!datePasFormate.equals("")) {
                 laDate = date.formatToDate(datePasFormate); 
             }
             this.txtDate.setText(laDate);
