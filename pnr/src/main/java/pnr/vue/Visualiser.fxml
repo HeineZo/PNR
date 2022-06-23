@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
@@ -87,14 +88,14 @@
                         <Insets left="25.0" top="25.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <Button fx:id="bddView" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="54.0" prefWidth="117.0" style="-fx-background-color: #73ac9a #73ac9a #73ac9a #73ac9a #73ac9a #73ac9a #73ac9a #73ac9a; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-radius: 10;" text="Voir la base" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="13.0" />
-                     </font>
+                  <MFXButton fx:id="bddView" defaultButton="true" onAction="#handleBtnClick" prefHeight="54.0" prefWidth="117.0" style="-fx-font-size: 16;" styleClass="outline-button" stylesheets="@css/style.css" text="Voir la base" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <GridPane.margin>
                         <Insets bottom="15.0" right="15.0" />
                      </GridPane.margin>
-                  </Button>
+                  </MFXButton>
                </children>
             </GridPane>
             <Label fx:id="label" text="This graph is unavailable" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
