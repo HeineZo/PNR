@@ -1,7 +1,7 @@
 <h1 align="center">🐸 SAE | Parc Naturel Régional du Golfe du Morbihan</h1>
-<h3 align="center">🎯 Application permettant aux observateurs du parc de renseigner et de consulter des données sur des observations faites sur le terrain</h3>
+<h3 align="center">Application permettant aux observateurs du parc de renseigner et de consulter des données sur des observations faites sur le terrain</h3>
 
-- 🎓 Etudiants **Maxime, Anna, Sophie, Arwen, Enzo**
+🎓 Etudiants **Maxime, Anna, Sophie, Arwen, Enzo**
 
 
 <h3 align="left">Langages et outils</h3>
