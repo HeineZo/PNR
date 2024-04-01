@@ -46,7 +46,7 @@ Retrouvez la maquette initiale du projet ci-dessous 👇
 
 ## 👋 Me contacter
 
-<a href="https://discordapp.com/users/Enzito#4885" target="_blank">
+<a href="https://discordapp.com/users/enzolefrigo" target="_blank">
     <img src="https://skillicons.dev/icons?i=discord" alt="Me contacter">
 </a>
 
